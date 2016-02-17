@@ -1,15 +1,17 @@
 # louis.li/3D
 
+A C++/DirectX11 3D game engine.
+
 ## Status
 
 Under development.
 
 ## Author
 
-Louis Li(Li Tianqi 李天祺)
+Louis Li (李天祺)
 
-Email: me@louis.li
+*Email: me@louis.li*
 
-Website: [louis.li](http://louis.li)
+*Website: [louis.li](http://louis.li)*
 
 
