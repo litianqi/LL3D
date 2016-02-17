@@ -3,15 +3,19 @@
 
 ## Naming
 
-* File: FooBar.  // Idea is that file name should be consistent with class name.
+* File: FooBar.  // File name should be consistent with class name.
+
+* Namespace: FooBar
 
 * Class: FooBar
 
+* Enum: FooBar
+
 * Macro: FOO_BAR
 
-* Constant: FOO_BAR
-  * Global/Class: FOO_BAR
-  * Local: c_foo_bar
+* Constant:
+  * Global/Class: FooBar
+  * Local: foo_bar
 
 * Variable
   * Global variable: g_foo_bar
@@ -20,25 +24,23 @@
 
 * Function: FooBar
 
-## Prefix
-
-* c_: const
+## Prefix/Abbr.
 
 * pos_: position
 
 * vec_: vector
 
-* uvec_: unit vector
-
-* dx_: dx interface or data only for dx.
+* dx_: DirectX interface or data only used for DirectX.
 
 * len_: length
 
 * cnt_: count
 
-# Coordinate System
+* w, v, p: world, view, projection
 
-We use left hand coor system:
+## Coordinate System
 
-![Coor Image 1](Coordinate System 2.jpg)
-![Coor Image 2](Coordinate System 1.png)
+We use left hand coordinate system:
+
+![Coor Image 1](Coordinate System 1.png)
+![Coor Image 2](Coordinate System 2.jpg)
