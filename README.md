@@ -10,8 +10,8 @@ Under development.
 
 Louis Li (李天祺)
 
-*Email: me@louis.li*
+me@louis.li
 
-*Website: [louis.li](http://louis.li)*
+[http://louis.li](http://louis.li)
 
 
