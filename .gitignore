@@ -19,7 +19,6 @@ x64/
 x86/
 build/
 bld/
-[Bb]in/
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
@@ -210,5 +209,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-enc_temp_folder/3b1dc09ed132be7ae74510c7d97dcce5/Camera.h
-enc_temp_folder/3b30aa29f76be737826fbcf95c3a3/Stopwatch.h
+enc_temp_folder/

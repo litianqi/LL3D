@@ -38,8 +38,7 @@
 
 # Coordinate System
 
-We use left hand coor system.
+We use left hand coor system:
 
-![Coor Image 1](Coordinate System 1.jpg)
-![Coor Image 2](Coordinate System 2.png)
-Left/Right/Width = X, Up/Down/Height = Y, Target(For Camera)/Depth = Z
+![Coor Image 1](Coordinate System 2.jpg)
+![Coor Image 2](Coordinate System 1.png)
