@@ -65,7 +65,7 @@ private:
   ID3D11Buffer* dx_index_buffer_;
   
   unsigned int index_size_;
-  bool enable_4x_msaa_ = false;
+  bool enable_4x_msaa_ = true;
   UINT msaa_quality_;
 
   IntPoint2 pos_mouse_last_;

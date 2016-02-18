@@ -6,6 +6,21 @@ using namespace DirectX;
 
 namespace LL3D {
 
+MeshData MeshData::operator+(const MeshData& rhs) const {
+  MeshData result = *this;
+  
+  result.vertices.insert(result.vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
+  
+  auto lhs_vertices_size = vertices.size();
+  auto rhs_indices = rhs.indices;
+  for (auto& indice : rhs_indices) {
+    indice += static_cast<unsigned int>(lhs_vertices_size);
+  }
+  result.indices.insert(result.indices.end(), rhs_indices.begin(), rhs_indices.end());
+
+  return result;
+}
+
 MeshData CreateBox(float width, float height, float depth, FXMVECTOR color) {
   MeshData mesh;
 
