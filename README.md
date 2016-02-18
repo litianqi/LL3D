@@ -1,4 +1,4 @@
-# louis.li/3D
+# LL3D
 
 A C++/DirectX11 3D game engine.
 
@@ -8,10 +8,8 @@ Under development.
 
 ## Author
 
-Louis Li (李天祺)
+Louis Li
 
 me@louis.li
-
-[http://louis.li](http://louis.li)
 
 
