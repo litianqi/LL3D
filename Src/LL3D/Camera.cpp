@@ -25,18 +25,14 @@ DirectX::XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
     static_cast<float>(z_near_), static_cast<float>(z_far_));
 }
 
-Camera::Camera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target, 
-  DirectX::XMVECTOR vec_up) :
+Camera::Camera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target) :
   frustum_(frustum),
   pos_(pos),
-  vec_target_(vec_target),
-  vec_up_(vec_up) 
+  vec_target_(vec_target)
 {
   Assert(!XMVector3Equal(vec_target, XMVectorZero()));
   Assert(!XMVector3IsInfinite(vec_target));
-  Assert(!XMVector3Equal(vec_up, XMVectorZero())); 
-  Assert(!XMVector3IsInfinite(vec_up));
-  Assert(!XMVector3Equal(XMVector3Cross(vec_target, vec_up), XMVectorZero()));
+  Assert(!XMVector3Equal(XMVector3Cross(vec_target, XMVECTOR{ 0, 1.0f }), XMVectorZero()));
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {
@@ -52,7 +48,7 @@ void Camera::SetTargetPos(DirectX::FXMVECTOR pos_target) {
 }
 
 DirectX::XMMATRIX Camera::GetViewMatrix() const {
-  return DirectX::XMMatrixLookToLH(pos_, vec_target_, vec_up_);;
+  return DirectX::XMMatrixLookToLH(pos_, vec_target_, XMVECTOR{ 0, 1.0f });;
 }
 
 DirectX::XMMATRIX Camera::GetViewProjectionMatrix() const {
@@ -79,7 +75,24 @@ DirectX::XMVECTOR Camera::WorldToViewPos(DirectX::FXMVECTOR pos) const {
 }
 
 DirectX::XMVECTOR Camera::GetRightVector() const {
-  return XMVector3Cross(vec_up_, vec_target_);
+  return XMVector3Cross(vec_target_, XMVECTOR{0, 1.0f});
+}
+
+DirectX::XMVECTOR Camera::GetUpVector() const {
+  // Ask: vec_up
+
+  // Answer:
+  // vec_up = pos_y - pos_target, with pos_target = vec_target
+  // pos_y = {0, y, 0}
+  // length(vec_target) / y = cos
+  // vec_target * {0, 1, 0} = |vec_target| * |{0, 1, 0}| * cos
+
+  // Program Answer:
+
+  float y = XMVectorGetX(XMVector3LengthSq(vec_target_)) / XMVectorGetX(XMVector3Dot(vec_target_, XMVECTOR{ 0, 1.0f }));
+  XMVECTOR pos_y{ 0, y, 0, 1.0f };
+
+  return pos_y - vec_target_;
 }
 
 }  // namespace LL3D

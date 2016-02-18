@@ -6,8 +6,7 @@ namespace LL3D {
 
 class FirstPersonalCamera : public Camera {
 public:
-  FirstPersonalCamera(Frustum frustum, DirectX::XMVECTOR pos,
-    DirectX::XMVECTOR vec_target, DirectX::XMVECTOR vec_up);
+  FirstPersonalCamera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target);
 
   void MoveBackForeward(float d);
   void MoveUpDown(float d);

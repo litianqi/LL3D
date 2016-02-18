@@ -5,8 +5,8 @@ using namespace DirectX;
 
 namespace LL3D {
 
-FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target, DirectX::XMVECTOR vec_up) :
-  Camera(frustum, pos, vec_target, vec_up) {
+FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target) :
+  Camera(frustum, pos, vec_target) {
 }
 
 void FirstPersonalCamera::MoveBackForeward(float d) {
@@ -14,6 +14,7 @@ void FirstPersonalCamera::MoveBackForeward(float d) {
 }
 
 void FirstPersonalCamera::MoveUpDown(float d) {
+  pos_ += d * XMVECTOR{ 0, 1.0f };
 }
 
 void FirstPersonalCamera::MoveLeftRight(float d) {
@@ -21,14 +22,13 @@ void FirstPersonalCamera::MoveLeftRight(float d) {
 }
 
 void FirstPersonalCamera::Pitch(float radians) {
-  DirectX::XMMATRIX matrix_rotate = DirectX::XMMatrixRotationAxis(GetRightVector(), radians);
-  vec_target_ = XMVector3TransformNormal(vec_target_, matrix_rotate);
-  vec_up_ = XMVector3TransformNormal(vec_up_, matrix_rotate);
+  DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationAxis(GetRightVector(), radians);
+  vec_target_ = XMVector3Transform(vec_target_, matrix);
 }
 
 void FirstPersonalCamera::Yaw(float radians) {
-  DirectX::XMMATRIX matrix_rotate = DirectX::XMMatrixRotationAxis(vec_up_, -radians);
-  vec_target_ = XMVector3TransformNormal(vec_target_, matrix_rotate);
+  DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationAxis(GetUpVector(), radians);
+  vec_target_ = XMVector3Transform(vec_target_, matrix);
 }
 
 }  // namespace LL3D

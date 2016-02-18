@@ -4,8 +4,11 @@
 
 namespace LL3D {
 
+// Non-rollable Camera. Up vector always on YZ panel(of view space).
 class Camera {
 public:
+  // Frustum properties of a Camera.
+  // Can generate a Projection Matrix.
   class Frustum {
   public:
     Frustum(float radian_fov_y, float aspect_ratio, float z_near, float z_far);
@@ -21,7 +24,7 @@ public:
     float z_far_;
   };
 
-  Camera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target, DirectX::XMVECTOR vec_up);
+  Camera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target);
   
   void SetFrustum(const Frustum& frustum);
   void SetPos(DirectX::FXMVECTOR pos);
@@ -37,12 +40,11 @@ public:
 
 protected:
   DirectX::XMVECTOR GetRightVector() const;
+  DirectX::XMVECTOR GetUpVector() const;
 
   // Came coordinate system with coordinate relative to world space.
   DirectX::XMVECTOR pos_;
   DirectX::XMVECTOR vec_target_;
-  DirectX::XMVECTOR vec_up_;
-  // uvec_right can be calculated from uvec_target and uvec_up.
 
 private:
   Frustum frustum_;

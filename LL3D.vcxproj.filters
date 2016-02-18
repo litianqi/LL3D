@@ -45,11 +45,13 @@
     <ClCompile Include="Src\LL3D\Mesh.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\LL3D\Event.cpp" />
     <ClCompile Include="Src\LL3D\EditorCamera.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\LL3D\FirstPersonalCamera.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LL3D\Event.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

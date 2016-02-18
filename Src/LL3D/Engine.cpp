@@ -21,20 +21,18 @@ Engine::Engine(Window* window) :
     Camera::Frustum(
       DirectX::XM_PI / 8.0, 
       static_cast<float>(window->GetClientRect().GetSize().w) / window->GetClientRect().GetSize().h, 
-      100, 
+      1, 
       1000),
-    DirectX::XMVECTOR{ 0.0f, 200.0f, 0.0f }, 
-    DirectX::XMVECTOR{ 0.0001f, -1.0f, 0.0001f }, 
-    DirectX::XMVECTOR{ 0.0f, 1.0f, 0.0f }),
+    DirectX::XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
+    DirectX::XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
   editor_camera_(
     Camera::Frustum(
       DirectX::XM_PI / 8.0,
       static_cast<float>(window->GetClientRect().GetSize().w) / window->GetClientRect().GetSize().h,
-      100,
+      1,
       1000),
-    DirectX::XMVECTOR{ 0.0f, 200.0f, 0.0f },
-    DirectX::XMVECTOR{ 0.0001f, -1.0f, 0.0001f },
-    DirectX::XMVECTOR{ 0.0f, 1.0f, 0.0f })
+    DirectX::XMVECTOR{ 0.0f, 100.0f, 100, 1.0f },
+    DirectX::XMVECTOR{ 0.0f, -1.0f, -1.0f })
 {
   InitDX();
   LoadEffectFile();
@@ -133,7 +131,7 @@ void Engine::OnMouseMove(const MouseButtonEvent & event) {
     // Make each pixel correspond to a quarter of a degree.
 
     float radian_x = DirectX::XMConvertToRadians(0.1f*static_cast<float>(event.position.x - pos_mouse_last_.x));
-    float radian_y = DirectX::XMConvertToRadians(0.1f*static_cast<float>(event.position.y - pos_mouse_last_.y));
+    float radian_y = DirectX::XMConvertToRadians(0.2f*static_cast<float>(pos_mouse_last_.y - event.position.y));
 
     // Update camera
 
@@ -144,8 +142,8 @@ void Engine::OnMouseMove(const MouseButtonEvent & event) {
   }
   else if ((event.button & MouseButton::Right) != 0) {
     // Get diff to last mouse position
-    float d_x = 0.05f * (pos_mouse_last_.x - event.position.x);
-    float d_y = 0.05f * (event.position.y - pos_mouse_last_.y);
+    float d_x = 0.05f * (event.position.x - pos_mouse_last_.x);
+    float d_y = 0.05f * (pos_mouse_last_.y - event.position.y);
 
     editor_camera_.MoveLeftRight(d_x);
     editor_camera_.MoveUpDown(d_y);
