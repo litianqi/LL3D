@@ -196,6 +196,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     case WM_MBUTTONDOWN:
     case WM_RBUTTONDOWN:
     {
+      SetCapture(self->GetHandle());
+
       IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
       self->OnMouseDown(MouseButtonEvent{ static_cast<MouseButton>(wparam),
         position });
@@ -205,6 +207,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     case WM_MBUTTONUP:
     case WM_RBUTTONUP:
     {
+      ReleaseCapture();
+
       IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
       self->OnMouseUp(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
         position });
