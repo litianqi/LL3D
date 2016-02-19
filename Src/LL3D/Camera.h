@@ -4,7 +4,14 @@
 
 namespace LL3D {
 
-// Non-rollable Camera. Up vector always on YZ panel(of view space).
+// Non-rollable Camera. 
+// Non-rollable means Up and Target vector always on a YZ panel(of world space) 
+// roated some degree around Y.
+
+// Terms:
+// Target = Z-Negative (view space);
+// Up = Y-Positive; Right = X-Positive.
+
 class Camera {
 public:
   // Frustum properties of a Camera.
