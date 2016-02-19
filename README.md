@@ -4,7 +4,7 @@ A C++/DirectX11 3D game engine.
 
 ## Status
 
-Under development.
+**Under development.**
 
 ## Author
 
