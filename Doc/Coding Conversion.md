@@ -24,6 +24,16 @@
 
 * Function: FooBar
 
+##Order: 
+
+Principle: Let more important stuff be more front. Following are two example using this principle.
+  * public > protected > private
+  * In public/protected, data > functions; Otherwise function > data.
+
+## Format
+
+We use Visual Studio 2015 default format style. It's nice! :]
+
 ## Prefix/Abbr.
 
 * pos_: position
