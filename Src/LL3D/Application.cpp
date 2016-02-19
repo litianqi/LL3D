@@ -18,16 +18,23 @@ void Application::Run() {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     }
-    // Otherwise, do animation/game stuff.
-    else {
-      if (max_fps_ > 0) {
-        // If time spent sine last frame less than max_fps_, sleep
-        int td_spent = timer_.RunDurationMs() - td_before_last_draw_;
-        const int td_per_frame = static_cast<int>(1000.0 / max_fps_);
-        if (td_spent <td_per_frame) {
-          Sleep(td_per_frame - td_spent);
-        }
+
+    // Do animation/game stuff.
+    if (max_fps_ > 0) {
+      // If time spent sine last frame less than max_fps_, sleep
+      int td_spent = timer_.RunDurationMs() - td_before_last_draw_;
+      const int td_per_frame = static_cast<int>(1000.0 / max_fps_);
+      if (td_spent > td_per_frame) {
+        td_before_last_draw_ = timer_.RunDurationMs();
+        // TODO: engine_.Update(0);
+        engine_.Draw();
       }
+      else {
+        auto time = td_per_frame - td_spent;
+        Sleep(time > 10 ? 10 : time);
+      }
+    }
+    else {
       td_before_last_draw_ = timer_.RunDurationMs();
       // TODO: engine_.Update(0);
       engine_.Draw();
@@ -59,6 +66,7 @@ void Application::OnMouseScroll(const MouseScrollEvent & event) {
 
 void Application::OnResize() {
   engine_.OnResize();
+  engine_.Draw();  // TODO: condider delete this line, only draw in main loop.
 }
 
 }  // namespace LL3D 

@@ -162,9 +162,13 @@ void Engine::OnResize() {
   Assert(dx_swap_chain_);
 
   // Change camera aspect ratio.
+
+  const int w_window = window_->GetClientRect().GetSize().w;
+  const int h_window = window_->GetClientRect().GetSize().h;
+
   auto frustum = editor_camera_.GetFrustum();
   frustum.SetAspectRatio(
-    static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h);
+    static_cast<float>(w_window) / h_window);
   editor_camera_.SetFrustum(frustum);
 
   // Release the old views, as they hold references to the buffers we
@@ -178,9 +182,6 @@ void Engine::OnResize() {
 
 
   // Resize the swap chain and recreate the render target view.
-
-  const int w_window = window_->GetClientRect().GetSize().w;
-  const int h_window = window_->GetClientRect().GetSize().h;
 
   HR(dx_swap_chain_->ResizeBuffers(1, w_window, h_window,
     DXGI_FORMAT_R8G8B8A8_UNORM, 0));

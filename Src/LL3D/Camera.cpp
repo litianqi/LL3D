@@ -17,7 +17,7 @@ Camera::Frustum::Frustum(float radian_fov_y, float aspect_ratio, float z_near, f
 }
 
 void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
-  aspect_ratio_ = aspect_ratio_;
+  aspect_ratio_ = aspect_ratio;
 }
 
 DirectX::XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
