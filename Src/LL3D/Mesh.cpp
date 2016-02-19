@@ -21,6 +21,10 @@ MeshData MeshData::operator+(const MeshData& rhs) const {
   return result;
 }
 
+MeshData& MeshData::operator+=(const MeshData& rhs) {
+  return *this = *this + rhs;
+}
+
 MeshData CreateBox(float width, float height, float depth, FXMVECTOR color) {
   MeshData mesh;
 

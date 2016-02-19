@@ -32,5 +32,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 TestApplication::TestApplication() {
   auto mesh_grid = CreateGrid(100, 100, 5, 5, XMVECTOR{0.8f, 0.5f, 1.0f, 1.0f});
   auto mesh_box = CreateBox(10, 10, 10, Colors::Cyan);
-  engine_.SetMesh(mesh_grid + mesh_box);
+  auto mesh_sphere = CreateSphere(10, 40, 40, Colors::Green);
+  engine_.SetMesh(mesh_grid + mesh_box + mesh_sphere);
 }

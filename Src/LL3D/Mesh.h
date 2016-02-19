@@ -11,7 +11,7 @@ struct MeshData {
   std::vector<unsigned int> indices;
 
   MeshData operator+(const MeshData& rhs) const;
-  MeshData& operator+=(const MeshData& rhs) const;
+  MeshData& operator+=(const MeshData& rhs);
 };
 
 // Creates a box centered at the origin with the given dimensions.
