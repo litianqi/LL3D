@@ -30,8 +30,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 }
 
 TestApplication::TestApplication() {
-  auto mesh_grid = CreateGrid(100, 100, 5, 5, XMVECTOR{0.8f, 0.5f, 1.0f, 1.0f});
-  auto mesh_box = CreateBox(10, 10, 10, Colors::Cyan);
-  auto mesh_sphere = CreateSphere(10, 40, 40, Colors::Green);
-  engine_.SetMesh(mesh_grid + mesh_box + mesh_sphere);
+  auto mesh_grid = CreateGrid(100, 100, 5, 5, Colors::Silver);
+  
+  auto tranlate_box = XMMatrixTranslation(0, 5, 0);
+  auto mesh_box = CreateBox(10, 10, 10, Colors::Blue, tranlate_box);
+  
+  auto tranlate_sphere = XMMatrixTranslation(15, 5, 0);
+  auto mesh_sphere = CreateSphere(5, 40, 40, Colors::Green, tranlate_sphere);
+  
+  std::vector<MeshData> meshs;
+  meshs.push_back(mesh_grid);
+  meshs.push_back(mesh_box);
+  meshs.push_back(mesh_sphere);
+
+  engine_.SetMesh(meshs);
 }

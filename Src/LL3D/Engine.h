@@ -1,11 +1,13 @@
 #pragma once
 
+#include <vector>
 #include <chrono>
 #include <D3D11.h>
 #include <d3dx11effect.h>
 #include "Camera.h"
 #include "EditorCamera.h"
 #include "FirstPersonalCamera.h"
+#include "Mesh.h"
 #include "Type.h"
 
 struct ID3D11Device;
@@ -17,7 +19,6 @@ struct ID3D11DepthStencilView;
 
 namespace LL3D {
 
-struct MeshData;
 struct MouseButtonEvent;
 struct MouseScrollEvent;
 class Window;
@@ -31,7 +32,7 @@ public:
  
   void Draw();
 
-  void SetMesh(const MeshData& mesh);
+  void SetMesh(const std::vector<MeshData>& meshs);
 
   // Handle mouse inputs:
   void OnMouseDown(const MouseButtonEvent& event);
@@ -63,8 +64,9 @@ private:
   ID3DX11EffectMatrixVariable* dx_matrix_wvp_;
   ID3D11Buffer* dx_vertex_buffer_;
   ID3D11Buffer* dx_index_buffer_;
-  
-  unsigned int index_size_;
+
+  // Cached for Draw;
+  std::vector<MeshData> meshs_;
   bool enable_4x_msaa_ = true;
   UINT msaa_quality_;
 

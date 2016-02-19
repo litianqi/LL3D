@@ -59,64 +59,65 @@ Engine::~Engine() {
 
 void Engine::Draw() {
   dx_context_->ClearRenderTargetView(dx_render_target_view_, reinterpret_cast<const float*>(&Colors::Grey));
-  dx_context_->ClearDepthStencilView(
-    dx_depth_stencil_view_,
-    D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
-    1.0,  // depth 
-    0);  // stencil
+  dx_context_->ClearDepthStencilView(dx_depth_stencil_view_, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0); 
 
   dx_context_->IASetInputLayout(dx_input_layout_);
   dx_context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
-  dx_context_->IASetVertexBuffers(
-    0,
-    1,
-    &dx_vertex_buffer_,
-    &stride,
-    &offset);
-
+  dx_context_->IASetVertexBuffers(0, 1, &dx_vertex_buffer_, &stride, &offset);
   dx_context_->IASetIndexBuffer(dx_index_buffer_, DXGI_FORMAT_R32_UINT, 0);
-
-  DirectX::XMMATRIX matrix_wvp = editor_camera_.GetViewProjectionMatrix();  // TODO: lack of world matrix.
-  dx_matrix_wvp_->SetMatrix(reinterpret_cast<float*>(&matrix_wvp));
 
   D3DX11_TECHNIQUE_DESC tech_desc;
   dx_tech_->GetDesc(&tech_desc);
-  for (UINT i = 0; i < tech_desc.Passes; ++i) {
-    dx_tech_->GetPassByIndex(i)->Apply(0, dx_context_);
-    dx_context_->DrawIndexed(index_size_, 0, 0);
+  
+  for (UINT pass = 0; pass < tech_desc.Passes; ++pass) {
+    UINT index_count = 0;
+    UINT vertex_count = 0;
+    UINT index_begin = 0;
+    UINT vertex_begin = 0;
+    
+    for (const auto& mesh : meshs_) {
+      index_begin += index_count;
+      vertex_begin += vertex_count;
+      index_count = static_cast<UINT>(mesh.indices.size());
+      vertex_count = static_cast<UINT>(mesh.vertices.size());
+      
+      dx_matrix_wvp_->SetMatrix(reinterpret_cast<float*>(&(mesh.world * editor_camera_.GetViewProjectionMatrix())));
+      dx_tech_->GetPassByIndex(pass)->Apply(0, dx_context_);
+      dx_context_->DrawIndexed(index_count, index_begin, vertex_begin);
+    }
   }
+
   dx_context_->Draw(1, 0);
   HR(dx_swap_chain_->Present(0, 0));
 }
 
-void Engine::SetMesh(const MeshData& mesh) {
-  if (mesh.indices.empty() || mesh.vertices.empty())
-    return;
-  
+void Engine::SetMesh(const std::vector<MeshData>& meshs) {
   // Cached for Draw;
-  index_size_ = static_cast<unsigned int>(mesh.indices.size());
+  meshs_ = meshs;
+  
+  MeshData dx_meshs = MeshData::DXCombine(meshs);
 
   D3D11_BUFFER_DESC vbd;
   vbd.Usage = D3D11_USAGE_IMMUTABLE;
-  vbd.ByteWidth = static_cast<UINT>(sizeof(Vertex) * mesh.vertices.size());
+  vbd.ByteWidth = static_cast<UINT>(sizeof(Vertex) * dx_meshs.vertices.size());
   vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
   vbd.CPUAccessFlags = 0;
   vbd.MiscFlags = 0;
   D3D11_SUBRESOURCE_DATA vinitData;
-  vinitData.pSysMem = &mesh.vertices[0];
+  vinitData.pSysMem = dx_meshs.vertices.data();
   HR(dx_device_->CreateBuffer(&vbd, &vinitData, &dx_vertex_buffer_));
 
   D3D11_BUFFER_DESC ibd;
   ibd.Usage = D3D11_USAGE_IMMUTABLE;
-  ibd.ByteWidth = static_cast<UINT>(sizeof(unsigned int) * mesh.indices.size());
+  ibd.ByteWidth = static_cast<UINT>(sizeof(unsigned int) * dx_meshs.indices.size());
   ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
   ibd.CPUAccessFlags = 0;
   ibd.MiscFlags = 0;
   D3D11_SUBRESOURCE_DATA iinitData;
-  iinitData.pSysMem = &mesh.indices[0];
+  iinitData.pSysMem = dx_meshs.indices.data();
   HR(dx_device_->CreateBuffer(&ibd, &iinitData, &dx_index_buffer_));
 }
 
@@ -338,11 +339,11 @@ void Engine::LoadEffectFile() {
   
   // Copy file content to buffer
   
-  file.read(&content[0], size);
+  file.read(content.data(), size);
   
   // Deserialize:
   
-  HR(D3DX11CreateEffectFromMemory(&content[0], size,
+  HR(D3DX11CreateEffectFromMemory(content.data(), size,
     0, dx_device_, &dx_effect_));
 
   dx_matrix_wvp_ = dx_effect_->GetVariableByName("g_matrix_wvp")->AsMatrix();
@@ -353,8 +354,8 @@ void Engine::CreateInputLayout() {
   // Create the vertex input layout.
   D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
   {
-    { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+    { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
   };
 
   // Create the input layout
