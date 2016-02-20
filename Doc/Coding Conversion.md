@@ -57,9 +57,9 @@ We use left hand coordinate system:
 
 # DirectXMath/Platform/International
 
-Wired! For color/position/matrix etc. we do not use storage class, we only use SSE type. The reason for this is this way is simple, and workable on x64 systems. Also as a study project platform is never a really concern, this is the same reason why there is no plan to support non-Windows platform & non-Engish environments.
+For color/position/matrix etc. we do not use storage class, we use only SSE type. The reason behind this is this way is easy, and workable on x64 systems. Also as a study project platform-supporting is not a really concern, this is the same reason why there is no plan to support non-Windows platform & non-Engish environments.
 
-So supported platform: Windows x64 + English.
+So we only support Windows x64 & English.
 
 ## Other
 
@@ -71,4 +71,4 @@ If two variable is enough, then not three; If you need only read it, then do not
 
 This is a large topic, influence many things, I will mention some here:
 
-	1. As much as possible, do not write write implementation in header files, not even a simple return statement. Template functions should at least seperate its declaration and implementation, write its implementation on bottom of the file.
+1. As much as possible, do not write write implementation in header files, not even a simple return statement. Template functions should at least seperate its declaration and implementation, write its implementation at bottom of the file.
