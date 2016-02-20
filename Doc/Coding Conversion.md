@@ -65,7 +65,7 @@ So we only support Windows x64 & English.
 
 * Strive for simplicity. 
 
-If two variable is enough, then not three; If you need only read it, then do not read+write it. This means we prefer access functions (getter) to directly access data member, and params/locals to data member. Data member is a source of mess, for it's easy to access in class, we should do our best to against this.
+If two variable are enough, then not three; If you need only read it, then do not read+write it. This means we prefer access functions (getter) to directly access data member, and params/locals to data member. Data member is a source of mess, for it's easy to access in class, we should do our best to against this.
 
 * Strive for abstraction.
 
