@@ -9,7 +9,7 @@
 #include "Color.h"
 #include "Vertex.h"
 #include "Event.h"
-#include "Mesh.h"
+#include "Model.h"
 
 using namespace DirectX;
 
@@ -31,8 +31,8 @@ Engine::Engine(Window* window) :
       static_cast<float>(window->GetClientRect().GetSize().w) / window->GetClientRect().GetSize().h,
       1,
       1000),
-    DirectX::XMVECTOR{ 0.0f, 100.0f, 100, 1.0f },
-    DirectX::XMVECTOR{ 0.0f, -1.0f, -1.0f })
+    DirectX::XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
+    DirectX::XMVECTOR{ 0.0f, -100.0f, 100.0f })
 {
   InitDX();
   LoadEffectFile();
@@ -42,7 +42,7 @@ Engine::Engine(Window* window) :
 Engine::~Engine() {
   dx_vertex_buffer_->Release();
   dx_index_buffer_->Release();
-  dx_effect_->Release();
+  fx_effect_->Release();
   dx_input_layout_->Release();
   dx_render_target_view_->Release();
   dx_depth_stencil_view_->Release();
@@ -69,23 +69,40 @@ void Engine::Draw() {
   dx_context_->IASetVertexBuffers(0, 1, &dx_vertex_buffer_, &stride, &offset);
   dx_context_->IASetIndexBuffer(dx_index_buffer_, DXGI_FORMAT_R32_UINT, 0);
 
+  // Set per frame constant buffer.
+  for (auto light : lights_.directionals) {
+    fx_directional_light_->SetRawValue(&light, 0, sizeof(DirectionalLight));
+  }
+  for (auto light : lights_.directionals) {
+    fx_point_light_->SetRawValue(&light, 0, sizeof(PointLight));
+  }
+  for (auto light : lights_.directionals) {
+    fx_spot_light_->SetRawValue(&light, 0, sizeof(SpotLight));
+  }
+  fx_eye_pos_w_->SetFloatVector(reinterpret_cast<float*>(&editor_camera_.GetPos()));
+
   D3DX11_TECHNIQUE_DESC tech_desc;
-  dx_tech_->GetDesc(&tech_desc);
-  
+  fx_tech_->GetDesc(&tech_desc);
+
   for (UINT pass = 0; pass < tech_desc.Passes; ++pass) {
     UINT index_count = 0;
     UINT vertex_count = 0;
     UINT index_begin = 0;
     UINT vertex_begin = 0;
     
-    for (const auto& mesh : meshs_) {
+    for (const auto& model : models_) {
+      // Set per object constant buffer.
+      fx_world_->SetMatrix(reinterpret_cast<const float*>(&(model.world)));
+      fx_wvp_->SetMatrix(reinterpret_cast<float*>(&(model.world * editor_camera_.GetViewProjectionMatrix())));
+      fx_material_->SetRawValue(&(model.material), 0, sizeof(model.material));
+
+      // Draw object.
       index_begin += index_count;
       vertex_begin += vertex_count;
-      index_count = static_cast<UINT>(mesh.indices.size());
-      vertex_count = static_cast<UINT>(mesh.vertices.size());
-      
-      dx_matrix_wvp_->SetMatrix(reinterpret_cast<float*>(&(mesh.world * editor_camera_.GetViewProjectionMatrix())));
-      dx_tech_->GetPassByIndex(pass)->Apply(0, dx_context_);
+      index_count = static_cast<UINT>(model.mesh.indices.size());
+      vertex_count = static_cast<UINT>(model.mesh.vertices.size());
+     
+      fx_tech_->GetPassByIndex(pass)->Apply(0, dx_context_);
       dx_context_->DrawIndexed(index_count, index_begin, vertex_begin);
     }
   }
@@ -94,31 +111,35 @@ void Engine::Draw() {
   HR(dx_swap_chain_->Present(0, 0));
 }
 
-void Engine::SetMesh(const std::vector<MeshData>& meshs) {
+void Engine::SetModels(const std::vector<Model>& models) {
   // Cached for Draw;
-  meshs_ = meshs;
+  models_ = models;
   
-  MeshData dx_meshs = MeshData::DXCombine(meshs);
+  dx_mesh_ = DXCombine(models);
 
   D3D11_BUFFER_DESC vbd;
   vbd.Usage = D3D11_USAGE_IMMUTABLE;
-  vbd.ByteWidth = static_cast<UINT>(sizeof(Vertex) * dx_meshs.vertices.size());
+  vbd.ByteWidth = static_cast<UINT>(sizeof(Vertex) * dx_mesh_.vertices.size());
   vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
   vbd.CPUAccessFlags = 0;
   vbd.MiscFlags = 0;
   D3D11_SUBRESOURCE_DATA vinitData;
-  vinitData.pSysMem = dx_meshs.vertices.data();
+  vinitData.pSysMem = dx_mesh_.vertices.data();
   HR(dx_device_->CreateBuffer(&vbd, &vinitData, &dx_vertex_buffer_));
 
   D3D11_BUFFER_DESC ibd;
   ibd.Usage = D3D11_USAGE_IMMUTABLE;
-  ibd.ByteWidth = static_cast<UINT>(sizeof(unsigned int) * dx_meshs.indices.size());
+  ibd.ByteWidth = static_cast<UINT>(sizeof(unsigned int) * dx_mesh_.indices.size());
   ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
   ibd.CPUAccessFlags = 0;
   ibd.MiscFlags = 0;
   D3D11_SUBRESOURCE_DATA iinitData;
-  iinitData.pSysMem = dx_meshs.indices.data();
+  iinitData.pSysMem = dx_mesh_.indices.data();
   HR(dx_device_->CreateBuffer(&ibd, &iinitData, &dx_index_buffer_));
+}
+
+void Engine::SetLights(Lights lights) {
+  lights_ = lights;
 }
 
 void Engine::OnMouseDown(const MouseButtonEvent & event) {
@@ -132,7 +153,7 @@ void Engine::OnMouseMove(const MouseButtonEvent & event) {
     // Make each pixel correspond to a quarter of a degree.
 
     float radian_x = DirectX::XMConvertToRadians(0.1f*static_cast<float>(event.position.x - pos_mouse_last_.x));
-    float radian_y = DirectX::XMConvertToRadians(0.2f*static_cast<float>(pos_mouse_last_.y - event.position.y));
+    float radian_y = DirectX::XMConvertToRadians(0.2f*static_cast<float>(event.position.y - pos_mouse_last_.y));
 
     // Update camera
 
@@ -143,8 +164,8 @@ void Engine::OnMouseMove(const MouseButtonEvent & event) {
   }
   else if ((event.button & MouseButton::Right) != 0) {
     // Get diff to last mouse position
-    float d_x = 0.05f * (event.position.x - pos_mouse_last_.x);
-    float d_y = 0.05f * (pos_mouse_last_.y - event.position.y);
+    float d_x = 0.05f * (pos_mouse_last_.x - event.position.x);
+    float d_y = 0.05f * (event.position.y - pos_mouse_last_.y);
 
     editor_camera_.MoveLeftRight(d_x);
     editor_camera_.MoveUpDown(d_y);
@@ -158,9 +179,9 @@ void Engine::OnMouseScroll(const MouseScrollEvent & event) {
 }
 
 void Engine::OnResize() {
-  Assert(dx_context_);
-  Assert(dx_device_);
-  Assert(dx_swap_chain_);
+  ASSERT(dx_context_);
+  ASSERT(dx_device_);
+  ASSERT(dx_swap_chain_);
 
   // Change camera aspect ratio.
 
@@ -258,7 +279,7 @@ void Engine::InitDX() {
     &featureLevel,
     &dx_context_));
 
-  Assert(featureLevel == D3D_FEATURE_LEVEL_11_0);
+  ASSERT(featureLevel == D3D_FEATURE_LEVEL_11_0);
 
   // Check 4X MSAA quality support for our back buffer format.
   // All Direct3D 11 capable devices support 4X MSAA for all render 
@@ -266,7 +287,7 @@ void Engine::InitDX() {
 
   dx_device_->CheckMultisampleQualityLevels(
     DXGI_FORMAT_R8G8B8A8_UNORM, 4, &msaa_quality_);
-  Assert(msaa_quality_ > 0);
+  ASSERT(msaa_quality_ > 0);
 
   // Fill out a DXGI_SWAP_CHAIN_DESC to describe our swap chain.
 
@@ -329,12 +350,12 @@ void Engine::LoadEffectFile() {
   
   // Open file
   
-  std::ifstream file("Effects/color.fxo", std::ios::binary);
-  Assert(file.is_open());
+  std::ifstream file("Shaders/Main.fxo", std::ios::binary);
+  ASSERT(file.is_open());
   
   // Create buffer equal to file size
   
-  auto size = std::experimental::filesystem::file_size("Effects/color.fxo");
+  auto size = std::experimental::filesystem::file_size("Shaders/Main.fxo");
   std::vector<char> content(static_cast<unsigned>(size));
   
   // Copy file content to buffer
@@ -344,10 +365,18 @@ void Engine::LoadEffectFile() {
   // Deserialize:
   
   HR(D3DX11CreateEffectFromMemory(content.data(), size,
-    0, dx_device_, &dx_effect_));
+    0, dx_device_, &fx_effect_));
+  
+  fx_directional_light_ = fx_effect_->GetVariableByName("g_directional_light");
+  fx_point_light_ = fx_effect_->GetVariableByName("g_point_light");
+  fx_spot_light_ = fx_effect_->GetVariableByName("g_spot_light");
+  fx_eye_pos_w_ = fx_effect_->GetVariableByName("g_eye_pos_w")->AsVector();
 
-  dx_matrix_wvp_ = dx_effect_->GetVariableByName("g_matrix_wvp")->AsMatrix();
-  dx_tech_ = dx_effect_->GetTechniqueByName("ColorTech");
+  fx_world_ = fx_effect_->GetVariableByName("g_world")->AsMatrix();
+  fx_wvp_ = fx_effect_->GetVariableByName("g_wvp")->AsMatrix();
+  fx_material_ = fx_effect_->GetVariableByName("g_material");
+  
+  fx_tech_ = fx_effect_->GetTechniqueByName("Tech");
 }
 
 void Engine::CreateInputLayout() {
@@ -355,12 +384,12 @@ void Engine::CreateInputLayout() {
   D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
   {
     { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+    { "NORMAL",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
   };
 
   // Create the input layout
   D3DX11_PASS_DESC pass_desc;
-  dx_tech_->GetPassByIndex(0)->GetDesc(&pass_desc);
+  fx_tech_->GetPassByIndex(0)->GetDesc(&pass_desc);
   HR(dx_device_->CreateInputLayout(vertex_desc, 2, pass_desc.pIAInputSignature,
     pass_desc.IAInputSignatureSize, &dx_input_layout_));
 }

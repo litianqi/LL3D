@@ -213,3 +213,5 @@ ModelManifest.xml
 enc_temp_folder/
 Src/LL3D/Effects/color.cod
 Src/LL3D/Effects/color.cod
+LL3D.VC.opendb
+*.cod

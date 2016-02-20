@@ -11,31 +11,34 @@ std::string GetLastErrorAsString();
 
 inline std::wstring GetMessageForHRESULT(HRESULT hr);
 
-template<typename T>
-void Assert(T expression);
- 
+// Replacement for std::assert
+#ifdef _DEBUG
+#define ASSERT(expression) {\
+  auto e = expression;\
+  if (!e) {\
+    LOGF << "Assert failed with "#expression << " = " << e << "\n"\
+      << "\tWin32 Error Status:\n"\
+      << "\t\tError Code:    " << GetLastError() << "\n"\
+      << "\t\tError Message: " << GetLastErrorAsString() << "\n";\
+  }\
+  assert(e);\
+}
+#else
+#define ASSERT(expression) {\
+  auto e = expression;\
+  if (!e) {\
+    LOGF << "Assert failed with "#expression << " = " << e << "\n"\
+      << "\tWin32 Error Status:\n"\
+      << "\t\tError Code:    " << GetLastError() << "\n"\
+      << "\t\tError Message: " << GetLastErrorAsString() << "\n";\
+  }\
+}
+#endif
+
 // Handle HRESULT error code.
 void HR(HRESULT result);
 
-// Handle Win32 error code.
-template<typename T>
-void WR(T r);
-
-template<typename T>
-void Assert(T expression) {
-  if (!expression) {
-    LOGF << "Assert failed with value = " << expression << "\n"
-      << "\tWin32 Error Status:\n"
-      << "\t\tError Code:    " << GetLastError() << "\n"
-      << "\t\tError Message: " << GetLastErrorAsString() << "\n";
-  }
-
-  assert(expression);
-}
-
-template<typename T>
-void WR(T r) {
-  Assert(r);
-}
+// ASSERT for Win32 error.
+#define WA(expression) ASSERT(expression);
 
 }

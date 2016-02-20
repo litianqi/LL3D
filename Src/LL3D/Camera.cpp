@@ -11,9 +11,9 @@ Camera::Frustum::Frustum(float radian_fov_y, float aspect_ratio, float z_near, f
   z_near_(z_near),
   z_far_(z_far)
 {
-  Assert(aspect_ratio > 0);
-  Assert(z_near > 0);
-  Assert(z_far > z_near);
+  ASSERT(aspect_ratio > 0);
+  ASSERT(z_near > 0);
+  ASSERT(z_far > z_near);
 }
 
 void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
@@ -25,14 +25,14 @@ DirectX::XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
     static_cast<float>(z_near_), static_cast<float>(z_far_));
 }
 
-Camera::Camera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target) :
+Camera::Camera(Frustum frustum, DirectX::FXMVECTOR pos, DirectX::FXMVECTOR vec_target) :
   frustum_(frustum),
   pos_(pos),
   vec_target_(vec_target)
 {
-  Assert(!XMVector3Equal(vec_target, XMVectorZero()));
-  Assert(!XMVector3IsInfinite(vec_target));
-  Assert(!XMVector3Equal(XMVector3Cross(vec_target, XMVECTOR{ 0, 1.0f }), XMVectorZero()));
+  ASSERT(!XMVector3Equal(vec_target, XMVectorZero()));
+  ASSERT(!XMVector3IsInfinite(vec_target));
+  ASSERT(!XMVector3Equal(XMVector3Cross(vec_target, XMVECTOR{ 0, 1.0f }), XMVectorZero()));
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {
@@ -75,7 +75,7 @@ DirectX::XMVECTOR Camera::WorldToViewPos(DirectX::FXMVECTOR pos) const {
 }
 
 DirectX::XMVECTOR Camera::GetRightVector() const {
-  return XMVector3Cross(vec_target_, XMVECTOR{0, 1.0f});
+  return XMVector3Cross(XMVECTOR{0, 1.0f}, vec_target_);
 }
 
 DirectX::XMVECTOR Camera::GetUpVector() const {
@@ -90,9 +90,9 @@ DirectX::XMVECTOR Camera::GetUpVector() const {
   // Program Answer:
 
   float y = XMVectorGetX(XMVector3LengthSq(vec_target_)) / XMVectorGetX(XMVector3Dot(vec_target_, XMVECTOR{ 0, 1.0f }));
-  XMVECTOR pos_y{ 0, y, 0, 1.0f };
+  XMVECTOR pos_y{ 0, y, 0};
 
-  return pos_y - vec_target_;
+  return vec_target_ - pos_y;
 }
 
 }  // namespace LL3D

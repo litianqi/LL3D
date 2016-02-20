@@ -25,7 +25,7 @@ public:
 
   HWND GetHandle() const;
 
-  //void SetVisible(bool enable);
+  void SetVisible(bool visible);
   void SetClientRect(IntRectangle rect);
 
   //bool IsVisible() const;
@@ -34,19 +34,19 @@ public:
 
 protected:
   // Handle mouse inputs:
-  virtual void OnMouseDown(const MouseButtonEvent& event) {}
-  virtual void OnMouseUp(const MouseButtonEvent& event) {}
-  virtual void OnMouseMove(const MouseButtonEvent& event) {}
-  virtual void OnMouseScroll(const MouseScrollEvent& event) {}
+  virtual void OnMouseDown(const MouseButtonEvent& event) = 0;
+  virtual void OnMouseUp(const MouseButtonEvent& event) = 0;
+  virtual void OnMouseMove(const MouseButtonEvent& event) = 0;
+  virtual void OnMouseScroll(const MouseScrollEvent& event) = 0;
   
-  virtual void OnResize() {}
+  virtual void OnResize() = 0;
   
 private:
   static LRESULT CALLBACK MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
 
   HWND handle_;
   bool active_;
-  ShowState show_state_;
+  ShowState show_state_ = ShowState::Normal;
   bool resizing_;
 };
 

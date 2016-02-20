@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "Model.h"
 #include <DirectXMath.h>
 #include "Color.h"
 
@@ -6,8 +6,8 @@ using namespace DirectX;
 
 namespace LL3D {
 
-MeshData MeshData::DXCombine(const MeshData & lhs, const MeshData & rhs) {
-  MeshData result = lhs;
+Model::Mesh DXCombine(const Model::Mesh & lhs, const Model::Mesh & rhs) {
+  Model::Mesh result = lhs;
 
   result.vertices.insert(result.vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
   result.indices.insert(result.indices.end(), rhs.indices.begin(), rhs.indices.end());
@@ -15,17 +15,16 @@ MeshData MeshData::DXCombine(const MeshData & lhs, const MeshData & rhs) {
   return result;
 }
 
-MeshData MeshData::DXCombine(const std::vector<MeshData>& meshs) {
-  MeshData result;
+Model::Mesh DXCombine(const std::vector<Model>& meshs) {
+  Model::Mesh result;
   for (const auto& mesh : meshs) {
-    result = DXCombine(result, mesh);
+    result = DXCombine(result, mesh.mesh);
   }
   return result;
 }
 
-MeshData CreateBox(float width, float height, float depth, FXMVECTOR color,
-  DirectX::XMMATRIX world) {
-  MeshData mesh;
+Model::Mesh CreateBox(float width, float height, float depth) {
+  Model::Mesh mesh;
 
   //
   // Create the vertices.
@@ -35,41 +34,41 @@ MeshData CreateBox(float width, float height, float depth, FXMVECTOR color,
   float h2 = 0.5f*height;
   float d2 = 0.5f*depth;
 
-  // Create the front face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, color });
-
   // Create the back face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, color });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
+
+  // Create the front face vertex data.
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
 
   // Create the top face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, color });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
                                                                         
   // Create the bottom face vertex data.                               
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, color });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
                                                                         
   // Create the left face vertex data.                                 
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, color });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
                                                                         
   // Create the right face vertex data.                                
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, color });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, color });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
 
 
   //
@@ -102,18 +101,11 @@ MeshData CreateBox(float width, float height, float depth, FXMVECTOR color,
   mesh.indices[30] = 20; mesh.indices[31] = 21; mesh.indices[32] = 22;
   mesh.indices[33] = 20; mesh.indices[34] = 22; mesh.indices[35] = 23;
 
-  //
-  // Copy world matrix.
-  //
-
-  mesh.world = world;
-
   return mesh;
 }
 
-MeshData CreateSphere(float radius, int sliceCount, int stackCount, FXMVECTOR color,
-  DirectX::XMMATRIX world) {
-  MeshData mesh;
+Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
+  Model::Mesh mesh;
 
   //
   // Compute the vertices stating at the top pole and moving down the stacks.
@@ -122,8 +114,8 @@ MeshData CreateSphere(float radius, int sliceCount, int stackCount, FXMVECTOR co
   // Poles: note that there will be texture coordinate distortion as there is
   // not a unique point on the texture map to assign to the pole when mapping
   // a rectangular texture onto a sphere.
-  Vertex topVertex{ XMVECTOR{ 0.0f, +radius, 0.0f, 1.0f }, color };
-  Vertex bottomVertex{ XMVECTOR{ 0.0f, -radius, 0.0f, 1.0f }, color };
+  Vertex topVertex{ XMVECTOR{ 0.0f, +radius, 0.0f, 1.0f }, XMVECTOR{ 0.0f, 1.0f, 0.0f } };
+  Vertex bottomVertex{ XMVECTOR{ 0.0f, -radius, 0.0f, 1.0f }, XMVECTOR{ 0.0f, -1.0f, 0.0f } };
   mesh.vertices.push_back(topVertex);
 
   float phiStep = XM_PI / stackCount;
@@ -138,9 +130,13 @@ MeshData CreateSphere(float radius, int sliceCount, int stackCount, FXMVECTOR co
       float theta = j*thetaStep;
 
       // spherical to cartesian
-      Vertex v{ 
-        XMVECTOR{ radius*sinf(phi)*cosf(theta), radius*cosf(phi), radius*sinf(phi)*sinf(theta), 1.0f }, 
-        color };
+      Vertex v;
+      v.position = XMVECTOR{ 
+        radius*sinf(phi)*cosf(theta), 
+        radius*cosf(phi), 
+        radius*sinf(phi)*sinf(theta), 
+        1.0f };
+      v.normal = v.position;
 
       mesh.vertices.push_back(v);
     }
@@ -196,20 +192,13 @@ MeshData CreateSphere(float radius, int sliceCount, int stackCount, FXMVECTOR co
     mesh.indices.push_back(baseIndex + i + 1);
   }
 
-  //
-  // Copy world matrix.
-  //
-
-  mesh.world = world;
-
   return mesh;
 }
 
 // Creates an mxn grid in the xz-plane with m rows and n columns, centered
 // at the origin with the specified width and depth.
-MeshData CreateGrid(float width, float depth, int m, int n, DirectX::FXMVECTOR color,
-  DirectX::XMMATRIX world) {
-  MeshData mesh;
+Model::Mesh CreateGrid(float width, float depth, int m, int n) {
+  Model::Mesh mesh;
 
   //
   // Calculates vertices.
@@ -232,7 +221,7 @@ MeshData CreateGrid(float width, float depth, int m, int n, DirectX::FXMVECTOR c
       // Create vertex.
       Vertex vertex{
         DirectX::XMVECTOR{ x, 0.0, z, 1.0f },
-        color };
+        XMVECTOR{ 0, 1.0f, 0 } };
 
       mesh.vertices.push_back(vertex);
     }
@@ -264,12 +253,6 @@ MeshData CreateGrid(float width, float depth, int m, int n, DirectX::FXMVECTOR c
       mesh.indices.push_back(index_rb);
     }
   }
-
-  //
-  // Copy world matrix.
-  //
-
-  mesh.world = world;
 
   return mesh;
 }

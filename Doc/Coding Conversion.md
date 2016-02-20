@@ -52,7 +52,7 @@ We use Visual Studio 2015 default format style. It's nice! :]
 
 We use left hand coordinate system:
 
-![Coor Image 1](Coordinate System 1.png)
+![Coor Image 1](Coordinate System 1.jpg)
 ![Coor Image 2](Coordinate System 2.jpg)
 
 # DirectXMath/Platform/International
@@ -65,4 +65,10 @@ So supported platform: Windows x64 + English.
 
 * Strive for simplicity. 
 
-If two variable is enough, then not three; If you need only read it, then do not read+write it. This means we prefer access functions (getter) to directly access data member, and params/locals to data member. Data member is a source of mess, for it's easy to access in class, we should do our best to against it.
+If two variable is enough, then not three; If you need only read it, then do not read+write it. This means we prefer access functions (getter) to directly access data member, and params/locals to data member. Data member is a source of mess, for it's easy to access in class, we should do our best to against this.
+
+* Strive for abstraction.
+
+This is a large topic, influence many things, I will mention some here:
+
+	1. As much as possible, do not write write implementation in header files, not even a simple return statement. Template functions should at least seperate its declaration and implementation, write its implementation on bottom of the file.

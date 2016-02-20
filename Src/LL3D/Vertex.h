@@ -6,7 +6,7 @@ namespace LL3D {
 
 struct Vertex {
   DirectX::XMVECTOR position;
-  DirectX::XMVECTOR color;
+  DirectX::XMVECTOR normal;
 };
 
 }

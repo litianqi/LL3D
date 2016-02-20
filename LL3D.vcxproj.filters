@@ -4,14 +4,14 @@
     <Filter Include="Src">
       <UniqueIdentifier>{1787d0a3-35b1-4b1a-8240-7d4288497fc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Effects">
-      <UniqueIdentifier>{c618bb8a-3f66-435f-8470-68e29d481723}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Doc">
       <UniqueIdentifier>{f8be0cb4-320d-4daa-ae6e-032d197328d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Resources">
       <UniqueIdentifier>{823d1b4b-cfa2-4d1c-9ce6-ccdc2224e3f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Shaders">
+      <UniqueIdentifier>{c618bb8a-3f66-435f-8470-68e29d481723}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +42,6 @@
     <ClCompile Include="Src\LL3D\Encoding.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\LL3D\Mesh.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\LL3D\EditorCamera.cpp">
       <Filter>Src</Filter>
     </ClCompile>
@@ -52,6 +49,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\LL3D\Event.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LL3D\Model.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +92,6 @@
     <ClInclude Include="Src\LL3D\Encoding.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\LL3D\Mesh.h">
-      <Filter>Src</Filter>
-    </ClInclude>
     <ClInclude Include="Src\LL3D\Resources\resource.h">
       <Filter>Src\Resources</Filter>
     </ClInclude>
@@ -104,17 +101,26 @@
     <ClInclude Include="Src\LL3D\FirstPersonalCamera.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="Src\LL3D\Light.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LL3D\Material.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LL3D\Model.h">
+      <Filter>Src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md" />
     <None Include="Doc\Coding Conversion.md">
       <Filter>Doc</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="Src\LL3D\Effects\color.fx">
-      <Filter>Src\Effects</Filter>
-    </CustomBuild>
+    <None Include="Src\LL3D\Shaders\Light.fx">
+      <Filter>Src\Shaders</Filter>
+    </None>
+    <None Include="Src\LL3D\Shaders\Material.fx">
+      <Filter>Src\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bin\Resources\Application.ico">
@@ -125,5 +131,10 @@
     <ResourceCompile Include="Src\LL3D\Resources\LL3D.rc">
       <Filter>Src\Resources</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Src\LL3D\Shaders\Main.fx">
+      <Filter>Src\Shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

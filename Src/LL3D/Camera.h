@@ -31,7 +31,7 @@ public:
     float z_far_;
   };
 
-  Camera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target);
+  Camera(Frustum frustum, DirectX::FXMVECTOR pos, DirectX::FXMVECTOR vec_target);
   
   void SetFrustum(const Frustum& frustum);
   void SetPos(DirectX::FXMVECTOR pos);

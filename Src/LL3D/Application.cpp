@@ -6,6 +6,7 @@ namespace LL3D {
 Application::Application():
 engine_(this)
 {
+  SetVisible(true);
   timer_.Start();
 }
 

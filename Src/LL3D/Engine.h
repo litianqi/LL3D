@@ -7,8 +7,9 @@
 #include "Camera.h"
 #include "EditorCamera.h"
 #include "FirstPersonalCamera.h"
-#include "Mesh.h"
+#include "Model.h"
 #include "Type.h"
+#include "Light.h"
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;
@@ -29,10 +30,10 @@ public:
   ~Engine();
 
   void Update(std::chrono::milliseconds dt) {}
- 
   void Draw();
 
-  void SetMesh(const std::vector<MeshData>& meshs);
+  void SetModels(const std::vector<Model>& models);
+  void SetLights(Lights lights);
 
   // Handle mouse inputs:
   void OnMouseDown(const MouseButtonEvent& event);
@@ -47,10 +48,6 @@ private:
   void LoadEffectFile();
   void CreateInputLayout();
   
-  Window* window_;
-  FirstPersonalCamera camera_;
-  EditorCamera editor_camera_;
-
   ID3D11Device* dx_device_;
   ID3D11DeviceContext* dx_context_;
   IDXGISwapChain* dx_swap_chain_;
@@ -58,15 +55,31 @@ private:
   ID3D11RenderTargetView* dx_render_target_view_;
   ID3D11DepthStencilView* dx_depth_stencil_view_;
   D3D11_VIEWPORT dx_viewport_;
-  ID3DX11EffectTechnique* dx_tech_;
   ID3D11InputLayout* dx_input_layout_;
-  ID3DX11Effect* dx_effect_;
-  ID3DX11EffectMatrixVariable* dx_matrix_wvp_;
   ID3D11Buffer* dx_vertex_buffer_;
   ID3D11Buffer* dx_index_buffer_;
+  Model::Mesh dx_mesh_;
+  
+  ID3DX11EffectTechnique* fx_tech_;
+  ID3DX11Effect* fx_effect_;
+  
+  // Per Frame:
+  ID3DX11EffectVariable* fx_directional_light_;
+  ID3DX11EffectVariable* fx_point_light_;
+  ID3DX11EffectVariable* fx_spot_light_;
+  ID3DX11EffectVectorVariable* fx_eye_pos_w_;
+  
+  // Per Object:
+  ID3DX11EffectMatrixVariable* fx_wvp_;
+  ID3DX11EffectMatrixVariable* fx_world_;
+  ID3DX11EffectVariable* fx_material_;
 
-  // Cached for Draw;
-  std::vector<MeshData> meshs_;
+  Window* window_;
+  FirstPersonalCamera camera_;
+  EditorCamera editor_camera_;
+  std::vector<Model> models_;
+  Lights lights_;
+  
   bool enable_4x_msaa_ = true;
   UINT msaa_quality_;
 

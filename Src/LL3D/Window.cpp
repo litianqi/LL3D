@@ -21,7 +21,7 @@ Window::Window() {
   wc.cbClsExtra = 0;
   wc.cbWndExtra = 0;
   wc.hInstance = GetModuleHandle(NULL);
-  Assert(wc.hIcon = (HICON)LoadImage( // returns a HANDLE so we have to cast to HICON
+  WA(wc.hIcon = (HICON)LoadImage( // returns a HANDLE so we have to cast to HICON
     NULL,             // hInstance must be NULL when loading from a file
     L"Resources/Application.ico",   // the icon file name
     IMAGE_ICON,       // specifies that the file is an icon
@@ -35,7 +35,7 @@ Window::Window() {
   wc.lpszMenuName = 0;
   wc.lpszClassName = L"LLEngineWndClass";
   // Register wnd class
-  Assert(RegisterClass(&wc));
+  WA(RegisterClass(&wc));
 
   //// Compute window rectangle dimensions based on requested client area dimensions.
   //RECT R = { 0, 0, mClientWidth, mClientHeight };
@@ -59,14 +59,10 @@ Window::Window() {
     this);
   /* handle_ = CreateWindow(L"LLEngineWndClass", L"aa",
      WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 800, 400, 0, 0, GetModuleHandle(NULL), 0);*/
-  Assert(handle_);
+  WA(handle_);
 
   // map this to handle
   SetWindowLongPtr(handle_, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
-
-  // Show Window
-  ShowWindow(handle_, SW_SHOW);
-  UpdateWindow(handle_);
 }
 
 Window::~Window() {
@@ -77,9 +73,19 @@ HWND Window::GetHandle() const {
   return handle_;
 }
 
+void Window::SetVisible(bool visible) {
+  if (visible) {
+    ShowWindow(handle_, SW_SHOW);
+  }
+  else {
+    ShowWindow(handle_, SW_HIDE);
+  }
+  UpdateWindow(handle_);
+}
+
 void Window::SetClientRect(IntRectangle rect) {
   RECT r{ rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
-  WR(AdjustWindowRect(&r,
+  WA(AdjustWindowRect(&r,
     WS_OVERLAPPEDWINDOW, false));
 }
 
@@ -106,7 +112,7 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       // received.
       SetLastError(ERROR_SUCCESS);
       LONG_PTR result = SetWindowLongPtr(handle, GWLP_USERDATA, NULL);
-      Assert(result != 0 || GetLastError() == ERROR_SUCCESS);
+      WA(result);
       PostQuitMessage(0);
       return 0;
     }

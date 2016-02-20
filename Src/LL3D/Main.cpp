@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include <plog\Log.h>
 #include "Application.h"
-#include "Mesh.h"
+#include "Model.h"
 #include "Color.h"
 
 using namespace LL3D;
@@ -30,18 +30,49 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 }
 
 TestApplication::TestApplication() {
-  auto mesh_grid = CreateGrid(100, 100, 5, 5, Colors::Silver);
-  
-  auto tranlate_box = XMMatrixTranslation(0, 5, 0);
-  auto mesh_box = CreateBox(10, 10, 10, Colors::Blue, tranlate_box);
-  
-  auto tranlate_sphere = XMMatrixTranslation(15, 5, 0);
-  auto mesh_sphere = CreateSphere(5, 40, 40, Colors::Green, tranlate_sphere);
-  
-  std::vector<MeshData> meshs;
-  meshs.push_back(mesh_grid);
-  meshs.push_back(mesh_box);
-  meshs.push_back(mesh_sphere);
+  Model m1;
+  m1.mesh = CreateGrid(100, 100, 2, 2);
+  m1.world = XMMatrixIdentity();
+  m1.material = Material{
+    XMVECTOR{ 1.0f, 0, 0, 1.0f },
+    XMVECTOR{ 0.0f, 1.0f, 0, 1.0f },
+    XMVECTOR{ 0.0f, 1.0f, 0, 1.0f },
+    9.0f
+  };
 
-  engine_.SetMesh(meshs);
+  Model m2;
+  m2.mesh = CreateBox(10, 10, 10);
+  m2.world = XMMatrixTranslation(-15, 5, 0);
+  m2.material = Material{
+    XMVECTOR{ 0.0f, 0, 0, 1.0f },
+    XMVECTOR{ 0.0f, 0, 0, 1.0f },
+    XMVECTOR{ 1.0f, 0, 0, 1.0f },
+    9.0f
+  };
+
+  Model m3;
+  m3.mesh = CreateSphere(5, 40, 40);
+  m3.world = XMMatrixTranslation(0, 5, 0);
+  m3.material = Material{
+    XMVECTOR{ 1.0f, 0, 0 },
+    XMVECTOR{ 0.0f, 0, 1 },
+    XMVECTOR{ 0.0f, 0.0f, 1.0f },
+    9.0f
+  };
+
+  std::vector<Model> meshs;
+  meshs.push_back(m1);
+  meshs.push_back(m2);
+  meshs.push_back(m3);
+
+  engine_.SetModels(meshs);
+
+  DirectionalLight directional{
+    XMVECTOR{1.0f, 1.0f, 1.0f, 1.0f},
+    XMVECTOR{ 0, -1.0f, 1.0f}
+  };
+  Lights lights;
+  lights.directionals.push_back(directional);
+
+  engine_.SetLights(lights);
 }

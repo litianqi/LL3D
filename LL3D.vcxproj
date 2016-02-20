@@ -28,7 +28,7 @@
     <ClCompile Include="Src\LL3D\Event.cpp" />
     <ClCompile Include="Src\LL3D\FirstPersonalCamera.cpp" />
     <ClCompile Include="Src\LL3D\Main.cpp" />
-    <ClCompile Include="Src\LL3D\Mesh.cpp" />
+    <ClCompile Include="Src\LL3D\Model.cpp" />
     <ClCompile Include="Src\LL3D\Stopwatch.cpp" />
     <ClCompile Include="Src\LL3D\Type.cpp" />
     <ClCompile Include="Src\LL3D\Window.cpp" />
@@ -44,7 +44,9 @@
     <ClInclude Include="Src\LL3D\Engine.h" />
     <ClInclude Include="Src\LL3D\Event.h" />
     <ClInclude Include="Src\LL3D\FirstPersonalCamera.h" />
-    <ClInclude Include="Src\LL3D\Mesh.h" />
+    <ClInclude Include="Src\LL3D\Light.h" />
+    <ClInclude Include="Src\LL3D\Material.h" />
+    <ClInclude Include="Src\LL3D\Model.h" />
     <ClInclude Include="Src\LL3D\Resources\resource.h" />
     <ClInclude Include="Src\LL3D\Type.h" />
     <ClInclude Include="Src\LL3D\Stopwatch.h" />
@@ -52,22 +54,29 @@
     <ClInclude Include="Src\LL3D\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Src\LL3D\Effects\color.fx">
-      <FileType>Document</FileType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "%$(OutDir)/Effects/%(Filename).fxo" "%(FullPath)"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)/Effects/%(Filename).fxo</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Doc\Coding Conversion.md" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bin\Resources\Application.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Src\LL3D\Resources\LL3D.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Src\LL3D\Shaders\Light.fx">
+      <FileType>Document</FileType>
+    </None>
+    <CustomBuild Include="Src\LL3D\Shaders\Main.fx">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders/%(Filename).cso</ObjectFileOutput>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(OutDir)Shaders\%(Filename).fxo" "%(FullPath)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders\%(Filename).fxo</Outputs>
+    </CustomBuild>
+    <None Include="Src\LL3D\Shaders\Material.fx">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{543B5569-7C16-41AF-95A2-62E39C0576BD}</ProjectGuid>
@@ -127,8 +136,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(VC_ExecutablePath_x64);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(FxCopDir);$(PATH);</ExecutablePath>
-    <IncludePath>D:\workspace\LL3D\Src\ThirdParty\FX11\inc;D:\workspace\LL3D\Src\ThirdParty\DirectXTK\Inc;D:\workspace\LL3D\Src\ThirdParty\utf8_v2_3_4\source;$(SolutionDir)Src\LL3D;D:\local\boost_1_59_0;$(WindowsSDK_IncludePath);$(VC_IncludePath);D:\workspace\LL3D\Src\ThirdParty\plog\include</IncludePath>
-    <LibraryPath>D:\workspace\LL3D\Src\ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;D:\local\boost_1_59_0\lib64-msvc-14.0;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>$(SolutionDir)Src\ThirdParty\FX11\inc;$(SolutionDir)Src\ThirdParty\DirectXTK\Inc;$(SolutionDir)Src\ThirdParty\utf8_v2_3_4\source;$(SolutionDir)Src\LL3D;D:\local\boost_1_59_0;$(WindowsSDK_IncludePath);$(VC_IncludePath);D:\workspace\LL3D\Src\ThirdParty\plog\include</IncludePath>
+    <LibraryPath>$(SolutionDir)Src\ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
     <OutDir>$(SolutionDir)Bin\</OutDir>
     <IntDir>$(SolutionDir)Build\</IntDir>
   </PropertyGroup>

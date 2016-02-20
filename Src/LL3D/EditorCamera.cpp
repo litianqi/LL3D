@@ -33,13 +33,13 @@ void EditorCamera::Pitch(float radians) {
     radian_target_up = XM_PIDIV2 - radian_target_up;
   
   // Correct angle.
-  if (cos_target_up > 0 &&  // Target vector towards Up vector.
+  if (cos_target_up < 0 &&  // Target vector towards Up vector.
     radians > 0) {
     if (radians >= radian_target_up) {
       radians = radian_target_up - 0.002f;
     }
   }
-  else if (((cos_target_up < 0 &&  // Target vector leaves Up vector.
+  else if (((cos_target_up > 0 &&  // Target vector leaves Up vector.
     radians < 0))) {
     if (std::fabs(radians) >= radian_target_up) {
       radians = -(radian_target_up - 0.002f);
