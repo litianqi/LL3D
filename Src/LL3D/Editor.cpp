@@ -2,23 +2,25 @@
 #include <plog\Log.h>
 #include "Event.h"
 
+using namespace LL3D;
+
 Editor::Editor():
   first_personal_camera_(
     Camera::Frustum(
-      DirectX::XM_PI / 8.0, 
+      XM_PI / 8.0, 
       static_cast<float>(GetClientRect().GetSize().w) / GetClientRect().GetSize().h, 
       1, 
       1000),
-    DirectX::XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
-    DirectX::XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
+    XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
+    XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
   editor_camera_(
     Camera::Frustum(
-      DirectX::XM_PI / 8.0,
+      XM_PI / 8.0,
       static_cast<float>(GetClientRect().GetSize().w) / GetClientRect().GetSize().h,
       1,
       1000),
-    DirectX::XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
-    DirectX::XMVECTOR{ 0.0f, -100.0f, 100.0f }),
+    XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
+    XMVECTOR{ 0.0f, -100.0f, 100.0f }),
   engine_(this, &editor_camera_)
 {
   SetVisible(true);
@@ -133,8 +135,8 @@ void Editor::OnMouseMove(const MouseButtonEvent & event) {
 
     // Make each pixel correspond to a quarter of a degree.
 
-    float radian_x = DirectX::XMConvertToRadians(0.1f*static_cast<float>(event.position.x - last_mouse_position_.x));
-    float radian_y = DirectX::XMConvertToRadians(0.2f*static_cast<float>(event.position.y - last_mouse_position_.y));
+    float radian_x = XMConvertToRadians(0.1f*static_cast<float>(event.position.x - last_mouse_position_.x));
+    float radian_y = XMConvertToRadians(0.2f*static_cast<float>(event.position.y - last_mouse_position_.y));
 
     // Update camera
 

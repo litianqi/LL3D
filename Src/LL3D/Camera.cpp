@@ -1,8 +1,6 @@
 #include "Camera.h"
 #include "Debug.h"
 
-using namespace DirectX;
-
 namespace LL3D {
 
 Camera::Frustum::Frustum(float radian_fov_y, float aspect_ratio, float z_near, float z_far) :
@@ -20,12 +18,12 @@ void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
   aspect_ratio_ = aspect_ratio;
 }
 
-DirectX::XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
-  return DirectX::XMMatrixPerspectiveFovLH(radian_fov_y_, aspect_ratio_,
+XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
+  return XMMatrixPerspectiveFovLH(radian_fov_y_, aspect_ratio_,
     static_cast<float>(z_near_), static_cast<float>(z_far_));
 }
 
-Camera::Camera(Frustum frustum, DirectX::FXMVECTOR position, DirectX::FXMVECTOR forward_vector) :
+Camera::Camera(Frustum frustum, FXMVECTOR position, FXMVECTOR forward_vector) :
   frustum_(frustum),
   position_(position),
   forward_vector_(forward_vector)
@@ -39,20 +37,20 @@ void Camera::SetFrustum(const Frustum & frustum) {
   frustum_ = frustum;
 }
 
-void Camera::SetPosition(DirectX::FXMVECTOR p) {
+void Camera::SetPosition(FXMVECTOR p) {
   position_ = p;
 }
 
-void Camera::SetForwardVector(DirectX::FXMVECTOR v) {
+void Camera::SetForwardVector(FXMVECTOR v) {
   forward_vector_ = v;
 }
 
-DirectX::XMMATRIX Camera::GetViewMatrix() const {
-  return DirectX::XMMatrixLookToLH(position_, forward_vector_, XMVECTOR{ 0, 1.0f });;
+XMMATRIX Camera::GetViewMatrix() const {
+  return XMMatrixLookToLH(position_, forward_vector_, XMVECTOR{ 0, 1.0f });;
 }
 
-DirectX::XMMATRIX Camera::GetViewProjectionMatrix() const {
-  DirectX::XMMATRIX projection = frustum_.GetProjectionMaxtrix();
+XMMATRIX Camera::GetViewProjectionMatrix() const {
+  XMMATRIX projection = frustum_.GetProjectionMaxtrix();
   return GetViewMatrix() * projection;
 }
 
@@ -60,11 +58,11 @@ const Camera::Frustum& Camera::GetFrustum() const {
   return frustum_;
 }
 
-DirectX::XMVECTOR Camera::GetPosition() const {
+XMVECTOR Camera::GetPosition() const {
   return position_;
 }
 
-DirectX::XMVECTOR Camera::GetForwardVector() const {
+XMVECTOR Camera::GetForwardVector() const {
   return forward_vector_;
 }
 
@@ -74,15 +72,15 @@ XMVECTOR Camera::ViewToWorldPosition(FXMVECTOR p) const {
   return XMVector3Transform(p, matrix);
 }
 
-DirectX::XMVECTOR Camera::WorldToViewPosition(DirectX::FXMVECTOR p) const {
+XMVECTOR Camera::WorldToViewPosition(FXMVECTOR p) const {
   return XMVector3Transform(p, GetViewMatrix());
 }
 
-DirectX::XMVECTOR Camera::GetRightVector() const {
+XMVECTOR Camera::GetRightVector() const {
   return XMVector3Cross(XMVECTOR{0, 1.0f}, forward_vector_);
 }
 
-DirectX::XMVECTOR Camera::GetUpVector() const {
+XMVECTOR Camera::GetUpVector() const {
   // Ask: vec_up
 
   // Answer:

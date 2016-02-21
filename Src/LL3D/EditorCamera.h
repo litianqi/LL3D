@@ -2,11 +2,11 @@
 
 #include "Camera.h"
 
-namespace LL3D {
+using namespace DirectX;
 
-class EditorCamera : public Camera {
+class EditorCamera : public LL3D::Camera {
 public:
-  EditorCamera(Frustum frustum, DirectX::XMVECTOR position, DirectX::XMVECTOR forward_vector);
+  EditorCamera(Frustum frustum, XMVECTOR position, XMVECTOR forward_vector);
 
   // Move d in world space.
   void MoveLeftRight(float d);
@@ -20,7 +20,5 @@ public:
 
 private:
   // Point where vec_target cross with XZ panel of world space.
-  DirectX::XMVECTOR GetTargetPosition() const;
+  XMVECTOR GetTargetPosition() const;
 };
-
-}  // namespace LL3D

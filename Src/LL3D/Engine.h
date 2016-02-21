@@ -18,6 +18,8 @@ struct ID3D11DepthStencilView;
 
 namespace LL3D {
 
+using namespace DirectX;
+
 struct MouseButtonEvent;
 struct MouseScrollEvent;
 class Window;

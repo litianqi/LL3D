@@ -52,7 +52,6 @@
     <ClInclude Include="Src\LL3D\Resources\resource.h" />
     <ClInclude Include="Src\LL3D\Type.h" />
     <ClInclude Include="Src\LL3D\Stopwatch.h" />
-    <ClInclude Include="Src\LL3D\Vertex.h" />
     <ClInclude Include="Src\LL3D\Window.h" />
   </ItemGroup>
   <ItemGroup>

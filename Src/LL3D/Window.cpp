@@ -14,7 +14,7 @@ Window::Window() {
   wnd_class_.hIcon = nullptr;
   wnd_class_.hCursor = LoadCursor(0, IDC_ARROW);
   wnd_class_.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
-  wnd_class_.lpszClassName = L"LLEngineWndClass";*/
+  wnd_class_.lpszClassName = L"LL3DWndClass";*/
   WNDCLASS wc;
   wc.style = CS_HREDRAW | CS_VREDRAW;
   wc.lpfnWndProc = MsgProc;
@@ -33,7 +33,7 @@ Window::Window() {
   wc.hCursor = LoadCursor(0, IDC_ARROW);
   wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
   wc.lpszMenuName = 0;
-  wc.lpszClassName = L"LLEngineWndClass";
+  wc.lpszClassName = L"LL3DWndClass";
   // Register wnd class
   WA(RegisterClass(&wc));
 
@@ -46,8 +46,8 @@ Window::Window() {
   // Create window
   handle_ = CreateWindowEx(
     0,
-    L"LLEngineWndClass",
-    L"louis.li/3D",
+    L"LL3DWndClass",
+    L"LL3D",
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT,  // default x  
     CW_USEDEFAULT,  // default y   
@@ -57,7 +57,7 @@ Window::Window() {
     NULL,  // No menu.
     GetModuleHandle(NULL),
     this);
-  /* handle_ = CreateWindow(L"LLEngineWndClass", L"aa",
+  /* handle_ = CreateWindow(L"LL3DWndClass", L"aa",
      WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 800, 400, 0, 0, GetModuleHandle(NULL), 0);*/
   WA(handle_);
 

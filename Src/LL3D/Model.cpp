@@ -2,8 +2,6 @@
 #include <DirectXMath.h>
 #include "Color.h"
 
-using namespace DirectX;
-
 namespace LL3D {
 
 Model::Mesh DXCombine(const Model::Mesh & lhs, const Model::Mesh & rhs) {
@@ -220,7 +218,7 @@ Model::Mesh CreateGrid(float width, float depth, int m, int n) {
       const float x = x_lb + j * (width / cnt_rects_x);
       // Create vertex.
       Vertex vertex{
-        DirectX::XMVECTOR{ x, 0.0, z, 1.0f },
+        XMVECTOR{ x, 0.0, z, 1.0f },
         XMVECTOR{ 0, 1.0f, 0 } };
 
       mesh.vertices.push_back(vertex);

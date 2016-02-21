@@ -4,6 +4,8 @@
 
 namespace LL3D {
 
+using namespace DirectX;
+
 // Non-rollable Camera. 
 // Non-rollable means Up and Forward vector always on a YZ panel(of world space) 
 // roated some degree around Y.
@@ -18,7 +20,7 @@ public:
     
     void SetAspectRatio(float aspect_ratio);
 
-    DirectX::XMMATRIX GetProjectionMaxtrix() const;
+    XMMATRIX GetProjectionMaxtrix() const;
   
   private:
     float radian_fov_y_;
@@ -27,27 +29,27 @@ public:
     float z_far_;
   };
 
-  Camera(Frustum frustum, DirectX::FXMVECTOR position, DirectX::FXMVECTOR forward_vector);
+  Camera(Frustum frustum, FXMVECTOR position, FXMVECTOR forward_vector);
   
   void SetFrustum(const Frustum& frustum);
-  void SetPosition(DirectX::FXMVECTOR p);
-  void SetForwardVector(DirectX::FXMVECTOR v);
+  void SetPosition(FXMVECTOR p);
+  void SetForwardVector(FXMVECTOR v);
  
-  DirectX::XMMATRIX GetViewMatrix() const;
-  DirectX::XMMATRIX GetViewProjectionMatrix() const;
+  XMMATRIX GetViewMatrix() const;
+  XMMATRIX GetViewProjectionMatrix() const;
   const Frustum& GetFrustum() const;
-  DirectX::XMVECTOR GetPosition() const;
-  DirectX::XMVECTOR GetForwardVector() const;
-  DirectX::XMVECTOR GetRightVector() const;
-  DirectX::XMVECTOR GetUpVector() const;
+  XMVECTOR GetPosition() const;
+  XMVECTOR GetForwardVector() const;
+  XMVECTOR GetRightVector() const;
+  XMVECTOR GetUpVector() const;
 
-  DirectX::XMVECTOR ViewToWorldPosition(DirectX::FXMVECTOR p) const;
-  DirectX::XMVECTOR WorldToViewPosition(DirectX::FXMVECTOR p) const;
+  XMVECTOR ViewToWorldPosition(FXMVECTOR p) const;
+  XMVECTOR WorldToViewPosition(FXMVECTOR p) const;
 
 protected:
   // Came coordinate system with coordinate relative to world space.
-  DirectX::XMVECTOR position_;
-  DirectX::XMVECTOR forward_vector_;
+  XMVECTOR position_;
+  XMVECTOR forward_vector_;
 
 private:
   Frustum frustum_;

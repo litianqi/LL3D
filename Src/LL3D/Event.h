@@ -5,10 +5,6 @@
 
 namespace LL3D {
 
-class Event {
-
-};
-
 enum MouseButton {
   Control = MK_CONTROL,
   Left = MK_LBUTTON,
@@ -27,10 +23,6 @@ struct MouseButtonEvent {
 struct MouseScrollEvent: public MouseButtonEvent {
   MouseScrollEvent(MouseButton button, IntPoint2 position, int16_t d);
   int16_t distance;
-};
-
-struct KeyboardEvent {
-
 };
 
 }  // namespace LL3D

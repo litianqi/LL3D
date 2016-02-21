@@ -2,10 +2,16 @@
 
 #include <vector>
 #include <DirectXMath.h>
-#include "Vertex.h"
 #include "Material.h"
 
 namespace LL3D {
+
+using namespace DirectX;
+
+struct Vertex {
+  XMVECTOR position;
+  XMVECTOR normal;
+};
 
 struct Model {
 
@@ -15,7 +21,7 @@ struct Model {
   };
   
   Mesh mesh;
-  DirectX::XMMATRIX world;
+  XMMATRIX world;
   Material material;
 };
 

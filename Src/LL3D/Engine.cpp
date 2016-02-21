@@ -7,11 +7,8 @@
 #include "Window.h"
 #include "Debug.h"
 #include "Color.h"
-#include "Vertex.h"
 #include "Event.h"
 #include "Model.h"
-
-using namespace DirectX;
 
 namespace LL3D {
 

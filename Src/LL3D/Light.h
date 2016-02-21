@@ -36,7 +36,7 @@ struct SpotLight {
   Attenuation distance_att;
   float range;
   float cone_att;
-  DirectX::XMFLOAT3 _pad;  // Pad the last lfoat so we can set an array of SpotLights if we wanted.
+  XMFLOAT3 _pad;  // Pad the last lfoat so we can set an array of SpotLights if we wanted.
 };
 
 // TODO: light vector can only be set 0/1 element.

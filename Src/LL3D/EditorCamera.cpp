@@ -1,11 +1,7 @@
 #include "EditorCamera.h"
 #include "Debug.h"
 
-using namespace DirectX;
-
-namespace LL3D {
-
-EditorCamera::EditorCamera(Frustum frustum, DirectX::XMVECTOR position, DirectX::XMVECTOR forward_vector) :
+EditorCamera::EditorCamera(Frustum frustum, XMVECTOR position, XMVECTOR forward_vector) :
   Camera(frustum, position, forward_vector) {
 }
 
@@ -46,7 +42,7 @@ void EditorCamera::Pitch(float angle) {
     }
   }
   
-  DirectX::XMMATRIX matrix_rotate = DirectX::XMMatrixRotationAxis(GetRightVector(), angle);
+  XMMATRIX matrix_rotate = XMMatrixRotationAxis(GetRightVector(), angle);
 
   // Change camera position:
 
@@ -66,7 +62,7 @@ void EditorCamera::Pitch(float angle) {
 }
 
 void EditorCamera::Yaw(float angle) {
-  DirectX::XMMATRIX matrix_rotate = DirectX::XMMatrixRotationAxis(XMVECTOR{ 0, 1.0f, 0 }, angle);
+  XMMATRIX matrix_rotate = XMMatrixRotationAxis(XMVECTOR{ 0, 1.0f, 0 }, angle);
 
   // Change camera position:
   
@@ -85,7 +81,7 @@ void EditorCamera::Yaw(float angle) {
   forward_vector_ = pos_target - position_;
 }
 
-DirectX::XMVECTOR EditorCamera::GetTargetPosition() const {
+XMVECTOR EditorCamera::GetTargetPosition() const {
   // Question:
   // pos_v_target = {0, 0, z}, calculate z.
   
@@ -114,5 +110,3 @@ DirectX::XMVECTOR EditorCamera::GetTargetPosition() const {
   
   return ViewToWorldPosition(pos_v_target);
 }
-
-}  // namespace LL3D

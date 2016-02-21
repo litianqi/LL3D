@@ -86,9 +86,6 @@
     <ClInclude Include="Src\LL3D\Color.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\LL3D\Vertex.h">
-      <Filter>Src</Filter>
-    </ClInclude>
     <ClInclude Include="Src\LL3D\Encoding.h">
       <Filter>Src</Filter>
     </ClInclude>

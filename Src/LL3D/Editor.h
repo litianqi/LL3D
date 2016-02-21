@@ -7,10 +7,9 @@
 #include "Engine.h"
 #include "Stopwatch.h"
 
-using namespace LL3D;
 using namespace DirectX;
 
-class Editor: public Application {
+class Editor: public LL3D::Application {
 public:
   Editor();
 
@@ -21,10 +20,10 @@ protected:
   virtual void Update();
 
   // Handle mouse inputs:
-  virtual void OnMouseDown(const MouseButtonEvent& event);
-  virtual void OnMouseUp(const MouseButtonEvent& event);
-  virtual void OnMouseMove(const MouseButtonEvent& event);
-  virtual void OnMouseScroll(const MouseScrollEvent& event);
+  virtual void OnMouseDown(const LL3D::MouseButtonEvent& event);
+  virtual void OnMouseUp(const LL3D::MouseButtonEvent& event);
+  virtual void OnMouseMove(const LL3D::MouseButtonEvent& event);
+  virtual void OnMouseScroll(const LL3D::MouseScrollEvent& event);
 
   virtual void OnResize();
 
@@ -32,12 +31,12 @@ private:
   void DoUpdate();
 
   EditorCamera editor_camera_;
-  FirstPersonalCamera first_personal_camera_;
-  Engine engine_;
-  Stopwatch timer_;
-  Lights lights_;
+  LL3D::FirstPersonalCamera first_personal_camera_;
+  LL3D::Engine engine_;
+  LL3D::Stopwatch timer_;
+  LL3D::Lights lights_;
   
   int td_before_last_draw_ = 0;
   int max_fps_ = 0;
-  IntPoint2 last_mouse_position_;
+  LL3D::IntPoint2 last_mouse_position_;
 };
