@@ -10,25 +10,25 @@ FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, DirectX::XMVECTOR pos,
 }
 
 void FirstPersonalCamera::MoveBackForeward(float d) {
-  pos_ += d * XMVector3Normalize(vec_target_);
+  position_ += d * XMVector3Normalize(forward_vector_);
 }
 
 void FirstPersonalCamera::MoveUpDown(float d) {
-  pos_ += d * XMVECTOR{ 0, 1.0f };
+  position_ += d * XMVECTOR{ 0, 1.0f };
 }
 
 void FirstPersonalCamera::MoveLeftRight(float d) {
-  pos_ += d * XMVector3Normalize(GetRightVector());
+  position_ += d * XMVector3Normalize(GetRightVector());
 }
 
 void FirstPersonalCamera::Pitch(float radians) {
   DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationAxis(GetRightVector(), radians);
-  vec_target_ = XMVector3Transform(vec_target_, matrix);
+  forward_vector_ = XMVector3Transform(forward_vector_, matrix);
 }
 
 void FirstPersonalCamera::Yaw(float radians) {
   DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationAxis(GetUpVector(), radians);
-  vec_target_ = XMVector3Transform(vec_target_, matrix);
+  forward_vector_ = XMVector3Transform(forward_vector_, matrix);
 }
 
 }  // namespace LL3D

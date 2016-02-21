@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\LL3D\Application.cpp" />
+    <ClCompile Include="Src\LL3D\Editor.cpp" />
     <ClCompile Include="Src\LL3D\Camera.cpp" />
     <ClCompile Include="Src\LL3D\Debug.cpp" />
     <ClCompile Include="Src\LL3D\EditorCamera.cpp" />
@@ -35,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\LL3D\Application.h" />
+    <ClInclude Include="Src\LL3D\Editor.h" />
     <ClInclude Include="Src\LL3D\Camera.h" />
     <ClInclude Include="Src\LL3D\Color.h" />
     <ClInclude Include="Src\LL3D\Debug.h" />

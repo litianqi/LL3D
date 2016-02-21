@@ -15,24 +15,9 @@ using namespace DirectX;
 
 namespace LL3D {
 
-Engine::Engine(Window* window) :
+Engine::Engine(Window* window, const Camera* camera) :
   window_(window),
-  camera_(
-    Camera::Frustum(
-      DirectX::XM_PI / 8.0, 
-      static_cast<float>(window->GetClientRect().GetSize().w) / window->GetClientRect().GetSize().h, 
-      1, 
-      1000),
-    DirectX::XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
-    DirectX::XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
-  editor_camera_(
-    Camera::Frustum(
-      DirectX::XM_PI / 8.0,
-      static_cast<float>(window->GetClientRect().GetSize().w) / window->GetClientRect().GetSize().h,
-      1,
-      1000),
-    DirectX::XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
-    DirectX::XMVECTOR{ 0.0f, -100.0f, 100.0f })
+  camera_(camera)
 {
   InitDX();
   LoadEffectFile();
@@ -76,13 +61,13 @@ void Engine::Draw() {
   for (auto light : lights_.directionals) {
     fx_directional_light_->SetRawValue(&light, 0, sizeof(DirectionalLight));
   }
-  for (auto light : lights_.directionals) {
+  for (auto light : lights_.points) {
     fx_point_light_->SetRawValue(&light, 0, sizeof(PointLight));
   }
-  for (auto light : lights_.directionals) {
+  for (auto light : lights_.spots) {
     fx_spot_light_->SetRawValue(&light, 0, sizeof(SpotLight));
   }
-  fx_eye_pos_w_->SetFloatVector(reinterpret_cast<float*>(&editor_camera_.GetPos()));
+  fx_eye_pos_w_->SetFloatVector(reinterpret_cast<float*>(&camera_->GetPosition()));
 
   D3DX11_TECHNIQUE_DESC tech_desc;
   fx_tech_->GetDesc(&tech_desc);
@@ -96,7 +81,7 @@ void Engine::Draw() {
     for (const auto& model : models_) {
       // Set per object constant buffer.
       fx_world_->SetMatrix(reinterpret_cast<const float*>(&(model.world)));
-      fx_wvp_->SetMatrix(reinterpret_cast<float*>(&(model.world * editor_camera_.GetViewProjectionMatrix())));
+      fx_wvp_->SetMatrix(reinterpret_cast<float*>(&(model.world * camera_->GetViewProjectionMatrix())));
       fx_material_->SetRawValue(&(model.material), 0, sizeof(model.material));
 
       // Draw object.
@@ -112,6 +97,10 @@ void Engine::Draw() {
 
   dx_context_->Draw(1, 0);
   HR(dx_swap_chain_->Present(0, 0));
+}
+
+void Engine::SetCamera(const Camera * camera) {
+  camera_ = camera;
 }
 
 void Engine::SetModels(const std::vector<Model>& models) {
@@ -141,60 +130,14 @@ void Engine::SetModels(const std::vector<Model>& models) {
   HR(dx_device_->CreateBuffer(&ibd, &iinitData, &dx_index_buffer_));
 }
 
-void Engine::SetLights(Lights lights) {
+void Engine::SetLights(const Lights& lights) {
   lights_ = lights;
-}
-
-void Engine::OnMouseDown(const MouseButtonEvent & event) {
-  pos_mouse_last_ = event.position;
-}
-
-void Engine::OnMouseMove(const MouseButtonEvent & event) {
-  
-  if ((event.button & MouseButton::Left) != 0) {
-    
-    // Make each pixel correspond to a quarter of a degree.
-
-    float radian_x = DirectX::XMConvertToRadians(0.1f*static_cast<float>(event.position.x - pos_mouse_last_.x));
-    float radian_y = DirectX::XMConvertToRadians(0.2f*static_cast<float>(event.position.y - pos_mouse_last_.y));
-
-    // Update camera
-
-    editor_camera_.Yaw(radian_x);
-    editor_camera_.Pitch(radian_y);
-    /*camera_.LookAround(radian_x);
-    camera_.Pitch(radian_y);*/
-  }
-  else if ((event.button & MouseButton::Right) != 0) {
-    // Get diff to last mouse position
-    float d_x = 0.05f * (pos_mouse_last_.x - event.position.x);
-    float d_y = 0.05f * (event.position.y - pos_mouse_last_.y);
-
-    editor_camera_.MoveLeftRight(d_x);
-    editor_camera_.MoveUpDown(d_y);
-  }
-
-  pos_mouse_last_ = event.position;
-}
-
-void Engine::OnMouseScroll(const MouseScrollEvent & event) {
-  editor_camera_.MoveBackForeward(0.05f * event.distance);
 }
 
 void Engine::OnResize() {
   ASSERT(dx_context_);
   ASSERT(dx_device_);
   ASSERT(dx_swap_chain_);
-
-  // Change camera aspect ratio.
-
-  const int w_window = window_->GetClientRect().GetSize().w;
-  const int h_window = window_->GetClientRect().GetSize().h;
-
-  auto frustum = editor_camera_.GetFrustum();
-  frustum.SetAspectRatio(
-    static_cast<float>(w_window) / h_window);
-  editor_camera_.SetFrustum(frustum);
 
   // Release the old views, as they hold references to the buffers we
   // will be destroying.  Also release the old depth/stencil buffer.
@@ -208,6 +151,8 @@ void Engine::OnResize() {
 
   // Resize the swap chain and recreate the render target view.
 
+  const int w_window = window_->GetClientRect().GetSize().w;
+  const int h_window = window_->GetClientRect().GetSize().h;
   HR(dx_swap_chain_->ResizeBuffers(1, w_window, h_window,
     DXGI_FORMAT_R8G8B8A8_UNORM, 0));
   ID3D11Texture2D* back_buffer;

@@ -7,34 +7,35 @@ namespace LL3D {
 using namespace DirectX;
 
 struct AmbientLight {
-  XMVECTOR light;
+  XMVECTOR color;
 };
 
 struct DirectionalLight {
-  XMVECTOR light;
+  XMVECTOR color;
   XMVECTOR direction;
 };
 
+// Attention! Couldn't all a0, a1, a2 be zero, the result light is unpredictable.
 struct Attenuation {
   float a0;
   float a1;
-  float a3;
+  float a2;
 };
 
 struct PointLight {
-  XMVECTOR light;
+  XMVECTOR color;
   XMVECTOR position;
-  Attenuation attenuation;
+  Attenuation distance_att;
   float range;
 };
 
 struct SpotLight {
-  XMVECTOR light;
+  XMVECTOR color;
   XMVECTOR position;
   XMVECTOR direction;
-  Attenuation attenuation;
+  Attenuation distance_att;
   float range;
-  float spot_power;
+  float cone_att;
   DirectX::XMFLOAT3 _pad;  // Pad the last lfoat so we can set an array of SpotLights if we wanted.
 };
 

@@ -5,8 +5,6 @@
 #include <D3D11.h>
 #include <d3dx11effect.h>
 #include "Camera.h"
-#include "EditorCamera.h"
-#include "FirstPersonalCamera.h"
 #include "Model.h"
 #include "Type.h"
 #include "Light.h"
@@ -26,20 +24,15 @@ class Window;
 
 class Engine {
 public:
-  Engine(Window* window);
+  Engine(Window* window, const Camera* camera);
   ~Engine();
 
   void Update(std::chrono::milliseconds dt) {}
   void Draw();
 
+  void SetCamera(const Camera* camera);
   void SetModels(const std::vector<Model>& models);
-  void SetLights(Lights lights);
-
-  // Handle mouse inputs:
-  void OnMouseDown(const MouseButtonEvent& event);
-  void OnMouseUp(const MouseButtonEvent& event) {}
-  void OnMouseMove(const MouseButtonEvent& event);
-  void OnMouseScroll(const MouseScrollEvent& event);
+  void SetLights(const Lights& lights);
 
   void OnResize();
 
@@ -76,16 +69,12 @@ private:
   ID3DX11EffectVariable* fx_material_;
 
   Window* window_;
-  FirstPersonalCamera camera_;
-  EditorCamera editor_camera_;
+  const Camera* camera_;
   std::vector<Model> models_;
   Lights lights_;
   
   bool enable_4x_msaa_ = true;
-  UINT msaa_quality_;
-
-  IntPoint2 pos_mouse_last_;
-  
+  UINT msaa_quality_;  
 };
 
 

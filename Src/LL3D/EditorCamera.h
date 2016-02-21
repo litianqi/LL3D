@@ -6,7 +6,7 @@ namespace LL3D {
 
 class EditorCamera : public Camera {
 public:
-  EditorCamera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target);
+  EditorCamera(Frustum frustum, DirectX::XMVECTOR position, DirectX::XMVECTOR forward_vector);
 
   // Move d in world space.
   void MoveLeftRight(float d);
@@ -14,13 +14,13 @@ public:
   void MoveBackForeward(float d);
 
   // Rotate around right vector in target pos.
-  void Pitch(float radians);
+  void Pitch(float angle);
   // Rotate around world up vector in target pos.
-  void Yaw(float radians);
+  void Yaw(float angle);
 
 private:
   // Point where vec_target cross with XZ panel of world space.
-  DirectX::XMVECTOR GetTargetPos() const;
+  DirectX::XMVECTOR GetTargetPosition() const;
 };
 
 }  // namespace LL3D
