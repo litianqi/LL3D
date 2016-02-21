@@ -8,9 +8,9 @@
 
 ## Plan
 
-  * Lighting
+  * Lighting.
   * Make engine itself a lib project, and put test codes to a exe project.
-  * Texturing
+  * Texturing.
   * ...
 
 ## Author
