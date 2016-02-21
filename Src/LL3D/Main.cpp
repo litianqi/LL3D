@@ -30,11 +30,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 }
 
 TestApplication::TestApplication() {
+  // Add Models:
+  
   Model m1;
   m1.mesh = CreateGrid(100, 100, 2, 2);
   m1.world = XMMatrixIdentity();
   m1.material = Material{
-    XMVECTOR{ 1.0f, 0, 0, 1.0f },
+    XMVECTOR{ 0.0f, 1, 0, 1.0f },
     XMVECTOR{ 0.0f, 1.0f, 0, 1.0f },
     XMVECTOR{ 0.0f, 1.0f, 0, 1.0f },
     9.0f
@@ -44,7 +46,7 @@ TestApplication::TestApplication() {
   m2.mesh = CreateBox(10, 10, 10);
   m2.world = XMMatrixTranslation(-15, 5, 0);
   m2.material = Material{
-    XMVECTOR{ 0.0f, 0, 0, 1.0f },
+    XMVECTOR{ 1.0f, 0, 0, 1.0f },
     XMVECTOR{ 0.0f, 0, 0, 1.0f },
     XMVECTOR{ 1.0f, 0, 0, 1.0f },
     9.0f
@@ -54,8 +56,8 @@ TestApplication::TestApplication() {
   m3.mesh = CreateSphere(5, 40, 40);
   m3.world = XMMatrixTranslation(0, 5, 0);
   m3.material = Material{
-    XMVECTOR{ 1.0f, 0, 0 },
-    XMVECTOR{ 0.0f, 0, 1 },
+    XMVECTOR{ 0.0f, 0, 1, 1.0f },
+    XMVECTOR{ 0.0f, 0, 1, 1 },
     XMVECTOR{ 0.0f, 0.0f, 1.0f },
     9.0f
   };
@@ -67,11 +69,17 @@ TestApplication::TestApplication() {
 
   engine_.SetModels(meshs);
 
+  // Add Lights:
+
+  AmbientLight ambient{
+    XMVECTOR{ 0.2f, 0.2f, 0.2f, 1.0f }
+  };
   DirectionalLight directional{
     XMVECTOR{1.0f, 1.0f, 1.0f, 1.0f},
     XMVECTOR{ 0, -1.0f, 1.0f}
   };
   Lights lights;
+  lights.ambients.push_back(ambient);
   lights.directionals.push_back(directional);
 
   engine_.SetLights(lights);

@@ -70,6 +70,9 @@ void Engine::Draw() {
   dx_context_->IASetIndexBuffer(dx_index_buffer_, DXGI_FORMAT_R32_UINT, 0);
 
   // Set per frame constant buffer.
+  for (auto light : lights_.ambients) {
+    fx_ambient_light_->SetRawValue(&light, 0, sizeof(AmbientLight));
+  }
   for (auto light : lights_.directionals) {
     fx_directional_light_->SetRawValue(&light, 0, sizeof(DirectionalLight));
   }
@@ -367,6 +370,7 @@ void Engine::LoadEffectFile() {
   HR(D3DX11CreateEffectFromMemory(content.data(), size,
     0, dx_device_, &fx_effect_));
   
+  fx_ambient_light_ = fx_effect_->GetVariableByName("g_ambient_light");
   fx_directional_light_ = fx_effect_->GetVariableByName("g_directional_light");
   fx_point_light_ = fx_effect_->GetVariableByName("g_point_light");
   fx_spot_light_ = fx_effect_->GetVariableByName("g_spot_light");

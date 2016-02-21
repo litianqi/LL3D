@@ -1,5 +1,9 @@
 #include "Material.fx"
 
+struct AmbientLight {
+  float4 light;
+};
+
 struct DirectionalLight {
   float4 light;
   float4 direction;
@@ -28,9 +32,9 @@ struct SpotLight {
   float3 _pad;
 };
 
-float4 ComputAmbientLight(Material mat,
-  float4 light) {
-  return light;  // TODO
+float4 ComputeAmbientLight(Material mat,
+  AmbientLight light) {
+  return light.light * mat.ambient;
 }
 
 float4 ComputeDirectionalLight(Material mat, float4 normal,

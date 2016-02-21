@@ -6,6 +6,10 @@ namespace LL3D {
 
 using namespace DirectX;
 
+struct AmbientLight {
+  XMVECTOR light;
+};
+
 struct DirectionalLight {
   XMVECTOR light;
   XMVECTOR direction;
@@ -36,6 +40,7 @@ struct SpotLight {
 
 // TODO: light vector can only be set 0/1 element.
 struct Lights {
+  std::vector<AmbientLight> ambients;
   std::vector<DirectionalLight> directionals;
   std::vector<PointLight> points;
   std::vector<SpotLight> spots;

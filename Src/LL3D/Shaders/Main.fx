@@ -1,6 +1,7 @@
 #include "Light.fx"
 
 cbuffer PerFrame {
+  AmbientLight g_ambient_light;
   DirectionalLight g_directional_light;
   PointLight g_point_light;
   SpotLight g_spot_light;
@@ -40,11 +41,11 @@ VertexOut VS(VertexIn vin) {
 float4 PS(VertexOut pin) : SV_Target
 {
   float4 to_eye = pin.pos_w - g_eye_pos_w;
-  
+  float4 a = ComputeAmbientLight(g_material, g_ambient_light);
   float4 d = ComputeDirectionalLight(g_material, pin.normal_w, g_directional_light, to_eye);
-  //float4 p = ComputePointLight(g_material, pin.pos_w, pin.normal_w, g_point_light, to_eye);
-  //float4 s = ComputeSpotLight(g_material, pin.pos_w, pin.normal_w, g_spot_light, to_eye);
-  return d /*+ p + s*/;
+  float4 p = ComputePointLight(g_material, pin.pos_w, pin.normal_w, g_point_light, to_eye);
+  float4 s = ComputeSpotLight(g_material, pin.pos_w, pin.normal_w, g_spot_light, to_eye);
+  return a + d + p + s;
 }
 
 technique11 Tech {

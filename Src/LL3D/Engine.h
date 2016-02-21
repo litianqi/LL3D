@@ -64,6 +64,7 @@ private:
   ID3DX11Effect* fx_effect_;
   
   // Per Frame:
+  ID3DX11EffectVariable* fx_ambient_light_;
   ID3DX11EffectVariable* fx_directional_light_;
   ID3DX11EffectVariable* fx_point_light_;
   ID3DX11EffectVariable* fx_spot_light_;
