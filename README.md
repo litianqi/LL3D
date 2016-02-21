@@ -1,22 +1,22 @@
 # LL3D
 
-A C++/DirectX11 3D game engine.
+  A C++/DirectX11 3D game engine.
 
 ## Status
 
-**Under development.**
+  **Under development.**
 
 ## Plan
 
-* Light [ing]
-* Make engine itself a standalone lib, and put test codes to a exe project.
-* Texture
-* ...
+  * Lighting
+  * Make engine itself a lib project, and put test codes to a exe project.
+  * Texturing
+  * ...
 
 ## Author
 
-Louis Li
+  Louis Li
 
-me@louis.li
+  me@louis.li
 
 
