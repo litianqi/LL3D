@@ -1,6 +1,6 @@
 #include "Window.h"
 #include <windowsx.h>
-#include "Event.h"
+#include "UIEvents.h"
 #include "Type.h"
 #include "Debug.h"
 
@@ -21,15 +21,7 @@ Window::Window() {
   wc.cbClsExtra = 0;
   wc.cbWndExtra = 0;
   wc.hInstance = GetModuleHandle(NULL);
-  WA(wc.hIcon = (HICON)LoadImage( // returns a HANDLE so we have to cast to HICON
-    NULL,             // hInstance must be NULL when loading from a file
-    L"Resources/Application.ico",   // the icon file name
-    IMAGE_ICON,       // specifies that the file is an icon
-    0,                // width of the image (we'll specify default later on)
-    0,                // height of the image
-    LR_LOADFROMFILE | // we want to load a file (as opposed to a resource)
-    LR_DEFAULTSIZE    // default metrics based on the type (IMAGE_ICON, 32x32)
-    ));
+  wc.hIcon = nullptr;
   wc.hCursor = LoadCursor(0, IDC_ARROW);
   wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
   wc.lpszMenuName = 0;

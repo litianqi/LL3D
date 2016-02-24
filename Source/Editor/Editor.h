@@ -9,7 +9,7 @@
 
 using namespace DirectX;
 
-class Editor: public LL3D::Application {
+class Editor: public LL3D::Game {
 public:
   Editor();
 
@@ -17,7 +17,8 @@ public:
   void SetMaxFPS(int fps);
 
 protected:
-  virtual void Update();
+  virtual void Update() override;
+  virtual void Render() override;
 
   // Handle mouse inputs:
   virtual void OnMouseDown(const LL3D::MouseButtonEvent& event);

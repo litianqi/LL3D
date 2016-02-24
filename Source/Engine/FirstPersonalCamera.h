@@ -12,8 +12,8 @@ public:
   void MoveUpDown(float d);
   void MoveLeftRight(float d);
 
-  void Pitch(float radians);
-  void Yaw(float radians);
+  void Pitch(float angle);
+  void Yaw(float angle);
 };
 
 }  // namespace LL3D

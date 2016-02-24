@@ -1,6 +1,6 @@
 #include "Editor.h"
 #include <plog\Log.h>
-#include "Event.h"
+#include "UIEvents.h"
 
 using namespace LL3D;
 
@@ -44,7 +44,7 @@ Editor::Editor():
   m2.material = Material{
     XMVECTOR{ 1.0f, 0, 0, 1.0f },
     XMVECTOR{ 1.0f, 0, 0, 1.0f },
-    XMVECTOR{ 1.0f, 0, 0, 1.0f },
+    XMVECTOR{ 0.0f, 0, 0, 1.0f },
     9.0f
   };
 
@@ -54,7 +54,7 @@ Editor::Editor():
   m3.material = Material{
     XMVECTOR{ 0.0f, 0, 1, 1.0f },
     XMVECTOR{ 0.0f, 0, 1, 1 },
-    XMVECTOR{ 0.0f, 0.0f, 1.0f, 1 },
+    XMVECTOR{ 0.0f, 0.0f, 0.0f, 1 },
     9.0f
   };
 
@@ -120,6 +120,9 @@ void Editor::Update() {
     
     DoUpdate();
   }
+}
+
+void Editor::Render() {
 }
 
 void Editor::OnMouseDown(const MouseButtonEvent & event) {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <boost\noncopyable.hpp>
 #include <Windows.h>
 #include "Type.h"
 
@@ -11,7 +10,7 @@ struct MouseButtonEvent;
 struct MouseScrollEvent;
 
 // Win-32 window wrapper.
-class Window: private boost::noncopyable {
+class Window {  // TODO: Inherit uncopyable.
 public:
   enum ShowState {
     Minimized,

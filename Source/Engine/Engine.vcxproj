@@ -19,55 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\LL3D\Application.cpp" />
-    <ClCompile Include="Src\LL3D\Editor.cpp" />
-    <ClCompile Include="Src\LL3D\Camera.cpp" />
-    <ClCompile Include="Src\LL3D\Debug.cpp" />
-    <ClCompile Include="Src\LL3D\EditorCamera.cpp" />
-    <ClCompile Include="Src\LL3D\Encoding.cpp" />
-    <ClCompile Include="Src\LL3D\Engine.cpp" />
-    <ClCompile Include="Src\LL3D\Event.cpp" />
-    <ClCompile Include="Src\LL3D\FirstPersonalCamera.cpp" />
-    <ClCompile Include="Src\LL3D\Main.cpp" />
-    <ClCompile Include="Src\LL3D\Model.cpp" />
-    <ClCompile Include="Src\LL3D\Stopwatch.cpp" />
-    <ClCompile Include="Src\LL3D\Type.cpp" />
-    <ClCompile Include="Src\LL3D\Window.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Encoding.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="UIEvents.cpp" />
+    <ClCompile Include="FirstPersonalCamera.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Stopwatch.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\LL3D\Application.h" />
-    <ClInclude Include="Src\LL3D\Editor.h" />
-    <ClInclude Include="Src\LL3D\Camera.h" />
-    <ClInclude Include="Src\LL3D\Color.h" />
-    <ClInclude Include="Src\LL3D\Debug.h" />
-    <ClInclude Include="Src\LL3D\EditorCamera.h" />
-    <ClInclude Include="Src\LL3D\Effect.h" />
-    <ClInclude Include="Src\LL3D\Encoding.h" />
-    <ClInclude Include="Src\LL3D\Engine.h" />
-    <ClInclude Include="Src\LL3D\Event.h" />
-    <ClInclude Include="Src\LL3D\FirstPersonalCamera.h" />
-    <ClInclude Include="Src\LL3D\Light.h" />
-    <ClInclude Include="Src\LL3D\Material.h" />
-    <ClInclude Include="Src\LL3D\Model.h" />
-    <ClInclude Include="Src\LL3D\Resources\resource.h" />
-    <ClInclude Include="Src\LL3D\Type.h" />
-    <ClInclude Include="Src\LL3D\Stopwatch.h" />
-    <ClInclude Include="Src\LL3D\Window.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="Encoding.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="UIEvents.h" />
+    <ClInclude Include="FirstPersonalCamera.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Type.h" />
+    <ClInclude Include="Stopwatch.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Doc\Coding Conversion.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Bin\Resources\Application.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Src\LL3D\Resources\LL3D.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Src\LL3D\Shaders\Light.fx">
+    <None Include="Shaders\Light.fx">
       <FileType>Document</FileType>
     </None>
-    <CustomBuild Include="Src\LL3D\Shaders\Main.fx">
+    <CustomBuild Include="Shaders\Main.fx">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders/%(Filename).cso</ObjectFileOutput>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -75,7 +59,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(OutDir)Shaders\%(Filename).fxo" "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders\%(Filename).fxo</Outputs>
     </CustomBuild>
-    <None Include="Src\LL3D\Shaders\Material.fx">
+    <None Include="Shaders\Material.fx">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
@@ -84,7 +68,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>matrix</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>LL3D</ProjectName>
+    <ProjectName>Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -101,7 +85,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -136,11 +120,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExecutablePath>$(VC_ExecutablePath_x64);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(FxCopDir);$(PATH);</ExecutablePath>
-    <IncludePath>$(SolutionDir)Src\ThirdParty\FX11\inc;$(SolutionDir)Src\ThirdParty\DirectXTK\Inc;$(SolutionDir)Src\ThirdParty\utf8_v2_3_4\source;$(SolutionDir)Src\LL3D;D:\local\boost_1_59_0;$(WindowsSDK_IncludePath);$(VC_IncludePath);D:\workspace\LL3D\Src\ThirdParty\plog\include</IncludePath>
-    <LibraryPath>$(SolutionDir)Src\ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
-    <OutDir>$(SolutionDir)Bin\</OutDir>
-    <IntDir>$(SolutionDir)Build\</IntDir>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(SolutionDir)Source\ThirdParty\FX11\inc;$(SolutionDir)Source\ThirdParty\plog\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Source\ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
