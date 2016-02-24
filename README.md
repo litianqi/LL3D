@@ -6,10 +6,10 @@ A C++/DirectX11 3D game engine.
 
 **Under development.**
 
-## TODO
+## Progress
 
-* Light
-* Make engine itself a standalone lib, and put test codes to a exe project.
+* ~~Light~~
+* ~~Make engine itself a standalone lib, and put test codes to a exe project.~~
 * Texture
 * ...
 
