@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Encoding.cpp" />
@@ -31,7 +31,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Debug.h" />

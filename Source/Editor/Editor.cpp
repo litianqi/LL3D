@@ -96,33 +96,17 @@ Editor::Editor():
   engine_.SetLights(lights_);
 }
 
-void Editor::SetMaxFPS(int fps) {
-  max_fps_ = fps;
-}
-
 void Editor::Update() {
-  if (max_fps_ > 0) {
-    // If time spent sine last frame less than max_fps_, sleep
-    int td_spent = timer_.RunDurationMs() - td_before_last_draw_;
-    const int td_per_frame = static_cast<int>(1000.0 / max_fps_);
-    if (td_spent > td_per_frame) {
-      td_before_last_draw_ = timer_.RunDurationMs();
-      
-      DoUpdate();
-    }
-    else {
-      auto time = td_per_frame - td_spent;
-      Sleep(time > 10 ? 10 : time);
-    }
+  if (lights_.spots.size() > 0) {
+    lights_.spots[0].position = editor_camera_.GetPosition();
+    lights_.spots[0].direction = editor_camera_.GetForwardVector();
   }
-  else {
-    td_before_last_draw_ = timer_.RunDurationMs();
-    
-    DoUpdate();
-  }
+  engine_.SetLights(lights_);
+  engine_.Update(std::chrono::milliseconds{ 0 }); // TODO: remove fake value.
 }
 
 void Editor::Render() {
+  engine_.Draw();
 }
 
 void Editor::OnMouseDown(const MouseButtonEvent & event) {
@@ -171,16 +155,4 @@ void Editor::OnResize() {
 
   engine_.OnResize();
   engine_.Draw();  // TODO: condider delete this line, only draw in main loop.
-}
-
-void Editor::DoUpdate() {
-  if (lights_.spots.size() > 0) {
-    lights_.spots[0].position = editor_camera_.GetPosition();
-    lights_.spots[0].direction = editor_camera_.GetForwardVector();
-  }
-  engine_.SetLights(lights_);
-  //lights_.points[0].position = td_before_last_draw_
-
-  // TODO: engine_.Update(0);
-  engine_.Draw();
 }

@@ -33,10 +33,10 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
+    <ClCompile Include="UIEvents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UIEvents.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,10 +80,10 @@
     <ClInclude Include="Model.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
+    <ClInclude Include="UIEvents.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="UIEvents.h">
+    <ClInclude Include="Game.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

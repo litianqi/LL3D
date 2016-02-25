@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "Game.h"
 
 void LL3D::Game::Run() {
   MSG msg = { 0 };
@@ -10,6 +10,8 @@ void LL3D::Game::Run() {
       DispatchMessage(&msg);
     }
 
+    Sleep(20);  // TODO: remove hardcode.
     Update();
+    Render();
   }
 }

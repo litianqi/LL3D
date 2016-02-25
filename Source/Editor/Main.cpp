@@ -15,7 +15,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 #endif
 
   Editor app;
-  app.SetMaxFPS(60);
   app.Run();
 
   return 0;
