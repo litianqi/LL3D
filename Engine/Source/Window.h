@@ -2,6 +2,7 @@
 
 #include <string>
 #include <Windows.h>
+#include "Core\Uncopyable.h"
 #include "Type.h"
 
 namespace LL3D {
@@ -10,7 +11,7 @@ struct MouseButtonEvent;
 struct MouseScrollEvent;
 
 // Win-32 window wrapper.
-class Window {  // TODO: Inherit uncopyable.
+class Window : private Uncopyable {
 public:
   enum ShowState {
     Minimized,

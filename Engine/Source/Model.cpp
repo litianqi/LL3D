@@ -23,6 +23,10 @@ Vertex::InputLayout::InputLayout(ID3D11Device* device, BasicEffect& effect) {
     pass_desc.IAInputSignatureSize, &layout_));
 }
 
+Vertex::InputLayout::~InputLayout() {
+  layout_->Release();
+}
+
 Vertex::InputLayout::operator ID3D11InputLayout*() {
   return layout_;
 }

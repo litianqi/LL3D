@@ -16,7 +16,8 @@ Engine::Engine(Window* window, const Camera* camera) :
   camera_(camera)
 {
   InitDirectX11();
-  effect_.reset(new BasicEffect(dx_device_, "Shaders/Main.fxo"));
+  // TODO: remove hard code.
+  effect_.reset(new BasicEffect(dx_device_, "../x64/Debug/Shaders/Main.fxo"));
   input_layout_.reset(new Vertex::InputLayout(dx_device_, *effect_));
 }
 

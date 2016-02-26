@@ -18,6 +18,10 @@ Effect::Effect(ID3D11Device * device, filesystem::path file) {
     0, device, &effect_));
 }
 
+Effect::~Effect() {
+  effect_->Release();
+}
+
 BasicEffect::BasicEffect(ID3D11Device * device, filesystem::path file) :
 Effect(device, file) {
   tech_ = effect_->GetTechniqueByName("Tech");

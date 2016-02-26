@@ -4,6 +4,7 @@
 #include <DirectXMath.h>
 #include "Lights.h"
 #include "Material.h"
+#include "Core\Uncopyable.h"
 
 struct ID3D11Device;
 struct ID3DX11Effect;
@@ -18,10 +19,10 @@ namespace LL3D {
 namespace filesystem = std::experimental::filesystem;
 using namespace DirectX;
 
-class Effect {
+class Effect : private Uncopyable {
 public:
   Effect(ID3D11Device* device, filesystem::path file);
-
+  ~Effect();
 protected:
   ID3DX11Effect* effect_;
 };

@@ -19,55 +19,56 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Effects.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="Encoding.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="UIEvents.cpp" />
-    <ClCompile Include="FirstPersonalCamera.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Stopwatch.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Source\Effects.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Debug.cpp" />
+    <ClCompile Include="Source\Encoding.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\UIEvents.cpp" />
+    <ClCompile Include="Source\FirstPersonalCamera.cpp" />
+    <ClCompile Include="Source\Model.cpp" />
+    <ClCompile Include="Source\Stopwatch.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="Effects.h" />
-    <ClInclude Include="Encoding.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="UIEvents.h" />
-    <ClInclude Include="FirstPersonalCamera.h" />
-    <ClInclude Include="Lights.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Type.h" />
-    <ClInclude Include="Stopwatch.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Source\Core\Uncopyable.h" />
+    <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Color.h" />
+    <ClInclude Include="Source\Debug.h" />
+    <ClInclude Include="Source\Effects.h" />
+    <ClInclude Include="Source\Encoding.h" />
+    <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\UIEvents.h" />
+    <ClInclude Include="Source\FirstPersonalCamera.h" />
+    <ClInclude Include="Source\Lights.h" />
+    <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\Model.h" />
+    <ClInclude Include="Source\Type.h" />
+    <ClInclude Include="Source\Stopwatch.h" />
+    <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Light.fx">
+    <None Include="Source\Shaders\Light.fx">
       <FileType>Document</FileType>
     </None>
-    <CustomBuild Include="Shaders\Main.fx">
+    <CustomBuild Include="Source\Shaders\Main.fx">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders/%(Filename).cso</ObjectFileOutput>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(OutDir)Shaders\%(Filename).fxo" "%(FullPath)"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders\%(Filename).fxo</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)Resources/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Resources/Shaders/%(Filename).fxo</Outputs>
     </CustomBuild>
-    <None Include="Shaders\Material.fx">
+    <None Include="Source\Shaders\Material.fx">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{543B5569-7C16-41AF-95A2-62E39C0576BD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>matrix</RootNamespace>
+    <RootNamespace>engine</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>Engine</ProjectName>
   </PropertyGroup>
@@ -122,8 +123,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)Source\ThirdParty\FX11\inc;$(SolutionDir)Source\ThirdParty\plog\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Source\ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>

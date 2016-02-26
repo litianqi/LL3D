@@ -3,6 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <D3D11.h>
+#include "Core\Uncopyable.h"
 #include "Camera.h"
 #include "Effects.h"
 #include "Model.h"
@@ -24,7 +25,7 @@ struct MouseButtonEvent;
 struct MouseScrollEvent;
 class Window;
 
-class Engine {
+class Engine : private Uncopyable {
 public:
   Engine(Window* window, const Camera* camera);
   ~Engine();

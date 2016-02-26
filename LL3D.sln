@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Source\Engine\Engine.vcxproj", "{543B5569-7C16-41AF-95A2-62E39C0576BD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{543B5569-7C16-41AF-95A2-62E39C0576BD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DF460EAB-570D-4B50-9089-2E2FC801BF38} = {DF460EAB-570D-4B50-9089-2E2FC801BF38}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Source\Editor\Editor.vcxproj", "{7AA4C43B-094F-4F3C-AA48-6ABE085C564A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Editor\Editor.vcxproj", "{7AA4C43B-094F-4F3C-AA48-6ABE085C564A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{543B5569-7C16-41AF-95A2-62E39C0576BD} = {543B5569-7C16-41AF-95A2-62E39C0576BD}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Effects11", "Source\ThirdParty\FX11\Effects11_2015.vcxproj", "{DF460EAB-570D-4B50-9089-2E2FC801BF38}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Effects11", "ThirdParty\FX11\Effects11_2015.vcxproj", "{DF460EAB-570D-4B50-9089-2E2FC801BF38}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plog", "Source\ThirdParty\plog\plog.vcxproj", "{A97B0068-D04A-44EA-BC9A-8F9AB81FEFB6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plog", "ThirdParty\plog\plog.vcxproj", "{A97B0068-D04A-44EA-BC9A-8F9AB81FEFB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

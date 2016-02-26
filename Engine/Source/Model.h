@@ -3,6 +3,7 @@
 #include <vector>
 #include <DirectXMath.h>
 #include "Material.h"
+#include "Core\Uncopyable.h"
 
 struct ID3D11Device;
 struct ID3D11InputLayout;
@@ -15,9 +16,11 @@ class BasicEffect;
 
 struct Vertex {
 
-  class InputLayout {
+  class InputLayout : private Uncopyable {
   public:
     InputLayout(ID3D11Device* device, BasicEffect& effect);
+    ~InputLayout();
+
     operator ID3D11InputLayout*();
 
   private:
