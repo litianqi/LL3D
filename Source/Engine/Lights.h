@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <DirectXMath.h>
 
 namespace LL3D {

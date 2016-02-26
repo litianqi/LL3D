@@ -4,11 +4,26 @@
 #include <DirectXMath.h>
 #include "Material.h"
 
+struct ID3D11Device;
+struct ID3D11InputLayout;
+
 namespace LL3D {
 
 using namespace DirectX;
 
+class BasicEffect;
+
 struct Vertex {
+
+  class InputLayout {
+  public:
+    InputLayout(ID3D11Device* device, BasicEffect& effect);
+    operator ID3D11InputLayout*();
+
+  private:
+    ID3D11InputLayout* layout_;
+  };
+
   XMVECTOR position;
   XMVECTOR normal;
 };
@@ -26,8 +41,8 @@ struct Model {
 };
 
 // Helper function for DirectX to combine multiple meshs.
-Model::Mesh DXCombine(const Model::Mesh& lhs, const Model::Mesh& rhs);
-Model::Mesh DXCombine(const std::vector<Model>& meshs);
+Model::Mesh CombineMeshes(const Model::Mesh& lhs, const Model::Mesh& rhs);
+Model::Mesh CombineMeshes(const std::vector<Model>& meshs);
 
 // Creates a box centered at the origin with the given dimensions.
 Model::Mesh CreateBox(float width, float height, float depth);

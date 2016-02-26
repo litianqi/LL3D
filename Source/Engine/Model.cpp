@@ -1,10 +1,33 @@
 #include "Model.h"
 #include <DirectXMath.h>
+#include <D3D11.h>
+#include <d3dx11effect.h>
 #include "Color.h"
+#include "Effects.h"
+#include "Debug.h"
 
 namespace LL3D {
 
-Model::Mesh DXCombine(const Model::Mesh & lhs, const Model::Mesh & rhs) {
+Vertex::InputLayout::InputLayout(ID3D11Device* device, BasicEffect& effect) {
+  // Create the vertex input layout.
+  D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
+  {
+    { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "NORMAL",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+  };
+
+  // Create the input layout
+  D3DX11_PASS_DESC pass_desc;
+  effect.GetPass(0)->GetDesc(&pass_desc);
+  HR(device->CreateInputLayout(vertex_desc, 2, pass_desc.pIAInputSignature,
+    pass_desc.IAInputSignatureSize, &layout_));
+}
+
+Vertex::InputLayout::operator ID3D11InputLayout*() {
+  return layout_;
+}
+
+Model::Mesh CombineMeshes(const Model::Mesh & lhs, const Model::Mesh & rhs) {
   Model::Mesh result = lhs;
 
   result.vertices.insert(result.vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
@@ -13,10 +36,10 @@ Model::Mesh DXCombine(const Model::Mesh & lhs, const Model::Mesh & rhs) {
   return result;
 }
 
-Model::Mesh DXCombine(const std::vector<Model>& meshs) {
+Model::Mesh CombineMeshes(const std::vector<Model>& meshs) {
   Model::Mesh result;
   for (const auto& mesh : meshs) {
-    result = DXCombine(result, mesh.mesh);
+    result = CombineMeshes(result, mesh.mesh);
   }
   return result;
 }

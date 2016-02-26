@@ -3,11 +3,11 @@
 #include <vector>
 #include <chrono>
 #include <D3D11.h>
-#include <d3dx11effect.h>
 #include "Camera.h"
+#include "Effects.h"
 #include "Model.h"
 #include "Type.h"
-#include "Light.h"
+#include "Lights.h"
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;
@@ -30,7 +30,7 @@ public:
   ~Engine();
 
   void Update(std::chrono::milliseconds dt) {}
-  void Draw();
+  void Render();
 
   void SetCamera(const Camera* camera);
   void SetModels(const std::vector<Model>& models);
@@ -39,9 +39,7 @@ public:
   void OnResize();
 
 private:
-  void InitDX();
-  void LoadEffectFile();
-  void CreateInputLayout();
+  void InitDirectX11();
   
   ID3D11Device* dx_device_;
   ID3D11DeviceContext* dx_context_;
@@ -50,28 +48,14 @@ private:
   ID3D11RenderTargetView* dx_render_target_view_;
   ID3D11DepthStencilView* dx_depth_stencil_view_;
   D3D11_VIEWPORT dx_viewport_;
-  ID3D11InputLayout* dx_input_layout_;
   ID3D11Buffer* dx_vertex_buffer_;
   ID3D11Buffer* dx_index_buffer_;
   Model::Mesh dx_mesh_;
-  
-  ID3DX11EffectTechnique* fx_tech_;
-  ID3DX11Effect* fx_effect_;
-  
-  // Per Frame:
-  ID3DX11EffectVariable* fx_ambient_light_;
-  ID3DX11EffectVariable* fx_directional_light_;
-  ID3DX11EffectVariable* fx_point_light_;
-  ID3DX11EffectVariable* fx_spot_light_;
-  ID3DX11EffectVectorVariable* fx_eye_pos_w_;
-  
-  // Per Object:
-  ID3DX11EffectMatrixVariable* fx_wvp_;
-  ID3DX11EffectMatrixVariable* fx_world_;
-  ID3DX11EffectVariable* fx_material_;
 
   Window* window_;
   const Camera* camera_;
+  std::unique_ptr<BasicEffect> effect_;
+  std::unique_ptr<Vertex::InputLayout> input_layout_;
   std::vector<Model> models_;
   Lights lights_;
   

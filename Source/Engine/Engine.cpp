@@ -1,8 +1,7 @@
 #include "Engine.h"
 #include <exception>
-#include <filesystem>
-#include <fstream>
 #include <D3D11.h>
+#include <d3dx11effect.h>
 #include <plog\Log.h>
 #include "Window.h"
 #include "Debug.h"
@@ -16,16 +15,14 @@ Engine::Engine(Window* window, const Camera* camera) :
   window_(window),
   camera_(camera)
 {
-  InitDX();
-  LoadEffectFile();
-  CreateInputLayout();
+  InitDirectX11();
+  effect_.reset(new BasicEffect(dx_device_, "Shaders/Main.fxo"));
+  input_layout_.reset(new Vertex::InputLayout(dx_device_, *effect_));
 }
 
 Engine::~Engine() {
   dx_vertex_buffer_->Release();
   dx_index_buffer_->Release();
-  fx_effect_->Release();
-  dx_input_layout_->Release();
   dx_render_target_view_->Release();
   dx_depth_stencil_view_->Release();
   dx_swap_chain_->Release();
@@ -39,11 +36,11 @@ Engine::~Engine() {
   dx_device_->Release();
 }
 
-void Engine::Draw() {
+void Engine::Render() {
   dx_context_->ClearRenderTargetView(dx_render_target_view_, reinterpret_cast<const float*>(&Colors::Grey));
   dx_context_->ClearDepthStencilView(dx_depth_stencil_view_, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0); 
 
-  dx_context_->IASetInputLayout(dx_input_layout_);
+  dx_context_->IASetInputLayout(*input_layout_);
   dx_context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
   UINT stride = sizeof(Vertex);
@@ -52,24 +49,10 @@ void Engine::Draw() {
   dx_context_->IASetIndexBuffer(dx_index_buffer_, DXGI_FORMAT_R32_UINT, 0);
 
   // Set per frame constant buffer.
-  for (auto light : lights_.ambients) {
-    fx_ambient_light_->SetRawValue(&light, 0, sizeof(AmbientLight));
-  }
-  for (auto light : lights_.directionals) {
-    fx_directional_light_->SetRawValue(&light, 0, sizeof(DirectionalLight));
-  }
-  for (auto light : lights_.points) {
-    fx_point_light_->SetRawValue(&light, 0, sizeof(PointLight));
-  }
-  for (auto light : lights_.spots) {
-    fx_spot_light_->SetRawValue(&light, 0, sizeof(SpotLight));
-  }
-  fx_eye_pos_w_->SetFloatVector(reinterpret_cast<float*>(&camera_->GetPosition()));
+  effect_->SetLights(lights_);
+  effect_->SetEyePosW(camera_->GetPosition());
 
-  D3DX11_TECHNIQUE_DESC tech_desc;
-  fx_tech_->GetDesc(&tech_desc);
-
-  for (UINT pass = 0; pass < tech_desc.Passes; ++pass) {
+  for (UINT pass = 0; pass < effect_->GetPassNum(); ++pass) {
     UINT index_count = 0;
     UINT vertex_count = 0;
     UINT index_begin = 0;
@@ -77,9 +60,9 @@ void Engine::Draw() {
     
     for (const auto& model : models_) {
       // Set per object constant buffer.
-      fx_world_->SetMatrix(reinterpret_cast<const float*>(&(model.world)));
-      fx_wvp_->SetMatrix(reinterpret_cast<float*>(&(model.world * camera_->GetViewProjectionMatrix())));
-      fx_material_->SetRawValue(&(model.material), 0, sizeof(model.material));
+      effect_->SetWorldMatrix(model.world);
+      effect_->SetWVPMatrix(model.world * camera_->GetViewProjectionMatrix());
+      effect_->SetMaterial(model.material);
 
       // Draw object.
       index_begin += index_count;
@@ -87,7 +70,7 @@ void Engine::Draw() {
       index_count = static_cast<UINT>(model.mesh.indices.size());
       vertex_count = static_cast<UINT>(model.mesh.vertices.size());
      
-      fx_tech_->GetPassByIndex(pass)->Apply(0, dx_context_);
+      effect_->GetPass(pass)->Apply(0, dx_context_);
       dx_context_->DrawIndexed(index_count, index_begin, vertex_begin);
     }
   }
@@ -104,7 +87,7 @@ void Engine::SetModels(const std::vector<Model>& models) {
   // Cached for Draw;
   models_ = models;
   
-  dx_mesh_ = DXCombine(models);
+  dx_mesh_ = CombineMeshes(models);
 
   D3D11_BUFFER_DESC vbd;
   vbd.Usage = D3D11_USAGE_IMMUTABLE;
@@ -204,7 +187,7 @@ void Engine::OnResize() {
   dx_context_->RSSetViewports(1, &dx_viewport_);
 }
 
-void Engine::InitDX() {
+void Engine::InitDirectX11() {
   // Create the device and device context.
 
   UINT createDeviceFlags = 0;
@@ -288,56 +271,6 @@ void Engine::InitDX() {
   // just call the OnResize method here to avoid code duplication.
 
   OnResize();
-}
-
-void Engine::LoadEffectFile() {
-  // File -> Memory:
-  
-  // Open file
-  
-  std::ifstream file("Shaders/Main.fxo", std::ios::binary);
-  ASSERT(file.is_open());
-  
-  // Create buffer equal to file size
-  
-  auto size = std::experimental::filesystem::file_size("Shaders/Main.fxo");
-  std::vector<char> content(static_cast<unsigned>(size));
-  
-  // Copy file content to buffer
-  
-  file.read(content.data(), size);
-  
-  // Deserialize:
-  
-  HR(D3DX11CreateEffectFromMemory(content.data(), size,
-    0, dx_device_, &fx_effect_));
-  
-  fx_ambient_light_ = fx_effect_->GetVariableByName("g_ambient_light");
-  fx_directional_light_ = fx_effect_->GetVariableByName("g_directional_light");
-  fx_point_light_ = fx_effect_->GetVariableByName("g_point_light");
-  fx_spot_light_ = fx_effect_->GetVariableByName("g_spot_light");
-  fx_eye_pos_w_ = fx_effect_->GetVariableByName("g_eye_pos_w")->AsVector();
-
-  fx_world_ = fx_effect_->GetVariableByName("g_world")->AsMatrix();
-  fx_wvp_ = fx_effect_->GetVariableByName("g_wvp")->AsMatrix();
-  fx_material_ = fx_effect_->GetVariableByName("g_material");
-  
-  fx_tech_ = fx_effect_->GetTechniqueByName("Tech");
-}
-
-void Engine::CreateInputLayout() {
-  // Create the vertex input layout.
-  D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
-  {
-    { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "NORMAL",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-  };
-
-  // Create the input layout
-  D3DX11_PASS_DESC pass_desc;
-  fx_tech_->GetPassByIndex(0)->GetDesc(&pass_desc);
-  HR(dx_device_->CreateInputLayout(vertex_desc, 2, pass_desc.pIAInputSignature,
-    pass_desc.IAInputSignatureSize, &dx_input_layout_));
 }
 
 }  // namespace LL3D

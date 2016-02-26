@@ -106,7 +106,7 @@ void Editor::Update() {
 }
 
 void Editor::Render() {
-  engine_.Draw();
+  engine_.Render();
 }
 
 void Editor::OnMouseDown(const MouseButtonEvent & event) {
@@ -154,5 +154,5 @@ void Editor::OnResize() {
   editor_camera_.SetFrustum(frustum);
 
   engine_.OnResize();
-  engine_.Draw();  // TODO: condider delete this line, only draw in main loop.
+  engine_.Render();  // TODO: condider delete this line, only draw in main loop.
 }

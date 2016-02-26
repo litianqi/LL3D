@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -35,12 +36,12 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="Effect.h" />
+    <ClInclude Include="Effects.h" />
     <ClInclude Include="Encoding.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="UIEvents.h" />
     <ClInclude Include="FirstPersonalCamera.h" />
-    <ClInclude Include="Light.h" />
+    <ClInclude Include="Lights.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Type.h" />

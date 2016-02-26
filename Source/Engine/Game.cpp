@@ -1,6 +1,8 @@
 #include "Game.h"
 
-void LL3D::Game::Run() {
+namespace LL3D {
+
+void Game::Run() {
   MSG msg = { 0 };
 
   while (msg.message != WM_QUIT) {
@@ -15,3 +17,6 @@ void LL3D::Game::Run() {
     Render();
   }
 }
+
+}
+
