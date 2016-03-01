@@ -28,7 +28,7 @@ Editor::Editor():
 
   // Add Models:
 
-  Model m1;
+  /*Model m1;
   m1.mesh = CreateGrid(100, 100, 2, 2);
   m1.world = XMMatrixIdentity();
   m1.material = Material{
@@ -56,12 +56,24 @@ Editor::Editor():
     XMVECTOR{ 0.0f, 0, 1, 1 },
     XMVECTOR{ 0.0f, 0.0f, 0.0f, 1 },
     9.0f
-  };
+  };*/
 
+  auto m1_material = Material{
+    XMVECTOR{ 1, 1, 1, 1 },
+    XMVECTOR{ 1, 1, 1, 1 },
+    XMVECTOR{ 1, 1, 1, 1 },
+    9.0f
+  };
+  Model m1(
+    engine_.GetDevice(),
+    CreateBox(10, 10, 10),
+    XMMatrixTranslation(-15, 5, 0),
+    m1_material,
+    u8"Resource/Textures/WoodCrate02.dds"
+    );
+  
   std::vector<Model> meshs;
   meshs.push_back(m1);
-  meshs.push_back(m2);
-  meshs.push_back(m3);
 
   engine_.SetModels(meshs);
 

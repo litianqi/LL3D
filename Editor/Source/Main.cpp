@@ -1,8 +1,9 @@
 #include <Windows.h>
 #include <plog\Log.h>
 #include "Editor.h"
-#include "Model.h"
-#include "Color.h"
+#include "Core\Exceptions.h"
+
+using namespace LL3D;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
   PSTR cmdLine, int showCmd) {
@@ -14,8 +15,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-  Editor app;
-  app.Run();
+  try {
+    Editor app;
+    app.Run();
+  }
+  catch (ComException& e) {
+    LOGF << e.what();
+  }
+  
 
   return 0;
 }

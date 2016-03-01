@@ -1,5 +1,5 @@
 #include "EditorCamera.h"
-#include "Debug.h"
+#include "Core/Assert.h"
 
 EditorCamera::EditorCamera(Frustum frustum, XMVECTOR position, XMVECTOR forward_vector) :
   Camera(frustum, position, forward_vector) {

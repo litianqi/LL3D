@@ -1,51 +1,63 @@
 #pragma once
 
 #include <vector>
+#include <filesystem>
+#include <wrl.h>
 #include <DirectXMath.h>
 #include "Material.h"
 #include "Core\Uncopyable.h"
 
 struct ID3D11Device;
+struct ID3D11DeviceContext;
 struct ID3D11InputLayout;
+struct ID3D11Buffer;
 
 namespace LL3D {
 
 using namespace DirectX;
+using namespace std::experimental;
 
+class Effect;
 class BasicEffect;
 
 struct Vertex {
 
   class InputLayout : private Uncopyable {
   public:
-    InputLayout(ID3D11Device* device, BasicEffect& effect);
-    ~InputLayout();
+    InputLayout(ID3D11Device* device, Effect* effect);
 
     operator ID3D11InputLayout*();
 
   private:
-    ID3D11InputLayout* layout_;
+    Microsoft::WRL::ComPtr<ID3D11InputLayout> layout_;
   };
 
   XMVECTOR position;
   XMVECTOR normal;
+  XMFLOAT2 texture_coordinate;
 };
 
-struct Model {
-
+class Model {
+public:
   struct Mesh {
-    std::vector<Vertex> vertices;
+    std::vector<Vertex>       vertices;
     std::vector<unsigned int> indices;
   };
-  
-  Mesh mesh;
-  XMMATRIX world;
-  Material material;
-};
 
-// Helper function for DirectX to combine multiple meshs.
-Model::Mesh CombineMeshes(const Model::Mesh& lhs, const Model::Mesh& rhs);
-Model::Mesh CombineMeshes(const std::vector<Model>& meshs);
+  Model(ID3D11Device* device, const Mesh& mesh, DirectX::FXMMATRIX world, const Material& material, const std::string& texture_path);
+  ~Model() {}
+  
+  void Render(ID3D11DeviceContext* device_context, BasicEffect* effect, ID3D11InputLayout* input_layout);
+
+private:
+  Mesh         mesh_;
+  XMMATRIX     world_;
+  Material     material_;
+  std::string  texture_path_;
+  
+  Microsoft::WRL::ComPtr<ID3D11Buffer>  index_buffer_;
+  Microsoft::WRL::ComPtr<ID3D11Buffer>  vertex_buffer_;
+};
 
 // Creates a box centered at the origin with the given dimensions.
 Model::Mesh CreateBox(float width, float height, float depth);

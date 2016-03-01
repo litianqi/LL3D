@@ -19,34 +19,38 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Assets.cpp" />
+    <ClCompile Include="Source\Core\Assert.cpp" />
+    <ClCompile Include="Source\Core\Encoding.cpp" />
+    <ClCompile Include="Source\Core\Exceptions.cpp" />
+    <ClCompile Include="Source\Core\Stopwatch.cpp" />
     <ClCompile Include="Source\Effects.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\Debug.cpp" />
-    <ClCompile Include="Source\Encoding.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\UIEvents.cpp" />
     <ClCompile Include="Source\FirstPersonalCamera.cpp" />
     <ClCompile Include="Source\Model.cpp" />
-    <ClCompile Include="Source\Stopwatch.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Core\Uncopyable.h" />
-    <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Color.h" />
-    <ClInclude Include="Source\Debug.h" />
+    <ClInclude Include="Source\Core\Assert.h" />
+    <ClInclude Include="Source\Core\Encoding.h" />
+    <ClInclude Include="Source\Core\Exceptions.h" />
+    <ClInclude Include="Source\Core\Stopwatch.h" />
+    <ClInclude Include="Source\Core\Types.h" />
+    <ClInclude Include="Source\Core\Uncopyable.h" />
     <ClInclude Include="Source\Effects.h" />
-    <ClInclude Include="Source\Encoding.h" />
     <ClInclude Include="Source\Engine.h" />
-    <ClInclude Include="Source\UIEvents.h" />
     <ClInclude Include="Source\FirstPersonalCamera.h" />
+    <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Lights.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Model.h" />
-    <ClInclude Include="Source\Type.h" />
-    <ClInclude Include="Source\Stopwatch.h" />
+    <ClInclude Include="Source\UIEvents.h" />
     <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -58,8 +62,8 @@
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)Resources/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Resources/Shaders/%(Filename).fxo</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)Resource/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Resource/Shaders/%(Filename).fxo</Outputs>
     </CustomBuild>
     <None Include="Source\Shaders\Material.fx">
       <FileType>Document</FileType>
@@ -122,11 +126,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)ThirdParty\FX11\Bin\Desktop_2015\x64\Debug;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -157,6 +156,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4838</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(ProjectDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

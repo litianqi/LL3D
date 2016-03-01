@@ -3,7 +3,7 @@
 #include <string>
 #include <Windows.h>
 #include "Core\Uncopyable.h"
-#include "Type.h"
+#include "Core/Types.h"
 
 namespace LL3D {
 
@@ -21,7 +21,7 @@ public:
   };
 
   Window();
-  ~Window();
+  virtual ~Window();
 
   HWND GetHandle() const;
 

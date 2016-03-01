@@ -1,5 +1,5 @@
 #include "FirstPersonalCamera.h"
-#include "Debug.h"
+#include "Core/Assert.h"
 
 namespace LL3D {
 

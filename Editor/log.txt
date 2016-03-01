@@ -1,0 +1,9 @@
+﻿2016-03-01 21:54:18.437 FATAL [19312] [LL3D::Assets::Instance@31] Assert failed with s_instance = 0000000000000000
+	Win32 Error Status:
+		Error Code:    0
+		Error Message: 
+
+2016-03-01 22:14:51.614 FATAL [19908] [WinMain@23] Failure with HRESULT of 0x80004005
+Description: Unspecified error
+2016-03-01 22:16:39.500 FATAL [15148] [WinMain@23] Failure with HRESULT of 0x80004005
+Description: Unspecified error

@@ -2,50 +2,85 @@
 #include <DirectXMath.h>
 #include <D3D11.h>
 #include <d3dx11effect.h>
+#include "Core/Assert.h"
+#include "Core/Exceptions.h"
 #include "Color.h"
 #include "Effects.h"
-#include "Debug.h"
+#include "Assets.h"
 
 namespace LL3D {
 
-Vertex::InputLayout::InputLayout(ID3D11Device* device, BasicEffect& effect) {
-  // Create the vertex input layout.
+Vertex::InputLayout::InputLayout(ID3D11Device* device, Effect* effect) {
   D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
   {
     { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "NORMAL",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+    { "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+    { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 }
   };
 
-  // Create the input layout
-  D3DX11_PASS_DESC pass_desc;
-  effect.GetPass(0)->GetDesc(&pass_desc);
-  HR(device->CreateInputLayout(vertex_desc, 2, pass_desc.pIAInputSignature,
-    pass_desc.IAInputSignatureSize, &layout_));
-}
-
-Vertex::InputLayout::~InputLayout() {
-  layout_->Release();
+  const void* shader_bytecode;
+  size_t shader_bytecode_size;
+  effect->GetVertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
+  ThrowIfFailed(
+    device->CreateInputLayout(vertex_desc, 3, shader_bytecode, shader_bytecode_size, &layout_)
+    );
 }
 
 Vertex::InputLayout::operator ID3D11InputLayout*() {
-  return layout_;
+  return layout_.Get();
 }
 
-Model::Mesh CombineMeshes(const Model::Mesh & lhs, const Model::Mesh & rhs) {
-  Model::Mesh result = lhs;
 
-  result.vertices.insert(result.vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
-  result.indices.insert(result.indices.end(), rhs.indices.begin(), rhs.indices.end());
+Model::Model(ID3D11Device * device, const Mesh & mesh, DirectX::FXMMATRIX world,
+  const Material & material, const std::string & texture_path) :
+  mesh_(mesh), world_(world), material_(material), texture_path_(texture_path) {
 
-  return result;
+  // Creates vertext and index buffer.
+  D3D11_BUFFER_DESC vbd;
+  vbd.Usage = D3D11_USAGE_IMMUTABLE;
+  vbd.ByteWidth = static_cast<UINT>(sizeof(Vertex) * mesh.vertices.size());
+  vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+  vbd.CPUAccessFlags = 0;
+  vbd.MiscFlags = 0;
+  D3D11_SUBRESOURCE_DATA vinitData;
+  vinitData.pSysMem = mesh.vertices.data();
+
+  ThrowIfFailed(
+    device->CreateBuffer(&vbd, &vinitData, &vertex_buffer_)
+    );
+
+  D3D11_BUFFER_DESC ibd;
+  ibd.Usage = D3D11_USAGE_IMMUTABLE;
+  ibd.ByteWidth = static_cast<UINT>(sizeof(unsigned int) * mesh.indices.size());
+  ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+  ibd.CPUAccessFlags = 0;
+  ibd.MiscFlags = 0;
+  D3D11_SUBRESOURCE_DATA iinitData;
+  iinitData.pSysMem = mesh.indices.data();
+
+  ThrowIfFailed(
+    device->CreateBuffer(&ibd, &iinitData, &index_buffer_)
+    );
 }
 
-Model::Mesh CombineMeshes(const std::vector<Model>& meshs) {
-  Model::Mesh result;
-  for (const auto& mesh : meshs) {
-    result = CombineMeshes(result, mesh.mesh);
-  }
-  return result;
+void Model::Render(ID3D11DeviceContext * device_context, BasicEffect * effect, ID3D11InputLayout * input_layout) {
+
+  UINT stride = sizeof(Vertex);
+  UINT offset = 0;
+  device_context->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
+  device_context->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
+
+  //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
+  // Set per object constant buffer.
+  effect->SetWorld(world_);
+  effect->SetMaterial(material_);
+  effect->SetTextureTransform(XMMatrixIdentity());
+  effect->SetTexture(Assets::Instance()->GetTexture(texture_path_));
+
+  // Draw object.
+  effect->Apply(device_context);
+  device_context->DrawIndexed(static_cast<UINT>(mesh_.indices.size()), 0, 0);
+  //}
 }
 
 Model::Mesh CreateBox(float width, float height, float depth) {
@@ -60,40 +95,40 @@ Model::Mesh CreateBox(float width, float height, float depth) {
   float d2 = 0.5f*depth;
 
   // Create the back face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 1, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 1, 0 } });
 
   // Create the front face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 1, 1 } });
 
   // Create the top face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 1, 1 } });
                                                                         
   // Create the bottom face vertex data.                               
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 1, 1 } });
                                                                         
   // Create the left face vertex data.                                 
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 1, 1 } });
                                                                         
   // Create the right face vertex data.                                
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 1, 1 } });
 
 
   //

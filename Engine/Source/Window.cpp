@@ -1,8 +1,8 @@
 #include "Window.h"
 #include <windowsx.h>
 #include "UIEvents.h"
-#include "Type.h"
-#include "Debug.h"
+#include "Core/Types.h"
+#include "Core/Assert.h"
 
 namespace LL3D {
 

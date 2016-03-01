@@ -5,7 +5,7 @@
 #include "EditorCamera.h"
 #include "FirstPersonalCamera.h"
 #include "Engine.h"
-#include "Stopwatch.h"
+#include "Core/Stopwatch.h"
 
 using namespace DirectX;
 

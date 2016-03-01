@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Windows.h>
-#include "Type.h"
+#include "Core/Types.h"
 
 namespace LL3D {
 
