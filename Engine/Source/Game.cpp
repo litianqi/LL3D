@@ -1,6 +1,20 @@
 #include "Game.h"
+#include <fstream>
+#include "Core\Assert.h"
 
 namespace LL3D {
+
+Game::Game() {
+  std::ifstream ifs("Config/GraphicsDevice.json");
+  std::string content((std::istreambuf_iterator<char>(ifs)),
+    (std::istreambuf_iterator<char>()));
+
+  std::string err;
+  auto config = json11::Json::parse(content, err);
+  ASSERT(err.size() == 0 && "Config error (possibly no config file at all).");
+  graphics_device_.reset(new Graphics::GraphicsDevice(config,
+    GetClientRect().GetSize(), GetHandle()));
+}
 
 void Game::Run() {
   MSG msg = { 0 };
@@ -14,7 +28,6 @@ void Game::Run() {
 
     Sleep(20);  // TODO: remove hardcode.
     Update();
-    Render();
   }
 }
 

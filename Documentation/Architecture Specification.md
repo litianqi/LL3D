@@ -7,7 +7,7 @@ http://programmers.stackexchange.com/questions/102205/should-utf-16-be-considere
 
 ## Internationl
 
-Like [Unicode] section said, we use utf-8 for supporting international. 
+Like [Unicode] section said, we use utf-8 for international. 
 Other technologies are not employed, for this project is still tiny and no needs to display a lot of text.
 
 ## Portability
@@ -20,14 +20,20 @@ Windows 10 x64 only.
 
 ## Error Handling
 
-* For error from user side(wrong arguments. etc.): Use ASSERT, so user will know it.
-* For expected error: Throw a exception.
-  * For D3D error: Call ThrowIfFailed().
-* For unexpected error(hardware interruption. etc.): Use ASSERT, so we can get a dump and debug it.
+- For errors presumably detectable before the program executes, such as violations of logical preconditions or class invariants:
+  - If we want the error handling code only work in debug edition: use ASSERT.
+  - Else: use std::logic_error hierarchy.(sparely )
+- For errors presumably detectable only when the program executes: use std::runtime_error hierarchy.
+- When you do not think there is an error, but you want check it anyway: use ASSERT.
 
-# PIMPL
+## Singleton Problem
 
-We use this idiom everywhere.
+- Use Singleton only when this class will be accessed in whole application, for example logging/filesystem is, while graphics device is not(it only be used in graphics part of our application).
+- Otherwise, use pass in.
+
+## PIMPL
+
+// TODO
 
 
 # Game Specific
@@ -41,5 +47,5 @@ This way will make our development easier, And still function properly on x64 sy
 
 We use left hand coordinate system:
 
-![Coor Image 1](Coordinate System 1.jpg)
-![Coor Image 2](Coordinate System 2.jpg)
+![Left Hand Coor System](Coordinate System 1.jpg)
+![Some Common Terms in Coor System](Coordinate System 2.jpg)

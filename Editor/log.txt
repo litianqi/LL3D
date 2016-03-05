@@ -7,3 +7,18 @@
 Description: Unspecified error
 2016-03-01 22:16:39.500 FATAL [15148] [WinMain@23] Failure with HRESULT of 0x80004005
 Description: Unspecified error
+2016-03-05 15:59:40.045 FATAL [7112] [LL3D::Game::Game@9] Assert failed with err.size() == 0 && "Config error (possibly no config file at all)." = 0
+	Win32 Error Status:
+		Error Code:    0
+		Error Message: 
+
+2016-03-05 16:01:29.166 FATAL [14496] [LL3D::Game::Game@9] Assert failed with err.size() == 0 && "Config error (possibly no config file at all)." = 0
+	Win32 Error Status:
+		Error Code:    0
+		Error Message: 
+
+2016-03-05 16:13:00.240 FATAL [8624] [LL3D::Game::Game@14] Assert failed with err.size() == 0 && "Config error (possibly no config file at all)." = 0
+	Win32 Error Status:
+		Error Code:    0
+		Error Message: 
+

@@ -15,7 +15,6 @@ public:
 
 protected:
   virtual void Update() override;
-  virtual void Render() override;
 
   // Handle mouse inputs:
   virtual void OnMouseDown(const LL3D::MouseButtonEvent& event);

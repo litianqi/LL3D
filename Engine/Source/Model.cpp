@@ -31,9 +31,10 @@ Vertex::InputLayout::operator ID3D11InputLayout*() {
 }
 
 
-Model::Model(ID3D11Device * device, const Mesh & mesh, DirectX::FXMMATRIX world,
-  const Material & material, const std::string & texture_path) :
-  mesh_(mesh), world_(world), material_(material), texture_path_(texture_path) {
+Model::Model(ID3D11Device * device, const std::string& id, const Mesh & mesh, DirectX::FXMMATRIX world,
+  const Material & material, const std::string & texture_path, DirectX::FXMMATRIX texture_transform) :
+  device_(device), id_(id), mesh_(mesh), world_(world), material_(material), texture_path_(texture_path),
+  texture_transform_(texture_transform) {
 
   // Creates vertext and index buffer.
   D3D11_BUFFER_DESC vbd;
@@ -74,8 +75,8 @@ void Model::Render(ID3D11DeviceContext * device_context, BasicEffect * effect, I
   // Set per object constant buffer.
   effect->SetWorld(world_);
   effect->SetMaterial(material_);
-  effect->SetTextureTransform(XMMatrixIdentity());
-  effect->SetTexture(Assets::Instance()->GetTexture(texture_path_));
+  effect->SetTextureTransform(texture_transform_);
+  effect->SetTexture(CreateTexture(device_.Get(), texture_path_));
 
   // Draw object.
   effect->Apply(device_context);
@@ -255,33 +256,35 @@ Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
   return mesh;
 }
 
-// Creates an mxn grid in the xz-plane with m rows and n columns, centered
+// Creates an mxn grid in the xz-plane with rows rows and cols columns, centered
 // at the origin with the specified width and depth.
-Model::Mesh CreateGrid(float width, float depth, int m, int n) {
+Model::Mesh CreateGrid(float width, float depth, int rows, int cols) {
   Model::Mesh mesh;
 
   //
   // Calculates vertices.
   //
 
-  const int cnt_rects_x = m - 1;
-  const int cnt_rects_z = n - 1;
+  const int dx = static_cast<int>(width / (cols - 1));
+  const int dz = static_cast<int>(depth / (rows - 1));
 
-  float x_lb = -1.0f * width / 2.0f;
-  float z_lb = -1.0f * depth / 2.0f;
+  const float du = 1.0f / (cols - 1);
+  const float dv = 1.0f / (rows - 1);
 
-  // From bottom to top
-  for (int i = 0; i < n; i++) {
-    // Detemine z
-    const float z = z_lb + i * (depth / cnt_rects_z);
+  float half_width = width / 2.0f;
+  float half_depth = depth / 2.0f;
+
+  // From forward to back.
+  for (int i = 0; i < rows; i++) {
+    const float z = half_depth - i * dz;
     // From left to right
-    for (int j = 0; j < m; j++) {
-      // Determine x
-      const float x = x_lb + j * (width / cnt_rects_x);
+    for (int j = 0; j < cols; j++) {
+      const float x = -half_width + j * dx;
       // Create vertex.
       Vertex vertex{
         XMVECTOR{ x, 0.0, z, 1.0f },
-        XMVECTOR{ 0, 1.0f, 0 } };
+        XMVECTOR{ 0, 1.0f, 0 },
+        XMFLOAT2{ du*j, dv*i} };
 
       mesh.vertices.push_back(vertex);
     }
@@ -292,24 +295,26 @@ Model::Mesh CreateGrid(float width, float depth, int m, int n) {
   //
 
   // For each rect
-  for (int i = 0; i < cnt_rects_z; i++) {
-    for (int j = 0; j < cnt_rects_x; j++) {
+  // From forward to backward.
+  for (int i = 0; i < rows; i++) {
+    // From left to right
+    for (int j = 0; j < cols; j++) {
       // Get its four index.
-      const int index_lb = i * n + j;
-      const int index_rb = i * n + j + 1;
-      const int index_lt = (i + 1) * m + j;
-      const int index_rt = (i + 1) * m + j + 1;
+      const int index_lf = cols * i + j;
+      const int index_rf = cols * i + j + 1;
+      const int index_lb = cols * (i + 1) + j; // (i + 1) * rows + j;
+      const int index_rb = cols * (i + 1) + j + 1; // (i + 1) * rows + j + 1;
 
       // Split it to two triangles
 
       // Triangle 1
       mesh.indices.push_back(index_rb);
       mesh.indices.push_back(index_lb);
-      mesh.indices.push_back(index_lt);
+      mesh.indices.push_back(index_lf);
 
       // Triangle 2
-      mesh.indices.push_back(index_lt);
-      mesh.indices.push_back(index_rt);
+      mesh.indices.push_back(index_lf);
+      mesh.indices.push_back(index_rf);
       mesh.indices.push_back(index_rb);
     }
   }

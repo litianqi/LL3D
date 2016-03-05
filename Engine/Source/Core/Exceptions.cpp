@@ -6,8 +6,7 @@
 namespace LL3D {
 
 NotFound::NotFound(const std::string & what) :
-  std::runtime_error(what),
-  what_(what) {
+  std::runtime_error(what) {
 }
 
 ComException::ComException(HRESULT hr) {
@@ -20,6 +19,10 @@ ComException::ComException(HRESULT hr) {
 
 const char * ComException::what() const {
   return what_.c_str();
+}
+
+InvalidArgument::InvalidArgument(const std::string & what) :
+runtime_error(what) {
 }
 
 }  // namespace LL3D

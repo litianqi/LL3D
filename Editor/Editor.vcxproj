@@ -166,10 +166,16 @@
     <ProjectReference Include="..\ThirdParty\FX11\Effects11_2015.vcxproj">
       <Project>{df460eab-570d-4b50-9089-2e2fc801bf38}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\json11\json11.vcxproj">
+      <Project>{926e051c-ff60-4871-9200-62f8547f61ff}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Textures\darkbrick.bmp" />
     <Image Include="Resource\Textures\darkbrickdxt1.dds" />
+    <Image Include="Resource\Textures\grass.dds" />
+    <Image Include="Resource\Textures\water1.dds" />
+    <Image Include="Resource\Textures\water2.dds" />
     <Image Include="Resource\Textures\WoodCrate01.dds" />
     <Image Include="Resource\Textures\WoodCrate02.dds" />
   </ItemGroup>

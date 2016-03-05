@@ -44,7 +44,7 @@ VertexOut VS(VertexIn vin) {
   VertexOut vout;
 
   // Transform to homogeneous clip space.
-  vout.pos_h = mul(vin.pos_l, mul(mul(g_world, g_view), g_projection));
+  vout.pos_h = mul(vin.pos_l, mul(g_world, mul(g_view, g_projection)));
 
   // Transform to world space.
   vout.pos_w = mul(vin.pos_l, g_world);

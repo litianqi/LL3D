@@ -3,8 +3,16 @@
 #include "UIEvents.h"
 #include "Core/Types.h"
 #include "Core/Assert.h"
+#include "Windows.h"
 
 namespace LL3D {
+
+MessageOnlyWindow::MessageOnlyWindow() {
+
+}
+
+MessageOnlyWindow::~MessageOnlyWindow() {
+}
 
 Window::Window() {
   // Init wnd class

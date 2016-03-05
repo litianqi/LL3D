@@ -27,8 +27,11 @@ inline void ThrowIfFailed(HRESULT hr) {
 class NotFound : public std::runtime_error {
 public:
   NotFound(const std::string& what);
-private:
-  std::string what_;
+};
+
+class InvalidArgument : public std::runtime_error {
+public:
+  InvalidArgument(const std::string& what);
 };
 
 }  // namespace LL3D

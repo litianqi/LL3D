@@ -1,6 +1,17 @@
-# C++
+# C++ Features
 
-* Namespace: 
+## Namespace
+
+A library has its global namespace, if this library is large enough to have multiple modules, each module could (and suggest) has its own sub namespace.
+
+## RTTI
+
+In use.
+
+## Exception
+
+In use. For details on error handling, see Architecture Specification
+
 
 # Naming
 

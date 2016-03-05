@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\Graphics\GraphicsDevice.cpp" />
     <ClCompile Include="Source\UIEvents.cpp" />
     <ClCompile Include="Source\FirstPersonalCamera.cpp" />
     <ClCompile Include="Source\Model.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Color.h" />
+    <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\Core\Assert.h" />
     <ClInclude Include="Source\Core\Encoding.h" />
     <ClInclude Include="Source\Core\Exceptions.h" />
@@ -47,9 +49,16 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\FirstPersonalCamera.h" />
     <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Graphics\Camera.h" />
+    <ClInclude Include="Source\Graphics\GraphicsDevice.h" />
+    <ClInclude Include="Source\Graphics\Light.h" />
+    <ClInclude Include="Source\Graphics\GraphicsComponent.h" />
     <ClInclude Include="Source\Lights.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Model.h" />
+    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\UIEvents.h" />
     <ClInclude Include="Source\Window.h" />
   </ItemGroup>
@@ -68,6 +77,9 @@
     <None Include="Source\Shaders\Material.fx">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Source\Graphics\Template.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{543B5569-7C16-41AF-95A2-62E39C0576BD}</ProjectGuid>

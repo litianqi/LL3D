@@ -21,7 +21,7 @@ Editor::Editor():
       1000),
     XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
     XMVECTOR{ 0.0f, -100.0f, 100.0f }),
-  engine_(this, &editor_camera_)
+  engine_(graphics_device_.get(), this, &editor_camera_)
 {
   SetVisible(true);
   timer_.Start();
@@ -64,15 +64,27 @@ Editor::Editor():
     XMVECTOR{ 1, 1, 1, 1 },
     9.0f
   };
+  Model m0(
+    graphics_device_->GetDevice(),
+    "water",
+    CreateGrid(100, 100, 2, 2),
+    XMMatrixIdentity(),
+    m1_material,
+    u8"Resource/Textures/water2.dds",
+    XMMatrixScaling(1, 1, 1)
+    );
   Model m1(
-    engine_.GetDevice(),
+    graphics_device_->GetDevice(),
+    "box",
     CreateBox(10, 10, 10),
     XMMatrixTranslation(-15, 5, 0),
     m1_material,
-    u8"Resource/Textures/WoodCrate02.dds"
+    u8"Resource/Textures/WoodCrate02.dds",
+    XMMatrixIdentity()
     );
   
   std::vector<Model> meshs;
+  meshs.push_back(m0);
   meshs.push_back(m1);
 
   engine_.SetModels(meshs);
@@ -80,7 +92,7 @@ Editor::Editor():
   // Add Lights:
 
   AmbientLight ambient{
-    XMVECTOR{ 0.15f, 0.15f, 0.15f, 1.0f }
+    XMVECTOR{ 0.25f, 0.25f, 0.25f, 1.0f }
   };
   DirectionalLight directional{
     XMVECTOR{ 0.3f, 0.3f, 0.3f, 1.0f },
@@ -115,9 +127,6 @@ void Editor::Update() {
   }
   engine_.SetLights(lights_);
   engine_.Update(std::chrono::milliseconds{ 0 }); // TODO: remove fake value.
-}
-
-void Editor::Render() {
   engine_.Render();
 }
 
@@ -165,6 +174,6 @@ void Editor::OnResize() {
     static_cast<float>(GetClientRect().GetSize().w) / GetClientRect().GetSize().h);
   editor_camera_.SetFrustum(frustum);
 
-  engine_.OnResize();
+  graphics_device_->OnResize(IntSize2{ GetClientRect().GetSize().w, GetClientRect().GetSize().h });
   engine_.Render();  // TODO: condider delete this line, only draw in main loop.
 }

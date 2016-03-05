@@ -25,36 +25,28 @@ using namespace DirectX;
 struct MouseButtonEvent;
 struct MouseScrollEvent;
 class Window;
+namespace Graphics {
+class GraphicsDevice;
+}
 
 class Engine : private Uncopyable {
 public:
-  Engine(Window* window, const Camera* camera);
+  Engine(Graphics::GraphicsDevice* graphics_device, Window* window, const Camera* camera);
 
   void Update(std::chrono::milliseconds dt) {}
   void Render();
 
   void SetCamera(const Camera* camera);
   void SetModels(const std::vector<Model>& models);
+  void SetModel(const std::string& id, const Model& model);
   void SetLights(const Lights& lights);
 
-  void OnResize();
-
-  ID3D11Device* GetDevice();
 private:
   // TODO
  /* class Impl;
   std::unique_ptr<Impl> impl_;*/
 
-  void InitDirectX11();
-  
-  Microsoft::WRL::ComPtr<ID3D11Device>            dx_device_;
-  Microsoft::WRL::ComPtr<ID3D11DeviceContext>     dx_context_;
-  Microsoft::WRL::ComPtr<IDXGISwapChain>          dx_swap_chain_;
-  Microsoft::WRL::ComPtr<ID3D11Texture2D>         dx_depth_stencil_buffer_;
-  Microsoft::WRL::ComPtr<ID3D11RenderTargetView>  dx_render_target_view_;
-  Microsoft::WRL::ComPtr<ID3D11DepthStencilView>  dx_depth_stencil_view_;
-  D3D11_VIEWPORT                                  dx_viewport_;
-
+  Graphics::GraphicsDevice*             graphics_device_;
   Window*                               window_;
   const Camera*                         camera_;
   std::unique_ptr<BasicEffect>          effect_;

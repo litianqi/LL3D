@@ -5,49 +5,33 @@
 #include "Core/Assert.h"
 #include "Core/Exceptions.h"
 
-namespace LL3D {
-
 using namespace std::experimental;
 using namespace DirectX;
 
-Assets::Assets(ID3D11Device* device) {
-  for (auto& p : filesystem::recursive_directory_iterator("Resource/Textures")) {
-    ID3D11ShaderResourceView* texture_view;
-    if (p.path().extension() == ".dds") {
-      ThrowIfFailed(
-        CreateDDSTextureFromFile(device, p.path().c_str(), nullptr, &texture_view)
-        );
-    }
-    else {
-      continue;
-      // TODO: support other texture file types.
-    }
-    
-    textures_cache_[p.path().u8string()] = texture_view;
+namespace LL3D {
+
+std::map<std::experimental::filesystem::path, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> s_textures_cache;
+
+ID3D11ShaderResourceView * CreateTexture(ID3D11Device * device, std::experimental::filesystem::path path) {
+  // First try to find it in cache.
+  auto i = s_textures_cache.find(path);
+  if (i != s_textures_cache.end()) {
+    return i->second.Get();
   }
-}
 
-void Assets::CreateInstance(ID3D11Device * device) {
-  ASSERT(device);
-  ASSERT(!s_instance);
-  
-  s_instance = new Assets(device);
-}
+  // If cannot find it, create it
+  Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture_view;
+  if (path.extension() == ".dds") {
+    ThrowIfFailed(
+      CreateDDSTextureFromFile(device, path.c_str(), nullptr, &texture_view)
+      );
+  }
+  else {
+    throw InvalidArgument("path does not has a extension, or has a extension not supported!");
+  }
 
-Assets * Assets::Instance() {
-  ASSERT(s_instance);
-
-  return s_instance;
-}
-
-Assets* Assets::s_instance;
-
-ID3D11ShaderResourceView * Assets::GetTexture(filesystem::path path) {
-  auto i = textures_cache_.find(path);
-  if (i == textures_cache_.end())
-    throw NotFound("Assets::GetTexture " + path.u8string());
-
-  return i->second;
+  s_textures_cache[path] = texture_view;
+  return texture_view.Get();
 }
 
 }  // namespace LL3D

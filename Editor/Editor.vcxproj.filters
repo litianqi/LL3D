@@ -45,5 +45,14 @@
     <Image Include="Resource\Textures\WoodCrate02.dds">
       <Filter>Resource\Textures</Filter>
     </Image>
+    <Image Include="Resource\Textures\grass.dds">
+      <Filter>Resource\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\water1.dds">
+      <Filter>Resource\Textures</Filter>
+    </Image>
+    <Image Include="Resource\Textures\water2.dds">
+      <Filter>Resource\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

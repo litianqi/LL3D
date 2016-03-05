@@ -10,6 +10,24 @@ namespace LL3D {
 struct MouseButtonEvent;
 struct MouseScrollEvent;
 
+class MessageOnlyWindow {
+public:
+  MessageOnlyWindow();
+  virtual ~MessageOnlyWindow();
+
+protected:
+  // Handle mouse inputs:
+  virtual void OnMouseDown(const MouseButtonEvent& event) = 0;
+  virtual void OnMouseUp(const MouseButtonEvent& event) = 0;
+  virtual void OnMouseMove(const MouseButtonEvent& event) = 0;
+  virtual void OnMouseScroll(const MouseScrollEvent& event) = 0;
+
+  virtual void OnResize() = 0;
+
+private:
+  //static LRESULT CALLBACK MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
+};
+
 // Win-32 window wrapper.
 class Window : private Uncopyable {
 public:

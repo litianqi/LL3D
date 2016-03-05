@@ -44,19 +44,23 @@ public:
     std::vector<unsigned int> indices;
   };
 
-  Model(ID3D11Device* device, const Mesh& mesh, DirectX::FXMMATRIX world, const Material& material, const std::string& texture_path);
-  ~Model() {}
+  Model(ID3D11Device* device, const std::string& id, const Mesh& mesh, DirectX::FXMMATRIX world, 
+    const Material& material, const std::string& texture_path, DirectX::FXMMATRIX texture_transform);
+  virtual ~Model() {}
   
   void Render(ID3D11DeviceContext* device_context, BasicEffect* effect, ID3D11InputLayout* input_layout);
 
 private:
+  std::string  id_;
   Mesh         mesh_;
   XMMATRIX     world_;
   Material     material_;
   std::string  texture_path_;
+  XMMATRIX     texture_transform_;
   
   Microsoft::WRL::ComPtr<ID3D11Buffer>  index_buffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer>  vertex_buffer_;
+  Microsoft::WRL::ComPtr<ID3D11Device>  device_;
 };
 
 // Creates a box centered at the origin with the given dimensions.
