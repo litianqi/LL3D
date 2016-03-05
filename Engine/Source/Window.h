@@ -1,7 +1,9 @@
 #pragma once
 
 #include <string>
+#include <functional>
 #include <Windows.h>
+#include "json11.hpp"
 #include "Core\Uncopyable.h"
 #include "Core/Types.h"
 
@@ -9,24 +11,6 @@ namespace LL3D {
 
 struct MouseButtonEvent;
 struct MouseScrollEvent;
-
-class MessageOnlyWindow {
-public:
-  MessageOnlyWindow();
-  virtual ~MessageOnlyWindow();
-
-protected:
-  // Handle mouse inputs:
-  virtual void OnMouseDown(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseUp(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseMove(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseScroll(const MouseScrollEvent& event) = 0;
-
-  virtual void OnResize() = 0;
-
-private:
-  //static LRESULT CALLBACK MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
-};
 
 // Win-32 window wrapper.
 class Window : private Uncopyable {
@@ -38,7 +22,7 @@ public:
     FullScreen
   };
 
-  Window();
+  Window(json11::Json config);  // TODO: support config
   virtual ~Window();
 
   HWND GetHandle() const;
@@ -46,21 +30,24 @@ public:
   void SetVisible(bool visible);
   void SetClientRect(IntRectangle rect);
 
+  void OnMouseDown(std::function<void(const MouseButtonEvent&)> callback);
+  void OnMouseUp(std::function<void(const MouseButtonEvent&)> callback);
+  void OnMouseMove(std::function<void(const MouseButtonEvent&)> callback);
+  void OnMouseScroll(std::function<void(const MouseScrollEvent&)> callback);
+  void OnResize(std::function<void(void)> callback);
+
   //bool IsVisible() const;
   IntRectangle GetClientRect() const;
   IntRectangle GetWindowRect() const;
 
-protected:
-  // Handle mouse inputs:
-  virtual void OnMouseDown(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseUp(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseMove(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseScroll(const MouseScrollEvent& event) = 0;
-  
-  virtual void OnResize() = 0;
-  
 private:
   static LRESULT CALLBACK MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
+
+  std::function<void(const MouseButtonEvent&)>  mouse_down_callback_;
+  std::function<void(const MouseButtonEvent&)>  mouse_up_callback_;
+  std::function<void(const MouseButtonEvent&)>  mouse_move_callback_;
+  std::function<void(const MouseScrollEvent&)>  mouse_scroll_callback_;
+  std::function<void(void)>                 resize_callback_;
 
   HWND handle_;
   bool active_;
