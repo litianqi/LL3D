@@ -14,15 +14,13 @@ public:
   Editor();
 
 protected:
-  virtual void Update() override;
+  void Update() override;
 
-  // Handle mouse inputs:
-  virtual void OnMouseDown(const LL3D::MouseButtonEvent& event);
-  virtual void OnMouseUp(const LL3D::MouseButtonEvent& event);
-  virtual void OnMouseMove(const LL3D::MouseButtonEvent& event);
-  virtual void OnMouseScroll(const LL3D::MouseScrollEvent& event);
-
-  virtual void OnResize();
+ void OnMouseDown(const LL3D::MouseButtonEvent& event) override;
+ void OnMouseUp(const LL3D::MouseButtonEvent& event) override;
+ void OnMouseMove(const LL3D::MouseButtonEvent& event) override;
+ void OnMouseScroll(const LL3D::MouseScrollEvent& event) override;
+ void OnResize() override;
 
 private:
   EditorCamera editor_camera_;

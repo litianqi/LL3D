@@ -24,14 +24,13 @@ using namespace DirectX;
 
 struct MouseButtonEvent;
 struct MouseScrollEvent;
-class Window;
 namespace Graphics {
 class GraphicsDevice;
 }
 
 class Engine : private Uncopyable {
 public:
-  Engine(Graphics::GraphicsDevice* graphics_device, Window* window, const Camera* camera);
+  Engine(Graphics::GraphicsDevice* graphics_device, const Camera* camera);
 
   void Update(std::chrono::milliseconds dt) {}
   void Render();
@@ -47,7 +46,6 @@ private:
   std::unique_ptr<Impl> impl_;*/
 
   Graphics::GraphicsDevice*             graphics_device_;
-  Window*                               window_;
   const Camera*                         camera_;
   std::unique_ptr<BasicEffect>          effect_;
   std::unique_ptr<Vertex::InputLayout>  input_layout_;

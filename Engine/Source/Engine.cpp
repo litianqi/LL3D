@@ -11,9 +11,8 @@
 
 namespace LL3D {
 
-Engine::Engine(Graphics::GraphicsDevice* graphics_device, Window* window, const Camera* camera) :
+Engine::Engine(Graphics::GraphicsDevice* graphics_device, const Camera* camera) :
   graphics_device_(graphics_device),
-  window_(window),
   camera_(camera)
 {
   // TODO: remove hard code.

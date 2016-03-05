@@ -7,14 +7,7 @@
 
 namespace LL3D {
 
-MessageOnlyWindow::MessageOnlyWindow() {
-
-}
-
-MessageOnlyWindow::~MessageOnlyWindow() {
-}
-
-Window::Window() {
+Window::Window(json11::Json config) {
   // Init wnd class
   /*wnd_class_.cbSize = sizeof(WNDCLASSEX);
   wnd_class_.lpfnWndProc = MsgProc;
@@ -89,6 +82,26 @@ void Window::SetClientRect(IntRectangle rect) {
     WS_OVERLAPPEDWINDOW, false));
 }
 
+void Window::OnMouseDown(std::function<void(const MouseButtonEvent&)> callback) {
+  mouse_down_callback_ = callback;
+}
+
+void Window::OnMouseUp(std::function<void(const MouseButtonEvent&)> callback) {
+  mouse_up_callback_ = callback;
+}
+
+void Window::OnMouseMove(std::function<void(const MouseButtonEvent&)> callback) {
+  mouse_move_callback_ = callback;
+}
+
+void Window::OnMouseScroll(std::function<void(const MouseScrollEvent&)> callback) {
+  mouse_scroll_callback_ = callback;
+}
+
+void Window::OnResize(std::function<void(void)> callback) {
+  resize_callback_ = callback;
+}
+
 IntRectangle Window::GetClientRect() const {
   RECT r;
   ::GetClientRect(GetHandle(), &r);
@@ -138,7 +151,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       }
       else if (wparam == SIZE_MAXIMIZED) {
         self->show_state_ = Maximized;
-        self->OnResize();
+        if (self->resize_callback_) 
+          self->resize_callback_();
       }
       else if (wparam == SIZE_RESTORED) {
         
@@ -146,12 +160,14 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
         if (self->show_state_ == Minimized) {
           self->active_ = true;
           self->show_state_ = Normal;
-          self->OnResize();
+          if (self->resize_callback_)
+            self->resize_callback_();
         }
         // Restoring from maximized state
         else if (self->show_state_ == Maximized) {
           self->show_state_ = Normal;
-          self->OnResize();
+          if (self->resize_callback_)
+            self->resize_callback_();
         }
         else if (self->resizing_) {
           // If user is dragging the resize bars, we do not resize 
@@ -162,11 +178,13 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
           // the resize bars.  So instead, we reset after the user is 
           // done resizing the window and releases the resize bars, which 
           // sends a WM_EXITSIZEMOVE message.
-          self->OnResize();
+          if (self->resize_callback_)
+            self->resize_callback_();
         }
         else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
         {
-          self->OnResize();
+          if (self->resize_callback_)
+            self->resize_callback_();
         }
       }
       return 0;
@@ -181,7 +199,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     case WM_EXITSIZEMOVE:
     {
       self->resizing_ = false;
-      self->OnResize();
+      if (self->resize_callback_)
+        self->resize_callback_();
       return 0;
     }
     // The WM_MENUCHAR message is sent when a menu is active and the user presses 
@@ -205,8 +224,9 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       SetCapture(self->GetHandle());
 
       IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      self->OnMouseDown(MouseButtonEvent{ static_cast<MouseButton>(wparam),
-        position });
+      if (self->mouse_down_callback_)
+        self->mouse_down_callback_(MouseButtonEvent{ static_cast<MouseButton>(wparam),
+          position });
       return 0;
     }
     case WM_LBUTTONUP:
@@ -216,23 +236,26 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       ReleaseCapture();
 
       IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      self->OnMouseUp(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
-        position });
+      if (self->mouse_up_callback_)
+        self->mouse_up_callback_(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
+          position });
       return 0;
     }
     case WM_MOUSEMOVE:
     {
       IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      self->OnMouseMove(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
-        position });
+      if (self->mouse_move_callback_)
+        self->mouse_move_callback_(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
+          position });
       return 0;
     }
     case WM_MOUSEWHEEL:
     {
       IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      self->OnMouseScroll(MouseScrollEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
-        position,
-        GET_WHEEL_DELTA_WPARAM(wparam)});
+      if (self->mouse_scroll_callback_)
+        self->mouse_scroll_callback_(MouseScrollEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
+          position,
+          GET_WHEEL_DELTA_WPARAM(wparam) });
       return 0;
     }
     default:
@@ -240,7 +263,6 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       return DefWindowProc(handle, msg, wparam, lparam);
     }
   }
-
 }
 
 }  // namespace LL3D

@@ -8,7 +8,7 @@ Editor::Editor():
   first_personal_camera_(
     Camera::Frustum(
       XM_PI / 8.0, 
-      static_cast<float>(GetClientRect().GetSize().w) / GetClientRect().GetSize().h, 
+      static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
       1, 
       1000),
     XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
@@ -16,14 +16,20 @@ Editor::Editor():
   editor_camera_(
     Camera::Frustum(
       XM_PI / 8.0,
-      static_cast<float>(GetClientRect().GetSize().w) / GetClientRect().GetSize().h,
+      static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
       1,
       1000),
     XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
     XMVECTOR{ 0.0f, -100.0f, 100.0f }),
-  engine_(graphics_device_.get(), this, &editor_camera_)
+  engine_(graphics_device_.get(), &editor_camera_)
 {
-  SetVisible(true);
+  //window_->OnMouseDown(&Editor::OnMouseDown);
+  //window_->OnMouseUp(&Editor::OnMouseUp);
+  //window_->OnMouseMove(&Editor::OnMouseMove);
+  //window_->OnMouseScroll(&Editor::OnMouseScroll);
+  //window_->OnResize(&Editor::OnResize);
+  window_->SetVisible(true);
+  
   timer_.Start();
 
   // Add Models:
@@ -171,9 +177,9 @@ void Editor::OnResize() {
   // Change camera aspect ratio.
   auto frustum = editor_camera_.GetFrustum();
   frustum.SetAspectRatio(
-    static_cast<float>(GetClientRect().GetSize().w) / GetClientRect().GetSize().h);
+    static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h);
   editor_camera_.SetFrustum(frustum);
 
-  graphics_device_->OnResize(IntSize2{ GetClientRect().GetSize().w, GetClientRect().GetSize().h });
+  graphics_device_->OnResize(IntSize2{ window_->GetClientRect().GetSize().w, window_->GetClientRect().GetSize().h });
   engine_.Render();  // TODO: condider delete this line, only draw in main loop.
 }
