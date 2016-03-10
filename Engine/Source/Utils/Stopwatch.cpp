@@ -1,7 +1,8 @@
 #include "stopwatch.h"
 #include <Windows.h>
 
-namespace LL3D{
+namespace LL3D {
+namespace Utils {
 
 float Stopwatch::seconds_per_count_;
 
@@ -51,5 +52,6 @@ float Stopwatch::RunDurationS() {
   }
 }
 
+}  // namespace Utils
 }  // namespace LL3D
 

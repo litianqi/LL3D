@@ -3,6 +3,7 @@
 #include <cstdint>
 
 namespace LL3D {
+namespace Utils {
 
 class Stopwatch {
 public:
@@ -27,6 +28,7 @@ private:
   static float seconds_per_count_;
 };
 
+}  // namespace Utils
 }  // namespace LL3D
 
 

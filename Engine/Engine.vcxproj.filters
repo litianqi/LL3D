@@ -19,6 +19,9 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{c974a0c4-f365-4bfe-a547-7e14119c8ab5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utils">
+      <UniqueIdentifier>{3323eb62-dc78-4d1c-9b2e-63f9cd37b3be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\UIEvents.cpp">
@@ -29,12 +32,6 @@
     </ClCompile>
     <ClCompile Include="Source\Assets.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Core\Stopwatch.cpp">
-      <Filter>Source\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Core\Encoding.cpp">
-      <Filter>Source\Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Exceptions.cpp">
       <Filter>Source\Core</Filter>
@@ -81,6 +78,12 @@
     <ClCompile Include="Source\Input\Keyboard.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utils\Encoding.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Stopwatch.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
@@ -91,12 +94,6 @@
     </ClInclude>
     <ClInclude Include="Source\UIEvents.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Core\Encoding.h">
-      <Filter>Source\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Core\Stopwatch.h">
-      <Filter>Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Types.h">
       <Filter>Source\Core</Filter>
@@ -166,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="Source\Input\KeyCode.h">
       <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Encoding.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Stopwatch.h">
+      <Filter>Source\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
