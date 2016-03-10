@@ -1,34 +1,34 @@
 #include "Editor.h"
 #include <plog\Log.h>
-#include "UIEvents.h"
+#include "Window.h"
+#include "GameObject.h"
+#include "Scene.h"
+#include "Component.h"
+#include "Graphics\Model.h"
+#include "Graphics\Camera.h"
+#include "Graphics\Device.h"
+#include "Graphics\Light.h"
 
+using namespace std;
+using namespace std::tr1;
 using namespace LL3D;
+using namespace DirectX;
 
-Editor::Editor():
-  first_personal_camera_(
-    Camera::Frustum(
-      XM_PI / 8.0, 
-      static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
-      1, 
-      1000),
-    XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
-    XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
-  editor_camera_(
-    Camera::Frustum(
-      XM_PI / 8.0,
-      static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
-      1,
-      1000),
-    XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
-    XMVECTOR{ 0.0f, -100.0f, 100.0f }),
-  engine_(graphics_device_.get(), &editor_camera_)
+Editor::Editor()
+  //first_personal_camera_(
+  //  Graphics::Camera::Frustum(
+  //    XM_PI / 8.0, 
+  //    static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
+  //    1, 
+  //    1000),
+  //  XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
+  //  XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
 {
   //window_->OnMouseDown(&Editor::OnMouseDown);
   //window_->OnMouseUp(&Editor::OnMouseUp);
   //window_->OnMouseMove(&Editor::OnMouseMove);
   //window_->OnMouseScroll(&Editor::OnMouseScroll);
   //window_->OnResize(&Editor::OnResize);
-  window_->SetVisible(true);
   
   timer_.Start();
 
@@ -63,77 +63,97 @@ Editor::Editor():
     XMVECTOR{ 0.0f, 0.0f, 0.0f, 1 },
     9.0f
   };*/
+ 
+  auto c0 = make_unique<EditorCamera>(Graphics::Camera::Frustum(
+    XM_PI / 8.0,
+    static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
+    1,
+    1000),
+    XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
+    XMVECTOR{ 0.0f, -100.0f, 100.0f });
+  auto o0 = GameObject{};
+  o0.AddComponent(std::move(c0));
+  scene_->AddGameObject(o0);
 
-  auto m1_material = Material{
+  auto m1 = Graphics::Material{
     XMVECTOR{ 1, 1, 1, 1 },
     XMVECTOR{ 1, 1, 1, 1 },
     XMVECTOR{ 1, 1, 1, 1 },
     9.0f
   };
-  Model m0(
-    graphics_device_->GetDevice(),
-    "water",
-    CreateGrid(100, 100, 2, 2),
+  auto c1 = make_unique<Graphics::Model>(
+    Graphics::CreateGrid(100, 100, 2, 2),
     XMMatrixIdentity(),
-    m1_material,
+    m1,
     u8"Resource/Textures/water2.dds",
     XMMatrixScaling(1, 1, 1)
     );
-  Model m1(
-    graphics_device_->GetDevice(),
-    "box",
-    CreateBox(10, 10, 10),
+
+  auto o1 = GameObject();
+  o1.AddComponent(std::move(c1));
+
+  scene_->AddGameObject(o1);
+
+  auto c2 = make_unique<Graphics::Model>(
+    Graphics::CreateBox(10, 10, 10),
     XMMatrixTranslation(-15, 5, 0),
-    m1_material,
+    m1,
     u8"Resource/Textures/WoodCrate02.dds",
     XMMatrixIdentity()
     );
-  
-  std::vector<Model> meshs;
+  auto o2 = GameObject{};
+  o2.AddComponent(std::move(c2));
+  scene_->AddGameObject(o2);
+    
+ /* std::vector<Model> meshs;
   meshs.push_back(m0);
   meshs.push_back(m1);
+*/
 
-  engine_.SetModels(meshs);
+  //// Add Lights:
 
-  // Add Lights:
+  auto c3 = make_unique<Graphics::AmbientLight>(
+    Graphics::AmbientLight::Data{ XMVECTOR{ 0.25f, 0.25f, 0.25f, 1.0f } }
+  );
+  auto o3 = GameObject();
+  o3.AddComponent(std::move(c3));
+  scene_->AddGameObject(o3);
 
-  AmbientLight ambient{
-    XMVECTOR{ 0.25f, 0.25f, 0.25f, 1.0f }
-  };
-  DirectionalLight directional{
-    XMVECTOR{ 0.3f, 0.3f, 0.3f, 1.0f },
-    XMVECTOR{ 0, -1.0f, 1.0f }
-  };
-  PointLight point{
-    XMVECTOR{ 1.0f, 1.0f, 1.0f, 1.0f },
-    XMVECTOR{ 0, 0.0f, 50.0f, 1.0f },
-    Attenuation{ 0, 0.1f, 0 },
-    250
-  };
-  SpotLight spot{
-    XMVECTOR{ 1.0f, 1.0f, 1.0f, 1.0f },
-    XMVECTOR{ 0, 5.0f, -50.0f, 1.0f },
-    XMVECTOR{ 0, 0.0f, 1.0f },
-    Attenuation{ 0.0f, 0.1f, 0.0f },
-    250.0f,
-    200.0f
-  };
-  lights_.ambients.push_back(ambient);
-  //lights_.directionals.push_back(directional);
-  lights_.points.push_back(point);
-  lights_.spots.push_back(spot);
+  //DirectionalLight directional{
+  //  XMVECTOR{ 0.3f, 0.3f, 0.3f, 1.0f },
+  //  XMVECTOR{ 0, -1.0f, 1.0f }
+  //};
+  //PointLight point{
+  //  XMVECTOR{ 1.0f, 1.0f, 1.0f, 1.0f },
+  //  XMVECTOR{ 0, 0.0f, 50.0f, 1.0f },
+  //  Attenuation{ 0, 0.1f, 0 },
+  //  250
+  //};
+  //SpotLight spot{
+  //  XMVECTOR{ 1.0f, 1.0f, 1.0f, 1.0f },
+  //  XMVECTOR{ 0, 5.0f, -50.0f, 1.0f },
+  //  XMVECTOR{ 0, 0.0f, 1.0f },
+  //  Attenuation{ 0.0f, 0.1f, 0.0f },
+  //  250.0f,
+  //  200.0f
+  //};
+  //lights_.ambients.push_back(ambient);
+  ////lights_.directionals.push_back(directional);
+  //lights_.points.push_back(point);
+  //lights_.spots.push_back(spot);
 
-  engine_.SetLights(lights_);
+  //engine_.SetLights(lights_);
+  window_->SetVisible(true);
 }
 
 void Editor::Update() {
-  if (lights_.spots.size() > 0) {
-    lights_.spots[0].position = editor_camera_.GetPosition();
-    lights_.spots[0].direction = editor_camera_.GetForwardVector();
-  }
-  engine_.SetLights(lights_);
-  engine_.Update(std::chrono::milliseconds{ 0 }); // TODO: remove fake value.
-  engine_.Render();
+  //if (lights_.spots.size() > 0) {
+  //  lights_.spots[0].position = editor_camera_.GetPosition();
+  //  lights_.spots[0].direction = editor_camera_.GetForwardVector();
+  //}
+  //engine_.SetLights(lights_);
+  //engine_.Update(std::chrono::milliseconds{ 0 }); // TODO: remove fake value.
+  //engine_.Render();
 }
 
 void Editor::OnMouseDown(const MouseButtonEvent & event) {
@@ -154,32 +174,32 @@ void Editor::OnMouseMove(const MouseButtonEvent & event) {
 
     // Update camera
 
-    editor_camera_.Yaw(radian_x);
-    editor_camera_.Pitch(radian_y);
+    //editor_camera_.Yaw(radian_x);
+    //editor_camera_.Pitch(radian_y);
   }
   else if ((event.button & MouseButton::Right) != 0) {
     // Get diff to last mouse position
     float d_x = 0.05f * (last_mouse_position_.x - event.position.x);
     float d_y = 0.05f * (event.position.y - last_mouse_position_.y);
 
-    editor_camera_.MoveLeftRight(d_x);
-    editor_camera_.MoveUpDown(d_y);
+    //editor_camera_.MoveLeftRight(d_x);
+    //editor_camera_.MoveUpDown(d_y);
   }
 
   last_mouse_position_ = event.position;
 }
 
 void Editor::OnMouseScroll(const MouseScrollEvent & event) {
-  editor_camera_.MoveBackForeward(0.05f * event.distance);
+  //editor_camera_.MoveBackForeward(0.05f * event.distance);
 }
 
 void Editor::OnResize() {
   // Change camera aspect ratio.
-  auto frustum = editor_camera_.GetFrustum();
-  frustum.SetAspectRatio(
-    static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h);
-  editor_camera_.SetFrustum(frustum);
+  //auto frustum = editor_camera_.GetFrustum();
+  //frustum.SetAspectRatio(
+  //  static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h);
+  //editor_camera_.SetFrustum(frustum);
 
   graphics_device_->OnResize(IntSize2{ window_->GetClientRect().GetSize().w, window_->GetClientRect().GetSize().h });
-  engine_.Render();  // TODO: condider delete this line, only draw in main loop.
+  scene_->Update();  // TODO: condider delete this line, only draw in main loop.
 }

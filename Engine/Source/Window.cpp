@@ -1,9 +1,11 @@
 #include "Window.h"
+#include "Windows.h"
 #include <windowsx.h>
 #include "UIEvents.h"
 #include "Core/Types.h"
 #include "Core/Assert.h"
-#include "Windows.h"
+#include "Input/Mouse.h"
+#include "Input/Keyboard.h"
 
 namespace LL3D {
 
@@ -217,47 +219,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       ((MINMAXINFO*)lparam)->ptMinTrackSize.y = 360;
       return 0;
     }
-    case WM_LBUTTONDOWN:
-    case WM_MBUTTONDOWN:
-    case WM_RBUTTONDOWN:
-    {
-      SetCapture(self->GetHandle());
-
-      IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      if (self->mouse_down_callback_)
-        self->mouse_down_callback_(MouseButtonEvent{ static_cast<MouseButton>(wparam),
-          position });
-      return 0;
-    }
-    case WM_LBUTTONUP:
-    case WM_MBUTTONUP:
-    case WM_RBUTTONUP:
-    {
-      ReleaseCapture();
-
-      IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      if (self->mouse_up_callback_)
-        self->mouse_up_callback_(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
-          position });
-      return 0;
-    }
-    case WM_MOUSEMOVE:
-    {
-      IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      if (self->mouse_move_callback_)
-        self->mouse_move_callback_(MouseButtonEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
-          position });
-      return 0;
-    }
-    case WM_MOUSEWHEEL:
-    {
-      IntPoint2 position{ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) };
-      if (self->mouse_scroll_callback_)
-        self->mouse_scroll_callback_(MouseScrollEvent{ static_cast<MouseButton>(GET_KEYSTATE_WPARAM(wparam)),
-          position,
-          GET_WHEEL_DELTA_WPARAM(wparam) });
-      return 0;
-    }
+    Input::Mouse::ProcessMessage(msg, wparam, lparam);
+    Input::Keyboard::ProcessMessage(msg, wparam, lparam);
     default:
     {
       return DefWindowProc(handle, msg, wparam, lparam);

@@ -1,14 +1,15 @@
 #include <Windows.h>
 #include <plog\Log.h>
 #include "Editor.h"
+#include "Scene.h"
+#include "Window.h"
+#include "Graphics\Device.h"
 #include "Core\Exceptions.h"
 
 using namespace LL3D;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
   PSTR cmdLine, int showCmd) {
-  // Initialize the logger.
-  plog::init(plog::debug, "log.txt");
 
   // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)

@@ -91,5 +91,11 @@ bool Mouse::IsReleased(Button button) {
   return s_released[button];
 }
 
+Math::Vector2                 Mouse::s_position;
+int                           Mouse::s_scroll_delta;
+std::map<Mouse::Button, bool> Mouse::s_helding_down;
+std::map<Mouse::Button, bool> Mouse::s_pressed;
+std::map<Mouse::Button, bool> Mouse::s_released;
+
 }  // namespace Input
 }  // namespace LL3D

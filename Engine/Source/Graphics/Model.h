@@ -4,63 +4,59 @@
 #include <filesystem>
 #include <wrl.h>
 #include <DirectXMath.h>
+#include "../Component.h"
+#include "../Core/Uncopyable.h"
+#include "Base.h"
 #include "Material.h"
-#include "Core\Uncopyable.h"
 
-struct ID3D11Device;
-struct ID3D11DeviceContext;
 struct ID3D11InputLayout;
 struct ID3D11Buffer;
 
 namespace LL3D {
-
-using namespace DirectX;
-using namespace std::experimental;
+namespace Graphics {
 
 class Effect;
 class BasicEffect;
 
 struct Vertex {
-
-  class InputLayout : private Uncopyable {
-  public:
-    InputLayout(ID3D11Device* device, Effect* effect);
-
-    operator ID3D11InputLayout*();
-
-  private:
-    Microsoft::WRL::ComPtr<ID3D11InputLayout> layout_;
-  };
-
-  XMVECTOR position;
-  XMVECTOR normal;
-  XMFLOAT2 texture_coordinate;
+  DirectX::XMVECTOR position;
+  DirectX::XMVECTOR normal;
+  DirectX::XMFLOAT2 texture_coordinate;
 };
 
-class Model {
+class InputLayout : private Base, private Uncopyable {
+public:
+  InputLayout();
+
+  operator ID3D11InputLayout*();
+
+private:
+  Microsoft::WRL::ComPtr<ID3D11InputLayout> layout_;
+};
+
+class Model : public Component, private Base {
 public:
   struct Mesh {
     std::vector<Vertex>       vertices;
     std::vector<unsigned int> indices;
   };
 
-  Model(ID3D11Device* device, const std::string& id, const Mesh& mesh, DirectX::FXMMATRIX world, 
+  Model(const Mesh& mesh, DirectX::FXMMATRIX world,
     const Material& material, const std::string& texture_path, DirectX::FXMMATRIX texture_transform);
-  virtual ~Model() {}
-  
-  void Render(ID3D11DeviceContext* device_context, BasicEffect* effect, ID3D11InputLayout* input_layout);
+  std::unique_ptr<Component> Clone() override;
+
+  void Update() override;
 
 private:
-  std::string  id_;
-  Mesh         mesh_;
-  XMMATRIX     world_;
-  Material     material_;
-  std::string  texture_path_;
-  XMMATRIX     texture_transform_;
-  
+  std::string       id_;
+  Mesh              mesh_;
+  DirectX::XMMATRIX world_;
+  Material          material_;
+  std::string       texture_path_;
+  DirectX::XMMATRIX texture_transform_;
+
   Microsoft::WRL::ComPtr<ID3D11Buffer>  index_buffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer>  vertex_buffer_;
-  Microsoft::WRL::ComPtr<ID3D11Device>  device_;
 };
 
 // Creates a box centered at the origin with the given dimensions.
@@ -74,4 +70,5 @@ Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount);
 // at the origin with the specified width and depth.
 Model::Mesh CreateGrid(float width, float depth, int m, int n);
 
+}  // namespace Graphics
 }  // namespace LL3D

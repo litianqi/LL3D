@@ -2,15 +2,20 @@
 #include <DirectXMath.h>
 #include <D3D11.h>
 #include <d3dx11effect.h>
-#include "Core/Assert.h"
-#include "Core/Exceptions.h"
+#include "../Core/Assert.h"
+#include "../Core/Exceptions.h"
+#include "Device.h"
 #include "Color.h"
 #include "Effects.h"
-#include "Assets.h"
+#include "../Assets.h"
+
+using namespace DirectX;
+using namespace std::experimental;
 
 namespace LL3D {
+namespace Graphics {
 
-Vertex::InputLayout::InputLayout(ID3D11Device* device, Effect* effect) {
+InputLayout::InputLayout() {
   D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
   {
     { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -20,20 +25,20 @@ Vertex::InputLayout::InputLayout(ID3D11Device* device, Effect* effect) {
 
   const void* shader_bytecode;
   size_t shader_bytecode_size;
-  effect->GetVertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
+  s_effect->GetVertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
   ThrowIfFailed(
-    device->CreateInputLayout(vertex_desc, 3, shader_bytecode, shader_bytecode_size, &layout_)
+    s_graphics_device->GetDevice()->CreateInputLayout(vertex_desc, 3, shader_bytecode, shader_bytecode_size, &layout_)
     );
 }
 
-Vertex::InputLayout::operator ID3D11InputLayout*() {
+InputLayout::operator ID3D11InputLayout*() {
   return layout_.Get();
 }
 
 
-Model::Model(ID3D11Device * device, const std::string& id, const Mesh & mesh, DirectX::FXMMATRIX world,
+Model::Model(const Mesh & mesh, DirectX::FXMMATRIX world,
   const Material & material, const std::string & texture_path, DirectX::FXMMATRIX texture_transform) :
-  device_(device), id_(id), mesh_(mesh), world_(world), material_(material), texture_path_(texture_path),
+  mesh_(mesh), world_(world), material_(material), texture_path_(texture_path),
   texture_transform_(texture_transform) {
 
   // Creates vertext and index buffer.
@@ -47,7 +52,7 @@ Model::Model(ID3D11Device * device, const std::string& id, const Mesh & mesh, Di
   vinitData.pSysMem = mesh.vertices.data();
 
   ThrowIfFailed(
-    device->CreateBuffer(&vbd, &vinitData, &vertex_buffer_)
+    s_graphics_device->GetDevice()->CreateBuffer(&vbd, &vinitData, &vertex_buffer_)
     );
 
   D3D11_BUFFER_DESC ibd;
@@ -60,27 +65,31 @@ Model::Model(ID3D11Device * device, const std::string& id, const Mesh & mesh, Di
   iinitData.pSysMem = mesh.indices.data();
 
   ThrowIfFailed(
-    device->CreateBuffer(&ibd, &iinitData, &index_buffer_)
+    s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &index_buffer_)
     );
 }
 
-void Model::Render(ID3D11DeviceContext * device_context, BasicEffect * effect, ID3D11InputLayout * input_layout) {
+std::unique_ptr<Component> Model::Clone() {
+  return std::unique_ptr<Component>(new Model(*this));
+}
+
+void Model::Update() {
 
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
-  device_context->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
-  device_context->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
+  s_graphics_device->GetDeviceContex()->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
+  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
 
   //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
   // Set per object constant buffer.
-  effect->SetWorld(world_);
-  effect->SetMaterial(material_);
-  effect->SetTextureTransform(texture_transform_);
-  effect->SetTexture(CreateTexture(device_.Get(), texture_path_));
+  s_effect->SetWorld(world_);
+  s_effect->SetMaterial(material_);
+  s_effect->SetTextureTransform(texture_transform_);
+  s_effect->SetTexture(CreateTexture(s_graphics_device->GetDevice(), texture_path_));
 
   // Draw object.
-  effect->Apply(device_context);
-  device_context->DrawIndexed(static_cast<UINT>(mesh_.indices.size()), 0, 0);
+  s_effect->Apply(s_graphics_device->GetDeviceContex());
+  s_graphics_device->GetDeviceContex()->DrawIndexed(static_cast<UINT>(mesh_.indices.size()), 0, 0);
   //}
 }
 
@@ -322,4 +331,5 @@ Model::Mesh CreateGrid(float width, float depth, int rows, int cols) {
   return mesh;
 }
 
+}  // namespace Graphics
 }  // namespace LL3D

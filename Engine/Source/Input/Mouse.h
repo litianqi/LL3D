@@ -12,7 +12,9 @@ class Window;
 namespace Input {
 
 class Mouse {
+  // Make Game friend for calling Update() in Game.
   friend Game;
+  // make Window friend for calling ProcessMessage() in Window.
   friend Window;
 
 public:

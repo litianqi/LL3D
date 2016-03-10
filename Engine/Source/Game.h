@@ -1,11 +1,16 @@
 #pragma once
 
 #include <chrono>
-#include "Window.h"
-#include "Graphics/GraphicsDevice.h"
-#include "Assets.h"
+#include <memory>
+#include "UIEvents.h"
 
 namespace LL3D {
+
+class Window;
+class Scene;
+namespace Graphics {
+class Device;
+}
 
 class Game {
 public:
@@ -21,8 +26,9 @@ protected:
   virtual void OnMouseScroll(const MouseScrollEvent& event) = 0;
   virtual void OnResize() = 0;
 
-  std::unique_ptr<Window>                   window_;
-  std::unique_ptr<Graphics::GraphicsDevice> graphics_device_;
+  std::unique_ptr<Window>           window_;
+  std::unique_ptr<Graphics::Device> graphics_device_;
+  std::unique_ptr<Scene>            scene_;
 };
 
 }  // namespace LL3D

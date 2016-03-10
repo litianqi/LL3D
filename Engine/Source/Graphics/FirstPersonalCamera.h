@@ -3,10 +3,11 @@
 #include "Camera.h"
 
 namespace LL3D {
+namespace Graphics {
 
 class FirstPersonalCamera : public Camera {
 public:
-  FirstPersonalCamera(Frustum frustum, XMVECTOR pos, XMVECTOR vec_target);
+  FirstPersonalCamera(Frustum frustum, DirectX::XMVECTOR pos, DirectX::XMVECTOR vec_target);
 
   void MoveBackForeward(float d);
   void MoveUpDown(float d);
@@ -16,4 +17,5 @@ public:
   void Yaw(float angle);
 };
 
+}  // namespace Graphics
 }  // namespace LL3D

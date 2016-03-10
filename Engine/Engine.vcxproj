@@ -20,24 +20,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Assets.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Core\Assert.cpp" />
     <ClCompile Include="Source\Core\Encoding.cpp" />
     <ClCompile Include="Source\Core\Exceptions.cpp" />
     <ClCompile Include="Source\Core\Stopwatch.cpp" />
-    <ClCompile Include="Source\Effects.cpp" />
     <ClCompile Include="Source\Game.cpp" />
-    <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\Graphics\GraphicsDevice.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Graphics\Base.cpp" />
+    <ClCompile Include="Source\Graphics\Camera.cpp" />
+    <ClCompile Include="Source\Graphics\Device.cpp" />
+    <ClCompile Include="Source\Graphics\Effects.cpp" />
+    <ClCompile Include="Source\Graphics\FirstPersonalCamera.cpp" />
+    <ClCompile Include="Source\Graphics\Light.cpp" />
+    <ClCompile Include="Source\Graphics\Model.cpp" />
+    <ClCompile Include="Source\Input\Keyboard.cpp" />
+    <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\UIEvents.cpp" />
-    <ClCompile Include="Source\FirstPersonalCamera.cpp" />
-    <ClCompile Include="Source\Model.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h" />
-    <ClInclude Include="Source\Camera.h" />
-    <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\Core\Assert.h" />
     <ClInclude Include="Source\Core\Encoding.h" />
@@ -45,18 +49,22 @@
     <ClInclude Include="Source\Core\Stopwatch.h" />
     <ClInclude Include="Source\Core\Types.h" />
     <ClInclude Include="Source\Core\Uncopyable.h" />
-    <ClInclude Include="Source\Effects.h" />
-    <ClInclude Include="Source\Engine.h" />
-    <ClInclude Include="Source\FirstPersonalCamera.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Graphics\Camera.h" />
-    <ClInclude Include="Source\Graphics\GraphicsDevice.h" />
+    <ClInclude Include="Source\Graphics\Base.h" />
+    <ClInclude Include="Source\Graphics\Color.h" />
+    <ClInclude Include="Source\Graphics\Device.h" />
+    <ClInclude Include="Source\Graphics\Effects.h" />
+    <ClInclude Include="Source\Graphics\FirstPersonalCamera.h" />
     <ClInclude Include="Source\Graphics\Light.h" />
-    <ClInclude Include="Source\Graphics\GraphicsComponent.h" />
-    <ClInclude Include="Source\Lights.h" />
-    <ClInclude Include="Source\Material.h" />
-    <ClInclude Include="Source\Model.h" />
+    <ClInclude Include="Source\Graphics\Material.h" />
+    <ClInclude Include="Source\Graphics\Model.h" />
+    <ClInclude Include="Source\Input.h" />
+    <ClInclude Include="Source\Input\Keyboard.h" />
+    <ClInclude Include="Source\Input\KeyCode.h" />
+    <ClInclude Include="Source\Input\Mouse.h" />
+    <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\UIEvents.h" />
@@ -79,6 +87,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Source\Core\_template.txt" />
     <Text Include="Source\Graphics\Template.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -168,7 +177,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4838</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(ProjectDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

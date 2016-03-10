@@ -3,17 +3,17 @@
 #include <DirectXMath.h>
 
 namespace LL3D {
-
-using namespace DirectX;
+namespace Graphics {
 
 struct Material {
-  XMVECTOR ambient;
-  XMVECTOR diffuse;
-  XMVECTOR specular;
+  DirectX::XMVECTOR ambient;
+  DirectX::XMVECTOR diffuse;
+  DirectX::XMVECTOR specular;
   float spec_power;
   // No range! light reflected from material transfers with no range limitiation.
-  XMFLOAT3 _pad;
+  DirectX::XMFLOAT3 _pad;
 };
 
+}  // namespace Graphics
 }  // namespace LL3D 
 

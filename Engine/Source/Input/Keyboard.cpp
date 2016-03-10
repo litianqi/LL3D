@@ -6,7 +6,7 @@ using namespace std;
 namespace LL3D {
 namespace Input {
 
-std::string Keyboard::GetInputString() {
+const std::string& Keyboard::GetInputString() {
   return s_input;
 }
 
@@ -42,7 +42,7 @@ bool Keyboard::IsReleased(KeyCode key) {
   return s_released[key];
 }
 
-const float AxisPerKey = 1.0f;
+const float Keyboard::AxisPerKey = 1.0f;
 
 void Keyboard::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
   bool down = false;
@@ -123,7 +123,7 @@ void Keyboard::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
         case 0x09:  // tab 
         case 0x0D:  // carriage return 
         default:    // displayable character 
-          s_input.push_back(wparam);
+          s_input.push_back(static_cast<char>(wparam));
       }
       break;
     }
@@ -139,6 +139,12 @@ void Keyboard::Update() {
   s_pressed.clear();
   s_released.clear();
 }
+
+string                      Keyboard::s_input;
+map<Keyboard::Axis, float>  Keyboard::s_axis;
+map<KeyCode, bool>          Keyboard::s_helding_down;
+map<KeyCode, bool>          Keyboard::s_pressed;
+map<KeyCode, bool>          Keyboard::s_released;
 
 }  // namespace Input
 }  // namespace LL3D

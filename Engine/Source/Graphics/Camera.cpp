@@ -1,14 +1,17 @@
 #include "Camera.h"
-#include "Core/Assert.h"
+#include "../Core/Assert.h"
+#include "Effects.h"
+
+using namespace DirectX;
 
 namespace LL3D {
+namespace Graphics {
 
 Camera::Frustum::Frustum(float radian_fov_y, float aspect_ratio, float z_near, float z_far) :
   radian_fov_y_(radian_fov_y),
   aspect_ratio_(aspect_ratio),
   z_near_(z_near),
-  z_far_(z_far)
-{
+  z_far_(z_far) {
   ASSERT(aspect_ratio > 0);
   ASSERT(z_near > 0);
   ASSERT(z_far > z_near);
@@ -26,11 +29,20 @@ XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
 Camera::Camera(Frustum frustum, FXMVECTOR position, FXMVECTOR forward_vector) :
   frustum_(frustum),
   position_(position),
-  forward_vector_(forward_vector)
-{
+  forward_vector_(forward_vector) {
   ASSERT(!XMVector3Equal(forward_vector, XMVectorZero()));
   ASSERT(!XMVector3IsInfinite(forward_vector));
   ASSERT(!XMVector3Equal(XMVector3Cross(forward_vector, XMVECTOR{ 0, 1.0f }), XMVectorZero()));
+}
+
+std::unique_ptr<Component> Camera::Clone() {
+  return std::unique_ptr<Component>(new Camera(*this));
+}
+
+void Camera::Update() {
+  s_effect->SetEyePosW(GetPosition());
+  s_effect->SetView(GetViewMatrix());
+  s_effect->SetProjection(GetFrustum().GetProjectionMaxtrix());
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {
@@ -77,7 +89,7 @@ XMVECTOR Camera::WorldToViewPosition(FXMVECTOR p) const {
 }
 
 XMVECTOR Camera::GetRightVector() const {
-  return XMVector3Cross(XMVECTOR{0, 1.0f}, forward_vector_);
+  return XMVector3Cross(XMVECTOR{ 0, 1.0f }, forward_vector_);
 }
 
 XMVECTOR Camera::GetUpVector() const {
@@ -91,11 +103,12 @@ XMVECTOR Camera::GetUpVector() const {
 
   // Program Answer:
 
-  float y = XMVectorGetX(XMVector3LengthSq(forward_vector_)) / 
+  float y = XMVectorGetX(XMVector3LengthSq(forward_vector_)) /
     XMVectorGetX(XMVector3Dot(forward_vector_, XMVECTOR{ 0, 1.0f }));
-  XMVECTOR v{ 0, y, 0};
+  XMVECTOR v{ 0, y, 0 };
 
   return forward_vector_ - v;
 }
 
+}  // namespace Graphics
 }  // namespace LL3D

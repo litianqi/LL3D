@@ -1,7 +1,10 @@
 #include "FirstPersonalCamera.h"
-#include "Core/Assert.h"
+#include "../Core/Assert.h"
+
+using namespace DirectX;
 
 namespace LL3D {
+namespace Graphics {
 
 FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, XMVECTOR pos, XMVECTOR vec_target) :
   Camera(frustum, pos, vec_target) {
@@ -29,4 +32,5 @@ void FirstPersonalCamera::Yaw(float radians) {
   forward_vector_ = XMVector3Transform(forward_vector_, matrix);
 }
 
+}  // namespace Graphics
 }  // namespace LL3D

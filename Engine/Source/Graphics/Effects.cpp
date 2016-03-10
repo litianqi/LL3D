@@ -2,15 +2,18 @@
 #include <fstream>
 #include <D3D11.h>
 #include <d3dx11effect.h>
-#include "Core/Assert.h"
-#include "Core/Exceptions.h"
-#include "Core/Encoding.h"
+#include "../Core/Assert.h"
+#include "../Core/Exceptions.h"
+#include "../Core/Encoding.h"
+#include "Device.h"
 
 using namespace std::experimental;
+using namespace DirectX;
 
 namespace LL3D {
+namespace Graphics {
 
-Effect::Effect(ID3D11Device * device, std::string path) {
+Effect::Effect(std::string path) {
   std::ifstream fs(Utils::Convert(path), std::ios::binary);
   ASSERT(fs.is_open());
 
@@ -19,11 +22,11 @@ Effect::Effect(ID3D11Device * device, std::string path) {
   fs.read(content.data(), size);
 
   ThrowIfFailed(D3DX11CreateEffectFromMemory(content.data(), size,
-    0, device, &effect_));
+    0, s_graphics_device->GetDevice(), &effect_));
 }
 
-BasicEffect::BasicEffect(ID3D11Device * device, std::string path) :
-Effect(device, path) {
+BasicEffect::BasicEffect(std::string path) :
+  Effect(path) {
   tech_ = effect_->GetTechniqueByName("Tech");
 
   ambient_light_ = effect_->GetVariableByName("g_ambient_light");
@@ -52,19 +55,20 @@ void BasicEffect::GetVertexShaderBytecode(const void ** byte_code, size_t* byte_
   *byte_code_length = pass_desc.IAInputSignatureSize;
 }
 
-void BasicEffect::SetLights(const Lights & lights) {
-  for (auto light : lights.ambients) {
-    ambient_light_->SetRawValue(&light, 0, sizeof(AmbientLight));
-  }
-  for (auto light : lights.directionals) {
-    directional_light_->SetRawValue(&light, 0, sizeof(DirectionalLight));
-  }
-  for (auto light : lights.points) {
-    point_light_->SetRawValue(&light, 0, sizeof(PointLight));
-  }
-  for (auto light : lights.spots) {
-    spot_light_->SetRawValue(&light, 0, sizeof(SpotLight));
-  }
+void BasicEffect::SetAmbientLight(const AmbientLight & value) {
+  ambient_light_->SetRawValue(&value.data, 0, sizeof(AmbientLight::Data));
+}
+
+void BasicEffect::SetDirectionalLight(const DirectionalLight & value) {
+  directional_light_->SetRawValue(&value, 0, sizeof(DirectionalLight));
+}
+
+void BasicEffect::SetPointLight(const PointLight & value) {
+  point_light_->SetRawValue(&value, 0, sizeof(PointLight));
+}
+
+void BasicEffect::SetSpotLight(const SpotLight & value) {
+  spot_light_->SetRawValue(&value, 0, sizeof(SpotLight));
 }
 
 void BasicEffect::SetEyePosW(FXMVECTOR value) {
@@ -105,4 +109,5 @@ void BasicEffect::SetMaterial(const Material & value) {
 //  return tech_->GetPassByIndex(index);
 //}
 
+}  // namespace Graphics
 }  // namespace LL3D

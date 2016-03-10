@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Camera.h"
+#include "Graphics/Camera.h"
 
 using namespace DirectX;
 
-class EditorCamera : public LL3D::Camera {
+class EditorCamera : public LL3D::Graphics::Camera {
 public:
   EditorCamera(Frustum frustum, XMVECTOR position, XMVECTOR forward_vector);
 
