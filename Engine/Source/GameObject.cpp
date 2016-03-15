@@ -4,20 +4,31 @@
 using namespace std;
 
 namespace LL3D {
+GameObject::GameObject() {
+  AddComponent<Transform>();
+}
 
 GameObject::GameObject(const std::string & name) noexcept :
 name_(name) 
 {
+  AddComponent<Transform>();
 }
 
 GameObject::GameObject(const GameObject & other) noexcept :
+parent_(other.parent_),
+children_(other.children_),
+scene_(other.scene_),
 active_(other.active_),
 name_(other.name_),
-tag_(other.tag_),
-transform_(other.transform_)
+tag_(other.tag_)
 {
+  for (auto& child : children_) {
+    child.SetParent(this);
+  }
+
   for (const auto& component : other.components_) {
     components_[component.first] = std::move(component.second->Clone());
+    components_[component.first]->SetGameObject(this);
   }
 }
 
@@ -38,11 +49,25 @@ void GameObject::Update() {
   }
 }
 
-void GameObject::AddChild(const GameObject& object) {
-  children_.push_back(object);
+Scene * GameObject::GetScene() {
+  return scene_;
+}
+
+void GameObject::SetScene(Scene * scene) {
+  scene_ = scene;
+}
+
+void GameObject::SetParent(GameObject * parent) {
+  parent_ = parent;
+}
+
+void GameObject::AddChild(GameObject child) {
+  child.SetParent(this);
+  children_.push_back(child);
 }
 
 void GameObject::AddComponent(std::unique_ptr<Component> component) {
+  component->SetGameObject(this);
   components_[type_index(typeid(*component))] = std::move(component);
 }
 
@@ -60,6 +85,14 @@ const std::string & GameObject::GetName() const {
 
 const std::string& GameObject::GetTag() const {
   return tag_;
+}
+
+GameObject * GameObject::GetParent() {
+  return parent_;
+}
+
+const GameObject * GameObject::GetParent() const {
+  return parent_;
 }
 
 }  // namespace LL3D

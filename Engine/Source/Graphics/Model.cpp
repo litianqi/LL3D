@@ -36,11 +36,11 @@ InputLayout::operator ID3D11InputLayout*() {
 }
 
 
-Model::Model(const Mesh & mesh, DirectX::FXMMATRIX world,
-  const Material & material, const std::string & texture_path, DirectX::FXMMATRIX texture_transform) :
-  mesh_(mesh), world_(world), material_(material), texture_path_(texture_path),
-  texture_transform_(texture_transform) {
-
+Model::Model(const Mesh& mesh, const Material& material,
+  const std::string& texture_path, DirectX::FXMMATRIX texture_transform) :
+  mesh_(mesh), material_(material), 
+  texture_path_(texture_path), texture_transform_(texture_transform) 
+{
   // Creates vertext and index buffer.
   D3D11_BUFFER_DESC vbd;
   vbd.Usage = D3D11_USAGE_IMMUTABLE;
@@ -82,7 +82,6 @@ void Model::Update() {
 
   //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
   // Set per object constant buffer.
-  s_effect->SetWorld(world_);
   s_effect->SetMaterial(material_);
   s_effect->SetTextureTransform(texture_transform_);
   s_effect->SetTexture(CreateTexture(s_graphics_device->GetDevice(), texture_path_));

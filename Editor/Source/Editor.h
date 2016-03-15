@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "EditorCamera.h"
 #include "Graphics/FirstPersonalCamera.h"
-#include "Core/Stopwatch.h"
+#include "Utils/Stopwatch.h"
 
 using namespace DirectX;
 
@@ -15,15 +15,9 @@ public:
 protected:
   void Update() override;
 
- void OnMouseDown(const LL3D::MouseButtonEvent& event) override;
- void OnMouseUp(const LL3D::MouseButtonEvent& event) override;
- void OnMouseMove(const LL3D::MouseButtonEvent& event) override;
- void OnMouseScroll(const LL3D::MouseScrollEvent& event) override;
- void OnResize() override;
+  void OnResize() override;
 
 private:
   //LL3D::Graphics::FirstPersonalCamera first_personal_camera_;
-  LL3D::Stopwatch timer_;
-  
-  LL3D::IntPoint2 last_mouse_position_;
+  LL3D::Utils::Stopwatch timer_;  
 };

@@ -31,6 +31,9 @@
     <ClInclude Include="Source\EditorCamera.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayerController.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Textures\darkbrick.bmp">

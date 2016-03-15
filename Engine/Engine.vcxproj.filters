@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\UIEvents.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -84,15 +81,15 @@
     <ClCompile Include="Source\Utils\Stopwatch.cpp">
       <Filter>Source\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Transform.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\UIEvents.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Types.h">
@@ -152,9 +149,6 @@
     <ClInclude Include="Source\Math\Math.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Input.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Input\Mouse.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
@@ -170,6 +164,12 @@
     <ClInclude Include="Source\Utils\Stopwatch.h">
       <Filter>Source\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Behaviour.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject.imp">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shaders\Light.fx">
@@ -183,13 +183,5 @@
     <CustomBuild Include="Source\Shaders\Main.fx">
       <Filter>Source\Shaders</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Source\Graphics\Template.txt">
-      <Filter>Source\Graphics</Filter>
-    </Text>
-    <Text Include="Source\Core\_template.txt">
-      <Filter>Source\Core</Filter>
-    </Text>
   </ItemGroup>
 </Project>

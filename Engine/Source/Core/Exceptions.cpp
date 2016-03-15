@@ -1,7 +1,7 @@
 #include "Exceptions.h"
 #include <sstream>
 #include <comdef.h>
-#include "Encoding.h"
+#include "../Utils/Encoding.h"
 
 namespace LL3D {
 

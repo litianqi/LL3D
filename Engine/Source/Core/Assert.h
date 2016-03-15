@@ -4,7 +4,6 @@
 #include <string>
 #include <plog\Log.h>
 #include <DXGI.h>
-#include "Encoding.h"
 
 namespace LL3D {
 

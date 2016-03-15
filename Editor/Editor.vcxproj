@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Editor.h" />
     <ClInclude Include="Source\EditorCamera.h" />
+    <ClInclude Include="Source\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

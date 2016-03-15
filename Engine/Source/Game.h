@@ -2,7 +2,6 @@
 
 #include <chrono>
 #include <memory>
-#include "UIEvents.h"
 
 namespace LL3D {
 
@@ -20,10 +19,6 @@ public:
 
 protected:
   virtual void Update() = 0;
-  virtual void OnMouseDown(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseUp(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseMove(const MouseButtonEvent& event) = 0;
-  virtual void OnMouseScroll(const MouseScrollEvent& event) = 0;
   virtual void OnResize() = 0;
 
   std::unique_ptr<Window>           window_;

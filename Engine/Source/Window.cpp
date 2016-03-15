@@ -1,7 +1,6 @@
 #include "Window.h"
 #include "Windows.h"
 #include <windowsx.h>
-#include "UIEvents.h"
 #include "Core/Types.h"
 #include "Core/Assert.h"
 #include "Input/Mouse.h"
@@ -82,22 +81,6 @@ void Window::SetClientRect(IntRectangle rect) {
   RECT r{ rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
   WA(AdjustWindowRect(&r,
     WS_OVERLAPPEDWINDOW, false));
-}
-
-void Window::OnMouseDown(std::function<void(const MouseButtonEvent&)> callback) {
-  mouse_down_callback_ = callback;
-}
-
-void Window::OnMouseUp(std::function<void(const MouseButtonEvent&)> callback) {
-  mouse_up_callback_ = callback;
-}
-
-void Window::OnMouseMove(std::function<void(const MouseButtonEvent&)> callback) {
-  mouse_move_callback_ = callback;
-}
-
-void Window::OnMouseScroll(std::function<void(const MouseScrollEvent&)> callback) {
-  mouse_scroll_callback_ = callback;
 }
 
 void Window::OnResize(std::function<void(void)> callback) {
@@ -219,10 +202,11 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
       ((MINMAXINFO*)lparam)->ptMinTrackSize.y = 360;
       return 0;
     }
-    Input::Mouse::ProcessMessage(msg, wparam, lparam);
-    Input::Keyboard::ProcessMessage(msg, wparam, lparam);
     default:
     {
+      Input::Mouse::ProcessMessage(msg, wparam, lparam);
+      Input::Keyboard::ProcessMessage(msg, wparam, lparam);
+
       return DefWindowProc(handle, msg, wparam, lparam);
     }
   }

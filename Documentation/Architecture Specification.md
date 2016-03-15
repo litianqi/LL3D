@@ -21,8 +21,8 @@ Windows 10 x64 only.
 ## Error Handling
 
 - For errors presumably detectable before the program executes, such as violations of logical preconditions or class invariants:
-  - If we want the error handling code only work in debug edition: use ASSERT.
-  - Else: use std::logic_error hierarchy.(sparely )
+  - If we want the error handling code only work in debug mode: use ASSERT.
+  - Else: use std::logic_error hierarchy.(sparely)
 - For errors presumably detectable only when the program executes: use std::runtime_error hierarchy.
 - When you do not think there is an error, but you want check it anyway: use ASSERT.
 

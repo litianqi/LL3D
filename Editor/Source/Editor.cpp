@@ -8,6 +8,7 @@
 #include "Graphics\Camera.h"
 #include "Graphics\Device.h"
 #include "Graphics\Light.h"
+#include "PlayerController.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -24,11 +25,6 @@ Editor::Editor()
   //  XMVECTOR{ 0.0f, 200.0f, 0, 1.0f }, 
   //  XMVECTOR{ 0.0001f, -1.0f, 0.0001f }),
 {
-  //window_->OnMouseDown(&Editor::OnMouseDown);
-  //window_->OnMouseUp(&Editor::OnMouseUp);
-  //window_->OnMouseMove(&Editor::OnMouseMove);
-  //window_->OnMouseScroll(&Editor::OnMouseScroll);
-  //window_->OnResize(&Editor::OnResize);
   
   timer_.Start();
 
@@ -83,7 +79,6 @@ Editor::Editor()
   };
   auto c1 = make_unique<Graphics::Model>(
     Graphics::CreateGrid(100, 100, 2, 2),
-    XMMatrixIdentity(),
     m1,
     u8"Resource/Textures/water2.dds",
     XMMatrixScaling(1, 1, 1)
@@ -96,13 +91,16 @@ Editor::Editor()
 
   auto c2 = make_unique<Graphics::Model>(
     Graphics::CreateBox(10, 10, 10),
-    XMMatrixTranslation(-15, 5, 0),
+    //XMMatrixTranslation(-15, 5, 0),
     m1,
     u8"Resource/Textures/WoodCrate02.dds",
     XMMatrixIdentity()
     );
-  auto o2 = GameObject{};
+  auto pc = make_unique<PlayerController>();
+  auto o2 = GameObject();
   o2.AddComponent(std::move(c2));
+  o2.AddComponent(std::move(pc));
+  o2.GetComponent<Transform>()->SetPosition(Math::Vector3(0, 5, 0));
   scene_->AddGameObject(o2);
     
  /* std::vector<Model> meshs;
@@ -156,42 +154,32 @@ void Editor::Update() {
   //engine_.Render();
 }
 
-void Editor::OnMouseDown(const MouseButtonEvent & event) {
-  last_mouse_position_ = event.position;
-}
-
-void Editor::OnMouseUp(const MouseButtonEvent & event) {
-}
-
-void Editor::OnMouseMove(const MouseButtonEvent & event) {
-
-  if ((event.button & MouseButton::Left) != 0) {
-
-    // Make each pixel correspond to a quarter of a degree.
-
-    float radian_x = XMConvertToRadians(0.1f*static_cast<float>(event.position.x - last_mouse_position_.x));
-    float radian_y = XMConvertToRadians(0.2f*static_cast<float>(event.position.y - last_mouse_position_.y));
-
-    // Update camera
-
-    //editor_camera_.Yaw(radian_x);
-    //editor_camera_.Pitch(radian_y);
-  }
-  else if ((event.button & MouseButton::Right) != 0) {
-    // Get diff to last mouse position
-    float d_x = 0.05f * (last_mouse_position_.x - event.position.x);
-    float d_y = 0.05f * (event.position.y - last_mouse_position_.y);
-
-    //editor_camera_.MoveLeftRight(d_x);
-    //editor_camera_.MoveUpDown(d_y);
-  }
-
-  last_mouse_position_ = event.position;
-}
-
-void Editor::OnMouseScroll(const MouseScrollEvent & event) {
-  //editor_camera_.MoveBackForeward(0.05f * event.distance);
-}
+//
+//void Editor::OnMouseMove(const MouseButtonEvent & event) {
+//
+//  if ((event.button & MouseButton::Left) != 0) {
+//
+//    // Make each pixel correspond to a quarter of a degree.
+//
+//    float radian_x = XMConvertToRadians(0.1f*static_cast<float>(event.position.x - last_mouse_position_.x));
+//    float radian_y = XMConvertToRadians(0.2f*static_cast<float>(event.position.y - last_mouse_position_.y));
+//
+//    // Update camera
+//
+//    //editor_camera_.Yaw(radian_x);
+//    //editor_camera_.Pitch(radian_y);
+//  }
+//  else if ((event.button & MouseButton::Right) != 0) {
+//    // Get diff to last mouse position
+//    float d_x = 0.05f * (last_mouse_position_.x - event.position.x);
+//    float d_y = 0.05f * (event.position.y - last_mouse_position_.y);
+//
+//    //editor_camera_.MoveLeftRight(d_x);
+//    //editor_camera_.MoveUpDown(d_y);
+//  }
+//
+//  last_mouse_position_ = event.position;
+//}
 
 void Editor::OnResize() {
   // Change camera aspect ratio.

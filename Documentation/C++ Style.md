@@ -42,6 +42,20 @@ In use. For details on error handling, see Architecture Specification
   We use Visual Studio 2015 default format style. It's nice! :]
   // TODO: space
 
+## Comment:
+
+1. Section:
+
+//////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Section
+
+2. Summary:
+
+///
+// Summary...
+//
+
+
 # Other
 
 * Order: 

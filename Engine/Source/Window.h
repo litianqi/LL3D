@@ -30,10 +30,6 @@ public:
   void SetVisible(bool visible);
   void SetClientRect(IntRectangle rect);
 
-  void OnMouseDown(std::function<void(const MouseButtonEvent&)> callback);
-  void OnMouseUp(std::function<void(const MouseButtonEvent&)> callback);
-  void OnMouseMove(std::function<void(const MouseButtonEvent&)> callback);
-  void OnMouseScroll(std::function<void(const MouseScrollEvent&)> callback);
   void OnResize(std::function<void(void)> callback);
 
   //bool IsVisible() const;
@@ -43,11 +39,7 @@ public:
 private:
   static LRESULT CALLBACK MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
 
-  std::function<void(const MouseButtonEvent&)>  mouse_down_callback_;
-  std::function<void(const MouseButtonEvent&)>  mouse_up_callback_;
-  std::function<void(const MouseButtonEvent&)>  mouse_move_callback_;
-  std::function<void(const MouseScrollEvent&)>  mouse_scroll_callback_;
-  std::function<void(void)>                 resize_callback_;
+  std::function<void(void)> resize_callback_;
 
   HWND handle_;
   bool active_;

@@ -17,10 +17,6 @@ Game::Game() {
   plog::init(plog::debug, "Engine.log");
 
   window_.reset(new Window(json11::Json{}));
-  window_->OnMouseDown(std::bind(&Game::OnMouseDown, this, std::tr1::placeholders::_1));
-  window_->OnMouseUp(std::bind(&Game::OnMouseUp, this, std::tr1::placeholders::_1));
-  window_->OnMouseMove(std::bind(&Game::OnMouseMove, this, std::tr1::placeholders::_1));
-  window_->OnMouseScroll(std::bind(&Game::OnMouseScroll, this, std::tr1::placeholders::_1));
   window_->OnResize(std::bind(&Game::OnResize, this));
 
   std::ifstream ifs("Config/GraphicsDevice.json");

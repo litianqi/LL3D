@@ -41,8 +41,8 @@ public:
     std::vector<unsigned int> indices;
   };
 
-  Model(const Mesh& mesh, DirectX::FXMMATRIX world,
-    const Material& material, const std::string& texture_path, DirectX::FXMMATRIX texture_transform);
+  Model(const Mesh& mesh, const Material& material, 
+    const std::string& texture_path, DirectX::FXMMATRIX texture_transform);
   std::unique_ptr<Component> Clone() override;
 
   void Update() override;
@@ -50,7 +50,6 @@ public:
 private:
   std::string       id_;
   Mesh              mesh_;
-  DirectX::XMMATRIX world_;
   Material          material_;
   std::string       texture_path_;
   DirectX::XMMATRIX texture_transform_;

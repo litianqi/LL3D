@@ -7,91 +7,67 @@
 
 namespace LL3D {
 
-class Game;
-class Window;
-
 namespace Input {
 
 class Keyboard {
-  //
-  // Summary:
-  //     ///
-  //     Make Game friend for calling Update() in Game.
-  //     ///
-  friend Game;
-  //
-  // Summary:
-  //     ///
-  //     Make Window friend for calling ProcessMessage() in Window.
-  //     ///
-  friend Window;
-
 public:
+  //////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Types
+
   enum Axis { Horizontal, Vertical };
 
+  //////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Queries
+
+  ///
+  // Returns the keyboard input entered this frame. (Read Only)
   //
-  // Summary:
-  //     ///
-  //     Returns the keyboard input entered this frame. (Read Only)
-  //     ///
   static const std::string& GetInputString();
+  ///
+  // Returns the value of the virtual axis identified by axis.
   //
-  // Summary:
-  //     ///
-  //     Returns the value of the virtual axis identified by axisName.
-  //     ///
-  //
-  // Parameters:
-  //   axis:
   static float GetAxis(Axis axis);
+  ///
+  // Is any key or mouse button currently held down? (Read Only)
   //
-  // Summary:
-  //     ///
-  //     Is any key or mouse button currently held down? (Read Only)
-  //     ///
   static bool IsAnyHeldingDown();
+  ///
+  // Returns true the first frame the user hits any key or mouse button. 
+  // (Read Only)
   //
-  // Summary:
-  //     ///
-  //     Returns true the first frame the user hits any key or mouse button. (Read Only)
-  //     ///
   static bool IsAnyPressed();
+  ///
+  // Returns true while the user holds down the key identified by the key 
+  // KeyCode enum parameter.
   //
-  // Summary:
-  //     ///
-  //     Returns true while the user holds down the key identified by the key KeyCode
-  //     enum parameter.
-  //     ///
-  //
-  // Parameters:
-  //   key:
   static bool IsHeldingDown(KeyCode key);
+  ///
+  // Returns true during the frame the user starts pressing down the key 
+  // identified by the key KeyCode enum parameter.
   //
-  // Summary:
-  //     ///
-  //     Returns true during the frame the user starts pressing down the key identified
-  //     by the key KeyCode enum parameter.
-  //     ///
-  //
-  // Parameters:
-  //   key:
   static bool IsPressed(KeyCode key);
+  ///
+  // Returns true during the frame the user releases the key identified by the 
+  // key KeyCode enum parameter.
   //
-  // Summary:
-  //     ///
-  //     Returns true during the frame the user releases the key identified by the key
-  //     KeyCode enum parameter.
-  //     ///
-  //
-  // Parameters:
-  //   key:
   static bool IsReleased(KeyCode key);
+
+  //////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Operations
   
+  ///
+  // Processes keyboard messages from system. Called by higher message process
+  // function.
+  //
+  static void ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam);
+  ///
+  // Notifies a new frame started. Prepares for recording mouse messages in
+  // new frame. Called by main loop, like any other Updates.
+  //
+  static void Update();
+
 private:
   static const float AxisPerKey;
-
-  static void ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam);
-  static void Update();
 
   static std::string              s_input;
   static std::map<Axis, float>    s_axis;

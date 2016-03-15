@@ -35,13 +35,14 @@
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\UIEvents.cpp" />
+    <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Utils\Encoding.cpp" />
     <ClCompile Include="Source\Utils\Stopwatch.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h" />
+    <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\Core\Assert.h" />
     <ClInclude Include="Source\Core\Exceptions.h" />
@@ -58,19 +59,21 @@
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
-    <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\KeyCode.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Transform.h" />
-    <ClInclude Include="Source\UIEvents.h" />
     <ClInclude Include="Source\Utils\Encoding.h" />
     <ClInclude Include="Source\Utils\Stopwatch.h" />
     <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\GameObject.imp">
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+    </ClInclude>
     <None Include="Source\Shaders\Light.fx">
       <FileType>Document</FileType>
     </None>
@@ -85,10 +88,6 @@
     <None Include="Source\Shaders\Material.fx">
       <FileType>Document</FileType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Source\Core\_template.txt" />
-    <Text Include="Source\Graphics\Template.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{543B5569-7C16-41AF-95A2-62E39C0576BD}</ProjectGuid>

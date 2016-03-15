@@ -12,11 +12,19 @@
 namespace LL3D {
 
 void LL3D::Scene::Update() {
-  s_graphics_device->GetDeviceContex()->ClearRenderTargetView(s_graphics_device->GetRenderTargetView(), reinterpret_cast<const float*>(&Graphics::Colors::Grey));
-  s_graphics_device->GetDeviceContex()->ClearDepthStencilView(s_graphics_device->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0);
+  s_graphics_device->GetDeviceContex()->ClearRenderTargetView(
+    s_graphics_device->GetRenderTargetView(), 
+    reinterpret_cast<const float*>(&Graphics::Colors::Grey)
+    );
+  s_graphics_device->GetDeviceContex()->ClearDepthStencilView(
+    s_graphics_device->GetDepthStencilView(), 
+    D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0
+    );
 
   s_graphics_device->GetDeviceContex()->IASetInputLayout(*s_input_layout);
-  s_graphics_device->GetDeviceContex()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  s_graphics_device->GetDeviceContex()->IASetPrimitiveTopology(
+    D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+    );
 
   // Set per frame constant buffer.
   // Find first active camera.
@@ -34,11 +42,12 @@ void LL3D::Scene::Update() {
   }
 
   ThrowIfFailed(s_graphics_device->GetSwapChain()->Present(0, 0));
-  
 }
 
 void Scene::AddGameObject(const GameObject& object) {
-  objects_.push_back(object);
+  auto tmp = object;
+  tmp.SetScene(this);
+  objects_.push_back(tmp);
 }
 
 }  // namespace LL3D
