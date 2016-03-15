@@ -6,13 +6,22 @@ A C++/DirectX11 3D game engine.
 
 **Under development.**
 
-## Progress
+For now, project Editor is just a test ground.
 
-* ~~Lighting~~
-* ~~Make engine itself a standalone lib, and put test codes to a exe project.~~
-* Texturing
-* Blending
-* ...
+## Features
+
+- Component-based Design
+- Lighting
+- Texturing
+
+## TODO
+
+- Blending
+- UI
+- Physics
+- Audio
+- ...
+- Editor
 
 ## Author
 
