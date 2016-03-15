@@ -3,9 +3,9 @@
 #include <vector>
 #include <filesystem>
 #include <wrl.h>
-#include <DirectXMath.h>
 #include "../Component.h"
 #include "../Core/Uncopyable.h"
+#include "../Math/Math.h"
 #include "Base.h"
 #include "Material.h"
 
@@ -42,9 +42,22 @@ public:
   };
 
   Model(const Mesh& mesh, const Material& material, 
-    const std::string& texture_path, DirectX::FXMMATRIX texture_transform);
+    const std::string& texture_path, Math::Matrix texture_transform);
   std::unique_ptr<Component> Clone() override;
 
+  //////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Properties
+
+  void SetTextureTransform(const Math::Matrix& value);
+
+  const Math::Matrix& GetTextureTransform() const;
+
+  //////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// Operations
+
+  ///
+  // Writes properties to shader buffer.
+  //
   void Update() override;
 
 private:
@@ -52,7 +65,7 @@ private:
   Mesh              mesh_;
   Material          material_;
   std::string       texture_path_;
-  DirectX::XMMATRIX texture_transform_;
+  Math::Matrix texture_transform_;
 
   Microsoft::WRL::ComPtr<ID3D11Buffer>  index_buffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer>  vertex_buffer_;

@@ -1,13 +1,13 @@
 #include "Light.fx"
 
 cbuffer PerFrame {
-  AmbientLight g_ambient_light;
-  DirectionalLight g_directional_light;
-  PointLight g_point_light;
-  SpotLight g_spot_light;
-  float4x4 g_view;
-  float4x4 g_projection;
-  float4 g_eye_pos_w;
+  AmbientLight      g_ambient_light;
+  DirectionalLight  g_directional_light;
+  PointLight        g_point_light;
+  SpotLight         g_spot_light;
+  float4x4          g_view;
+  float4x4          g_projection;
+  float4            g_eye_pos_w;
 };
 
 cbuffer PerObject {

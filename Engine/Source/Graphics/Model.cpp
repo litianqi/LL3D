@@ -37,7 +37,7 @@ InputLayout::operator ID3D11InputLayout*() {
 
 
 Model::Model(const Mesh& mesh, const Material& material,
-  const std::string& texture_path, DirectX::FXMMATRIX texture_transform) :
+  const std::string& texture_path, Math::Matrix texture_transform) :
   mesh_(mesh), material_(material), 
   texture_path_(texture_path), texture_transform_(texture_transform) 
 {
@@ -71,6 +71,14 @@ Model::Model(const Mesh& mesh, const Material& material,
 
 std::unique_ptr<Component> Model::Clone() {
   return std::unique_ptr<Component>(new Model(*this));
+}
+
+void Model::SetTextureTransform(const Math::Matrix & value) {
+  texture_transform_ = value;
+}
+
+const Math::Matrix & Model::GetTextureTransform() const {
+  return texture_transform_;
 }
 
 void Model::Update() {

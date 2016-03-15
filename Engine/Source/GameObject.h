@@ -12,7 +12,7 @@ class Scene;
 class Component;
 
 ///
-// Base class for all entities in Unity scenes.
+// Base class for all entities in LL3D scenes.
 //
 class GameObject {
 public:          

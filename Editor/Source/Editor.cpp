@@ -9,6 +9,7 @@
 #include "Graphics\Device.h"
 #include "Graphics\Light.h"
 #include "PlayerController.h"
+#include "WaveController.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -84,8 +85,10 @@ Editor::Editor()
     XMMatrixScaling(1, 1, 1)
     );
 
+  auto c12 = make_unique<WaveController>();
   auto o1 = GameObject();
   o1.AddComponent(std::move(c1));
+  o1.AddComponent(std::move(c12));
 
   scene_->AddGameObject(o1);
 

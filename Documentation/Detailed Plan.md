@@ -2,10 +2,10 @@
 Plan:
 
 - [x] Comment style
-- [ ] Refactor: Input
+- [-] Refactor: Input
 - [x] Component-based Design:
-- [ ] => Right hand coordinate system
-- [ ] Texturing
+- [-] => Right hand coordinate system
+- [*] Texturing
 - [ ] Considers if employ PIMPL
 - [ ] Blending
 - [ ] Learn LINQ
@@ -16,7 +16,7 @@ Refactor: Input:
 (3-18 -  3-19)
 
 - [x] Moves mouse/keyboard from Window to Input
-- [ ] Moves resize from Window to Input
+- [-] Moves resize from Window to Input
 
 
 Component-based Design:
@@ -34,3 +34,6 @@ Component-based Design:
 
 
 => Right hand coordinate system
+
+- [ ] Model indices
+- [ ] Calculations inside Camera
