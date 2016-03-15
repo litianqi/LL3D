@@ -21,7 +21,7 @@ void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
     case WM_RBUTTONDOWN:
     {
       s_pressed[Right] = true;
-      s_helding_down[Middle] = true;
+      s_helding_down[Right] = true;
       break;;
     }
     case WM_LBUTTONUP:
@@ -39,7 +39,7 @@ void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
     case WM_RBUTTONUP:
     {
       s_released[Right] = true;
-      s_helding_down[Middle] = false;
+      s_helding_down[Right] = false;
       break;
     }
     case WM_MOUSEMOVE:
@@ -65,8 +65,7 @@ void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
 }
 
 void Mouse::Update() {
-  // clear state from last frame.
-  s_helding_down.clear();
+  s_scroll_delta = 0;
   s_pressed.clear();
   s_released.clear();
 }

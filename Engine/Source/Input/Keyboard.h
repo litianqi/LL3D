@@ -67,7 +67,14 @@ public:
   static void Update();
 
 private:
+  ///
+  // Distance per move key(WASD,TDLR) made.
+  //
   static const float AxisPerKey;
+  ///
+  // When helding down a key, it equals press a key PressesPerHeldingDown times.
+  //
+  static const float PressesPerHeldingDown;
 
   static std::string              s_input;
   static std::map<Axis, float>    s_axis;

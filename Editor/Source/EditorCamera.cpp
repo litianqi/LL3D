@@ -1,8 +1,16 @@
 #include "EditorCamera.h"
-#include "Core/Assert.h"
+#include <Core/Assert.h>
+#include <Component.h>
+#include <Input/Mouse.h>
+
+using namespace LL3D;
 
 EditorCamera::EditorCamera(Frustum frustum, XMVECTOR position, XMVECTOR forward_vector) :
   Camera(frustum, position, forward_vector) {
+}
+
+std::unique_ptr<Component> EditorCamera::Clone() {
+  return std::unique_ptr<Component>(new EditorCamera(*this));
 }
 
 void EditorCamera::MoveLeftRight(float d) {
@@ -79,6 +87,24 @@ void EditorCamera::Yaw(float angle) {
 
   // Calulate new target vector:
   forward_vector_ = pos_target - position_;
+}
+
+void EditorCamera::Update() {
+  auto delta = Input::Mouse::GetPosition() - last_mouse_position_;
+  last_mouse_position_ = Input::Mouse::GetPosition();
+
+  if (Input::Mouse::IsHeldingDown(Input::Mouse::Right)) {
+    MoveLeftRight(-0.05f * delta.x);
+    MoveUpDown(0.05f * delta.y);
+  }
+  MoveBackForeward(Input::Mouse::GetScrollDelta() * 0.02f);
+
+  if (Input::Mouse::IsHeldingDown(Input::Mouse::Left)) {
+    Yaw(0.005f * delta.x);
+    Pitch(0.005f * delta.y);
+  }
+
+  Camera::Update();
 }
 
 XMVECTOR EditorCamera::GetTargetPosition() const {

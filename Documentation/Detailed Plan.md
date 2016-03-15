@@ -25,10 +25,10 @@
 
 - [ ] Refactor: Input
 - [ ] Moves resize from Window to Input
-- [ ] => Right hand coordinate system
+- [ ] Right hand coordinate system
 - [ ] Learn LINQ
 
-## => Right hand coordinate system
+## Right hand coordinate system
 
 - [ ] Model indices
 - [ ] Calculations inside Camera
