@@ -19,11 +19,13 @@
 
 
 ## Blending
-
 （3-16 - 3-20）
 
-- [ ] Read book. (3-16 - 3-17) 
+- [x] Read book. (3-16 - 3-17) 
 - [ ] Implement. (3-18 - 3-20)
+  - [x] Set blend state
+  - [ ] Sort draw order
+  - [ ] Add Fog
 
 
 # Unplaned:
