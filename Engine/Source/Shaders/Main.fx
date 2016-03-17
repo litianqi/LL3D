@@ -27,6 +27,18 @@ SamplerState g_sampler {
   AddressV = WRAP;
 };
 
+BlendState g_blend
+{
+    BlendEnable[0] = TRUE;
+    SrcBlend[0] = SRC_ALPHA;
+    DestBlend[0] = INV_SRC_ALPHA;
+    BlendOp[0] = ADD;
+    SrcBlendAlpha[0] = INV_DEST_ALPHA;
+    DestBlendAlpha[0] = ONE;
+    BlendOpAlpha[0] = ADD;
+    RenderTargetWriteMask[0] = 0x0F;
+};
+
 struct VertexIn {
   float4 pos_l  : POSITION;
   float4 normal_l : NORMAL;
@@ -55,7 +67,7 @@ VertexOut VS(VertexIn vin) {
   return vout;
 }
 
-float4 PS(VertexOut pin, uniform  bool use_tex) : SV_Target
+float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : SV_Target
 {
   // Calculate light color.
   float4 to_eye = pin.pos_w - g_eye_pos_w;
@@ -68,6 +80,9 @@ float4 PS(VertexOut pin, uniform  bool use_tex) : SV_Target
   float4 lit_color;
   if (use_tex) {
     float4 texture_color = g_texture.Sample(g_sampler, pin.texture_coordinate);
+    if (use_alpha_clip) {
+      clip(texture_color.a - 0.1f);
+    }
     lit_color = texture_color * light_color;  // TODO: modulate with late add.
     // Common to take alpha from diffuse material and texture.
     lit_color.a = texture_color.a * g_material.diffuse.a;
@@ -81,8 +96,9 @@ float4 PS(VertexOut pin, uniform  bool use_tex) : SV_Target
 
 technique11 Tech {
   pass P0 {
+    SetBlendState(g_blend, float4(0, 0, 0, 0), 0xffffffff);
     SetVertexShader(CompileShader(vs_5_0, VS()));
     SetGeometryShader(NULL);
-    SetPixelShader(CompileShader(ps_5_0, PS(true)));
+    SetPixelShader(CompileShader(ps_5_0, PS(true, true)));
   }
 }

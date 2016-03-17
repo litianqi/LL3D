@@ -29,7 +29,6 @@
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Device.cpp" />
     <ClCompile Include="Source\Graphics\Effects.cpp" />
-    <ClCompile Include="Source\Graphics\FirstPersonalCamera.cpp" />
     <ClCompile Include="Source\Graphics\Light.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
@@ -55,7 +54,6 @@
     <ClInclude Include="Source\Graphics\Color.h" />
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />
-    <ClInclude Include="Source\Graphics\FirstPersonalCamera.h" />
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
     <ClInclude Include="Source\Graphics\Model.h" />

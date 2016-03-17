@@ -42,7 +42,8 @@ public:
   };
 
   Model(const Mesh& mesh, const Material& material, 
-    const std::string& texture_path, Math::Matrix texture_transform);
+    const std::string& texture_path, Math::Matrix texture_transform, 
+    bool enable_back_face_cull);
   std::unique_ptr<Component> Clone() override;
 
   //////////////////////////////////////////////////////////////////////////
@@ -56,19 +57,19 @@ public:
   /////////////////////////////// Operations
 
   ///
-  // Writes properties to shader buffer.
+  // Writes properties to shader buffer and Draw.
   //
   void Update() override;
 
 private:
-  std::string       id_;
   Mesh              mesh_;
   Material          material_;
   std::string       texture_path_;
-  Math::Matrix texture_transform_;
+  Math::Matrix      texture_transform_;
 
-  Microsoft::WRL::ComPtr<ID3D11Buffer>  index_buffer_;
-  Microsoft::WRL::ComPtr<ID3D11Buffer>  vertex_buffer_;
+  Microsoft::WRL::ComPtr<ID3D11Buffer>          index_buffer_;
+  Microsoft::WRL::ComPtr<ID3D11Buffer>          vertex_buffer_;
+  Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_state_;
 };
 
 // Creates a box centered at the origin with the given dimensions.

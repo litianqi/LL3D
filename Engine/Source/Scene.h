@@ -7,10 +7,6 @@
 
 namespace LL3D {
 
-//namespace Graphics {
-//class Camera;
-//}
-
 class Scene : private Graphics::Base {
 public:
   void Update();
@@ -19,9 +15,6 @@ public:
    
 private: 
   std::list<GameObject> objects_;
-
-  // Cached working camera.
-  //Graphics::Camera* camera;
 };
 
 }  // namespace LL3D

@@ -30,7 +30,7 @@ public:
   ///
   // Returns true while the virtual button identified by button is held down.
   //
-  static bool IsHeldingDown( Button button);
+  static bool IsHeldingDown(Button button);
   ///
   // Returns true during the frame the user pressed down the virtual button
   // identified by button.

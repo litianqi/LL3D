@@ -6,7 +6,6 @@ namespace LL3D {
 namespace Graphics {
 
 struct Material {
-  DirectX::XMVECTOR ambient;
   DirectX::XMVECTOR diffuse;
   DirectX::XMVECTOR specular;
   float spec_power;

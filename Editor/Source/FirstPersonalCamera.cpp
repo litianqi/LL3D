@@ -1,5 +1,5 @@
 #include "FirstPersonalCamera.h"
-#include "../Core/Assert.h"
+#include <Core/Assert.h>
 
 using namespace DirectX;
 

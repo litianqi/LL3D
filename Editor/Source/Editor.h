@@ -1,12 +1,9 @@
 #pragma once
 
-#include <Windows.h>
-#include "Game.h"
+#include <Game.h>
+#include <Utils/Stopwatch.h>
 #include "EditorCamera.h"
-#include "Graphics/FirstPersonalCamera.h"
-#include "Utils/Stopwatch.h"
-
-using namespace DirectX;
+#include "FirstPersonalCamera.h"
 
 class Editor: public LL3D::Game {
 public:

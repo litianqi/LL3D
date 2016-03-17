@@ -1,10 +1,10 @@
 #include <Windows.h>
 #include <plog\Log.h>
+#include <Scene.h>
+#include <Window.h>
+#include <Graphics\Device.h>
+#include <Core\Exceptions.h>
 #include "Editor.h"
-#include "Scene.h"
-#include "Window.h"
-#include "Graphics\Device.h"
-#include "Core\Exceptions.h"
 
 using namespace LL3D;
 

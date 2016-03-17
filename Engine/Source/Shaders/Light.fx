@@ -34,7 +34,7 @@ struct SpotLight {
 
 float4 ComputeAmbientLight(Material mat,
   AmbientLight light) {
-  return light.color * mat.ambient;
+  return light.color * mat.diffuse;
 }
 
 float4 ComputeDirectionalLight(Material mat, float4 normal, DirectionalLight light, float4 to_eye) {

@@ -68,11 +68,12 @@ public:
 
 private:
   ///
-  // Distance per move key(WASD,TDLR) made.
+  // Distance per move key(WASD,TDLR) results.
   //
   static const float AxisPerKey;
   ///
-  // When helding down a key, it equals press a key PressesPerHeldingDown times.
+  // When helding down a key, it equals press a key PressesPerHeldingDown 
+  // times per frame.
   //
   static const float PressesPerHeldingDown;
 

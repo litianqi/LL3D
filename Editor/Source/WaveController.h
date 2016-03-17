@@ -9,7 +9,7 @@
 class WaveController : public LL3D::Behaviour {
 public:
   std::unique_ptr<Component> Clone() override {
-    return std::unique_ptr<Component>(new WaveController(*this));
+    return std::make_unique<WaveController>(*this);
   }
 
   void Update() override {

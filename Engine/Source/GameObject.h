@@ -63,7 +63,7 @@ public:
   /////////////////////////////// Operations
   
   ///
-  // Updates its components. Called by it's parent or scene.
+  // Updates its components and children. Called by it's parent or scene.
   //
   void Update();
 
