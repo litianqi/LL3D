@@ -4,7 +4,6 @@
 
 - [x] Moves mouse/keyboard from Window to Input
 
-
 ## Component-based Design:
 (3-? - 3-18)
 
@@ -19,3 +18,14 @@
 
       Solution:
       STL is orderd by add sequence, as component is first added, there is no problem.
+
+## Blending
+（3-16 - 3-20）
+
+- [x] Read book. (3-16 - 3-17) 
+- [x] Implement. (3-18 - 3-20)
+  - [x] RecursiveSceneIterator
+  - [x] Sort draw order
+  - [x] Camera
+  - [x] Component: Add Start()
+  - [x] Add Fog 
