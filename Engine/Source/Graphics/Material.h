@@ -1,17 +1,16 @@
 #pragma once
 
-#include <DirectXMath.h>
+#include "../Math/Math.h"
 
 namespace LL3D {
 namespace Graphics {
 
 struct Material {
-  DirectX::XMVECTOR ambient;
-  DirectX::XMVECTOR diffuse;
-  DirectX::XMVECTOR specular;
-  float spec_power;
+  Math::Color diffuse;
+  Math::Color specular;
+  float       spec_power;
   // No range! light reflected from material transfers with no range limitiation.
-  DirectX::XMFLOAT3 _pad;
+  Math::Vector3 _pad;
 };
 
 }  // namespace Graphics

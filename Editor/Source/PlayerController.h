@@ -9,7 +9,7 @@
 class PlayerController : public LL3D::Behaviour {
 public:
   std::unique_ptr<Component> Clone() override {
-    return std::unique_ptr<Component>(new PlayerController(*this));
+    return std::make_unique<PlayerController>(*this);
   }
 
   void Update() override {

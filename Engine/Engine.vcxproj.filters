@@ -60,9 +60,6 @@
     <ClCompile Include="Source\Graphics\Effects.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\FirstPersonalCamera.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Graphics\Light.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
@@ -84,6 +81,10 @@
     <ClCompile Include="Source\Transform.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\RecursiveSceneIterator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Fog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
@@ -140,9 +141,6 @@
     <ClInclude Include="Source\Graphics\Effects.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\FirstPersonalCamera.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\Light.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
@@ -167,8 +165,14 @@
     <ClInclude Include="Source\Behaviour.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameObject.imp">
+    <ClInclude Include="Source\RecursiveSceneIterator.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject.inl">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Fog.h">
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,5 +187,10 @@
     <CustomBuild Include="Source\Shaders\Main.fx">
       <Filter>Source\Shaders</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Source\Shaders\Fog.fx">
+      <Filter>Source\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

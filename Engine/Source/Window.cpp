@@ -31,7 +31,7 @@ Window::Window(json11::Json config) {
   // Register wnd class
   WA(RegisterClass(&wc));
 
-  //// Compute window rectangle dimensions based on requested client area dimensions.
+  //>/ Compute window rectangle dimensions based on requested client area dimensions.
   //RECT R = { 0, 0, mClientWidth, mClientHeight };
   //AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
   //int width = R.right - R.left;

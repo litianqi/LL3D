@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "Material.h"
 #include "Base.h"
+#include "Fog.h"
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;
@@ -39,10 +40,12 @@ class BasicEffect : public Effect {
 public:
   BasicEffect(std::string path);
 
+  //--------------------------------------
   // Effect methods.
   void Apply(ID3D11DeviceContext* device_context) override;
   void GetVertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) override;
 
+  //--------------------------------------
   // Light settings.
   void SetAmbientLight(const AmbientLight& value);
   void SetDirectionalLight(const DirectionalLight& value);
@@ -50,20 +53,24 @@ public:
   void SetSpotLight(const SpotLight& value);
   void SetEyePosW(DirectX::FXMVECTOR value);
 
+  //--------------------------------------
   // Camera settings.
   void SetWorld(DirectX::FXMMATRIX value);
   void SetView(DirectX::FXMMATRIX value);
   void SetProjection(DirectX::FXMMATRIX value);
 
+  //--------------------------------------
   // Texture setting.
   void SetTextureTransform(DirectX::FXMMATRIX value);
   void SetTexture(ID3D11ShaderResourceView* value);
 
+  //--------------------------------------
   // Material settings.
   void SetMaterial(const Material& value);
 
-  //unsigned int GetPassNum() const;
-  //ID3DX11EffectPass* GetPass(unsigned int index);
+  //--------------------------------------
+  // Fog settings.
+  void SetFog(const EffectFog& value);
 
 private:
   ID3DX11EffectTechnique* tech_;
@@ -74,6 +81,7 @@ private:
   ID3DX11EffectVariable* point_light_;
   ID3DX11EffectVariable* spot_light_;
   ID3DX11EffectVectorVariable* eye_pos_w_;
+  ID3DX11EffectVariable* fog_;
 
   // Per Object:
   ID3DX11EffectMatrixVariable* world_;

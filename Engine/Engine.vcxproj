@@ -29,12 +29,13 @@
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Device.cpp" />
     <ClCompile Include="Source\Graphics\Effects.cpp" />
-    <ClCompile Include="Source\Graphics\FirstPersonalCamera.cpp" />
+    <ClCompile Include="Source\Graphics\Fog.cpp" />
     <ClCompile Include="Source\Graphics\Light.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\RecursiveSceneIterator.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Utils\Encoding.cpp" />
     <ClCompile Include="Source\Utils\Stopwatch.cpp" />
@@ -55,7 +56,7 @@
     <ClInclude Include="Source\Graphics\Color.h" />
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />
-    <ClInclude Include="Source\Graphics\FirstPersonalCamera.h" />
+    <ClInclude Include="Source\Graphics\Fog.h" />
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
@@ -64,13 +65,14 @@
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\RecursiveSceneIterator.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Utils\Encoding.h" />
     <ClInclude Include="Source\Utils\Stopwatch.h" />
     <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\GameObject.imp">
+    <ClInclude Include="Source\GameObject.inl">
       <FileType>Document</FileType>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClInclude>
@@ -88,6 +90,11 @@
     <None Include="Source\Shaders\Material.fx">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Source\Shaders\Fog.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{543B5569-7C16-41AF-95A2-62E39C0576BD}</ProjectGuid>

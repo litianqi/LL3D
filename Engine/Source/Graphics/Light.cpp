@@ -9,7 +9,7 @@ data(d) {
 }
 
 std::unique_ptr<Component> AmbientLight::Clone() {
-  return std::unique_ptr<Component>(new AmbientLight(*this));
+  return std::make_unique<AmbientLight>(*this);
 }
 
 void AmbientLight::Update() {
@@ -17,7 +17,7 @@ void AmbientLight::Update() {
 }
 
 std::unique_ptr<Component> DirectionalLight::Clone() {
-  return std::unique_ptr<Component>(new DirectionalLight(*this));
+  return std::make_unique<DirectionalLight>(*this);
 }
 
 void DirectionalLight::Update() {
@@ -25,7 +25,7 @@ void DirectionalLight::Update() {
 }
 
 std::unique_ptr<Component> PointLight::Clone() {
-  return std::unique_ptr<Component>(new PointLight(*this));
+  return std::make_unique<PointLight>(*this);
 }
 
 void PointLight::Update() {
@@ -33,7 +33,7 @@ void PointLight::Update() {
 }
 
 std::unique_ptr<Component> SpotLight::Clone() {
-  return std::unique_ptr<Component>(new SpotLight(*this));
+  return std::make_unique<SpotLight>(*this);
 }
 
 void SpotLight::Update() {

@@ -37,9 +37,10 @@ InputLayout::operator ID3D11InputLayout*() {
 
 
 Model::Model(const Mesh& mesh, const Material& material,
-  const std::string& texture_path, Math::Matrix texture_transform) :
+  const std::string& texture_path, Math::Matrix texture_transform,
+  bool enable_back_face_cull) :
   mesh_(mesh), material_(material), 
-  texture_path_(texture_path), texture_transform_(texture_transform) 
+  texture_path_(texture_path), texture_transform_(texture_transform)
 {
   // Creates vertext and index buffer.
   D3D11_BUFFER_DESC vbd;
@@ -67,10 +68,23 @@ Model::Model(const Mesh& mesh, const Material& material,
   ThrowIfFailed(
     s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &index_buffer_)
     );
+
+  if (!enable_back_face_cull) {
+    auto no_cull_desc = D3D11_RASTERIZER_DESC();
+    no_cull_desc.FillMode = D3D11_FILL_SOLID;
+    no_cull_desc.CullMode = D3D11_CULL_NONE;
+    no_cull_desc.FrontCounterClockwise = false;
+    no_cull_desc.DepthClipEnable = true;
+
+    ThrowIfFailed(
+      s_graphics_device->GetDevice()->CreateRasterizerState(&no_cull_desc,
+        &rasterizer_state_)
+      );
+  }
 }
 
 std::unique_ptr<Component> Model::Clone() {
-  return std::unique_ptr<Component>(new Model(*this));
+  return std::make_unique<Model>(*this);
 }
 
 void Model::SetTextureTransform(const Math::Matrix & value) {
@@ -79,6 +93,11 @@ void Model::SetTextureTransform(const Math::Matrix & value) {
 
 const Math::Matrix & Model::GetTextureTransform() const {
   return texture_transform_;
+}
+
+const Material & Model::GetMaterial() const
+{
+  return material_;
 }
 
 void Model::Update() {
@@ -94,10 +113,16 @@ void Model::Update() {
   s_effect->SetTextureTransform(texture_transform_);
   s_effect->SetTexture(CreateTexture(s_graphics_device->GetDevice(), texture_path_));
 
+  // Apply rasterizer option, if specified.
+  s_graphics_device->GetDeviceContex()->RSSetState(rasterizer_state_.Get());
+
   // Draw object.
   s_effect->Apply(s_graphics_device->GetDeviceContex());
-  s_graphics_device->GetDeviceContex()->DrawIndexed(static_cast<UINT>(mesh_.indices.size()), 0, 0);
-  //}
+  s_graphics_device->GetDeviceContex()->DrawIndexed(
+    static_cast<UINT>(mesh_.indices.size()), 0, 0);
+  
+  // Roll back rasterizer option. For it's global so will affect other models.
+  s_graphics_device->GetDeviceContex()->RSSetState(0);
 }
 
 Model::Mesh CreateBox(float width, float height, float depth) {

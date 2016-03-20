@@ -9,12 +9,12 @@
 class WaveController : public LL3D::Behaviour {
 public:
   std::unique_ptr<Component> Clone() override {
-    return std::unique_ptr<Component>(new WaveController(*this));
+    return std::make_unique<WaveController>(*this);
   }
 
   void Update() override {
     auto p = GetGameObject()->GetComponent<LL3D::Graphics::Model>()->GetTextureTransform();
-    auto offset = LL3D::Math::Matrix::CreateTranslation(0.005, 0, 0);
+    auto offset = LL3D::Math::Matrix::CreateTranslation(0.005f, 0, 0);
     GetGameObject()->GetComponent<LL3D::Graphics::Model>()->SetTextureTransform(p * offset);
   }
 };

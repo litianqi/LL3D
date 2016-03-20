@@ -17,10 +17,13 @@
     <ClCompile Include="Source\Editor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EditorCamera.cpp">
+    <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Main.cpp">
+    <ClCompile Include="Source\FirstPersonalCamera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EditorCameraController.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -28,13 +31,16 @@
     <ClInclude Include="Source\Editor.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EditorCamera.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PlayerController.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\WaveController.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FirstPersonalCamera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EditorCameraController.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

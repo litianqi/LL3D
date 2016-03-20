@@ -33,7 +33,7 @@ Windows 10 x64 only.
 
 ## PIMPL
 
-// TODO
+We will not use PIMPL universally, PIMPL requires hand-made copy C'tor/operator, kind of pain. 
 
 
 # Game Specific

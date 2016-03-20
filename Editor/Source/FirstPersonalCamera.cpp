@@ -1,25 +1,25 @@
 #include "FirstPersonalCamera.h"
-#include "../Core/Assert.h"
+#include <Core/Assert.h>
 
 using namespace DirectX;
 
 namespace LL3D {
 namespace Graphics {
 
-FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, XMVECTOR pos, XMVECTOR vec_target) :
-  Camera(frustum, pos, vec_target) {
+FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, XMVECTOR vec_target) :
+  Camera(frustum, vec_target) {
 }
 
 void FirstPersonalCamera::MoveBackForeward(float d) {
-  position_ += d * XMVector3Normalize(forward_vector_);
+  SetPosition(GetPosition() + d * XMVector3Normalize(forward_vector_));
 }
 
 void FirstPersonalCamera::MoveUpDown(float d) {
-  position_ += d * XMVECTOR{ 0, 1.0f };
+  SetPosition(GetPosition() + d * XMVECTOR{ 0, 1.0f });
 }
 
 void FirstPersonalCamera::MoveLeftRight(float d) {
-  position_ += d * XMVector3Normalize(GetRightVector());
+  SetPosition(GetPosition() + d * XMVector3Normalize(GetRightVector()));
 }
 
 void FirstPersonalCamera::Pitch(float radians) {

@@ -1,9 +1,11 @@
 #include "GameObject.h"
+#include "Graphics/Model.h"
 #include "Component.h"
 
 using namespace std;
 
 namespace LL3D {
+
 GameObject::GameObject() {
   AddComponent<Transform>();
 }
@@ -39,12 +41,31 @@ GameObject& GameObject::operator=(const GameObject& other) noexcept
   return *this;
 }
 
+void GameObject::Start()
+{
+  for (auto& child : children_) {
+    child.Start();
+  }
+
+  for (auto& component : components_) {
+    component.second->Start();
+  }
+}
+
 void GameObject::Update() {
   for (auto& child : children_) {
     child.Update();
   }
 
   for (auto& component : components_) {
+    // If model needs transparent blending, defer rendering (rendering will 
+    // happen latter at Scene).
+    if (component.second->GetType() == "Model") {
+      auto model = dynamic_cast<Graphics::Model *>(component.second.get());
+      if (model->GetMaterial().diffuse.A() < 1.0f)
+        break;
+    }
+
     component.second->Update();
   }
 }
