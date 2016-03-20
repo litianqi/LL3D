@@ -63,7 +63,7 @@ void GameObject::Update() {
     if (component.second->GetType() == "Model") {
       auto model = dynamic_cast<Graphics::Model *>(component.second.get());
       if (model->GetMaterial().diffuse.A() < 1.0f)
-        break;
+        continue;
     }
 
     component.second->Update();
