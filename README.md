@@ -13,10 +13,12 @@ For now, project Editor is just a test ground.
 - Component-based Design
 - Lighting
 - Texturing
+- Blending
 
 ## TODO
 
-- Blending
+- Stenciling
+- ...
 - UI
 - Physics
 - Audio
