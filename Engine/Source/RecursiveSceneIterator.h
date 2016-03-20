@@ -21,11 +21,10 @@ public:
   //
   RecursiveSceneIterator(Scene& scene) noexcept;
   //>
-  // Summary: Increments iterator.
-  // Exception: Throw a std::out_of_range exception if dereferences end.
+  // Increments iterator. Increments end iterator have no effects.
   // 
-  RecursiveSceneIterator& operator++();
-  RecursiveSceneIterator& operator++(int);
+  RecursiveSceneIterator& operator++() noexcept;
+  RecursiveSceneIterator& operator++(int) noexcept;
   //>
   // Compares iterator.
   //
@@ -33,7 +32,7 @@ public:
   bool operator!=(const RecursiveSceneIterator& rhs) const noexcept;
   //>
   // Summary: Returns value this iterator points to.
-  // Exception: Throw a std::out_of_range exception if dereferences end.
+  // Exception: Throw a std::out_of_range exception if dereferenced end.
   //
   GameObject& operator*();
   GameObject* operator->();

@@ -84,7 +84,7 @@ Model::Model(const Mesh& mesh, const Material& material,
 }
 
 std::unique_ptr<Component> Model::Clone() {
-  return std::unique_ptr<Component>(new Model(*this));
+  return std::make_unique<Model>(*this);
 }
 
 void Model::SetTextureTransform(const Math::Matrix & value) {

@@ -5,7 +5,7 @@
 namespace LL3D {
 
 std::unique_ptr<Component> Transform::Clone() {
-  return std::unique_ptr<Component>(new Transform(*this));
+  return std::make_unique<Transform>(*this);
 }
 
 void Transform::Update() {

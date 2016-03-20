@@ -42,6 +42,8 @@ BasicEffect::BasicEffect(std::string path) :
   material_ = effect_->GetVariableByName("g_material");
 
   texture_ = effect_->GetVariableByName("g_texture")->AsShaderResource();
+
+  fog_ = effect_->GetVariableByName("g_fog");
 }
 
 void BasicEffect::Apply(ID3D11DeviceContext* device_context) {
@@ -97,6 +99,11 @@ void BasicEffect::SetTexture(ID3D11ShaderResourceView* value) {
 
 void BasicEffect::SetMaterial(const Material & value) {
   material_->SetRawValue(&(value), 0, sizeof(value));
+}
+
+void BasicEffect::SetFog(const EffectFog & value)
+{
+  fog_->SetRawValue(&value, 0, sizeof(value));
 }
 
 //unsigned int BasicEffect::GetPassNum() const {

@@ -37,7 +37,7 @@ Camera::Camera(Frustum frustum, FXMVECTOR forward_vector) :
 }
 
 std::unique_ptr<Component> Camera::Clone() {
-  return std::unique_ptr<Component>(new Camera(*this));
+  return std::make_unique<Camera>(*this);
 }
 
 void Camera::Update() {

@@ -14,13 +14,13 @@ class Scene : private Graphics::Base {
 
 public:
   //--------------------------------------
-  // GameObject-
+  // GameObjects
  
   void AddGameObject(const GameObject& object);
   
   
   //--------------------------------------
-  // Operations-
+  // Operations
 
   void Update();
 

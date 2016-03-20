@@ -10,10 +10,10 @@ RecursiveSceneIterator::RecursiveSceneIterator(Scene & scene) noexcept
 {
 }
 
-RecursiveSceneIterator& RecursiveSceneIterator::operator++()
+RecursiveSceneIterator& RecursiveSceneIterator::operator++() noexcept
 {
   if (IsEnd())
-    throw std::out_of_range("Incremented(++) an end RecursiveSceneIterator.");
+    return *this;
 
   // If has child
   if (!iter_->children_.empty()) {
@@ -41,7 +41,7 @@ RecursiveSceneIterator& RecursiveSceneIterator::operator++()
   return *this;
 }
 
-RecursiveSceneIterator& RecursiveSceneIterator::operator++(int)
+RecursiveSceneIterator& RecursiveSceneIterator::operator++(int) noexcept
 {
   this->operator++();
   return *this;

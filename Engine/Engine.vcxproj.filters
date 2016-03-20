@@ -84,6 +84,7 @@
     <ClCompile Include="Source\RecursiveSceneIterator.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\Fog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
@@ -170,6 +171,9 @@
     <ClInclude Include="Source\GameObject.inl">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\Fog.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shaders\Light.fx">
@@ -183,5 +187,10 @@
     <CustomBuild Include="Source\Shaders\Main.fx">
       <Filter>Source\Shaders</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Source\Shaders\Fog.fx">
+      <Filter>Source\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

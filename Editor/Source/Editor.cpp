@@ -8,6 +8,8 @@
 #include <Graphics\Camera.h>
 #include <Graphics\Device.h>
 #include <Graphics\Light.h>
+#include <Graphics\Fog.h>
+#include <Graphics\Color.h>
 #include "PlayerController.h"
 #include "WaveController.h"
 
@@ -61,17 +63,19 @@ Editor::Editor()
     9.0f
   };*/
  
-  auto c0 = make_unique<LL3D::Graphics::Camera>(Graphics::Camera::Frustum(
+  auto c0 = make_unique<Graphics::Camera>(Graphics::Camera::Frustum(
     XM_PI / 8.0,
     static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
     1,
     1000),
     XMVECTOR{ 0.0f, -100.0f, 100.0f });
   auto c00 = make_unique<EditorCameraController>();
-  auto o0 = GameObject{};
+  auto c01 = make_unique<Graphics::Fog>(Math::Color(0.75f, 0.75f, 0.75f, 1.0f), 25.f, 1275.f);
+  auto o0 = GameObject();
   o0.AddComponent(std::move(c0));
   o0.AddComponent(std::move(c00));
   o0.GetComponent<Transform>()->SetPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
+  o0.AddComponent(std::move(c01));
   scene_->AddGameObject(o0);
 
   auto m1 = Graphics::Material{

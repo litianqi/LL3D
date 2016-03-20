@@ -29,6 +29,7 @@
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Device.cpp" />
     <ClCompile Include="Source\Graphics\Effects.cpp" />
+    <ClCompile Include="Source\Graphics\Fog.cpp" />
     <ClCompile Include="Source\Graphics\Light.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="Source\Graphics\Color.h" />
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />
+    <ClInclude Include="Source\Graphics\Fog.h" />
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
@@ -88,6 +90,11 @@
     <None Include="Source\Shaders\Material.fx">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Source\Shaders\Fog.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{543B5569-7C16-41AF-95A2-62E39C0576BD}</ProjectGuid>
