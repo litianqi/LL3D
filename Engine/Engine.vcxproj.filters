@@ -164,10 +164,10 @@
     <ClInclude Include="Source\Behaviour.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameObject.imp">
+    <ClInclude Include="Source\RecursiveSceneIterator.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\RecursiveSceneIterator.h">
+    <ClInclude Include="Source\GameObject.inl">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

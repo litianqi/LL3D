@@ -89,4 +89,4 @@ private:
 
 }  // namespace LL3D
 
-#include "GameObject.imp"
+#include "GameObject.inl"
