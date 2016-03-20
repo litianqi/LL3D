@@ -81,6 +81,9 @@
     <ClCompile Include="Source\Transform.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\RecursiveSceneIterator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
@@ -162,6 +165,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameObject.imp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RecursiveSceneIterator.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

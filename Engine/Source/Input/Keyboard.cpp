@@ -11,7 +11,7 @@ const std::string& Keyboard::GetInputString() {
 }
 
 float Keyboard::GetAxis(Axis axis) {
-  ///
+  //>
   // When a key is holding down, its possible it receives none OS message.
   // We mock a message result anyway.
   //

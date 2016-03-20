@@ -10,7 +10,7 @@ struct ID3D11ShaderResourceView;
 
 namespace LL3D {
 
-///
+//>
 // Create and return texture, if texture has already be created,  return 
 // immediatlly.
 // 

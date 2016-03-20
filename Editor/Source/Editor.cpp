@@ -61,15 +61,17 @@ Editor::Editor()
     9.0f
   };*/
  
-  auto c0 = make_unique<EditorCamera>(Graphics::Camera::Frustum(
+  auto c0 = make_unique<LL3D::Graphics::Camera>(Graphics::Camera::Frustum(
     XM_PI / 8.0,
     static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
     1,
     1000),
-    XMVECTOR{ 0.0f, 100.0f, -100, 1.0f },
     XMVECTOR{ 0.0f, -100.0f, 100.0f });
+  auto c00 = make_unique<EditorCameraController>();
   auto o0 = GameObject{};
   o0.AddComponent(std::move(c0));
+  o0.AddComponent(std::move(c00));
+  o0.GetComponent<Transform>()->SetPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
   scene_->AddGameObject(o0);
 
   auto m1 = Graphics::Material{
@@ -110,8 +112,9 @@ Editor::Editor()
   o2.AddComponent(std::move(c2));
   o2.AddComponent(std::move(pc));
   //o2.GetComponent<Transform>()->SetPosition(Math::Vector3(0, 5, 0));
-  scene_->AddGameObject(o2);
   scene_->AddGameObject(o1);
+  scene_->AddGameObject(o2);
+  
     
  /* std::vector<Model> meshs;
   meshs.push_back(m0);

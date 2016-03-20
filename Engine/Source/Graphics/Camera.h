@@ -15,8 +15,9 @@ namespace Graphics {
 class Camera : public Component, private Base {
 public:
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Types
+  
+  //--------------------------------------
+  // Types
 
   // Frustum properties of a Camera.
   class Frustum {
@@ -34,12 +35,12 @@ public:
     float z_far_;
   };
 
-  Camera(Frustum frustum, DirectX::FXMVECTOR position, 
-    DirectX::FXMVECTOR forward_vector);
+  Camera(Frustum frustum, DirectX::FXMVECTOR forward_vector);
   std::unique_ptr<Component> Clone() override;
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Properties
+  
+  //--------------------------------------
+  // Properties
 
   void SetFrustum(const Frustum& frustum);
   void SetPosition(DirectX::FXMVECTOR p);
@@ -53,23 +54,24 @@ public:
   DirectX::XMVECTOR GetRightVector() const;
   DirectX::XMVECTOR GetUpVector() const;
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Operations
+  
+  //--------------------------------------
+  // Operations
 
-  ///
+  //>
   // Writes properties to shader buffer.
   //
   void Update() override;
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Helpers
+  
+  //--------------------------------------
+  // Helpers
 
   DirectX::XMVECTOR ViewToWorldPosition(DirectX::FXMVECTOR p) const;
   DirectX::XMVECTOR WorldToViewPosition(DirectX::FXMVECTOR p) const;
 
 protected:
   // Came coordinate system with coordinate relative to world space.
-  DirectX::XMVECTOR position_;
   DirectX::XMVECTOR forward_vector_;
 
 private:

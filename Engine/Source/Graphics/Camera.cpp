@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "../Core/Assert.h"
+#include "../GameObject.h"
+#include "../Transform.h"
 #include "Effects.h"
 
 using namespace DirectX;
@@ -26,9 +28,8 @@ XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
     static_cast<float>(z_near_), static_cast<float>(z_far_));
 }
 
-Camera::Camera(Frustum frustum, FXMVECTOR position, FXMVECTOR forward_vector) :
+Camera::Camera(Frustum frustum, FXMVECTOR forward_vector) :
   frustum_(frustum),
-  position_(position),
   forward_vector_(forward_vector) {
   ASSERT(!XMVector3Equal(forward_vector, XMVectorZero()));
   ASSERT(!XMVector3IsInfinite(forward_vector));
@@ -50,7 +51,7 @@ void Camera::SetFrustum(const Frustum & frustum) {
 }
 
 void Camera::SetPosition(FXMVECTOR p) {
-  position_ = p;
+  GetGameObject()->GetComponent<Transform>()->SetWorldPosition(p);
 }
 
 void Camera::SetForwardVector(FXMVECTOR v) {
@@ -58,7 +59,7 @@ void Camera::SetForwardVector(FXMVECTOR v) {
 }
 
 XMMATRIX Camera::GetViewMatrix() const {
-  return XMMatrixLookToLH(position_, forward_vector_, XMVECTOR{ 0, 1.0f });;
+  return XMMatrixLookToLH(GetPosition(), forward_vector_, XMVECTOR{ 0, 1.0f });;
 }
 
 XMMATRIX Camera::GetViewProjectionMatrix() const {
@@ -71,7 +72,7 @@ const Camera::Frustum& Camera::GetFrustum() const {
 }
 
 XMVECTOR Camera::GetPosition() const {
-  return position_;
+  return GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
 }
 
 XMVECTOR Camera::GetForwardVector() const {

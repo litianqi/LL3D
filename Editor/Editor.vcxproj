@@ -149,13 +149,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Editor.cpp" />
-    <ClCompile Include="Source\EditorCamera.cpp" />
+    <ClCompile Include="Source\EditorCameraController.cpp" />
     <ClCompile Include="Source\FirstPersonalCamera.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Editor.h" />
-    <ClInclude Include="Source\EditorCamera.h" />
+    <ClInclude Include="Source\EditorCameraController.h" />
     <ClInclude Include="Source\FirstPersonalCamera.h" />
     <ClInclude Include="Source\PlayerController.h" />
     <ClInclude Include="Source\WaveController.h" />

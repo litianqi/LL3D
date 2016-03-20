@@ -46,17 +46,19 @@ public:
     bool enable_back_face_cull);
   std::unique_ptr<Component> Clone() override;
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Properties
+  
+  //--------------------------------------
+  // Properties
 
   void SetTextureTransform(const Math::Matrix& value);
 
   const Math::Matrix& GetTextureTransform() const;
+  const Material& GetMaterial() const;
+  
+  //--------------------------------------
+  // Operations
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Operations
-
-  ///
+  //>
   // Writes properties to shader buffer and Draw.
   //
   void Update() override;

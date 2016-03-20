@@ -2,7 +2,7 @@
 
 #include <Game.h>
 #include <Utils/Stopwatch.h>
-#include "EditorCamera.h"
+#include "EditorCameraController.h"
 #include "FirstPersonalCamera.h"
 
 class Editor: public LL3D::Game {

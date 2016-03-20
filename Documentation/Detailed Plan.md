@@ -24,14 +24,18 @@
 - [x] Read book. (3-16 - 3-17) 
 - [ ] Implement. (3-18 - 3-20)
   - [x] Set blend state
-  - [ ] Sort draw order
-  - [ ] Add Fog
+  - [x] RecursiveSceneIterator
+  - [x] Sort draw order
+  - [x] Camera
+  - [x] Component: Add Start()
+  - [ ] Add Fog 
 
 
 # Unplaned:
 
-- [ ] Mouse bug: when mouse beyonds window's scope then release, no OS keyup message received.
-- [ ] Keyboard bug: Presses both A and D, horizontal axis is positive.
+- [ ] [Refactor] Remvoe GameObject::Start, Add GameObject::Iterator 
+- [ ] [Bug] When mouse beyonds window's scope then release, no OS keyup message received.
+- [ ] [Bug] Presses both A and D, horizontal axis is positive.
 - [ ] Moves resize from Window to Input
 - [ ] Right hand coordinate system
 - [ ] Learn LINQ

@@ -95,6 +95,11 @@ const Math::Matrix & Model::GetTextureTransform() const {
   return texture_transform_;
 }
 
+const Material & Model::GetMaterial() const
+{
+  return material_;
+}
+
 void Model::Update() {
 
   UINT stride = sizeof(Vertex);

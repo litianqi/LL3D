@@ -10,11 +10,13 @@ namespace LL3D {
 
 class Scene;
 class Component;
+class RecursiveSceneIterator;
 
-///
+//-----------------------------------------------------------------------------
 // Base class for all entities in LL3D scenes.
-//
 class GameObject {
+  friend RecursiveSceneIterator;
+
 public:          
 
   GameObject();
@@ -25,8 +27,9 @@ public:
   GameObject& operator=(GameObject&& other) = default;
   ~GameObject() = default;
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Relations
+  
+  //--------------------------------------
+  // Relations
 
   void SetScene(Scene* scene);
   void SetParent(GameObject* parent);
@@ -38,8 +41,9 @@ public:
   GameObject* GetParent();
   const GameObject* GetParent() const;
 
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Properties
+  
+  //--------------------------------------
+  // Properties
    
   void SetActive(bool value);
   void SetName(const std::string& value);
@@ -59,10 +63,12 @@ public:
   template <typename T>
   const T* GetComponent() const;
   
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// Operations
   
-  ///
+  //--------------------------------------
+  // Operations
+
+  void Start();
+  //>
   // Updates its components and children. Called by it's parent or scene.
   //
   void Update();

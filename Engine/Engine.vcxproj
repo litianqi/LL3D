@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\RecursiveSceneIterator.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Utils\Encoding.cpp" />
     <ClCompile Include="Source\Utils\Stopwatch.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\RecursiveSceneIterator.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Utils\Encoding.h" />
     <ClInclude Include="Source\Utils\Stopwatch.h" />
