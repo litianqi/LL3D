@@ -11,11 +11,7 @@ class Component {
 public:
   virtual std::unique_ptr<Component> Clone() = 0;
   virtual ~Component() = default;
-  
-  
-  //--------------------------------------
-  // Relations
-
+ 
   //>
   // Set GameObject this Componet belongs to. Generally called by GameObeject.
   //
@@ -24,18 +20,10 @@ public:
   GameObject*       GetGameObject();
   const GameObject* GetGameObject() const;
 
-  
-  //--------------------------------------
-  // Queries
-
   //>
   // Returns a string reprensents real type of this. (e.g. "Model")
   //
   std::string GetType() const;
-
-  
-  //--------------------------------------
-  // Operations
 
   virtual void Start() {}
   virtual void Update() {}

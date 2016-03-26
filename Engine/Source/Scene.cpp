@@ -28,7 +28,7 @@ void LL3D::Scene::Update() {
     D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0
     );
 
-  s_graphics_device->GetDeviceContex()->IASetInputLayout(*s_input_layout);
+  s_graphics_device->GetDeviceContex()->IASetInputLayout(s_input_layout.Get());
   s_graphics_device->GetDeviceContex()->IASetPrimitiveTopology(
     D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
     );
@@ -92,11 +92,11 @@ std::vector<Component*> Scene::GetDeferRenderingModels() noexcept
 {
   std::vector<Component*> result;
 
-  for (auto& object : RecursiveSceneIterator(*this)) {
+  /*for (auto& object : RecursiveSceneIterator(*this)) {
     auto model = object.GetComponent<Graphics::Model>();
     if (model && model->GetMaterial().diffuse.A() < 1.0f)
       result.push_back(model);
-  }
+  }*/
 
   return result;
 }

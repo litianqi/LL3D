@@ -1,0 +1,182 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  Deep Exploration 5.5 5.5.3.2642 Release
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl c7d648bf_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd c7d648bf.dds
+map_bump 
+bump 
+map_opacity c7d648bf.dds
+map_d c7d648bf.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl _5bd6bc7_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 15bd6bc7.dds
+map_bump 
+bump 
+map_opacity 15bd6bc7.dds
+map_d 15bd6bc7.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl _2d1e816_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 62d1e816.dds
+map_bump 
+bump 
+map_opacity 62d1e816.dds
+map_d 62d1e816.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl _88a78da_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 488a78da.dds
+map_bump 
+bump 
+map_opacity 488a78da.dds
+map_d 488a78da.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl _feb7db1_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 5feb7db1.dds
+map_bump 
+bump 
+map_opacity 5feb7db1.dds
+map_d 5feb7db1.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl a1c1b0f5_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd a1c1b0f5.dds
+map_bump 
+bump 
+map_opacity a1c1b0f5.dds
+map_d a1c1b0f5.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl _4bd0ac9_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 04bd0ac9.dds
+map_bump 
+bump 
+map_opacity 04bd0ac9.dds
+map_d 04bd0ac9.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl db8f38ac_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd db8f38ac.dds
+map_bump 
+bump 
+map_opacity db8f38ac.dds
+map_d db8f38ac.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl _c161e48_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 9c161e48.dds
+map_bump 
+bump 
+map_opacity 9c161e48.dds
+map_d 9c161e48.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl d6428c57_dds
+Ka 0.7 0.7 0.7
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd d6428c57.dds
+map_bump 
+bump 
+map_opacity d6428c57.dds
+map_d d6428c57.dds
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__3577
+Ka 0.7 0.7 0.7
+Kd 0.7 0.7 0.7
+Ks 1 1 1
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 

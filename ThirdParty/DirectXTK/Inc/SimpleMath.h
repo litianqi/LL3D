@@ -25,6 +25,7 @@
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
+#include <iostream>
 
 namespace DirectX
 {
@@ -148,6 +149,7 @@ Vector2 operator* (float S, const Vector2& V);
 struct Vector3 : public XMFLOAT3
 {
     Vector3() : XMFLOAT3(0.f, 0.f, 0.f) {}
+    Vector3(const Vector3& V) { this->x = V.x; this->y = V.y; this->z = V.z; }
     explicit Vector3(float x) : XMFLOAT3( x, x, x ) {}
     Vector3(float _x, float _y, float _z) : XMFLOAT3(_x, _y, _z) {}
     explicit Vector3(_In_reads_(3) const float *pArray) : XMFLOAT3(pArray) {}
@@ -163,6 +165,9 @@ struct Vector3 : public XMFLOAT3
     // Assignment operators
     Vector3& operator= (const Vector3& V) { x = V.x; y = V.y; z = V.z; return *this; }
     Vector3& operator= (const XMFLOAT3& V) { x = V.x; y = V.y; z = V.z; return *this; }
+    Vector3& operator = (_In_reads_(3) const float *pArray) {
+      x = pArray[0]; y = pArray[1]; z = pArray[2]; return *this;
+    }
     Vector3& operator+= (const Vector3& V);
     Vector3& operator-= (const Vector3& V);
     Vector3& operator*= (const Vector3& V);
@@ -255,6 +260,9 @@ Vector3 operator* (const Vector3& V1, const Vector3& V2);
 Vector3 operator* (const Vector3& V, float S);
 Vector3 operator/ (const Vector3& V1, const Vector3& V2);
 Vector3 operator* (float S, const Vector3& V);
+inline std::ostream& operator<<(std::ostream& OS, const Vector3& V) {
+  return OS << V.x << V.y << V.z;
+}
 
 //------------------------------------------------------------------------------
 // 4D vector

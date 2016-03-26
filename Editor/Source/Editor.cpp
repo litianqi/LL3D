@@ -4,7 +4,7 @@
 #include <GameObject.h>
 #include <Scene.h>
 #include <Component.h>
-#include <Graphics\Model.h>
+#include <Graphics\ModelRender.h>
 #include <Graphics\Camera.h>
 #include <Graphics\Device.h>
 #include <Graphics\Light.h>
@@ -75,49 +75,40 @@ Editor::Editor()
   o0.AddComponent(std::move(c0));
   o0.AddComponent(std::move(c00));
   o0.GetComponent<Transform>()->SetPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
-  o0.AddComponent(std::move(c01));
+  //o0.AddComponent(std::move(c01));
   scene_->AddGameObject(o0);
 
-  auto m1 = Graphics::Material{
-    XMVECTOR{ 1, 1, 1, 0.85f },
-    XMVECTOR{ 1, 1, 1, 1 },
-    9.0f
-  };
-  auto c1 = make_unique<Graphics::Model>(
-    Graphics::CreateGrid(100, 100, 2, 2),
-    m1,
-    u8"Resource/Textures/water2.dds",
-    XMMatrixScaling(1, 1, 1),
-    true
+  auto c1 = make_unique<Graphics::ModelRender>(
+    "D:\\Workspace\\LL3D\\Editor\\Resource\\Mesh\\Girl\\girl.obj"
     );
 
   auto c12 = make_unique<WaveController>();
   auto o1 = GameObject();
   o1.AddComponent(std::move(c1));
-  o1.AddComponent(std::move(c12));
+  //o1.AddComponent(std::move(c12));
 
-  //scene_->AddGameObject(o1);
-
-  auto m2 = Graphics::Material{
-    XMVECTOR{ 1, 1, 1, 1 },
-    XMVECTOR{ 1, 1, 1, 1 },
-    9.0f
-  };
-
-  auto c2 = make_unique<Graphics::Model>(
-    Graphics::CreateBox(10, 10, 10),
-    m2,
-    u8"Resource/Textures/WireFence.dds",
-    XMMatrixIdentity(),
-    false
-    );
-  auto pc = make_unique<PlayerController>();
-  auto o2 = GameObject();
-  o2.AddComponent(std::move(c2));
-  o2.AddComponent(std::move(pc));
-  //o2.GetComponent<Transform>()->SetPosition(Math::Vector3(0, 5, 0));
   scene_->AddGameObject(o1);
-  scene_->AddGameObject(o2);
+
+  //auto m2 = Graphics::Material{
+  //  XMVECTOR{ 1, 1, 1, 1 },
+  //  XMVECTOR{ 1, 1, 1, 1 },
+  //  9.0f
+  //};
+
+  //auto c2 = make_unique<Graphics::Model>(
+  //  Graphics::Mesh::CreateBox(10, 10, 10),
+  //  m2,
+  //  u8"Resource/Textures/WireFence.dds",
+  //  XMMatrixIdentity(),
+  //  false
+  //  );
+  //auto pc = make_unique<PlayerController>();
+  //auto o2 = GameObject();
+  //o2.AddComponent(std::move(c2));
+  //o2.AddComponent(std::move(pc));
+  ////o2.GetComponent<Transform>()->SetPosition(Math::Vector3(0, 5, 0));
+ 
+  //scene_->AddGameObject(o2);
   
     
  /* std::vector<Model> meshs;

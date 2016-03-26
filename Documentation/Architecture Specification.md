@@ -20,11 +20,18 @@ Windows 10 x64 only.
 
 ## Error Handling
 
-- For errors presumably detectable before the program executes, such as violations of logical preconditions or class invariants:
-  - If we want the error handling code only work in debug mode: use ASSERT.
-  - Else: use std::logic_error hierarchy.(sparely)
-- For errors presumably detectable only when the program executes: use std::runtime_error hierarchy.
-- When you do not think there is an error, but you want check it anyway: use ASSERT.
+- Logic Error
+
+Errors that are a consequence of faulty logic within the program such as violating logical preconditions or class invariants and may be preventable.
+
+If you want the client side handle it, or see it even in release version, use std::logic_error. Else (client cann't handle it, and only see it in debug version), use ASSERT.
+
+- Domain Error
+
+Errors that are due to events beyond the scope of the program and can not be easily predicted.
+
+Use std::runtime_error.
+
 
 ## Singleton Problem
 

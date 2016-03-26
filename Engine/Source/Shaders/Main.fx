@@ -42,9 +42,11 @@ BlendState g_blend
 };
 
 struct VertexIn {
-  float4 pos_l  : POSITION;
-  float4 normal_l : NORMAL;
+  float3 pos_l  : POSITION;
+  float3 normal_l : NORMAL;
   float2 texture_coordinate : TEXCOORD;
+  float3 tangent : TANGENT;
+  float3 bitangent : BITANGENT;
 };
 
 struct VertexOut {
@@ -58,11 +60,11 @@ VertexOut VS(VertexIn vin) {
   VertexOut vout;
 
   // Transform to homogeneous clip space.
-  vout.pos_h = mul(vin.pos_l, mul(g_world, mul(g_view, g_projection)));
+  vout.pos_h = mul(float4(vin.pos_l, 1.f), mul(g_world, mul(g_view, g_projection)));
 
   // Transform to world space.
-  vout.pos_w = mul(vin.pos_l, g_world);
-  vout.normal_w = mul(vin.normal_l, g_world);
+  vout.pos_w = mul(float4(vin.pos_l, 1.f), g_world);
+  vout.normal_w = mul(float4(vin.normal_l, 0.f), g_world);
 
   vout.texture_coordinate = mul(float4(vin.texture_coordinate, 0.0, 1.0), g_texture_transform).xy;
 
@@ -97,9 +99,9 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
   }
 
   // Fogging
-  float distance_to_eye = length(to_eye);
+  /*float distance_to_eye = length(to_eye);
   float s = saturate((distance_to_eye - g_fog.start) / g_fog.range);
-  lit_color = (1 - s) * lit_color + s * g_fog.color;
+  lit_color = (1 - s) * lit_color + s * g_fog.color;*/
 
   // Common to take alpha from diffuse material and texture.
   lit_color.a = texture_color.a * g_material.diffuse.a;
