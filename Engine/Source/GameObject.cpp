@@ -60,11 +60,11 @@ void GameObject::Update() {
   for (auto& component : components_) {
     // If model needs transparent blending, defer rendering (rendering will 
     // happen latter at Scene).
-    if (component.second->GetType() == "Model") {
+    /*if (component.second->GetType() == "Model") {
       auto model = dynamic_cast<Graphics::Model *>(component.second.get());
       if (model->GetMaterial().diffuse.A() < 1.0f)
         continue;
-    }
+    }*/
 
     component.second->Update();
   }
