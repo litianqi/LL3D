@@ -58,8 +58,11 @@ void MeshRender::Render() noexcept
 {
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
-  s_graphics_device->GetDeviceContex()->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
-  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
+
+  s_graphics_device->GetDeviceContex()->IASetVertexBuffers(0, 1, 
+    vertex_buffer_.GetAddressOf(), &stride, &offset);
+  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(index_buffer_.Get(), 
+    DXGI_FORMAT_R32_UINT, 0);
 
   //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
   // Set per object constant buffer.
@@ -67,6 +70,8 @@ void MeshRender::Render() noexcept
   //s_effect->SetTextureTransform(texture_transform_);
   if (filesystem::exists(material_.diffuse_texture))
     s_effect->SetTexture(CreateTexture(s_graphics_device->GetDevice(), material_.diffuse_texture));
+
+  s_effect->SetTextureTransform(DirectX::XMMatrixIdentity());
 
   // Apply rasterizer option, if specified.
   s_graphics_device->GetDeviceContex()->RSSetState(rasterizer_state_.Get());
@@ -80,11 +85,11 @@ void MeshRender::Render() noexcept
   s_graphics_device->GetDeviceContex()->RSSetState(0);
 }
 
-ModelRender::ModelRender(std::experimental::filesystem::path filename) :
-  model_(Model::LoadAssimp(filename))
+ModelRender::ModelRender(std::experimental::filesystem::path pathname)
 {
-  for (const auto& m : model_.meshes) {
-    mesh_renders_.push_back(MeshRender(m, model_.materials));
+  auto model = Model::LoadAssimp(pathname);
+  for (const auto& m : model.meshes) {
+    mesh_renders_.push_back(MeshRender(m, model.materials));
   }
 }
 

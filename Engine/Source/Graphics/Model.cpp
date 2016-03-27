@@ -13,9 +13,9 @@ using namespace LL3D::Math;
 namespace LL3D {
 namespace Graphics {
 
-Model Model::LoadAssimp(filesystem::path filename)
+Model Model::LoadAssimp(filesystem::path pathname)
 {
-  if (!filesystem::exists(filename))
+  if (!filesystem::exists(pathname))
     throw std::exception("File doesn't exists");
 
   Assimp::Importer importer;
@@ -31,23 +31,24 @@ Model Model::LoadAssimp(filesystem::path filename)
                                                                       // remove points and lines
   importer.SetPropertyInteger(AI_CONFIG_PP_SBP_REMOVE, aiPrimitiveType_POINT | aiPrimitiveType_LINE);
 
-  const aiScene *scene = importer.ReadFile(filename.string(),  // todo: filename u8string?
-  /*  aiProcess_CalcTangentSpace |
-    aiProcess_JoinIdenticalVertices |*/
-    aiProcess_Triangulate
-    /*aiProcess_RemoveComponent |
+  const aiScene *scene = importer.ReadFile(pathname.string(),  // todo: filename u8string?
+    aiProcess_CalcTangentSpace |
+    aiProcess_JoinIdenticalVertices |
+    aiProcess_Triangulate |
+    aiProcess_FixInfacingNormals |
+    aiProcess_RemoveComponent |
     aiProcess_GenSmoothNormals |
     aiProcess_SplitLargeMeshes |
-    aiProcess_ValidateDataStructure |*/
-    //aiProcess_ImproveCacheLocality | // handled by optimizePostTransform()
-    /*aiProcess_RemoveRedundantMaterials |
+    aiProcess_ValidateDataStructure |
+    // aiProcess_ImproveCacheLocality | // handled by optimizePostTransform()
+    aiProcess_RemoveRedundantMaterials |
     aiProcess_SortByPType |
-    aiProcess_FindInvalidData |*/
-    /*aiProcess_GenUVCoords |
-    aiProcess_TransformUVCoords |*/
-    /*aiProcess_OptimizeMeshes |
-    aiProcess_OptimizeGraph |*/
-    /*aiProcess_ConvertToLeftHanded*/);
+    aiProcess_FindInvalidData |
+    aiProcess_GenUVCoords |
+    aiProcess_TransformUVCoords |
+    aiProcess_OptimizeMeshes |
+    aiProcess_OptimizeGraph /*|
+    aiProcess_ConvertToLeftHanded*/);
 
   if (scene == nullptr)
     throw std::exception("scene == nullptr, empty or corrupted file?");
@@ -109,12 +110,12 @@ Model Model::LoadAssimp(filesystem::path filename)
 
     char *pRem = nullptr;
 
-    dstMat.diffuse_texture = filename.parent_path() / "Texture/" / texDiffusePath.C_Str();
-    dstMat.specular_texture = filename.parent_path() / "Texture/" / texSpecularPath.C_Str();
-    dstMat.emissive_texture = filename.parent_path() / "Texture/" / texEmissivePath.C_Str();
-    dstMat.normal_texture = filename.parent_path() / "Texture/" / texNormalPath.C_Str();
-    dstMat.lightmap_texture = filename.parent_path() / "Texture/" / texLightmapPath.C_Str();
-    dstMat.reflection_texture = filename.parent_path() / "Texture/" / texReflectionPath.C_Str();
+    dstMat.diffuse_texture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
+    dstMat.specular_texture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
+    dstMat.emissive_texture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
+    dstMat.normal_texture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
+    dstMat.lightmap_texture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
+    dstMat.reflection_texture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
 
     aiString matName;
     srcMat->Get(AI_MATKEY_NAME, matName);

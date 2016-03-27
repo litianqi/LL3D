@@ -30,39 +30,8 @@ Editor::Editor()
 {
   
   timer_.Start();
-
-  // Add Models:
-
-  /*Model m1;
-  m1.mesh = CreateGrid(100, 100, 2, 2);
-  m1.world = XMMatrixIdentity();
-  m1.material = Material{
-    XMVECTOR{ 0.0f, 1, 0, 1.0f },
-    XMVECTOR{ 0.0f, 1.0f, 0, 1.0f },
-    XMVECTOR{ 0.0f, 1.0f, 0, 1.0f },
-    9.0f
-  };
-
-  Model m2;
-  m2.mesh = CreateBox(10, 10, 10);
-  m2.world = XMMatrixTranslation(-15, 5, 0);
-  m2.material = Material{
-    XMVECTOR{ 1.0f, 0, 0, 1.0f },
-    XMVECTOR{ 1.0f, 0, 0, 1.0f },
-    XMVECTOR{ 0.0f, 0, 0, 1.0f },
-    9.0f
-  };
-
-  Model m3;
-  m3.mesh = CreateSphere(5, 40, 40);
-  m3.world = XMMatrixTranslation(0, 5, 0);
-  m3.material = Material{
-    XMVECTOR{ 0.0f, 0, 1, 1.0f },
-    XMVECTOR{ 0.0f, 0, 1, 1 },
-    XMVECTOR{ 0.0f, 0.0f, 0.0f, 1 },
-    9.0f
-  };*/
  
+  // Add Camera.
   auto c0 = make_unique<Graphics::Camera>(Graphics::Camera::Frustum(
     XM_PI / 8.0,
     static_cast<float>(window_->GetClientRect().GetSize().w) / window_->GetClientRect().GetSize().h,
@@ -74,12 +43,14 @@ Editor::Editor()
   auto o0 = GameObject();
   o0.AddComponent(std::move(c0));
   o0.AddComponent(std::move(c00));
-  o0.GetComponent<Transform>()->SetPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
+  o0.GetComponent<Transform>()->SetPosition(XMVECTOR{ 0.0f, 15.0f, -10, 1.0f });
   //o0.AddComponent(std::move(c01));
   scene_->AddGameObject(o0);
 
+  // Add Model.
+
   auto c1 = make_unique<Graphics::ModelRender>(
-    "D:\\Workspace\\LL3D\\Editor\\Resource\\Mesh\\Girl\\girl.obj"
+    "D:\\Workspace\\LL3D\\Editor\\Resource\\Models\\C\\sponza.h3d"
     );
 
   auto c12 = make_unique<WaveController>();
@@ -88,33 +59,6 @@ Editor::Editor()
   //o1.AddComponent(std::move(c12));
 
   scene_->AddGameObject(o1);
-
-  //auto m2 = Graphics::Material{
-  //  XMVECTOR{ 1, 1, 1, 1 },
-  //  XMVECTOR{ 1, 1, 1, 1 },
-  //  9.0f
-  //};
-
-  //auto c2 = make_unique<Graphics::Model>(
-  //  Graphics::Mesh::CreateBox(10, 10, 10),
-  //  m2,
-  //  u8"Resource/Textures/WireFence.dds",
-  //  XMMatrixIdentity(),
-  //  false
-  //  );
-  //auto pc = make_unique<PlayerController>();
-  //auto o2 = GameObject();
-  //o2.AddComponent(std::move(c2));
-  //o2.AddComponent(std::move(pc));
-  ////o2.GetComponent<Transform>()->SetPosition(Math::Vector3(0, 5, 0));
- 
-  //scene_->AddGameObject(o2);
-  
-    
- /* std::vector<Model> meshs;
-  meshs.push_back(m0);
-  meshs.push_back(m1);
-*/
 
   //// Add Lights:
 

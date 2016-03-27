@@ -59,12 +59,13 @@ struct VertexOut {
 VertexOut VS(VertexIn vin) {
   VertexOut vout;
 
-  // Transform to homogeneous clip space.
-  vout.pos_h = mul(float4(vin.pos_l, 1.f), mul(g_world, mul(g_view, g_projection)));
-
   // Transform to world space.
   vout.pos_w = mul(float4(vin.pos_l, 1.f), g_world);
   vout.normal_w = mul(float4(vin.normal_l, 0.f), g_world);
+
+  // Transform to homogeneous clip space.
+  vout.pos_h = mul(vout.pos_w, g_view);
+  vout.pos_h = mul(vout.pos_h, g_projection);
 
   vout.texture_coordinate = mul(float4(vin.texture_coordinate, 0.0, 1.0), g_texture_transform).xy;
 
@@ -104,7 +105,7 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
   lit_color = (1 - s) * lit_color + s * g_fog.color;*/
 
   // Common to take alpha from diffuse material and texture.
-  lit_color.a = texture_color.a * g_material.diffuse.a;
+  lit_color.a = g_material.diffuse.a;
 
   return lit_color;
 }
@@ -114,6 +115,6 @@ technique11 Tech {
     SetBlendState(g_blend, float4(0, 0, 0, 0), 0xffffffff);
     SetVertexShader(CompileShader(vs_5_0, VS()));
     SetGeometryShader(NULL);
-    SetPixelShader(CompileShader(ps_5_0, PS(true, true)));
+    SetPixelShader(CompileShader(ps_5_0, PS(true, false)));
   }
 }

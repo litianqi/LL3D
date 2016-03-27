@@ -21,7 +21,7 @@ public:
   const GameObject* GetGameObject() const;
 
   //>
-  // Returns a string reprensents real type of this. (e.g. "Model")
+  // Returns a string reprensents real type of this. (e.g. "ModelRender")
   //
   std::string GetType() const;
 

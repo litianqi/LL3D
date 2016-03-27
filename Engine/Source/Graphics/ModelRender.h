@@ -22,7 +22,7 @@ private:
 
 class ModelRender : public Component {
 public:
-  ModelRender(std::experimental::filesystem::path filename);
+  ModelRender(std::experimental::filesystem::path pathname);
   std::unique_ptr<Component> Clone() override;
   //>
   // Renders this Model.
@@ -30,7 +30,6 @@ public:
   void Update() override;
 
 private:
-  Model model_;
   std::vector<MeshRender> mesh_renders_;
 };
 
