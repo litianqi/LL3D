@@ -54,9 +54,6 @@
     <ClCompile Include="Source\Graphics\Camera.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Model.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Graphics\Effects.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
@@ -84,7 +81,18 @@
     <ClCompile Include="Source\RecursiveSceneIterator.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Fog.cpp" />
+    <ClCompile Include="Source\Graphics\Fog.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Model.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\ModelRender.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Material.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
@@ -129,9 +137,6 @@
     <ClInclude Include="Source\Graphics\Device.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\Model.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\Material.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
@@ -172,6 +177,15 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\Fog.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Color.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Model.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\ModelRender.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

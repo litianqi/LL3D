@@ -23,9 +23,11 @@ void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
   aspect_ratio_ = aspect_ratio;
 }
 
-XMMATRIX Camera::Frustum::GetProjectionMaxtrix() const {
-  return XMMatrixPerspectiveFovLH(radian_fov_y_, aspect_ratio_,
+Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const {
+  return Math::Matrix::CreatePerspectiveFieldOfView(radian_fov_y_, aspect_ratio_,
     static_cast<float>(z_near_), static_cast<float>(z_far_));
+  /*return XMMatrixPerspectiveFovLH(radian_fov_y_, aspect_ratio_,
+    static_cast<float>(z_near_), static_cast<float>(z_far_));*/
 }
 
 Camera::Camera(Frustum frustum, FXMVECTOR forward_vector) :
@@ -42,8 +44,11 @@ std::unique_ptr<Component> Camera::Clone() {
 
 void Camera::Update() {
   s_effect->SetEyePosW(GetPosition());
-  s_effect->SetView(GetViewMatrix());
-  s_effect->SetProjection(GetFrustum().GetProjectionMaxtrix());
+  auto v = Math::Matrix(GetViewMatrix());
+  s_effect->SetView(v);
+  auto p = Math::Matrix(GetFrustum().GetProjectionMaxtrix());
+  p._44 = 1.f;  // todo
+  s_effect->SetProjection(p);
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {
@@ -58,12 +63,13 @@ void Camera::SetForwardVector(FXMVECTOR v) {
   forward_vector_ = v;
 }
 
-XMMATRIX Camera::GetViewMatrix() const {
-  return XMMatrixLookToLH(GetPosition(), forward_vector_, XMVECTOR{ 0, 1.0f });;
+Math::Matrix Camera::GetViewMatrix() const {
+  return Math::Matrix::CreateLookAt(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
+  //return XMMatrixLookToLH();;
 }
 
-XMMATRIX Camera::GetViewProjectionMatrix() const {
-  XMMATRIX projection = frustum_.GetProjectionMaxtrix();
+Math::Matrix Camera::GetViewProjectionMatrix() const {
+  Math::Matrix projection = frustum_.GetProjectionMaxtrix();
   return GetViewMatrix() * projection;
 }
 

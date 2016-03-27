@@ -2,6 +2,7 @@
 
 #include <list>
 #include <DirectXMath.h>
+#include "../Math/Math.h"
 #include "../Component.h"
 #include "Base.h"
 
@@ -26,7 +27,7 @@ public:
 
     void SetAspectRatio(float aspect_ratio);
 
-    DirectX::XMMATRIX GetProjectionMaxtrix() const;
+    Math::Matrix GetProjectionMaxtrix() const;
 
   private:
     float radian_fov_y_;
@@ -46,8 +47,8 @@ public:
   void SetPosition(DirectX::FXMVECTOR p);
   void SetForwardVector(DirectX::FXMVECTOR v);
 
-  DirectX::XMMATRIX GetViewMatrix() const;
-  DirectX::XMMATRIX GetViewProjectionMatrix() const;
+  Math::Matrix GetViewMatrix() const;
+  Math::Matrix GetViewProjectionMatrix() const;
   const Frustum& GetFrustum() const;
   DirectX::XMVECTOR GetPosition() const;
   DirectX::XMVECTOR GetForwardVector() const;

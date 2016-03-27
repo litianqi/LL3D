@@ -57,7 +57,7 @@ float4 ComputeDirectionalLight(Material mat, float4 normal, DirectionalLight lig
     float4 reflect_direction = reflect(-light.direction, normal);
     reflect_direction = normalize(reflect_direction);
     to_eye = normalize(to_eye);
-    float spec_cone_att = pow(max(dot(reflect_direction, to_eye), 0.0f), mat.spec_power);
+    float spec_cone_att = pow(max(dot(reflect_direction, to_eye), 0.0f), mat.specular_exponent);
    
     float4 specular = light.color * mat.specular * spec_cone_att; 
 

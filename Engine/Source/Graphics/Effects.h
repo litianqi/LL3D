@@ -66,7 +66,7 @@ public:
 
   //--------------------------------------
   // Material settings.
-  void SetMaterial(const Material& value);
+  void SetMaterial(const Material::EffectBuffer& material);
 
   //--------------------------------------
   // Fog settings.

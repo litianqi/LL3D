@@ -31,7 +31,9 @@
     <ClCompile Include="Source\Graphics\Effects.cpp" />
     <ClCompile Include="Source\Graphics\Fog.cpp" />
     <ClCompile Include="Source\Graphics\Light.cpp" />
+    <ClCompile Include="Source\Graphics\Material.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
+    <ClCompile Include="Source\Graphics\ModelRender.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -60,9 +62,11 @@
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
+    <ClInclude Include="Source\Graphics\ModelRender.h" />
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\KeyCode.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
+    <ClInclude Include="Source\Math\Color.h" />
     <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\RecursiveSceneIterator.h" />
@@ -183,7 +187,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4838</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\DirectXTK\Inc;$(ProjectDir)ThirdParty\assimp\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

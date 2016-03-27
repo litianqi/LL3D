@@ -97,8 +97,8 @@ void BasicEffect::SetTexture(ID3D11ShaderResourceView* value) {
   texture_->SetResource(value);
 }
 
-void BasicEffect::SetMaterial(const Material & value) {
-  material_->SetRawValue(&(value), 0, sizeof(value));
+void BasicEffect::SetMaterial(const Material::EffectBuffer& material) {
+  material_->SetRawValue(&material, 0, sizeof(material));
 }
 
 void BasicEffect::SetFog(const EffectFog & value)

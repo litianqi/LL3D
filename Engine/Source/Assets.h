@@ -15,9 +15,9 @@ namespace LL3D {
 // immediatlly.
 // 
 // Exception:
-// If path can not be resolved or has wrong extension,
-// an InvalidArgument exception will raise.
+// If path doesn't esists or has wrong extension,
+// an InvalidArgument exception will be raised.
 //
-ID3D11ShaderResourceView* CreateTexture(ID3D11Device* device, std::experimental::filesystem::path path);
+ID3D11ShaderResourceView* CreateTexture(ID3D11Device* device, std::experimental::filesystem::path pathname);
 
 }  // namespace LL3D

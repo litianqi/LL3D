@@ -2,88 +2,45 @@
 
 #include <vector>
 #include <filesystem>
-#include <wrl.h>
-#include "../Component.h"
-#include "../Core/Uncopyable.h"
+#include <exception>
 #include "../Math/Math.h"
-#include "Base.h"
 #include "Material.h"
-
-struct ID3D11InputLayout;
-struct ID3D11Buffer;
 
 namespace LL3D {
 namespace Graphics {
 
-class Effect;
-class BasicEffect;
-
 struct Vertex {
-  DirectX::XMVECTOR position;
-  DirectX::XMVECTOR normal;
-  DirectX::XMFLOAT2 texture_coordinate;
+  Math::Vector3 position;
+  Math::Vector3 normal;
+  Math::Vector2 texcoord;
+  Math::Vector3 tangent;  // todo
+  Math::Vector3 bitangent;  // todo
 };
 
-class InputLayout : private Base, private Uncopyable {
-public:
-  InputLayout();
-
-  operator ID3D11InputLayout*();
-
-private:
-  Microsoft::WRL::ComPtr<ID3D11InputLayout> layout_;
+//-----------------------------------------------------------------------------
+// A mesh represents a geometry or model with a single material.
+struct Mesh {
+  std::vector<Vertex>       vertices;
+  std::vector<unsigned int> indices;
+  int                       material_index = -1;
+  
+  // todo
+  static Mesh CreateBox(float width, float height, float depth);
+  static Mesh CreateSphere(float radius, int slice_count, int stack_count);
+  static Mesh CreateGrid(float width, float depth, int m, int n);
 };
 
-class Model : public Component, private Base {
-public:
-  struct Mesh {
-    std::vector<Vertex>       vertices;
-    std::vector<unsigned int> indices;
-  };
-
-  Model(const Mesh& mesh, const Material& material, 
-    const std::string& texture_path, Math::Matrix texture_transform, 
-    bool enable_back_face_cull);
-  std::unique_ptr<Component> Clone() override;
-
-  
-  //--------------------------------------
-  // Properties
-
-  void SetTextureTransform(const Math::Matrix& value);
-
-  const Math::Matrix& GetTextureTransform() const;
-  const Material& GetMaterial() const;
-  
-  //--------------------------------------
-  // Operations
+struct Model {
+  std::string           name;
+  std::vector<Mesh>     meshes;
+  std::vector<Material> materials;
 
   //>
-  // Writes properties to shader buffer and Draw.
+  // Load a Model from file using Assimp.
+  // Throw std::exception if filename doesn't exists or parsing faild. 
   //
-  void Update() override;
-
-private:
-  Mesh              mesh_;
-  Material          material_;
-  std::string       texture_path_;
-  Math::Matrix      texture_transform_;
-
-  Microsoft::WRL::ComPtr<ID3D11Buffer>          index_buffer_;
-  Microsoft::WRL::ComPtr<ID3D11Buffer>          vertex_buffer_;
-  Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_state_;
+  static Model LoadAssimp(std::experimental::filesystem::path pathname);
 };
-
-// Creates a box centered at the origin with the given dimensions.
-Model::Mesh CreateBox(float width, float height, float depth);
-
-// Creates a sphere centered at the origin with the given radius.  The
-// slices and stacks parameters control the degree of tessellation.
-Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount);
-
-// Creates an mxn grid in the xz-plane with m rows and n columns, centered
-// at the origin with the specified width and depth.
-Model::Mesh CreateGrid(float width, float depth, int m, int n);
 
 }  // namespace Graphics
 }  // namespace LL3D

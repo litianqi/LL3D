@@ -1,132 +1,203 @@
 #include "Model.h"
-#include <DirectXMath.h>
-#include <D3D11.h>
-#include <d3dx11effect.h>
+#include <filesystem>
+#include <plog/Log.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include "../Core/Assert.h"
-#include "../Core/Exceptions.h"
-#include "Device.h"
-#include "Color.h"
-#include "Effects.h"
-#include "../Assets.h"
 
-using namespace DirectX;
+using namespace std;
 using namespace std::experimental;
+using namespace LL3D::Math;
 
 namespace LL3D {
 namespace Graphics {
 
-InputLayout::InputLayout() {
-  D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
+Model Model::LoadAssimp(filesystem::path pathname)
+{
+  if (!filesystem::exists(pathname))
+    throw std::exception("File doesn't exists");
+
+  Assimp::Importer importer;
+
+  // remove unused data
+  importer.SetPropertyInteger(AI_CONFIG_PP_RVC_FLAGS,
+    aiComponent_COLORS | aiComponent_LIGHTS | aiComponent_CAMERAS);
+
+  // max triangles and vertices per mesh, splits above this threshold
+  importer.SetPropertyInteger(AI_CONFIG_PP_SLM_TRIANGLE_LIMIT, INT_MAX);
+  importer.SetPropertyInteger(AI_CONFIG_PP_SLM_VERTEX_LIMIT, 0xfffe); // avoid the primitive restart index
+
+                                                                      // remove points and lines
+  importer.SetPropertyInteger(AI_CONFIG_PP_SBP_REMOVE, aiPrimitiveType_POINT | aiPrimitiveType_LINE);
+
+  const aiScene *scene = importer.ReadFile(pathname.string(),  // todo: filename u8string?
+    aiProcess_CalcTangentSpace |
+    aiProcess_JoinIdenticalVertices |
+    aiProcess_Triangulate |
+    aiProcess_FixInfacingNormals |
+    aiProcess_RemoveComponent |
+    aiProcess_GenSmoothNormals |
+    aiProcess_SplitLargeMeshes |
+    aiProcess_ValidateDataStructure |
+    // aiProcess_ImproveCacheLocality | // handled by optimizePostTransform()
+    aiProcess_RemoveRedundantMaterials |
+    aiProcess_SortByPType |
+    aiProcess_FindInvalidData |
+    aiProcess_GenUVCoords |
+    aiProcess_TransformUVCoords |
+    aiProcess_OptimizeMeshes |
+    aiProcess_OptimizeGraph /*|
+    aiProcess_ConvertToLeftHanded*/);
+
+  if (scene == nullptr)
+    throw std::exception("scene == nullptr, empty or corrupted file?");
+
+  auto model = Model();
+
+  if (scene->HasTextures())
   {
-    { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-  };
-
-  const void* shader_bytecode;
-  size_t shader_bytecode_size;
-  s_effect->GetVertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateInputLayout(vertex_desc, 3, shader_bytecode, shader_bytecode_size, &layout_)
-    );
-}
-
-InputLayout::operator ID3D11InputLayout*() {
-  return layout_.Get();
-}
-
-
-Model::Model(const Mesh& mesh, const Material& material,
-  const std::string& texture_path, Math::Matrix texture_transform,
-  bool enable_back_face_cull) :
-  mesh_(mesh), material_(material), 
-  texture_path_(texture_path), texture_transform_(texture_transform)
-{
-  // Creates vertext and index buffer.
-  D3D11_BUFFER_DESC vbd;
-  vbd.Usage = D3D11_USAGE_IMMUTABLE;
-  vbd.ByteWidth = static_cast<UINT>(sizeof(Vertex) * mesh.vertices.size());
-  vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-  vbd.CPUAccessFlags = 0;
-  vbd.MiscFlags = 0;
-  D3D11_SUBRESOURCE_DATA vinitData;
-  vinitData.pSysMem = mesh.vertices.data();
-
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateBuffer(&vbd, &vinitData, &vertex_buffer_)
-    );
-
-  D3D11_BUFFER_DESC ibd;
-  ibd.Usage = D3D11_USAGE_IMMUTABLE;
-  ibd.ByteWidth = static_cast<UINT>(sizeof(unsigned int) * mesh.indices.size());
-  ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-  ibd.CPUAccessFlags = 0;
-  ibd.MiscFlags = 0;
-  D3D11_SUBRESOURCE_DATA iinitData;
-  iinitData.pSysMem = mesh.indices.data();
-
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &index_buffer_)
-    );
-
-  if (!enable_back_face_cull) {
-    auto no_cull_desc = D3D11_RASTERIZER_DESC();
-    no_cull_desc.FillMode = D3D11_FILL_SOLID;
-    no_cull_desc.CullMode = D3D11_CULL_NONE;
-    no_cull_desc.FrontCounterClockwise = false;
-    no_cull_desc.DepthClipEnable = true;
-
-    ThrowIfFailed(
-      s_graphics_device->GetDevice()->CreateRasterizerState(&no_cull_desc,
-        &rasterizer_state_)
-      );
+    // embedded textures...
   }
+
+  if (scene->HasAnimations())
+  {
+    // todo
+  }
+
+  for (unsigned int materialIndex = 0; materialIndex < scene->mNumMaterials; materialIndex++)
+  {
+    const aiMaterial *srcMat = scene->mMaterials[materialIndex];
+    auto dstMat = Material();
+
+    aiColor3D diffuse(1.0f, 1.0f, 1.0f);
+    aiColor3D specular(1.0f, 1.0f, 1.0f);
+    aiColor3D ambient(1.0f, 1.0f, 1.0f);
+    aiColor3D emissive(0.0f, 0.0f, 0.0f);
+    aiColor3D transparent(1.0f, 1.0f, 1.0f);
+    float opacity = 1.0f;
+    float shininess = 0.0f;
+    float shininess_strength = 1.0f;
+    aiString texDiffusePath;
+    aiString texSpecularPath;
+    aiString texEmissivePath;
+    aiString texNormalPath;
+    aiString texLightmapPath;
+    aiString texReflectionPath;
+    srcMat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+    srcMat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+    srcMat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+    srcMat->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+    srcMat->Get(AI_MATKEY_COLOR_TRANSPARENT, transparent);
+    srcMat->Get(AI_MATKEY_OPACITY, opacity);
+    srcMat->Get(AI_MATKEY_SHININESS, shininess);
+    srcMat->Get(AI_MATKEY_SHININESS_STRENGTH, shininess_strength);
+    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), texDiffusePath);
+    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_SPECULAR, 0), texSpecularPath);
+    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_EMISSIVE, 0), texEmissivePath);
+    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), texNormalPath);
+    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_LIGHTMAP, 0), texLightmapPath);
+    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_REFLECTION, 0), texReflectionPath);
+
+    dstMat.diffuse = Vector3(diffuse.r, diffuse.g, diffuse.b);
+    dstMat.specular = Vector3(specular.r, specular.g, specular.b);
+    dstMat.ambient = Vector3(ambient.r, ambient.g, ambient.b);
+    dstMat.emissive = Vector3(emissive.r, emissive.g, emissive.b);
+    dstMat.transparent = Vector3(transparent.r, transparent.g, transparent.b);
+    dstMat.opacity = opacity;
+    dstMat.shininess = shininess;
+    dstMat.shininess_strength = shininess_strength;
+
+    char *pRem = nullptr;
+
+    dstMat.diffuse_texture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
+    dstMat.specular_texture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
+    dstMat.emissive_texture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
+    dstMat.normal_texture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
+    dstMat.lightmap_texture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
+    dstMat.reflection_texture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
+
+    aiString matName;
+    srcMat->Get(AI_MATKEY_NAME, matName);
+    dstMat.name = matName.C_Str();
+
+    model.materials.push_back(dstMat);
+  }
+
+  // fill in vertex and index data
+  for (unsigned int meshIndex = 0; meshIndex < scene->mNumMeshes; meshIndex++)
+  {
+    const aiMesh *srcMesh = scene->mMeshes[meshIndex];
+    auto dstMesh = Mesh();
+
+    ASSERT(srcMesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE);
+
+    dstMesh.material_index = srcMesh->mMaterialIndex;
+
+    for (unsigned int v = 0; v < srcMesh->mNumVertices; v++)
+    {
+      Vertex vertex;
+
+      if (srcMesh->mVertices)
+      {
+        vertex.position = Vector3(srcMesh->mVertices[v].x, 
+          srcMesh->mVertices[v].y, srcMesh->mVertices[v].z);
+      } else
+      {
+        // no position? That's kind of bad.
+        ASSERT(0);
+      }
+
+      if (srcMesh->mTextureCoords[0])
+      {
+        vertex.texcoord = Vector2(srcMesh->mTextureCoords[0][v].x,
+          srcMesh->mTextureCoords[0][v].y);
+      }
+
+      if (srcMesh->mNormals)
+      {
+        vertex.normal = Vector3(srcMesh->mNormals[v].x, srcMesh->mNormals[v].y,
+          srcMesh->mNormals[v].z);
+      } else
+      {
+        // Assimp should generate normals if they are missing, according to the postprocessing flag specified on load,
+        // so we should never get here.
+        ASSERT(0);
+      }
+
+      if (srcMesh->mTangents)
+      {
+        vertex.tangent = Vector3(srcMesh->mTangents[v].x, srcMesh->mTangents[v].y,
+          srcMesh->mTangents[v].z);
+      }
+
+      if (srcMesh->mBitangents)
+      {
+        vertex.bitangent = Vector3(srcMesh->mBitangents[v].x, srcMesh->mBitangents[v].y,
+          srcMesh->mBitangents[v].z);
+      }
+
+      dstMesh.vertices.push_back(vertex);
+    }
+
+    for (unsigned int f = 0; f < srcMesh->mNumFaces; f++)
+    {
+      ASSERT(srcMesh->mFaces[f].mNumIndices == 3);
+
+      dstMesh.indices.push_back(srcMesh->mFaces[f].mIndices[0]);
+      dstMesh.indices.push_back(srcMesh->mFaces[f].mIndices[1]);
+      dstMesh.indices.push_back(srcMesh->mFaces[f].mIndices[2]);
+    }
+
+    model.meshes.push_back(dstMesh);
+  }
+
+  return model;
 }
 
-std::unique_ptr<Component> Model::Clone() {
-  return std::make_unique<Model>(*this);
-}
-
-void Model::SetTextureTransform(const Math::Matrix & value) {
-  texture_transform_ = value;
-}
-
-const Math::Matrix & Model::GetTextureTransform() const {
-  return texture_transform_;
-}
-
-const Material & Model::GetMaterial() const
+Mesh Mesh::CreateBox(float width, float height, float depth)
 {
-  return material_;
-}
-
-void Model::Update() {
-
-  UINT stride = sizeof(Vertex);
-  UINT offset = 0;
-  s_graphics_device->GetDeviceContex()->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
-  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
-
-  //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
-  // Set per object constant buffer.
-  s_effect->SetMaterial(material_);
-  s_effect->SetTextureTransform(texture_transform_);
-  s_effect->SetTexture(CreateTexture(s_graphics_device->GetDevice(), texture_path_));
-
-  // Apply rasterizer option, if specified.
-  s_graphics_device->GetDeviceContex()->RSSetState(rasterizer_state_.Get());
-
-  // Draw object.
-  s_effect->Apply(s_graphics_device->GetDeviceContex());
-  s_graphics_device->GetDeviceContex()->DrawIndexed(
-    static_cast<UINT>(mesh_.indices.size()), 0, 0);
-  
-  // Roll back rasterizer option. For it's global so will affect other models.
-  s_graphics_device->GetDeviceContex()->RSSetState(0);
-}
-
-Model::Mesh CreateBox(float width, float height, float depth) {
-  Model::Mesh mesh;
+  auto mesh = Mesh();
 
   //
   // Create the vertices.
@@ -137,40 +208,40 @@ Model::Mesh CreateBox(float width, float height, float depth) {
   float d2 = 0.5f*depth;
 
   // Create the back face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 1, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 0, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, 0, -1.0f }, XMFLOAT2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, -h2, -d2 }, Vector3{ 0, 0, -1.0f }, Vector2{ 1, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, +h2, -d2 }, Vector3{ 0, 0, -1.0f }, Vector2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, +h2, -d2 }, Vector3{ 0, 0, -1.0f }, Vector2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, -h2, -d2 }, Vector3{ 0, 0, -1.0f }, Vector2{ 1, 0 } });
 
   // Create the front face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 0, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 1, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 0, 1.0f }, XMFLOAT2{ 1, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, -h2, +d2 }, Vector3{ 0, 0, 1.0f }, Vector2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, -h2, +d2 }, Vector3{ 0, 0, 1.0f }, Vector2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, +h2, +d2 }, Vector3{ 0, 0, 1.0f }, Vector2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, +h2, +d2 }, Vector3{ 0, 0, 1.0f }, Vector2{ 1, 1 } });
 
   // Create the top face vertex data.
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 0, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 1, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 0, 1.0f, 0 }, XMFLOAT2{ 1, 1 } });
-                                                                        
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, +h2, -d2 }, Vector3{ 0, 1.0f, 0 }, Vector2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, +h2, +d2 }, Vector3{ 0, 1.0f, 0 }, Vector2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, +h2, +d2 }, Vector3{ 0, 1.0f, 0 }, Vector2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, +h2, -d2 }, Vector3{ 0, 1.0f, 0 }, Vector2{ 1, 1 } });
+
   // Create the bottom face vertex data.                               
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 0, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 1, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ 0, -1.0f, 0 }, XMFLOAT2{ 1, 1 } });
-                                                                        
-  // Create the left face vertex data.                                 
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 0, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, +d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, +h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 1, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ -w2, -h2, -d2, 1.0f }, XMVECTOR{ -1.0f, 0, 0 }, XMFLOAT2{ 1, 1 } });
-                                                                        
-  // Create the right face vertex data.                                
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 0, 1 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, -d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 0, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, +h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 1, 0 } });
-  mesh.vertices.push_back(Vertex{ XMVECTOR{ +w2, -h2, +d2, 1.0f }, XMVECTOR{ 1.0f, 0, 0 }, XMFLOAT2{ 1, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, -h2, -d2 }, Vector3{ 0, -1.0f, 0 }, Vector2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, -h2, -d2 }, Vector3{ 0, -1.0f, 0 }, Vector2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, -h2, +d2 }, Vector3{ 0, -1.0f, 0 }, Vector2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, -h2, +d2 }, Vector3{ 0, -1.0f, 0 }, Vector2{ 1, 1 } });
+
+  // Create the left face vertex data.                           
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, -h2, +d2 }, Vector3{ -1.0f, 0, 0 }, Vector2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, +h2, +d2 }, Vector3{ -1.0f, 0, 0 }, Vector2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, +h2, -d2 }, Vector3{ -1.0f, 0, 0 }, Vector2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ -w2, -h2, -d2 }, Vector3{ -1.0f, 0, 0 }, Vector2{ 1, 1 } });
+
+  // Create the right face vertex data.                          
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, -h2, -d2 }, Vector3{ 1.0f, 0, 0 }, Vector2{ 0, 1 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, +h2, -d2 }, Vector3{ 1.0f, 0, 0 }, Vector2{ 0, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, +h2, +d2 }, Vector3{ 1.0f, 0, 0 }, Vector2{ 1, 0 } });
+  mesh.vertices.push_back(Vertex{ Vector3{ +w2, -h2, +d2 }, Vector3{ 1.0f, 0, 0 }, Vector2{ 1, 1 } });
 
 
   //
@@ -206,8 +277,9 @@ Model::Mesh CreateBox(float width, float height, float depth) {
   return mesh;
 }
 
-Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
-  Model::Mesh mesh;
+Mesh Mesh::CreateSphere(float radius, int sliceCount, int stackCount)
+{
+  auto mesh = Mesh();
 
   //
   // Compute the vertices stating at the top pole and moving down the stacks.
@@ -216,12 +288,12 @@ Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
   // Poles: note that there will be texture coordinate distortion as there is
   // not a unique point on the texture map to assign to the pole when mapping
   // a rectangular texture onto a sphere.
-  Vertex topVertex{ XMVECTOR{ 0.0f, +radius, 0.0f, 1.0f }, XMVECTOR{ 0.0f, 1.0f, 0.0f } };
-  Vertex bottomVertex{ XMVECTOR{ 0.0f, -radius, 0.0f, 1.0f }, XMVECTOR{ 0.0f, -1.0f, 0.0f } };
+  Vertex topVertex{ Vector3{ 0.0f, +radius, 0.0f }, Vector3{ 0.0f, 1.0f, 0.0f } };
+  Vertex bottomVertex{ Vector3{ 0.0f, -radius, 0.0f}, Vector3{ 0.0f, -1.0f, 0.0f } };
   mesh.vertices.push_back(topVertex);
 
-  float phiStep = XM_PI / stackCount;
-  float thetaStep = 2.0f*XM_PI / sliceCount;
+  float phiStep = DirectX::XM_PI / stackCount;
+  float thetaStep = 2.0f*DirectX::XM_PI / sliceCount;
 
   // Compute vertices for each stack ring (do not count the poles as rings).
   for (auto i = 1; i <= stackCount - 1; ++i) {
@@ -233,11 +305,10 @@ Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
 
       // spherical to cartesian
       Vertex v;
-      v.position = XMVECTOR{ 
-        radius*sinf(phi)*cosf(theta), 
-        radius*cosf(phi), 
-        radius*sinf(phi)*sinf(theta), 
-        1.0f };
+      v.position = Vector3(
+        radius*sinf(phi)*cosf(theta),
+        radius*cosf(phi),
+        radius*sinf(phi)*sinf(theta));
       v.normal = v.position;
 
       mesh.vertices.push_back(v);
@@ -270,7 +341,7 @@ Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
       mesh.indices.push_back(baseIndex + i*ringVertexCount + j);
       mesh.indices.push_back(baseIndex + i*ringVertexCount + j + 1);
       mesh.indices.push_back(baseIndex + (i + 1)*ringVertexCount + j);
-               
+
       mesh.indices.push_back(baseIndex + (i + 1)*ringVertexCount + j);
       mesh.indices.push_back(baseIndex + i*ringVertexCount + j + 1);
       mesh.indices.push_back(baseIndex + (i + 1)*ringVertexCount + j + 1);
@@ -297,10 +368,9 @@ Model::Mesh CreateSphere(float radius, int sliceCount, int stackCount) {
   return mesh;
 }
 
-// Creates an mxn grid in the xz-plane with rows rows and cols columns, centered
-// at the origin with the specified width and depth.
-Model::Mesh CreateGrid(float width, float depth, int rows, int cols) {
-  Model::Mesh mesh;
+Mesh Mesh::CreateGrid(float width, float depth, int cols, int rows)
+{
+  auto mesh = Mesh();
 
   //
   // Calculates vertices.
@@ -323,9 +393,9 @@ Model::Mesh CreateGrid(float width, float depth, int rows, int cols) {
       const float x = -half_width + j * dx;
       // Create vertex.
       Vertex vertex{
-        XMVECTOR{ x, 0.0, z, 1.0f },
-        XMVECTOR{ 0, 1.0f, 0 },
-        XMFLOAT2{ du*j, dv*i} };
+        Vector3{ x, 0.0, z },
+        Vector3{ 0, 1.0f, 0 },
+        Vector2{ du*j, dv*i } };
 
       mesh.vertices.push_back(vertex);
     }
@@ -346,9 +416,9 @@ Model::Mesh CreateGrid(float width, float depth, int rows, int cols) {
       const int index_lb = cols * (i + 1) + j; // (i + 1) * rows + j;
       const int index_rb = cols * (i + 1) + j + 1; // (i + 1) * rows + j + 1;
 
-      // Split it to two triangles
+                                                   // Split it to two triangles
 
-      // Triangle 1
+                                                   // Triangle 1
       mesh.indices.push_back(index_rb);
       mesh.indices.push_back(index_lb);
       mesh.indices.push_back(index_lf);
@@ -365,3 +435,4 @@ Model::Mesh CreateGrid(float width, float depth, int rows, int cols) {
 
 }  // namespace Graphics
 }  // namespace LL3D
+

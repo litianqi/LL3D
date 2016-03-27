@@ -19,6 +19,10 @@
       Solution:
       STL is orderd by add sequence, as component is first added, there is no problem.
 
+## Add Texturing
+  - [x] Static
+  - [x] Dynamic (moving texture)
+
 ## Blending
 （3-16 - 3-20）
 
