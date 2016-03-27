@@ -27,7 +27,7 @@ For now, project Editor is just a test ground.
 
 ## Documents
 
-You can view both design and develop documents at [LL3D OneNote Notebook](https://onedrive.live.com/redir?page=view&resid=CD6518D498235073!2141&authkey=!AMsU_BK42yKOQEU)
+You can view both design and develop documents at [here](https://onedrive.live.com/redir?page=view&resid=CD6518D498235073!2141&authkey=!AMsU_BK42yKOQEU)
 
 ## Author
 
