@@ -44,7 +44,7 @@ BlendState g_blend
 struct VertexIn {
   float3 pos_l  : POSITION;
   float3 normal_l : NORMAL;
-  float2 texture_coordinate : TEXCOORD;
+  float2 texcoord : TEXCOORD;
   float3 tangent : TANGENT;
   float3 bitangent : BITANGENT;
 };
@@ -53,7 +53,7 @@ struct VertexOut {
   float4 pos_h  : SV_POSITION;
   float4 pos_w  : POSITION;
   float4 normal_w : NORMAL;
-  float2 texture_coordinate : TEXCOORD;
+  float2 texcoord : TEXCOORD;
 };
 
 VertexOut VS(VertexIn vin) {
@@ -67,7 +67,7 @@ VertexOut VS(VertexIn vin) {
   vout.pos_h = mul(vout.pos_w, g_view);
   vout.pos_h = mul(vout.pos_h, g_projection);
 
-  vout.texture_coordinate = mul(float4(vin.texture_coordinate, 0.0, 1.0), g_texture_transform).xy;
+  vout.texcoord = /*mul(float4(*/vin.texcoord/*, 0.0, 1.0), g_texture_transform).xy*/;
 
   return vout;
 }
@@ -89,7 +89,7 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
   float4 lit_color;
   float4 texture_color = float4(1, 1, 1, 1);
   if (use_tex) {
-    texture_color = g_texture.Sample(g_sampler, pin.texture_coordinate);
+    texture_color = g_texture.Sample(g_sampler, pin.texcoord);
     if (use_alpha_clip) {
       clip(texture_color.a - 0.1f);
     }

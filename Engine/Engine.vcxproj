@@ -36,6 +36,7 @@
     <ClCompile Include="Source\Graphics\ModelRender.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\Math\Math.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\RecursiveSceneIterator.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
@@ -66,7 +67,6 @@
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\KeyCode.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
-    <ClInclude Include="Source\Math\Color.h" />
     <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\RecursiveSceneIterator.h" />
@@ -80,6 +80,7 @@
       <FileType>Document</FileType>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClInclude>
+    <None Include="Source\Math\Math.inl" />
     <None Include="Source\Shaders\Light.fx">
       <FileType>Document</FileType>
     </None>

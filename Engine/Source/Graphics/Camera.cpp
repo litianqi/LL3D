@@ -26,8 +26,6 @@ void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
 Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const {
   return Math::Matrix::CreatePerspectiveFieldOfView(radian_fov_y_, aspect_ratio_,
     static_cast<float>(z_near_), static_cast<float>(z_far_));
-  /*return XMMatrixPerspectiveFovLH(radian_fov_y_, aspect_ratio_,
-    static_cast<float>(z_near_), static_cast<float>(z_far_));*/
 }
 
 Camera::Camera(Frustum frustum, FXMVECTOR forward_vector) :
@@ -65,7 +63,6 @@ void Camera::SetForwardVector(FXMVECTOR v) {
 
 Math::Matrix Camera::GetViewMatrix() const {
   return Math::Matrix::CreateLookAt(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
-  //return XMMatrixLookToLH();;
 }
 
 Math::Matrix Camera::GetViewProjectionMatrix() const {

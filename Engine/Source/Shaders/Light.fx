@@ -61,7 +61,6 @@ float4 ComputeDirectionalLight(Material mat, float4 normal, DirectionalLight lig
    
     float4 specular = light.color * mat.specular * spec_cone_att; 
 
-    // Return
     return diffuse + specular;
   }
   else {

@@ -87,6 +87,7 @@ private:
   ComponentMap  components_;
 };
 
+#include "GameObject.inl"
+
 }  // namespace LL3D
 
-#include "GameObject.inl"

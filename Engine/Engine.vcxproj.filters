@@ -93,6 +93,9 @@
     <ClCompile Include="Source\Graphics\Material.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Math\Math.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Assets.h">
@@ -149,9 +152,6 @@
     <ClInclude Include="Source\Graphics\Light.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Math\Math.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Input\Mouse.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
@@ -179,14 +179,14 @@
     <ClInclude Include="Source\Graphics\Fog.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Math\Color.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\Model.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\ModelRender.h">
       <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Math.h">
+      <Filter>Source\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +195,9 @@
     </None>
     <None Include="Source\Shaders\Material.fx">
       <Filter>Source\Shaders</Filter>
+    </None>
+    <None Include="Source\Math\Math.inl">
+      <Filter>Source\Math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
