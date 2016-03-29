@@ -26,7 +26,6 @@ public:
   GameObject(GameObject&&) = default;
   GameObject& operator=(GameObject&& other) = default;
   ~GameObject() = default;
-
   
   //--------------------------------------
   // Relations
@@ -40,7 +39,6 @@ public:
   const Scene* GetScene() const;
   GameObject* GetParent();
   const GameObject* GetParent() const;
-
   
   //--------------------------------------
   // Properties

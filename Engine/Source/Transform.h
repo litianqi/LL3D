@@ -10,10 +10,6 @@ class Transform : public Component, private Graphics::Base {
 public:
   std::unique_ptr<Component> Clone() override;
 
-  
-  //--------------------------------------
-  // Properties
-
   void SetPosition(Math::Vector3 value);
   void SetRotation(Math::Vector3 value);
   void SetScale(Math::Vector3 value);
@@ -29,10 +25,6 @@ public:
   Math::Vector3 GetWorldRotation() const;
   Math::Vector3 GetWorldScale() const;
   Math::Matrix  GetWorldMatrix() const;
-
-  
-  //--------------------------------------
-  // Operations
 
   //>
   // Writes world matrix to shader buffer.

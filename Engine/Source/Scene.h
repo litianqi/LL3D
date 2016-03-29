@@ -12,16 +12,8 @@ class RecursiveSceneIterator;
 class Scene : private Graphics::Base {
   friend RecursiveSceneIterator;
 
-public:
-  //--------------------------------------
-  // GameObjects
- 
+public: 
   void AddGameObject(const GameObject& object);
-  
-  
-  //--------------------------------------
-  // Operations
-
   void Update();
 
 private: 
@@ -29,13 +21,9 @@ private:
   // Get main(the first) Camera. Returns nullptr if there is no Camera.
   //
   GameObject* GetCamera() noexcept;
-  //>
-  // RT.
-  //
   std::vector<Component*> GetDeferRenderingModels() noexcept;
 
   std::list<GameObject> objects_;
-
   bool first_update_ = true;
 };
 

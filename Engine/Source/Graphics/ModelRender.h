@@ -27,7 +27,6 @@ public:
   ModelRender(std::experimental::filesystem::path pathname);
   ModelRender(BuiltInType type);
   std::unique_ptr<Component> Clone() override;
-  
 
   //>
   // Renders this Model.

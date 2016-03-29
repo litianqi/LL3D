@@ -12,7 +12,6 @@ namespace Graphics {
 // Non-rollable Camera. 
 // Non-rollable means Up and Forward vector always on a YZ panel(of world space) 
 // roated some degree around Y.
-
 class Camera : public Component, private Base {
 public:
 

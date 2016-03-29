@@ -13,9 +13,6 @@ public:
 
   static void Init(HWND hwnd);
   
-  //--------------------------------------
-  // Types
-
   enum Button {Left, Middle, Right, X1, X2, Count};
   
 
@@ -44,10 +41,6 @@ public:
   // identified by button.
   //
   static bool IsReleased(Button button);
-
-  
-  //--------------------------------------
-  // Operations
 
   //>
   // Processes mouse messages from system. Called by higher message process
