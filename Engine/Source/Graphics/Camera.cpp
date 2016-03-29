@@ -42,11 +42,8 @@ std::unique_ptr<Component> Camera::Clone() {
 
 void Camera::Update() {
   s_effect->SetEyePosW(GetPosition());
-  auto v = Math::Matrix(GetViewMatrix());
-  s_effect->SetView(v);
-  auto p = Math::Matrix(GetFrustum().GetProjectionMaxtrix());
-  p._44 = 1.f;  // todo
-  s_effect->SetProjection(p);
+  s_effect->SetView(GetViewMatrix());
+  s_effect->SetProjection(GetFrustum().GetProjectionMaxtrix());
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {

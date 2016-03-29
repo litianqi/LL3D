@@ -2,10 +2,10 @@
 #include "Fog.fx"
 
 cbuffer PerFrame {
-  AmbientLight      g_ambient_light;
-  DirectionalLight  g_directional_light;
-  PointLight        g_point_light;
-  SpotLight         g_spot_light;
+  AmbientLightFX      g_ambient_light;
+  DirectionalLightFX  g_directional_light;
+  PointLightFX        g_point_light;
+  SpotLightFX         g_spot_light;
   float4x4          g_view;
   float4x4          g_projection;
   float4            g_eye_pos_w;
@@ -16,7 +16,7 @@ cbuffer PerObject {
   float4x4 g_world;
   float4x4 g_wvp;
   float4x4 g_texture_transform;
-  Material g_material;
+  MaterialFX g_material;
 };
 
 Texture2D g_texture;
@@ -52,7 +52,7 @@ struct VertexIn {
 struct VertexOut {
   float4 pos_h  : SV_POSITION;
   float4 pos_w  : POSITION;
-  float4 normal_w : NORMAL;
+  float3 normal_w : NORMAL;
   float2 texcoord : TEXCOORD;
 };
 
@@ -61,7 +61,7 @@ VertexOut VS(VertexIn vin) {
 
   // Transform to world space.
   vout.pos_w = mul(float4(vin.pos_l, 1.f), g_world);
-  vout.normal_w = mul(float4(vin.normal_l, 0.f), g_world);
+  vout.normal_w = mul(float4(vin.normal_l, 0.f), g_world).xyz;
 
   // Transform to homogeneous clip space.
   vout.pos_h = mul(vout.pos_w, g_view);
@@ -74,40 +74,70 @@ VertexOut VS(VertexIn vin) {
 
 float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : SV_Target
 {
+  float4 result;
+  
+  result.a = g_material.opacity;
+
+  // Alpha clip
+  if (use_alpha_clip) {
+    clip(result.a - 0.1f);
+  }
+
   // Texturing
-
-
+  float3 tex_diffuse;
+  if (use_tex) {
+    tex_diffuse = g_texture.Sample(g_sampler, pin.texcoord).xyz;
+  }
 
   // Lighting
-  float4 to_eye = pin.pos_w - g_eye_pos_w;
-  float4 ambinet = ComputeAmbientLight(g_material, g_ambient_light);
-  float4 direct = ComputeDirectionalLight(g_material, pin.normal_w, g_directional_light, to_eye);
+  float3 view_dir = g_eye_pos_w.xyz - pin.pos_w.xyz;
+  float3 ambient_contribution = ApplyAmbientLight(g_material, g_ambient_light);
+  float3 directional_contribution = ApplyDirectionalLight(g_material, 
+    g_directional_light, pin.normal_w, view_dir);
+  float3 point_contribution = ApplyPointLight(g_material,
+    g_point_light, pin.pos_w.xyz, pin.normal_w, view_dir);
+  float3 spot_contribution = ApplySpotLight(g_material,
+    g_spot_light, pin.pos_w.xyz, pin.normal_w, view_dir);
+  
+  result.xyz = ambient_contribution + directional_contribution +\
+    point_contribution + spot_contribution;
+
+  // TODO: better way?
+  result.xyz = (result.xyz + tex_diffuse) / 2.f;
+
+  return result;
+
+  // Lighting
+  /*float4 to_eye = pin.pos_w - g_eye_pos_w;
+  float3 ambinet = ComputeAmbientLight(g_material, g_ambient_light);
+  float3 directiona*/
+  /*float4 direct = ComputeDirectionalLight(g_material, pin.normal_w, g_directional_light, to_eye);
   float4 poin = ComputePointLight(g_material, pin.pos_w, pin.normal_w, g_point_light, to_eye);
-  float4 spot = ComputeSpotLight(g_material, pin.pos_w, pin.normal_w, g_spot_light, to_eye);
-  float4 light_color = ambinet + direct + poin + spot;
+  float4 spot = ComputeSpotLight(g_material, pin.pos_w, pin.normal_w, g_spot_light, to_eye);*/
+  //float3 light_color = ambinet /*+ direct + poin + spot*/;
 
-  float4 lit_color;
-  float4 texture_color = float4(1, 1, 1, 1);
-  if (use_tex) {
-    texture_color = g_texture.Sample(g_sampler, pin.texcoord);
-    if (use_alpha_clip) {
-      clip(texture_color.a - 0.1f);
-    }
-    lit_color = texture_color * light_color;  // TODO: modulate with late add.
-  }
-  else {
-    lit_color = light_color;
-  }
+  //float4 lit_color;
+  //float4 texture_color = float4(1, 1, 1, 1);
+  //if (use_tex) {
+  //  texture_color = g_texture.Sample(g_sampler, pin.texcoord);
+  //  if (use_alpha_clip) {
+  //    clip(texture_color.a - 0.1f);
+  //  }
+  //  lit_color.xyz = texture_color * light_color;  // TODO: modulate with late add.
+  //}
+  //else {
+  //  lit_color.xyz = light_color;
+  //}
 
-  // Fogging
-  /*float distance_to_eye = length(to_eye);
-  float s = saturate((distance_to_eye - g_fog.start) / g_fog.range);
-  lit_color = (1 - s) * lit_color + s * g_fog.color;*/
+  //// Fogging
+  ///*float distance_to_eye = length(to_eye);
+  //float s = saturate((distance_to_eye - g_fog.start) / g_fog.range);
+  //lit_color = (1 - s) * lit_color + s * g_fog.color;*/
 
-  // Common to take alpha from diffuse material and texture.
-  lit_color.a = g_material.diffuse.a;
+  //// Common to take alpha from diffuse material and texture.
+  //lit_color.a = g_material.opacity;
 
-  return lit_color;
+  //return lit_color;
 }
 
 technique11 Tech {

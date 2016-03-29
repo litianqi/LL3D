@@ -1,3 +1,10 @@
+/**
+*	Modified version of DirectXTK SimpleMath. Most major difference is we use
+* left-hand coordinate system.
+*
+* Copyright (c) Microsoft Corporation. All rights reserved.
+*/
+
 #include <algorithm>
 #include "Math.h"
 
@@ -26,8 +33,8 @@ namespace LL3D
         const Vector3 Vector3::Down(0.f, -1.f, 0.f);
         const Vector3 Vector3::Right(1.f, 0.f, 0.f);
         const Vector3 Vector3::Left(-1.f, 0.f, 0.f);
-        const Vector3 Vector3::Forward(0.f, 0.f, -1.f);
-        const Vector3 Vector3::Backward(0.f, 0.f, 1.f);
+        const Vector3 Vector3::Forward(0.f, 0.f, 1.f);
+        const Vector3 Vector3::Backward(0.f, 0.f, -1.f);
 
         const Vector4 Vector4::Zero(0.f, 0.f, 0.f, 0.f);
         const Vector4 Vector4::One(1.f, 1.f, 1.f, 1.f);
@@ -57,8 +64,8 @@ namespace LL3D
         const Vector3 Vector3::Down = { 0.f, -1.f, 0.f };
         const Vector3 Vector3::Right = { 1.f, 0.f, 0.f };
         const Vector3 Vector3::Left = { -1.f, 0.f, 0.f };
-        const Vector3 Vector3::Forward = { 0.f, 0.f, -1.f };
-        const Vector3 Vector3::Backward = { 0.f, 0.f, 1.f };
+        const Vector3 Vector3::Forward = { 0.f, 0.f, 1.f };
+        const Vector3 Vector3::Backward = { 0.f, 0.f, -1.f };
 
         const Vector4 Vector4::Zero = { 0.f, 0.f, 0.f, 0.f };
         const Vector4 Vector4::One = { 1.f, 1.f, 1.f, 1.f };

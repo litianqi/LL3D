@@ -30,8 +30,9 @@
     <ClCompile Include="Source\Graphics\Device.cpp" />
     <ClCompile Include="Source\Graphics\Effects.cpp" />
     <ClCompile Include="Source\Graphics\Fog.cpp" />
-    <ClCompile Include="Source\Graphics\Light.cpp" />
-    <ClCompile Include="Source\Graphics\Material.cpp" />
+    <ClCompile Include="Source\Graphics\LightComponent.cpp" />
+    <ClCompile Include="Source\Graphics\LightFX.cpp" />
+    <ClCompile Include="Source\Graphics\MaterialFX.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Graphics\ModelRender.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
@@ -60,8 +61,11 @@
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />
     <ClInclude Include="Source\Graphics\Fog.h" />
+    <ClInclude Include="Source\Graphics\LightComponent.h" />
+    <ClInclude Include="Source\Graphics\LightFX.h" />
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
+    <ClInclude Include="Source\Graphics\MaterialFX.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
     <ClInclude Include="Source\Graphics\ModelRender.h" />
     <ClInclude Include="Source\Input\Keyboard.h" />
@@ -81,9 +85,6 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClInclude>
     <None Include="Source\Math\Math.inl" />
-    <None Include="Source\Shaders\Light.fx">
-      <FileType>Document</FileType>
-    </None>
     <CustomBuild Include="Source\Shaders\Main.fx">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders/%(Filename).cso</ObjectFileOutput>
       <FileType>Document</FileType>
@@ -92,12 +93,12 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)Resource/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Resource/Shaders/%(Filename).fxo</Outputs>
     </CustomBuild>
-    <None Include="Source\Shaders\Material.fx">
-      <FileType>Document</FileType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\Light.fx">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>

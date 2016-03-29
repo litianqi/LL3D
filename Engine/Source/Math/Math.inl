@@ -1,3 +1,10 @@
+/**
+*	Modified version of DirectXTK SimpleMath. Most major difference is we use
+*  left-hand coordinate system.
+*
+*  Copyright (c) Microsoft Corporation. All rights reserved.
+*/
+
 #pragma once
 
 /****************************************************************************

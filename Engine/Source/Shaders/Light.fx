@@ -1,115 +1,135 @@
-#include "Material.fx"
+#include "../Graphics/MaterialFX.h"
+#include "../Graphics/LightFX.h"
 
-struct AmbientLight {
-  float4 color;
-};
-
-struct DirectionalLight {
-  float4 color;
-  float4 direction;
-};
-
-struct Attenuation {
-  float a0;
-  float a1;
-  float a2;
-};
-
-struct PointLight {
-  float4 color;
-  float4 position;
-  Attenuation distance_att;
-  float range;
-};
-
-struct SpotLight {
-  float4 color;
-  float4 position;
-  float4 direction;
-  Attenuation distance_att;
-  float range;
-  float cone_att;
-  float3 _pad;
-};
-
-float4 ComputeAmbientLight(Material mat,
-  AmbientLight light) {
-  return light.color * mat.diffuse;
+float3 ApplyDiffuseAlbedo(float3 diffuse_albedo, float3 diffuse_light)
+{
+  return diffuse_albedo * diffuse_light;
 }
 
-float4 ComputeDirectionalLight(Material mat, float4 normal, DirectionalLight light, float4 to_eye) {
+float3 ApplySpecularAlbedoAndCone(
+  float3 specular_albedo, 
+  float shinness,
+  float3 specular_light,
+  float3 light_dir,
+  float3 normal,
+  float3 view_dir)
+{
+  float3 reflect_dir = reflect(light_dir, normal);
+  reflect_dir = normalize(reflect_dir);
   
-  // Compute oblique attenuation.
-  light.direction = normalize(light.direction);
-  float oblique_att = dot(-light.direction, normal);
+  float specular_factor = pow(max(dot(reflect_dir, view_dir), 0.0f), shinness);
 
-  // Flatten to avoid dynamic branching.
-  [flatten]
-  if (oblique_att > 0.0f) {
-    light.color *= oblique_att;
-
-    // Compute diffuse reflection
-    float4 diffuse = light.color * mat.diffuse;
-
-    // Compute specular reflection:
-
-    // Compute specular cone attenuation.
-    float4 reflect_direction = reflect(-light.direction, normal);
-    reflect_direction = normalize(reflect_direction);
-    to_eye = normalize(to_eye);
-    float spec_cone_att = pow(max(dot(reflect_direction, to_eye), 0.0f), mat.specular_exponent);
-   
-    float4 specular = light.color * mat.specular * spec_cone_att; 
-
-    return diffuse + specular;
-  }
-  else {
-    return float4(0, 0, 0, 0);
-  }
+  return (specular_light * specular_albedo) * specular_factor;
 }
 
-float4 ComputePointLight(Material mat, float4 pos, float4 normal,
-  PointLight light,
-  float4 to_eye) {
-  // Test range.
-  float4 to_pixel = pos - light.position;
-  float distance = length(to_pixel);
-  if (distance > light.range)
-    return float4(0, 0, 0, 0);
-
+void ApplyDistanceAttenuation(
+  inout float3 diffuse_light,
+  inout float3 specular_light,
+  float3 attenuation,
+  float distance
+  )
+{
   // Add distance attenuation.
-  float distance_att = 1.0f / dot(float3(light.distance_att),
-    float3(1, distance, distance * distance));
-  light.color *= distance_att;
-
-  DirectionalLight final_light;
-  final_light.color = light.color;
-  final_light.direction = to_pixel;
-  return ComputeDirectionalLight(mat, normal, final_light, to_eye);
+  float att_factor = 1.f / 
+    dot(attenuation, float3(1.f, distance, distance * distance));
+  
+  diffuse_light *= att_factor;
+  specular_light *= att_factor;
 }
 
-float4 ComputeSpotLight(Material mat, float4 pos, float4 normal,
-  SpotLight light,
-  float4 to_eye) {
-  // Test range.
-  float4 to_pixel = pos - light.position;
-  float distance = length(to_pixel);
-  if (distance > light.range)
-    return float4(0, 0, 0, 0);
+//>
+// Returns what color will reflect out after a light hits a point.
+// light_diffuse/light_specular reflects what color light are when lgiht hits 
+// point. So attenuation etc. should be pre-computed.
+// 
+float3 LightHitPoint(
+  MaterialFX mat,
+  float3 light_diffuse,
+  float3 light_specular,
+  float3 light_dir,  // World-space vector from light to point
+  float3 point_normal,  // World-space normal
+  float3 view_dir)  // World-space vector from eye to point
+{
+  // Normalize vectors
+  light_dir = normalize(light_dir);
+  point_normal = normalize(point_normal);
+  view_dir = normalize(view_dir);
 
-  // Add distance attenuation.
-  float distance_att = 1.0f / dot(float3(light.distance_att),
-    float3(1, distance, distance * distance));
-  light.color *= distance_att;
+  // Light oblique
+  float oblique_factor = dot(point_normal, -light_dir);
+  if (oblique_factor <= 0)
+    return 0;
+  
+  light_diffuse *= oblique_factor;
+  light_specular *= oblique_factor;
 
-  // Add spot cone attenuation.
-  to_pixel = normalize(to_pixel);
+  // Diffuse albedo.
+  float3 diffuse = ApplyDiffuseAlbedo(mat.diffuse, light_diffuse);
+  
+  // Specular albedo and specular cone.
+  float3 specular = ApplySpecularAlbedoAndCone(mat.specular, mat.shininess, light_specular,
+    light_dir, point_normal, view_dir);
+  
+  return diffuse + specular;
+}
+
+float3 ApplyAmbientLight(
+  MaterialFX mat,
+  AmbientLightFX light
+  )
+{
+  // TODO: better way?
+
+  return mat.ambient * light.ambient;
+}
+
+float3 ApplyDirectionalLight(
+  MaterialFX mat,
+  DirectionalLightFX light, 
+  float3 point_normal,  // World-space normal
+  float3 view_dir)  // World-space vector from eye to point
+{
+  // Directional directly hits point, no attenuation etc.
+  return LightHitPoint(mat, light.diffuse, light.specular, light.direction,
+    point_normal, view_dir);
+}
+
+float3 ApplyPointLight(
+  MaterialFX mat,
+  PointLightFX light,
+  float3 point_pos,  // World-space point position
+  float3 point_normal,  // World-space normal
+  float3 view_dir)  // World-space vector from eye to point
+{
+  float distance = length(light.position - point_pos);
+  ApplyDistanceAttenuation(light.diffuse, light.specular, light.attenuation, distance);
+
+  float3 light_dir = point_pos - light.position;
+  return LightHitPoint(mat, light.diffuse, light.specular, light_dir,
+    point_normal, view_dir);
+}
+
+float3 ApplySpotLight(
+  MaterialFX mat,
+  SpotLightFX light,
+  float3 point_pos,  // World-space point position
+  float3 point_normal,  // World-space normal
+  float3 view_dir)  // World-space vector from eye to point
+{
+  // Normalize vectors
   light.direction = normalize(light.direction);
-  float spot_cone_att = pow(max(dot(to_pixel, light.direction), 0), light.cone_att);
-  light.color *= spot_cone_att;
+  point_normal = normalize(point_normal);
+  view_dir = normalize(view_dir);
 
-  DirectionalLight final_light;
-  final_light.color = light.color;
-  final_light.direction = to_pixel;
-  return ComputeDirectionalLight(mat, normal, final_light, to_eye);
+  float distance = length(light.position - point_pos);
+  ApplyDistanceAttenuation(light.diffuse, light.specular, light.attenuation, distance);
+
+  float3 light2point = point_pos - light.position;
+  // TODO: inner_cone_angle, outer_cone_angle..
+  float spot_factor = pow(max(dot(light2point, light.direction), 0), light.inner_cone_angle);
+  light.diffuse *= spot_factor;
+  light.specular *= spot_factor;
+
+  return LightHitPoint(mat, light.diffuse, light.specular, light.direction,
+    point_normal, view_dir);
 }

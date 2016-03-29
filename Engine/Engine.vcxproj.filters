@@ -57,9 +57,6 @@
     <ClCompile Include="Source\Graphics\Effects.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Light.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Component.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -90,11 +87,17 @@
     <ClCompile Include="Source\Graphics\ModelRender.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Material.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Math\Math.cpp">
       <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\MaterialFX.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\LightFX.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\LightComponent.cpp">
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +152,6 @@
     <ClInclude Include="Source\Graphics\Effects.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\Light.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Input\Mouse.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
@@ -188,14 +188,20 @@
     <ClInclude Include="Source\Math\Math.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\MaterialFX.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\LightFX.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\LightComponent.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Light.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Shaders\Light.fx">
-      <Filter>Source\Shaders</Filter>
-    </None>
-    <None Include="Source\Shaders\Material.fx">
-      <Filter>Source\Shaders</Filter>
-    </None>
     <None Include="Source\Math\Math.inl">
       <Filter>Source\Math</Filter>
     </None>
@@ -207,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
+      <Filter>Source\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\Light.fx">
       <Filter>Source\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

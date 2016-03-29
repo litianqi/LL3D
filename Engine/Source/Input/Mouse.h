@@ -11,11 +11,12 @@ namespace Input {
 class Mouse {
 public:
 
+  static void Init(HWND hwnd);
   
   //--------------------------------------
   // Types
 
-  enum Button {Left, Middle, Right, X1, X2};
+  enum Button {Left, Middle, Right, X1, X2, Count};
   
 
   //--------------------------------------
@@ -65,6 +66,7 @@ private:
   static std::map<Button, bool>  s_helding_down;
   static std::map<Button, bool>  s_pressed;
   static std::map<Button, bool>  s_released;
+  static HWND                    s_hwnd;
 };
 
 }  // namespace Input

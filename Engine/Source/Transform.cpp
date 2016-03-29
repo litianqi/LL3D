@@ -93,10 +93,10 @@ Math::Matrix Transform::GetWorldMatrix() const {
 }
 
 Math::Matrix Transform::GetMatrix(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) {
-  auto p = Math::Matrix::CreateTranslation(position);
-  auto r = Math::Matrix::CreateFromYawPitchRoll(rotation.x, rotation.y, rotation.z);
+  auto r = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   auto s = Math::Matrix::CreateScale(scale);
-  return p * r * s;
+  auto t = Math::Matrix::CreateTranslation(position);
+  return r * s * t;
 }
 
 }  // namespace LL3D 

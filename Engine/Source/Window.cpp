@@ -104,6 +104,11 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     GetWindowLongPtr(handle, GWLP_USERDATA));
 
   switch (msg) {
+    case WM_CREATE:
+    {
+      Input::Mouse::Init(handle);
+      return 0;
+    }
     case WM_DESTROY:
     {
       // Clear the pointer to stop calling the self once WM_DESTROY is

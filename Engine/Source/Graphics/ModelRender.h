@@ -22,8 +22,13 @@ private:
 
 class ModelRender : public Component {
 public:
+  enum BuiltInType { Cube, Sphere, Grid };
+
   ModelRender(std::experimental::filesystem::path pathname);
+  ModelRender(BuiltInType type);
   std::unique_ptr<Component> Clone() override;
+  
+
   //>
   // Renders this Model.
   //

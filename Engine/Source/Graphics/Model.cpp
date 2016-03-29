@@ -195,7 +195,7 @@ Model Model::LoadAssimp(filesystem::path pathname)
   return model;
 }
 
-Mesh Mesh::CreateBox(float width, float height, float depth)
+Mesh Mesh::CreateCube(float width, float height, float depth)
 {
   auto mesh = Mesh();
 
