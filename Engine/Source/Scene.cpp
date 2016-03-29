@@ -3,7 +3,6 @@
 #include "Core\Exceptions.h"
 #include "Graphics\Device.h"
 #include "Graphics\Effects.h"
-#include "Graphics\Color.h"
 #include "Graphics\Model.h"
 #include "Graphics\Camera.h"
 #include "RecursiveSceneIterator.h"
@@ -21,7 +20,7 @@ void LL3D::Scene::Update() {
 
   s_graphics_device->GetDeviceContex()->ClearRenderTargetView(
     s_graphics_device->GetRenderTargetView(), 
-    reinterpret_cast<const float*>(&Graphics::Colors::Grey)
+    reinterpret_cast<const float*>(&Math::Color::Grey)
     );
   s_graphics_device->GetDeviceContex()->ClearDepthStencilView(
     s_graphics_device->GetDepthStencilView(), 

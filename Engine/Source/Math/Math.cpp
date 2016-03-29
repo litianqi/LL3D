@@ -80,6 +80,18 @@ namespace LL3D
                                           0.f, 0.f, 0.f, 1.f };
 
         const Quaternion Quaternion::Identity = { 0.f, 0.f, 0.f, 1.f };
+
+        const Color Color::White = { 1.0f, 1.0f, 1.0f, 1.0f };
+        const Color Color::Black = { 0.0f, 0.0f, 0.0f, 1.0f };
+        const Color Color::Red = { 1.0f, 0.0f, 0.0f, 1.0f };
+        const Color Color::Green = { 0.0f, 1.0f, 0.0f, 1.0f };
+        const Color Color::Blue = { 0.0f, 0.0f, 1.0f, 1.0f };
+        const Color Color::Yellow = { 1.0f, 1.0f, 0.0f, 1.0f };
+        const Color Color::Cyan = { 0.0f, 1.0f, 1.0f, 1.0f };
+        const Color Color::Magenta = { 1.0f, 0.0f, 1.0f, 1.0f };
+        const Color Color::Silver = { 0.75f, 0.75f, 0.75f, 1.0f };
+        const Color Color::LightSteelBlue = { 0.69f, 0.77f, 0.87f, 1.0f };
+        const Color Color::Grey = { 0.294f, 0.294f, 0.294f, 1.0f };
     #endif
     }
 }

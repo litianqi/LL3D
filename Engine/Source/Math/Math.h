@@ -700,6 +700,19 @@ struct Color : public XMFLOAT4
 
     static void Lerp( const Color& c1, const Color& c2, float t, Color& result );
     static Color Lerp( const Color& c1, const Color& c2, float t );
+
+    // Constants
+    static const Color White;
+    static const Color Black;
+    static const Color Red;
+    static const Color Green;
+    static const Color Blue;
+    static const Color Yellow;
+    static const Color Cyan;
+    static const Color Magenta;
+    static const Color Silver;
+    static const Color LightSteelBlue;
+    static const Color Grey;
 };
 
 // Binary operators

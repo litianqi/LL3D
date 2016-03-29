@@ -23,14 +23,14 @@ LightComponent::LightComponent(LightType type) :
   }
   else if (type == Point) {
     auto point = PointLight();
-    point.diffuse = Math::Vector3(0.2f, 0.2f, 0.2f);
+    point.diffuse = Math::Color::Blue.ToVector3();
     point.specular = Math::Vector3(0.2f, 0.2f, 0.2f);
-    point.attenuation = Math::Vector3(0.2f, 0.2f, 0.2f);
+    point.attenuation = Math::Vector3(0.05f, 0.05f, 0.05f);
     light_.point = point;
   }
   else if (type == Spot) {
     auto spot = SpotLight();
-    spot.diffuse = Math::Vector3(0.9f, 0.9f, 0.9f);
+    spot.diffuse = Math::Color::Yellow.ToVector3();
     spot.specular = Math::Vector3(0.2f, 0.2f, 0.2f);
     spot.attenuation = Math::Vector3(0.02f, 0.02f, 0.02f);
     spot.inner_cone_angle = 0.05f;

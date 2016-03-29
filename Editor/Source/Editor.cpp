@@ -9,7 +9,6 @@
 #include <Graphics\Device.h>
 #include <Graphics\LightComponent.h>
 #include <Graphics\Fog.h>
-#include <Graphics\Color.h>
 #include "PlayerController.h"
 #include "WaveController.h"
 
@@ -91,7 +90,7 @@ Editor::Editor()
     );
   auto point_light = GameObject();
   point_light.AddComponent(std::move(point_component));
-  point_light.GetComponent<Transform>()->SetPosition(Math::Vector3(-10.f, 30.f, 0.f));
+  point_light.GetComponent<Transform>()->SetPosition(Math::Vector3(-20.f, 5.f, 0.f));
   scene_->AddGameObject(point_light);
 
   // Add spot light:

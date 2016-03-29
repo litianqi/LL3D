@@ -146,9 +146,6 @@
     <ClInclude Include="Source\Graphics\Material.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\Color.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\Effects.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
