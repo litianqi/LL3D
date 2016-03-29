@@ -407,18 +407,18 @@ Mesh Mesh::CreateGrid(float width, float depth, int cols, int rows)
 
   // For each rect
   // From forward to backward.
-  for (int i = 0; i < rows; i++) {
+  for (int i = 0; i < rows - 1; i++) {
     // From left to right
-    for (int j = 0; j < cols; j++) {
+    for (int j = 0; j < cols - 1; j++) {
       // Get its four index.
       const int index_lf = cols * i + j;
       const int index_rf = cols * i + j + 1;
       const int index_lb = cols * (i + 1) + j; // (i + 1) * rows + j;
       const int index_rb = cols * (i + 1) + j + 1; // (i + 1) * rows + j + 1;
 
-                                                   // Split it to two triangles
+     // Split it to two triangles
 
-                                                   // Triangle 1
+     // Triangle 1
       mesh.indices.push_back(index_rb);
       mesh.indices.push_back(index_lb);
       mesh.indices.push_back(index_lf);

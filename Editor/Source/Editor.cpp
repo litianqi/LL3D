@@ -68,6 +68,15 @@ Editor::Editor()
   grid.AddComponent(std::move(mr4));
   scene_->AddGameObject(grid);
 
+  // Add castle.
+  /*auto mr5 = make_unique<Graphics::ModelRender>(
+    "D:\\Workspace\\LL3D\\Editor\\Resource\\Models\\Castle Interior\\Castle Interior.3DS"
+    );
+  auto castle = GameObject();
+  castle.AddComponent(std::move(mr5));
+  castle.GetComponent<Transform>()->SetPosition(Math::Vector3(-30.f, 212.f, 0.f));
+  scene_->AddGameObject(castle);*/
+
   // Add ambient light:
   auto ambient_component = make_unique<Graphics::LightComponent>(
     Graphics::LightComponent::Ambient
@@ -82,6 +91,7 @@ Editor::Editor()
     );
   auto directional_light = GameObject();
   directional_light.AddComponent(std::move(directional_component));
+  directional_light.GetComponent<Transform>()->SetRotation(Math::Vector3(Math::XM_PIDIV2 - 0.1f, 0.f, 0.f));
   scene_->AddGameObject(directional_light);
 
   // Add point light:
