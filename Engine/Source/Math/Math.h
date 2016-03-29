@@ -1,6 +1,6 @@
 /**
- *	Modified version of DirectXTK SimpleMath. Most major difference is we use
- *  left-hand coordinate system.
+ *	Modified version of DirectXTK SimpleMath. The most major difference is we use
+ *  left-hand coordinate system in default.
  * 
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  */
