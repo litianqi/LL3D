@@ -24,10 +24,13 @@ class ModelRender : public Component {
 public:
   enum BuiltInType { Cube, Sphere, Grid };
 
+  ModelRender(const Model& model);
   ModelRender(std::experimental::filesystem::path pathname);
   ModelRender(BuiltInType type);
   std::unique_ptr<Component> Clone() override;
 
+  bool IsTransparent() const;
+  const Model& GetModel() const noexcept;
   //>
   // Renders this Model.
   //
@@ -35,6 +38,7 @@ public:
 
 private:
   std::string name_;
+  Model model_;
   std::vector<MeshRender> mesh_renders_;
 };
 

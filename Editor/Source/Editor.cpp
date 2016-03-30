@@ -68,6 +68,21 @@ Editor::Editor()
   grid.AddComponent(std::move(mr4));
   scene_->AddGameObject(grid);
 
+  // Add transparent.
+  auto mesh0 = Graphics::Mesh::CreateGrid(90, 90, 2, 2);
+  mesh0.material_index = 0;
+  auto mat0 = Graphics::Material();
+  mat0.diffuse = Math::Vector3(1.f, 1.f, 1.f);
+  mat0.opacity = 0.15f;
+  auto model0 = Graphics::Model();
+  model0.meshes.push_back(mesh0);
+  model0.materials.push_back(mat0);
+  auto mr5 = make_unique<Graphics::ModelRender>(model0);
+  auto transparent = GameObject();
+  transparent.AddComponent(std::move(mr5));
+  transparent.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 5.f, 0.f));
+  scene_->AddGameObject(transparent);
+
   // Add castle.
   /*auto mr5 = make_unique<Graphics::ModelRender>(
     "D:\\Workspace\\LL3D\\Editor\\Resource\\Models\\Castle Interior\\Castle Interior.3DS"

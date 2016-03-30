@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Graphics/Model.h"
 #include "Component.h"
+#include "Graphics/ModelRender.h"
 
 using namespace std;
 
@@ -53,19 +54,19 @@ void GameObject::Start()
 }
 
 void GameObject::Update() {
+  if (IsTransparent())
+    return;  // Transparent GameObjets render last in Scene.
+
+  DoUpdate();
+}
+
+void GameObject::DoUpdate()
+{
   for (auto& child : children_) {
     child.Update();
   }
 
   for (auto& component : components_) {
-    // If model needs transparent blending, defer rendering (rendering will 
-    // happen latter at Scene).
-    /*if (component.second->GetType() == "Model") {
-      auto model = dynamic_cast<Graphics::Model *>(component.second.get());
-      if (model->GetMaterial().diffuse.A() < 1.0f)
-        continue;
-    }*/
-
     component.second->Update();
   }
 }
@@ -106,6 +107,14 @@ const std::string & GameObject::GetName() const {
 
 const std::string& GameObject::GetTag() const {
   return tag_;
+}
+
+bool GameObject::IsTransparent() const
+{
+  auto mr = GetComponent<Graphics::ModelRender>();
+  if (mr && mr->IsTransparent())
+    return true;
+  return false;
 }
 
 GameObject * GameObject::GetParent() {

@@ -21,7 +21,8 @@ private:
   // Get main(the first) Camera. Returns nullptr if there is no Camera.
   //
   GameObject* GetCamera() noexcept;
-  std::vector<Component*> GetDeferRenderingModels() noexcept;
+  std::vector<GameObject*> GetTransparentGameObjects() noexcept;
+  std::vector<Component*> GetMirrorModelRenders() noexcept;
 
   std::list<GameObject> objects_;
   bool first_update_ = true;

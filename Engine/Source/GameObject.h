@@ -60,6 +60,7 @@ public:
   T* GetComponent();
   template <typename T>
   const T* GetComponent() const;
+  bool IsTransparent() const;
   
   
   //--------------------------------------
@@ -67,9 +68,15 @@ public:
 
   void Start();
   //>
-  // Updates its components and children. Called by it's parent or scene.
+  // Check and updates its components and children if check passed. Called
+  // by it's parent or scene.
+  // Tranparent objects cann't pass the check.
   //
   void Update();
+  //>
+  // Update without check. Called by scene.
+  //
+  void DoUpdate();
 
 private:
   using ComponentMap = std::unordered_map<std::type_index, 

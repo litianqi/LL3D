@@ -3,7 +3,7 @@
 #include "Core\Exceptions.h"
 #include "Graphics\Device.h"
 #include "Graphics\Effects.h"
-#include "Graphics\Model.h"
+#include "Graphics\ModelRender.h"
 #include "Graphics\Camera.h"
 #include "RecursiveSceneIterator.h"
 
@@ -47,25 +47,25 @@ void LL3D::Scene::Update() {
     object.Update();
   }
 
-  // Rendering defer-rendering Models
+  // Renders transparent ModelRenders
 
-  auto models = GetDeferRenderingModels();
-  auto pos_camera = GetCamera()->GetComponent<Transform>()->GetWorldPosition();
-  std::sort(models.begin(), models.end(), 
-    [pos_camera](const auto lhs, const auto rhs)
+  auto transparent_objects = GetTransparentGameObjects();
+  auto camera_pos = GetCamera()->GetComponent<Transform>()->GetWorldPosition();
+  std::sort(transparent_objects.begin(), transparent_objects.end(), 
+    [camera_pos](const auto lhs, const auto rhs)
   {
-    auto pos_lhs = lhs->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
-    auto pos_rhs = rhs->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
-    auto d_lhs = Math::Vector3::Distance(pos_camera, pos_lhs);
-    auto d_rhs = Math::Vector3::Distance(pos_camera, pos_rhs);
-    if (d_lhs != d_rhs)
-      return d_lhs < d_rhs;
+    auto lhs_pos = lhs->GetComponent<Transform>()->GetWorldPosition();
+    auto rhs_pos = rhs->GetComponent<Transform>()->GetWorldPosition();
+    auto lhs_d = Math::Vector3::Distance(camera_pos, lhs_pos);
+    auto rhs_d = Math::Vector3::Distance(camera_pos, rhs_pos);
+    if (lhs_d != rhs_d)
+      return lhs_d < rhs_d;
     return false;
   });
 
-  for (auto& model : models)
+  for (auto& object : transparent_objects)
   {
-    model->Update();
+    object->DoUpdate();
   }
 
   ThrowIfFailed(s_graphics_device->GetSwapChain()->Present(0, 0));
@@ -87,17 +87,21 @@ GameObject * Scene::GetCamera() noexcept
   return nullptr;
 }
 
-std::vector<Component*> Scene::GetDeferRenderingModels() noexcept
+std::vector<GameObject*> Scene::GetTransparentGameObjects() noexcept
 {
-  std::vector<Component*> result;
+  std::vector<GameObject*> result;
 
-  /*for (auto& object : RecursiveSceneIterator(*this)) {
-    auto model = object.GetComponent<Graphics::Model>();
-    if (model && model->GetMaterial().diffuse.A() < 1.0f)
-      result.push_back(model);
-  }*/
+  for (auto& object : RecursiveSceneIterator(*this)) {
+    if (object.IsTransparent())
+      result.push_back(&object);
+  }
 
   return result;
+}
+
+std::vector<Component*> Scene::GetMirrorModelRenders() noexcept
+{
+  return std::vector<Component*>();
 }
 
 }  // namespace LL3D
