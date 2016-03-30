@@ -17,7 +17,6 @@ private:
   const Material material_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> index_buffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertex_buffer_;
-  Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_state_;
 };
 
 class ModelRender : public Component {

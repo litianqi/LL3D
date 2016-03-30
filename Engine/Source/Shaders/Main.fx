@@ -99,11 +99,9 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
   float3 spot_contribution = ApplySpotLight(g_material,
     g_spot_light, pin.pos_w.xyz, pin.normal_w, view_dir);
   
-  result.xyz = ambient_contribution + directional_contribution +\
-    point_contribution + spot_contribution;
-
   // TODO: better way?
-  result.xyz = (result.xyz + tex_diffuse) / 2.f;
+  result.xyz = (ambient_contribution + directional_contribution +
+    point_contribution + spot_contribution + tex_diffuse) / 2.f;
 
   return result;
 

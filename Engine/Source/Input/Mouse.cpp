@@ -91,7 +91,7 @@ void Mouse::Update() {
   s_released.clear();
 }
 
-void Mouse::Init(HWND hwnd)
+void Mouse::Initialize(HWND hwnd)
 {
   s_hwnd = hwnd;
 }

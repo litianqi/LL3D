@@ -19,14 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Core\Assert.cpp" />
     <ClCompile Include="Source\Core\Exceptions.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Graphics\Assets.cpp" />
     <ClCompile Include="Source\Graphics\Base.cpp" />
     <ClCompile Include="Source\Graphics\Camera.cpp" />
+    <ClCompile Include="Source\Graphics\CommonStates.cpp" />
     <ClCompile Include="Source\Graphics\Device.cpp" />
     <ClCompile Include="Source\Graphics\Effects.cpp" />
     <ClCompile Include="Source\Graphics\Fog.cpp" />
@@ -46,7 +47,6 @@
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\Core\Assert.h" />
@@ -55,8 +55,10 @@
     <ClInclude Include="Source\Core\Uncopyable.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Graphics\Assets.h" />
     <ClInclude Include="Source\Graphics\Camera.h" />
     <ClInclude Include="Source\Graphics\Base.h" />
+    <ClInclude Include="Source\Graphics\CommonStates.h" />
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />
     <ClInclude Include="Source\Graphics\Fog.h" />
@@ -89,8 +91,8 @@
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)Resource/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Resource/Shaders/%(Filename).fxo</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)_Resource/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)_Resource/Shaders/%(Filename).fxo</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

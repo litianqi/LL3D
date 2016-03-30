@@ -11,7 +11,7 @@ namespace Input {
 class Mouse {
 public:
 
-  static void Init(HWND hwnd);
+  static void Initialize(HWND hwnd);
   
   enum Button {Left, Middle, Right, X1, X2, Count};
   

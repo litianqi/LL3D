@@ -43,7 +43,7 @@ struct SpotLight {
   *  The spot light has maximum influence on objects inside this
   *  angle. The angle is given in radians.
   */
-  float inner_cone_angle;
+  float inner_cone_angle;  // todo: currently use this as cone factor.
 
   /** Outer angle of a spot light's light cone.
   *
@@ -54,7 +54,7 @@ struct SpotLight {
   *  interpolation between the inner and the outer cone of the
   *  spot light.
   */
-  float outer_cone_angle;
+  float outer_cone_angle;  // todo
 };
 
 //! The generic light level of the world, including the bounces

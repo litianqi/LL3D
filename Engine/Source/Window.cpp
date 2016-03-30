@@ -106,7 +106,7 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
   switch (msg) {
     case WM_CREATE:
     {
-      Input::Mouse::Init(handle);
+      Input::Mouse::Initialize(handle);
       return 0;
     }
     case WM_DESTROY:

@@ -19,7 +19,7 @@ Game::Game() {
   window_.reset(new Window(json11::Json{}));
   window_->OnResize(std::bind(&Game::OnResize, this));
 
-  std::ifstream ifs("Config/GraphicsDevice.json");
+  std::ifstream ifs("_Config/GraphicsDevice.json");
   std::string content((std::istreambuf_iterator<char>(ifs)),
     (std::istreambuf_iterator<char>()));
 
@@ -29,7 +29,7 @@ Game::Game() {
   graphics_device_.reset(new Graphics::Device(config,
     window_->GetClientRect().GetSize(), window_->GetHandle()));
 
-  Graphics::Base::Init(graphics_device_.get());
+  Graphics::Base::Initialize(graphics_device_.get());
 
   scene_.reset(new Scene);
 }

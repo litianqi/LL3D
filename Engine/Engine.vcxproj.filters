@@ -27,9 +27,6 @@
     <ClCompile Include="Source\Game.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Assets.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Core\Exceptions.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
@@ -99,11 +96,14 @@
     <ClCompile Include="Source\Graphics\LightComponent.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\CommonStates.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Assets.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Assets.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -195,6 +195,12 @@
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\Light.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\CommonStates.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Assets.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

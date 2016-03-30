@@ -3,7 +3,7 @@
 #include "..\Core\Exceptions.h"
 #include "Device.h"
 #include "Effects.h"
-#include "..\Assets.h"
+#include "Assets.h"
 #include "..\Core\Assert.h"
 
 using namespace std::experimental;
@@ -40,18 +40,6 @@ MeshRender::MeshRender(const Mesh& mesh, const std::vector<Material>& materials)
 
   ThrowIfFailed(
     s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &index_buffer_)
-    );
-
-  // todo: remove or add parameter to control.
-  auto no_cull_desc = D3D11_RASTERIZER_DESC();
-  no_cull_desc.FillMode = D3D11_FILL_SOLID;
-  no_cull_desc.CullMode = D3D11_CULL_NONE;
-  no_cull_desc.FrontCounterClockwise = false;
-  no_cull_desc.DepthClipEnable = true;
-
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateRasterizerState(&no_cull_desc,
-      &rasterizer_state_)
     );
 }
 

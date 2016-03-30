@@ -4,6 +4,7 @@
 #include <list>
 #include "GameObject.h"
 #include "Graphics/Base.h"
+#include "Graphics/ModelRender.h"
 
 namespace LL3D {
 
@@ -21,6 +22,7 @@ private:
   // Get main(the first) Camera. Returns nullptr if there is no Camera.
   //
   GameObject* GetCamera() noexcept;
+  std::vector<std::pair<Transform, Graphics::MeshRender>> meshes_;   
   std::vector<GameObject*> GetTransparentGameObjects() noexcept;
   std::vector<Component*> GetMirrorModelRenders() noexcept;
 
