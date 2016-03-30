@@ -34,6 +34,7 @@ public:
   void Update() override;
 
 private:
+  std::string name_;
   std::vector<MeshRender> mesh_renders_;
 };
 

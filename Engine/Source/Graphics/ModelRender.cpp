@@ -94,6 +94,7 @@ ModelRender::ModelRender(std::experimental::filesystem::path pathname)
   for (const auto& m : model.meshes) {
     mesh_renders_.push_back(MeshRender(m, model.materials));
   }
+  name_ = model.name;
 }
 
 ModelRender::ModelRender(BuiltInType type)
@@ -106,7 +107,7 @@ ModelRender::ModelRender(BuiltInType type)
     model.name = "Cube";
   }
   else if (type == Sphere) {
-    auto mesh = Mesh::CreateSphere(5.f, 10, 10);
+    auto mesh = Mesh::CreateSphere(5.f, 50, 50);
     mesh.material_index = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Sphere";
@@ -135,6 +136,8 @@ ModelRender::ModelRender(BuiltInType type)
   for (const auto& m : model.meshes) {
     mesh_renders_.push_back(MeshRender(m, model.materials));
   }
+
+  name_ = model.name;
 }
 
 std::unique_ptr<Component> ModelRender::Clone()
