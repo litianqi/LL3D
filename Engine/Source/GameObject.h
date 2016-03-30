@@ -68,13 +68,13 @@ public:
 
   void Start();
   //>
-  // Check and updates its components and children if check passed. Called
-  // by it's parent or scene.
-  // Tranparent objects cann't pass the check.
+  // Check and updates its components and children if checking passed. Called
+  // by it's parent or Scene.
+  // Only tranparent objects cann't pass the checking.
   //
   void Update();
   //>
-  // Update without check. Called by scene.
+  // Update without checking. Called by Scene.
   //
   void DoUpdate();
 
