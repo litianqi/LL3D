@@ -99,8 +99,18 @@ Editor::Editor()
   mirror.GetComponent<Transform>()->SetRotation(
     Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
     );
-  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 0.f, 20.f));
+  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 40.f, 40.f));
   scene_->AddGameObject(mirror);
+
+  // Add mirror2.
+  auto mr7 = make_unique<Graphics::ModelRender>(model1);
+  auto mirror2 = GameObject();
+  mirror2.AddComponent(std::move(mr7));
+  mirror2.GetComponent<Transform>()->SetRotation(
+    Math::Vector3(0.f, 0.f, Math::XM_PIDIV2)
+    );
+  mirror2.GetComponent<Transform>()->SetPosition(Math::Vector3(40.f, 40.f, 0.f));
+  //scene_->AddGameObject(mirror2);
 
   // Add castle.
   /*auto mr5 = make_unique<Graphics::ModelRender>(

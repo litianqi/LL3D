@@ -31,7 +31,7 @@ public:
 private:   
   std::vector<RenderableMesh> GetMirrors() noexcept;
   std::vector<RenderableMesh> GetTransparents() noexcept;
-  std::vector<GameObject*> GetLights() noexcept;
+  //std::vector<GameObject*> GetLights() noexcept;
 
   std::list<GameObject> objects_;
   bool first_update_ = true;

@@ -13,10 +13,12 @@ public:
   void SetLocalPosition(Math::Vector3 value);
   void SetLocalRotation(Math::Vector3 value);
   void SetLocalScale(Math::Vector3 value);
+  void SetLocalDirection(Math::Vector3 value);
   void SetLocalMatrix(Math::Matrix value);
   void SetPosition(Math::Vector3 value);
   void SetRotation(Math::Vector3 value);
   void SetScale(Math::Vector3 value);
+  void SetDirection(Math::Vector3 value);
   void SetMatrix(Math::Matrix value);
 
   Math::Vector3 GetLocalPosition() const;
