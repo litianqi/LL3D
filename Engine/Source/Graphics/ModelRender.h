@@ -10,7 +10,12 @@ namespace Graphics {
 class MeshRender : private Base {
 public:
   MeshRender(const Mesh& mesh, const std::vector<Material>& materials);
-  void Render() noexcept;
+
+  bool IsMirror() const;
+  bool IsTransparent() const;
+  bool IsOpaque() const;
+
+  void Render() const noexcept;
 
 private:
   const Mesh     mesh_;
@@ -21,23 +26,18 @@ private:
 
 class ModelRender : public Component {
 public:
-  enum BuiltInType { Cube, Sphere, Grid };
+  enum BuiltInModel { Cube, Sphere, Grid };
 
   ModelRender(const Model& model);
   ModelRender(std::experimental::filesystem::path pathname);
-  ModelRender(BuiltInType type);
+  ModelRender(BuiltInModel type);
   std::unique_ptr<Component> Clone() override;
 
-  bool IsTransparent() const;
-  const Model& GetModel() const noexcept;
-  //>
-  // Renders this Model.
-  //
-  void Update() override;
+  const std::string& GetName() const;
+  const std::vector<MeshRender>& GetMeshRenders() const;
 
 private:
   std::string name_;
-  Model model_;
   std::vector<MeshRender> mesh_renders_;
 };
 

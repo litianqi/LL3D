@@ -578,6 +578,28 @@ struct Quaternion : public XMFLOAT4
     Quaternion operator+ () const { return *this; }
     Quaternion operator- () const;
 
+    // To PitchYawRoll Vector3
+    Vector3 GetPitchYawRollVector()
+    {
+      return Vector3(GetPitch(), GetYaw(), GetRoll());
+    }
+    float GetYaw()
+    {
+      float x2 = x * x;
+      float y2 = y * y;
+      return (float)atan2(2.f * y * w - 2.f * z * x, 1.f - 2.f * y2 - 2.f * x2);
+    }
+    float GetPitch()
+    {
+      return (float)-asin(2.f * z * y + 2.f * x * w);
+    }
+    float GetRoll()
+    {
+      float x2 = x * x;
+      float z2 = z * z;
+      return (float)-atan2(2.f * z * w - 2.f * y * x, 1.f - 2.f * z2 - 2.f * x2);
+    }
+
     // Quaternion operations
     float Length() const;
     float LengthSquared() const;

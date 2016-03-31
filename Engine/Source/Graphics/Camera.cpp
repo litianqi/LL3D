@@ -51,7 +51,7 @@ void Camera::SetFrustum(const Frustum & frustum) {
 }
 
 void Camera::SetPosition(FXMVECTOR p) {
-  GetGameObject()->GetComponent<Transform>()->SetWorldPosition(p);
+  GetGameObject()->GetComponent<Transform>()->SetPosition(p);
 }
 
 void Camera::SetForwardVector(FXMVECTOR v) {
@@ -72,7 +72,7 @@ const Camera::Frustum& Camera::GetFrustum() const {
 }
 
 XMVECTOR Camera::GetPosition() const {
-  return GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+  return GetGameObject()->GetComponent<Transform>()->GetPosition();
 }
 
 XMVECTOR Camera::GetForwardVector() const {

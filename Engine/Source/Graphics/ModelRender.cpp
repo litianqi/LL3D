@@ -43,7 +43,7 @@ MeshRender::MeshRender(const Mesh& mesh, const std::vector<Material>& materials)
     );
 }
 
-void MeshRender::Render() noexcept
+void MeshRender::Render() const noexcept
 {
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
@@ -76,8 +76,23 @@ void MeshRender::Render() noexcept
   //s_graphics_device->GetDeviceContex()->RSSetState(0);
 }
 
+bool MeshRender::IsMirror() const
+{
+  return material_.is_mirror;
+}
+
+bool MeshRender::IsTransparent() const
+{
+  return !material_.is_mirror && 
+    (0.f < material_.opacity && material_.opacity < 1.f);
+}
+
+bool MeshRender::IsOpaque() const
+{
+  return material_.opacity >= 1.f;
+}
+
 ModelRender::ModelRender(const Model & model) :
-  model_(model),
   name_(model.name)
 {
   for (const auto& m : model.meshes) {
@@ -87,33 +102,33 @@ ModelRender::ModelRender(const Model & model) :
 
 ModelRender::ModelRender(std::experimental::filesystem::path pathname)
 {
-  model_ = Model::LoadAssimp(pathname);
-  for (const auto& m : model_.meshes) {
-    mesh_renders_.push_back(MeshRender(m, model_.materials));
+  auto model = Model::LoadAssimp(pathname);
+  for (const auto& m : model.meshes) {
+    mesh_renders_.push_back(MeshRender(m, model.materials));
   }
-  name_ = model_.name;
+  name_ = model.name;
 }
 
-ModelRender::ModelRender(BuiltInType type)
+ModelRender::ModelRender(BuiltInModel type)
 {
-  model_ = Model();
+  auto model = Model();
   if (type == Cube) {
     auto mesh = Mesh::CreateCube(10.f, 10.f, 10.f);
     mesh.material_index = 0;
-    model_.meshes.push_back(std::move(mesh));
-    model_.name = "Cube";
+    model.meshes.push_back(std::move(mesh));
+    model.name = "Cube";
   }
   else if (type == Sphere) {
     auto mesh = Mesh::CreateSphere(5.f, 50, 50);
     mesh.material_index = 0;
-    model_.meshes.push_back(std::move(mesh));
-    model_.name = "Sphere";
+    model.meshes.push_back(std::move(mesh));
+    model.name = "Sphere";
   }
   else if (type == Grid) {
     auto mesh = Mesh::CreateGrid(100.f, 100.f, 2, 2);
     mesh.material_index = 0;
-    model_.meshes.push_back(std::move(mesh));
-    model_.name = "Grid";
+    model.meshes.push_back(std::move(mesh));
+    model.name = "Grid";
   }
   else {
     ASSERT(false && "Wrong parameter, not in range");
@@ -128,13 +143,13 @@ ModelRender::ModelRender(BuiltInType type)
   mat.shininess = 5.f;
   mat.opacity = 1.f;
   mat.shininess_strength = 1.f;
-  model_.materials.push_back(mat);
+  model.materials.push_back(mat);
   
-  for (const auto& m : model_.meshes) {
-    mesh_renders_.push_back(MeshRender(m, model_.materials));
+  for (const auto& m : model.meshes) {
+    mesh_renders_.push_back(MeshRender(m, model.materials));
   }
 
-  name_ = model_.name;
+  name_ = model.name;
 }
 
 std::unique_ptr<Component> ModelRender::Clone()
@@ -142,26 +157,14 @@ std::unique_ptr<Component> ModelRender::Clone()
   return std::make_unique<ModelRender>(*this);
 }
 
-bool ModelRender::IsTransparent() const
+const std::string & ModelRender::GetName() const
 {
-  for (auto& mtl : model_.materials) {
-    if (0.f < mtl.opacity && mtl.opacity < 1.f) {
-      return true;
-    }
-  }
-  return false;
+  return name_;
 }
 
-const Model & ModelRender::GetModel() const noexcept
+const std::vector<MeshRender>& ModelRender::GetMeshRenders() const
 {
-  return model_;
-}
-
-void ModelRender::Update()
-{
-  for (auto& m : mesh_renders_) {
-    m.Render();
-  }
+  return mesh_renders_;
 }
 
 }  // namespace Graphics

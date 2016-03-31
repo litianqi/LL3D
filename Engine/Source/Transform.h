@@ -10,33 +10,40 @@ class Transform : public Component, private Graphics::Base {
 public:
   std::unique_ptr<Component> Clone() override;
 
+  void SetLocalPosition(Math::Vector3 value);
+  void SetLocalRotation(Math::Vector3 value);
+  void SetLocalScale(Math::Vector3 value);
+  void SetLocalMatrix(Math::Matrix value);
   void SetPosition(Math::Vector3 value);
   void SetRotation(Math::Vector3 value);
   void SetScale(Math::Vector3 value);
-  void SetWorldPosition(Math::Vector3 value);
-  void SetWorldRotation(Math::Vector3 value);
-  void SetWorldScale(Math::Vector3 value);
+  void SetMatrix(Math::Matrix value);
 
+  Math::Vector3 GetLocalPosition() const;
+  Math::Vector3 GetLocalRotation() const;
+  Math::Vector3 GetLocalScale() const;
+  Math::Vector3 GetLocalDirection() const;
+  Math::Matrix  Compose() const;
   Math::Vector3 GetPosition() const;
-  Math::Vector3 GetRotaion() const;
+  Math::Vector3 GetRotation() const;
   Math::Vector3 GetScale() const;
+  Math::Vector3 GetDirection() const;
   Math::Matrix  GetMatrix() const;
-  Math::Vector3 GetWorldPosition() const;
-  Math::Vector3 GetWorldRotation() const;
-  Math::Vector3 GetWorldScale() const;
-  Math::Matrix  GetWorldMatrix() const;
 
   //>
   // Writes world matrix to shader buffer.
   //
-  void Update() override;
+  void Update() const override;
 
 private:
-  static Math::Matrix GetMatrix(Math::Vector3 position, Math::Vector3 rotation,
+  static Math::Matrix Compose(Math::Vector3 position, Math::Vector3 rotation,
     Math::Vector3 scale);
 
+  // local position
   Math::Vector3 position_;
+  // local rotation
   Math::Vector3 rotation_;
+  // local scale
   Math::Vector3 scale_ = Math::Vector3::One;
 };
 

@@ -54,19 +54,15 @@ void GameObject::Start()
 }
 
 void GameObject::Update() {
-  if (IsTransparent())
-    return;  // Transparent GameObjets render last in Scene.
-
-  DoUpdate();
-}
-
-void GameObject::DoUpdate()
-{
   for (auto& child : children_) {
     child.Update();
   }
 
   for (auto& component : components_) {
+    component.second->Update();
+  }
+
+  for (const auto& component : components_) {
     component.second->Update();
   }
 }
@@ -107,14 +103,6 @@ const std::string & GameObject::GetName() const {
 
 const std::string& GameObject::GetTag() const {
   return tag_;
-}
-
-bool GameObject::IsTransparent() const
-{
-  auto mr = GetComponent<Graphics::ModelRender>();
-  if (mr && mr->IsTransparent())
-    return true;
-  return false;
 }
 
 GameObject * GameObject::GetParent() {

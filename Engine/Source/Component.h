@@ -26,7 +26,9 @@ public:
   std::string GetType() const;
 
   virtual void Start() {}
+  virtual void Start() const {}
   virtual void Update() {}
+  virtual void Update() const {}
 
 private:
   GameObject* game_object_ = nullptr;

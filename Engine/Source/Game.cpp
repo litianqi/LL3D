@@ -48,6 +48,7 @@ void Game::Run() {
 
     Update();
     scene_->Update();
+    scene_->Render();
     Input::Mouse::Update();
     Input::Keyboard::Update();
   }

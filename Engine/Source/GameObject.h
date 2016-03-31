@@ -68,15 +68,10 @@ public:
 
   void Start();
   //>
-  // Check and updates its components and children if checking passed. Called
+  // Updates its components and children. Called
   // by it's parent or Scene.
-  // Only tranparent objects cann't pass the checking.
   //
   void Update();
-  //>
-  // Update without checking. Called by Scene.
-  //
-  void DoUpdate();
 
 private:
   using ComponentMap = std::unordered_map<std::type_index, 

@@ -9,6 +9,7 @@
 namespace LL3D {
 
 class RecursiveSceneIterator;
+using RenderableMesh = std::pair<Transform, const Graphics::MeshRender*>;
 
 class Scene : private Graphics::Base {
   friend RecursiveSceneIterator;
@@ -16,15 +17,16 @@ class Scene : private Graphics::Base {
 public: 
   void AddGameObject(const GameObject& object);
   void Update();
+  void Render() noexcept;
 
-private: 
   //>
   // Get main(the first) Camera. Returns nullptr if there is no Camera.
   //
   GameObject* GetCamera() noexcept;
-  std::vector<std::pair<Transform, Graphics::MeshRender>> meshes_;   
-  std::vector<GameObject*> GetTransparentGameObjects() noexcept;
-  std::vector<Component*> GetMirrorModelRenders() noexcept;
+
+private:   
+  std::vector<RenderableMesh> GetMirrors() noexcept;
+  std::vector<RenderableMesh> GetTransparents() noexcept;
 
   std::list<GameObject> objects_;
   bool first_update_ = true;

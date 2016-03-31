@@ -79,11 +79,11 @@ void CreateCullClockwise(ID3D11Device * device) {
   auto desc = D3D11_RASTERIZER_DESC();
   desc.FillMode = D3D11_FILL_SOLID;
   desc.CullMode = D3D11_CULL_BACK;
-  desc.FrontCounterClockwise = false;
+  desc.FrontCounterClockwise = true;
   desc.DepthClipEnable = true;
 
   ThrowIfFailed(
-    device->CreateRasterizerState(&desc, &s_cull_none)
+    device->CreateRasterizerState(&desc, &s_cull_clockwise)
     );
 }
 
@@ -91,11 +91,11 @@ void CreateCullCounterClockwise(ID3D11Device * device) {
   auto desc = D3D11_RASTERIZER_DESC();
   desc.FillMode = D3D11_FILL_SOLID;
   desc.CullMode = D3D11_CULL_BACK;
-  desc.FrontCounterClockwise = true;
+  desc.FrontCounterClockwise = false;
   desc.DepthClipEnable = true;
 
   ThrowIfFailed(
-    device->CreateRasterizerState(&desc, &s_cull_none)
+    device->CreateRasterizerState(&desc, &s_cull_counter_clockwise)
     );
 }
 

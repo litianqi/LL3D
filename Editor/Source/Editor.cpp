@@ -83,6 +83,23 @@ Editor::Editor()
   transparent.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 5.f, 0.f));
   scene_->AddGameObject(transparent);
 
+  // Add mirror.
+  auto mesh1 = Graphics::Mesh::CreateGrid(90, 90, 2, 2);
+  mesh1.material_index = 0;
+  auto mat1 = Graphics::Material();
+  mat1.diffuse = Math::Vector3(1.f, 1.f, 1.f);
+  mat1.opacity = 0.15f;
+  mat1.is_mirror = true;
+  auto model1 = Graphics::Model();
+  model1.meshes.push_back(mesh1);
+  model1.materials.push_back(mat1);
+  auto mr6 = make_unique<Graphics::ModelRender>(model1);
+  auto mirror = GameObject();
+  mirror.AddComponent(std::move(mr6));
+  mirror.GetComponent<Transform>()->SetRotation(Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f));
+  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 0.f, 40.f));
+  scene_->AddGameObject(mirror);
+
   // Add castle.
   /*auto mr5 = make_unique<Graphics::ModelRender>(
     "D:\\Workspace\\LL3D\\Editor\\Resource\\Models\\Castle Interior\\Castle Interior.3DS"

@@ -148,10 +148,10 @@ XMVECTOR EditorCameraController::GetTargetPosition() const {
 
 DirectX::XMVECTOR EditorCameraController::GetPosition() const
 {
-  return GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+  return GetGameObject()->GetComponent<Transform>()->GetPosition();
 }
 
 void EditorCameraController::SetPosition(Math::Vector3 value)
 {
-  GetGameObject()->GetComponent<Transform>()->SetWorldPosition(value);
+  GetGameObject()->GetComponent<Transform>()->SetPosition(value);
 }

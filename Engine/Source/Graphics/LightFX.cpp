@@ -14,9 +14,9 @@ SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) no
   inner_cone_angle = light.inner_cone_angle;
   outer_cone_angle = light.outer_cone_angle;
 
-  position = transform.GetWorldPosition();
+  position = transform.GetPosition();
   
-  auto rotation = transform.GetWorldRotation();
+  auto rotation = transform.GetRotation();
   auto m = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   direction = Math::Vector3::Transform(Math::Vector3::Forward, m);
 }
@@ -31,7 +31,7 @@ DirectionalLightFX::DirectionalLightFX(const DirectionalLight & light, const Tra
   diffuse = light.diffuse;
   specular = light.specular;
   
-  auto rotation = transform.GetWorldRotation();
+  auto rotation = transform.GetRotation();
   auto m = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   direction = Math::Vector3::Transform(Math::Vector3::Forward, m);
 }
@@ -42,7 +42,7 @@ PointLightFX::PointLightFX(const PointLight & light, const Transform& transform)
   specular = light.specular;
   attenuation = light.attenuation;
   
-  position = transform.GetWorldPosition();
+  position = transform.GetPosition();
 }
 
 }  // namespace Graphics
