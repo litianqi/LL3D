@@ -8,7 +8,7 @@ std::unique_ptr<Component> Transform::Clone() {
   return std::make_unique<Transform>(*this);
 }
 
-void Transform::Update() const {
+void Transform::Update() {
   s_effect->SetWorld(GetMatrix());
 }
 
@@ -49,9 +49,9 @@ void Transform::SetPosition(Math::Vector3 value) {
 void Transform::SetRotation(Math::Vector3 value) {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    rotation_ = value - parent->GetComponent<Transform>()->GetRotation();
+    SetLocalRotation(value - parent->GetComponent<Transform>()->GetRotation());
   else
-    rotation_ = value;
+    SetLocalRotation(value);
 }
 
 void Transform::SetScale(Math::Vector3 value) {

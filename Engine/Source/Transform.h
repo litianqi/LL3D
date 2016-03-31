@@ -33,7 +33,7 @@ public:
   //>
   // Writes world matrix to shader buffer.
   //
-  void Update() const override;
+  void Update() override;
 
 private:
   static Math::Matrix Compose(Math::Vector3 position, Math::Vector3 rotation,

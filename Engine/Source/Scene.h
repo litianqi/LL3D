@@ -4,12 +4,16 @@
 #include <list>
 #include "GameObject.h"
 #include "Graphics/Base.h"
-#include "Graphics/ModelRender.h"
 
 namespace LL3D {
 
+namespace Graphics {
+class MeshRender;
+class LightComponent;
+}
 class RecursiveSceneIterator;
 using RenderableMesh = std::pair<Transform, const Graphics::MeshRender*>;
+using RenderableLight = std::pair<Transform*, Graphics::LightComponent*>;
 
 class Scene : private Graphics::Base {
   friend RecursiveSceneIterator;
@@ -27,6 +31,7 @@ public:
 private:   
   std::vector<RenderableMesh> GetMirrors() noexcept;
   std::vector<RenderableMesh> GetTransparents() noexcept;
+  std::vector<GameObject*> GetLights() noexcept;
 
   std::list<GameObject> objects_;
   bool first_update_ = true;

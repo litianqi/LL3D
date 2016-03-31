@@ -15,10 +15,7 @@ SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) no
   outer_cone_angle = light.outer_cone_angle;
 
   position = transform.GetPosition();
-  
-  auto rotation = transform.GetRotation();
-  auto m = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
-  direction = Math::Vector3::Transform(Math::Vector3::Forward, m);
+  direction = transform.GetDirection();
 }
 
 AmbientLightFX::AmbientLightFX(const AmbientLight & light) noexcept
@@ -32,8 +29,7 @@ DirectionalLightFX::DirectionalLightFX(const DirectionalLight & light, const Tra
   specular = light.specular;
   
   auto rotation = transform.GetRotation();
-  auto m = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
-  direction = Math::Vector3::Transform(Math::Vector3::Forward, m);
+  direction = transform.GetDirection();
 }
 
 PointLightFX::PointLightFX(const PointLight & light, const Transform& transform) noexcept

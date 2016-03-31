@@ -140,7 +140,7 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
 
 technique11 Tech {
   pass P0 {
-    SetBlendState(g_blend, float4(0, 0, 0, 0), 0xffffffff);
+    //SetBlendState(g_blend, float4(0, 0, 0, 0), 0xffffffff);
     SetVertexShader(CompileShader(vs_5_0, VS()));
     SetGeometryShader(NULL);
     SetPixelShader(CompileShader(ps_5_0, PS(true, false)));

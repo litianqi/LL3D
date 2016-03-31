@@ -8,11 +8,38 @@ using namespace LL3D;
 
 namespace {
 
+ComPtr<ID3D11BlendState>        s_opaque;
+ComPtr<ID3D11BlendState>        s_alpha_blend;
 ComPtr<ID3D11DepthStencilState> s_mark_mirror;
 ComPtr<ID3D11DepthStencilState> s_render_reflection;
 ComPtr<ID3D11RasterizerState>   s_cull_none;
 ComPtr<ID3D11RasterizerState>   s_cull_clockwise;
 ComPtr<ID3D11RasterizerState>   s_cull_counter_clockwise;
+
+void CreateOpaque(ID3D11Device * device)
+{
+  // TODO
+}
+
+void CreateAlphaBlend(ID3D11Device * device)
+{
+  D3D11_BLEND_DESC desc;
+  desc.AlphaToCoverageEnable = false;
+  desc.IndependentBlendEnable = false;
+  
+  desc.RenderTarget[0].BlendEnable = true;
+  desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+  desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+  desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+  desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_INV_DEST_ALPHA;
+  desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+  desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+  desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
+
+  ThrowIfFailed(
+    device->CreateBlendState(&desc, &s_alpha_blend)
+    );
+}
 
 void CreateMakrMirror(ID3D11Device * device)
 {
@@ -108,11 +135,24 @@ namespace CommonStates {
 
 void Initialize(ID3D11Device * device)
 {
+  CreateOpaque(device);
+  CreateAlphaBlend(device);
   CreateMakrMirror(device);
   CreateRenderReflection(device);
   CreateCullNone(device);
   CreateCullClockwise(device);
   CreateCullCounterClockwise(device);
+}
+
+//ID3D11BlendState * Opaque()
+//{
+//  // TODO
+//  //return s_opaque.Get();
+//}
+
+ID3D11BlendState * AlphaBlend()
+{
+  return s_alpha_blend.Get();
 }
 
 ID3D11DepthStencilState * MarkMirror()

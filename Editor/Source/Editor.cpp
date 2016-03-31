@@ -96,8 +96,10 @@ Editor::Editor()
   auto mr6 = make_unique<Graphics::ModelRender>(model1);
   auto mirror = GameObject();
   mirror.AddComponent(std::move(mr6));
-  mirror.GetComponent<Transform>()->SetRotation(Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f));
-  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 0.f, 40.f));
+  mirror.GetComponent<Transform>()->SetRotation(
+    Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
+    );
+  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 0.f, 20.f));
   scene_->AddGameObject(mirror);
 
   // Add castle.
@@ -123,7 +125,7 @@ Editor::Editor()
     );
   auto directional_light = GameObject();
   directional_light.AddComponent(std::move(directional_component));
-  directional_light.GetComponent<Transform>()->SetRotation(Math::Vector3(Math::XM_PIDIV2 - 0.1f, 0.f, 0.f));
+  directional_light.GetComponent<Transform>()->SetRotation(Math::Vector3(Math::XM_PI - 0.1f, 0.f, 0.f));
   scene_->AddGameObject(directional_light);
 
   // Add point light:
@@ -142,7 +144,7 @@ Editor::Editor()
   auto spot_light = GameObject();
   spot_light.AddComponent(std::move(spot_component));
   spot_light.GetComponent<Transform>()->SetPosition(Math::Vector3(22.f, 5.f, 0.f));
-  spot_light.GetComponent<Transform>()->SetRotation(Math::Vector3(0.f, -Math::XM_PIDIV2, 0.f));
+  spot_light.GetComponent<Transform>()->SetRotation(Math::Vector3(0.f, 0.f, Math::XM_PIDIV2));
   scene_->AddGameObject(spot_light);
 
   window_->SetVisible(true);
