@@ -19,7 +19,7 @@ public:
   LightComponent(const SpotLight& light);
   std::unique_ptr<Component> Clone() override;
 
-  void Update() override;
+  void Render() const;
 
 private:
   LightType type_;

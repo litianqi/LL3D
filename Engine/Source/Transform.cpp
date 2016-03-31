@@ -8,7 +8,7 @@ std::unique_ptr<Component> Transform::Clone() {
   return std::make_unique<Transform>(*this);
 }
 
-void Transform::Update() {
+void Transform::Render() {
   s_effect->SetWorld(GetMatrix());
 }
 

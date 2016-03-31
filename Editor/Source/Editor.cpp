@@ -99,7 +99,7 @@ Editor::Editor()
   mirror.GetComponent<Transform>()->SetRotation(
     Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
     );
-  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 40.f, 40.f));
+  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 45.f, 45.f));
   scene_->AddGameObject(mirror);
 
   // Add mirror2.
@@ -109,7 +109,7 @@ Editor::Editor()
   mirror2.GetComponent<Transform>()->SetRotation(
     Math::Vector3(0.f, 0.f, Math::XM_PIDIV2)
     );
-  mirror2.GetComponent<Transform>()->SetPosition(Math::Vector3(40.f, 40.f, 0.f));
+  mirror2.GetComponent<Transform>()->SetPosition(Math::Vector3(45.f, 45.f, 0.f));
   //scene_->AddGameObject(mirror2);
 
   // Add castle.

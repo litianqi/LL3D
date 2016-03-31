@@ -70,7 +70,7 @@ std::unique_ptr<Component> LightComponent::Clone()
   return std::make_unique<LightComponent>(*this);
 }
 
-void LightComponent::Update()
+void LightComponent::Render() const
 {
   const auto* transform = GetGameObject()->GetComponent<Transform>();
 

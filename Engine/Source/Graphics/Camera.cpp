@@ -40,7 +40,7 @@ std::unique_ptr<Component> Camera::Clone() {
   return std::make_unique<Camera>(*this);
 }
 
-void Camera::Update() {
+void Camera::Render() {
   s_effect->SetEyePosW(GetPosition());
   s_effect->SetView(GetViewMatrix());
   s_effect->SetProjection(GetFrustum().GetProjectionMaxtrix());

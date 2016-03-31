@@ -71,19 +71,19 @@ GameObject * Scene::GetCamera() noexcept
   return nullptr;
 }
 
-//std::vector<GameObject*> Scene::GetLights() noexcept
-//{
-//  auto result = std::vector<GameObject*>();
-//
-//  for (auto& object : RecursiveSceneIterator(*this)) {
-//    auto light = object.GetComponent<Graphics::LightComponent>();
-//    if (light) {
-//      result.push_back(&object);
-//    }
-//  }
-//
-//  return result;
-//}
+std::vector<GameObject*> Scene::GetLights() noexcept
+{
+  auto result = std::vector<GameObject*>();
+
+  for (auto& object : RecursiveSceneIterator(*this)) {
+    auto light = object.GetComponent<Graphics::LightComponent>();
+    if (light) {
+      result.push_back(&object);
+    }
+  }
+
+  return result;
+}
 
 std::vector<RenderableMesh> Scene::GetMirrors() noexcept
 {
@@ -143,13 +143,23 @@ void Scene::Render() noexcept
     D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
     );
 
-  // 1. Render all opaque.
+  // 0. Apply camera.
+  GetCamera()->GetComponent<Transform>()->Render();
+  GetCamera()->GetComponent<Graphics::Camera>()->Render();
+
+  // 1. Apply lights.
+  for (auto light : GetLights()) {
+    light->GetComponent<Transform>()->Render();
+    light->GetComponent<Graphics::LightComponent>()->Render();
+  }
+
+  // 2. Render all opaque.
 
   for (auto& object : RecursiveSceneIterator(*this)) {
     auto model = object.GetComponent<Graphics::ModelRender>();
     if (!model)
       continue;
-    object.GetComponent<Transform>()->Update();
+    object.GetComponent<Transform>()->Render();
     for (const auto& mesh : model->GetMeshRenders())
     {
       if (mesh.IsOpaque())
@@ -157,16 +167,16 @@ void Scene::Render() noexcept
     }
   }
 
-  // 2. For each mirror:
+  // 3. For each mirror:
 
   for (auto& mirror : GetMirrors()) {
     // a. Mark mirror.
     s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
       Graphics::CommonStates::MarkMirror(), 1);
-    mirror.first.Update();
+    mirror.first.Render();
     mirror.second->Render();
 
-    // b. Reverse every light and apply. (TODO)
+    // b. Reverse all lights. (TODO)
     s_graphics_device->GetDeviceContex()->RSSetState(  // Reverse changes winding 
       Graphics::CommonStates::CullClockwise());        // order, so cull clockwise.
     s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
@@ -195,7 +205,7 @@ void Scene::Render() noexcept
         continue;
       auto transform = *object.GetComponent<Transform>();
       transform.SetMatrix(transform.GetMatrix() * reflect);
-      transform.Update();
+      transform.Render();
       for (const auto& mesh : model->GetMeshRenders())
       {
         if (mesh.IsOpaque() || (mesh.IsMirror() && &mesh != mirror.second))
@@ -218,11 +228,11 @@ void Scene::Render() noexcept
       Graphics::CommonStates::AlphaBlend(), nullptr, 0xffffffff
       );
     for (auto& transparent : transparents) {
-      transparent.first.Update();
+      transparent.first.Render();
       transparent.second->Render();
     }
 
-    // h. Restore light and apply. (TODO)
+    // h. Restore lights. (TODO)
     /*for (auto light : GetLights()) {
       light->GetComponent<Graphics::LightComponent>()->Update();
     }*/
@@ -232,21 +242,21 @@ void Scene::Render() noexcept
     s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
       nullptr, 1);
     
-    mirror.first.Update();
+    mirror.first.Render();
     mirror.second->Render();
   }
 
-  // 3. Sort transparent.
+  // 4. Sort transparent.
 
   auto transparents = GetTransparents();
   auto camera_pos = GetCamera()->GetComponent<Transform>()->GetPosition();
   std::sort(transparents.begin(), transparents.end(),
     std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
-  // 4. Render transparent with blending.
+  // 5. Render transparent with blending.
 
   for (auto& transparent : transparents) {
-    transparent.first.Update();
+    transparent.first.Render();
     transparent.second->Render();
   }
   s_graphics_device->GetDeviceContex()->OMSetBlendState(

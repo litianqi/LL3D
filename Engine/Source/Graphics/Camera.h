@@ -49,7 +49,7 @@ public:
   //>
   // Writes properties to shader buffer.
   //
-  void Update() override;
+  void Render();
 
   DirectX::XMVECTOR ViewToWorldPosition(DirectX::FXMVECTOR p) const;
   DirectX::XMVECTOR WorldToViewPosition(DirectX::FXMVECTOR p) const;
