@@ -154,6 +154,9 @@ void Scene::Render() noexcept
   }
 
   // 2. Render all opaque.
+  s_graphics_device->GetDeviceContex()->OMSetBlendState(
+    nullptr, nullptr, 0xffffffff
+    );
 
   for (auto& object : RecursiveSceneIterator(*this)) {
     auto model = object.GetComponent<Graphics::ModelRender>();
@@ -259,9 +262,6 @@ void Scene::Render() noexcept
     transparent.first.Render();
     transparent.second->Render();
   }
-  s_graphics_device->GetDeviceContex()->OMSetBlendState(
-    nullptr, nullptr, 0xffffffff
-    );
 
   ThrowIfFailed(s_graphics_device->GetSwapChain()->Present(0, 0));
 }
