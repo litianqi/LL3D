@@ -30,6 +30,12 @@ bool SortBasedOnDistanceToCamera(Math::Vector3& camera_pos,
 
 namespace LL3D {
 
+void Scene::AddGameObject(const GameObject& object) {
+  auto tmp = object;
+  tmp.SetScene(this);
+  objects_.push_back(tmp);
+}
+
 void LL3D::Scene::Update() {
 
   if (first_update_) {
@@ -55,10 +61,150 @@ void LL3D::Scene::Update() {
   }
 }
 
-void Scene::AddGameObject(const GameObject& object) {
-  auto tmp = object;
-  tmp.SetScene(this);
-  objects_.push_back(tmp);
+//>
+// For a detailed description of Render Procedure, reference to online doc:
+// https://onedrive.live.com/redir?page=view&resid=CD6518D498235073!2141&authkey=!AMsU_BK42yKOQEU&wd=target%28Design.one%7C026CF69E-4746-4048-AE49-7E0AEFD55322%2FRender%20Procedure%7C7AB7AF3B-7E41-435E-91FB-99E5CEDC60DC%2F%29
+//
+void Scene::Render() noexcept
+{
+  s_graphics_device->GetDeviceContex()->ClearRenderTargetView(
+    s_graphics_device->GetRenderTargetView(),
+    reinterpret_cast<const float*>(&Math::Color::Grey)
+    );
+  s_graphics_device->GetDeviceContex()->ClearDepthStencilView(
+    s_graphics_device->GetDepthStencilView(),
+    D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0
+    );
+
+  s_graphics_device->GetDeviceContex()->IASetInputLayout(s_input_layout.Get());
+  s_graphics_device->GetDeviceContex()->IASetPrimitiveTopology(
+    D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+    );
+
+  // 0. Apply camera.
+  auto camera = GetCamera();
+  if (!camera)
+    return;
+  camera->GetComponent<Transform>()->Render();
+  camera->GetComponent<Graphics::Camera>()->Render();
+
+  // 1. Apply lights.
+  for (auto light : GetLights()) {
+    light->GetComponent<Transform>()->Render();
+    light->GetComponent<Graphics::LightComponent>()->Render();
+  }
+
+  // 2. Render all opaque.
+  s_graphics_device->GetDeviceContex()->OMSetBlendState(
+    nullptr, nullptr, 0xffffffff
+    );
+
+  for (auto& object : RecursiveSceneIterator(*this)) {
+    auto model = object.GetComponent<Graphics::ModelRender>();
+    if (!model)
+      continue;
+    object.GetComponent<Transform>()->Render();
+    for (const auto& mesh : model->GetMeshRenders())
+    {
+      if (mesh.IsOpaque())
+        mesh.Render();
+    }
+  }
+
+  // 3. For each mirror:
+
+  for (auto& mirror : GetMirrors()) {
+    // a. Mark mirror.
+    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
+      Graphics::CommonStates::MarkMirror(), 1);
+    mirror.first.Render();
+    mirror.second->Render();
+
+    // b. Reverse all lights. (TODO)
+    s_graphics_device->GetDeviceContex()->RSSetState(  // Reverse changes winding 
+      Graphics::CommonStates::CullClockwise());        // order, so cull clockwise.
+    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
+      Graphics::CommonStates::RenderReflection(), 1);
+    auto plane = Math::Plane(mirror.first.GetPosition(), mirror.first.GetDirection());
+    auto reflect = Math::XMMatrixReflect(plane);
+    // Raise reversed world a little, otherwise a plane long engough to exist 
+    // behind mirror may coincide with plane in mirror. DirectX is random at 
+    // which one to use, even you render one of them latter:(
+    reflect *= Math::Matrix::CreateTranslation(Math::Vector3(0.f, 0.1f, 0.f));
+
+    /*for (auto light : GetLights()) {
+    auto light_copy = *light;
+    auto transform = light_copy.GetComponent<Transform>();
+    auto backup = transform->GetMatrix();
+    transform->SetMatrix(backup * reflect);
+    light_copy.GetComponent<Graphics::LightComponent>()->Update();
+    }*/
+
+    // c. Reverse all opaque and mirrors (except current one).
+    // d. Render all opaque and mirrors (except current one) with stenciling 
+    //    and without blending. 
+    for (const auto& object : RecursiveSceneIterator(*this)) {
+      auto model = object.GetComponent<Graphics::ModelRender>();
+      if (!model)
+        continue;
+      auto transform = *object.GetComponent<Transform>();
+      transform.SetMatrix(transform.GetMatrix() * reflect);
+      transform.Render();
+      for (const auto& mesh : model->GetMeshRenders())
+      {
+        if (mesh.IsOpaque() || (mesh.IsMirror() && &mesh != mirror.second))
+          mesh.Render();  // TODO: render mirror without blending
+      }
+    }
+
+    // e. Reverse all transparents.
+    // f. Sort reversed transparent based on distance to active Camera.
+    auto transparents = GetTransparents();
+    for (auto& transparent : transparents) {
+      transparent.first.SetMatrix(transparent.first.GetMatrix() * reflect);
+    }
+    auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
+    std::sort(transparents.begin(), transparents.end(),
+      std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
+
+    // g. Render sorted transparent with stenciling and blending.
+    s_graphics_device->GetDeviceContex()->OMSetBlendState(
+      Graphics::CommonStates::AlphaBlend(), nullptr, 0xffffffff
+      );
+    for (auto& transparent : transparents) {
+      transparent.first.Render();
+      transparent.second->Render();
+    }
+
+    // h. Restore lights. (TODO)
+    /*for (auto light : GetLights()) {
+    light->GetComponent<Graphics::LightComponent>()->Update();
+    }*/
+
+    // i. Render current mirror with blending.
+    s_graphics_device->GetDeviceContex()->RSSetState(nullptr);
+    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
+      nullptr, 1);
+
+    mirror.first.Render();
+    mirror.second->Render();
+  }
+
+  // 4. Sort transparent.
+
+  auto transparents = GetTransparents();
+  auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
+  std::sort(transparents.begin(), transparents.end(),
+    std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
+
+  // 5. Render transparent with blending.
+
+  for (auto& transparent : transparents) {
+    transparent.first.Render();
+    transparent.second->Render();
+  }
+
+  ThrowIfFailed(s_graphics_device->GetSwapChain()->Present(0, 0));
 }
 
 GameObject * Scene::GetCamera() noexcept
@@ -121,149 +267,6 @@ std::vector<RenderableMesh> Scene::GetTransparents() noexcept
   }
 
   return result;
-}
-
-//>
-// For a detailed description of Render Procedure, reference to online doc:
-// https://onedrive.live.com/redir?page=view&resid=CD6518D498235073!2141&authkey=!AMsU_BK42yKOQEU&wd=target%28Design.one%7C026CF69E-4746-4048-AE49-7E0AEFD55322%2FRender%20Procedure%7C7AB7AF3B-7E41-435E-91FB-99E5CEDC60DC%2F%29
-//
-void Scene::Render() noexcept
-{
-  s_graphics_device->GetDeviceContex()->ClearRenderTargetView(
-    s_graphics_device->GetRenderTargetView(),
-    reinterpret_cast<const float*>(&Math::Color::Grey)
-    );
-  s_graphics_device->GetDeviceContex()->ClearDepthStencilView(
-    s_graphics_device->GetDepthStencilView(),
-    D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0, 0
-    );
-
-  s_graphics_device->GetDeviceContex()->IASetInputLayout(s_input_layout.Get());
-  s_graphics_device->GetDeviceContex()->IASetPrimitiveTopology(
-    D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-    );
-
-  // 0. Apply camera.
-  GetCamera()->GetComponent<Transform>()->Render();
-  GetCamera()->GetComponent<Graphics::Camera>()->Render();
-
-  // 1. Apply lights.
-  for (auto light : GetLights()) {
-    light->GetComponent<Transform>()->Render();
-    light->GetComponent<Graphics::LightComponent>()->Render();
-  }
-
-  // 2. Render all opaque.
-  s_graphics_device->GetDeviceContex()->OMSetBlendState(
-    nullptr, nullptr, 0xffffffff
-    );
-
-  for (auto& object : RecursiveSceneIterator(*this)) {
-    auto model = object.GetComponent<Graphics::ModelRender>();
-    if (!model)
-      continue;
-    object.GetComponent<Transform>()->Render();
-    for (const auto& mesh : model->GetMeshRenders())
-    {
-      if (mesh.IsOpaque())
-        mesh.Render();
-    }
-  }
-
-  // 3. For each mirror:
-
-  for (auto& mirror : GetMirrors()) {
-    // a. Mark mirror.
-    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
-      Graphics::CommonStates::MarkMirror(), 1);
-    mirror.first.Render();
-    mirror.second->Render();
-
-    // b. Reverse all lights. (TODO)
-    s_graphics_device->GetDeviceContex()->RSSetState(  // Reverse changes winding 
-      Graphics::CommonStates::CullClockwise());        // order, so cull clockwise.
-    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
-      Graphics::CommonStates::RenderReflection(), 1);
-    auto plane = Math::Plane(mirror.first.GetPosition(), mirror.first.GetDirection());
-    auto reflect = Math::XMMatrixReflect(plane);
-    // Raise reversed world a little, otherwise a plane long engough to exist 
-    // behind mirror may coincide with plane in mirror. DirectX is random at 
-    // which one to use, even you render one of them latter:(
-    reflect *= Math::Matrix::CreateTranslation(Math::Vector3(0.f, 0.1f, 0.f));
-
-    /*for (auto light : GetLights()) {
-      auto light_copy = *light;
-      auto transform = light_copy.GetComponent<Transform>();
-      auto backup = transform->GetMatrix();
-      transform->SetMatrix(backup * reflect);
-      light_copy.GetComponent<Graphics::LightComponent>()->Update();
-    }*/
-
-    // c. Reverse all opaque and mirrors (except current one).
-    // d. Render all opaque and mirrors (except current one) with stenciling 
-    //    and without blending. 
-    for (const auto& object : RecursiveSceneIterator(*this)) {
-      auto model = object.GetComponent<Graphics::ModelRender>();
-      if (!model)
-        continue;
-      auto transform = *object.GetComponent<Transform>();
-      transform.SetMatrix(transform.GetMatrix() * reflect);
-      transform.Render();
-      for (const auto& mesh : model->GetMeshRenders())
-      {
-        if (mesh.IsOpaque() || (mesh.IsMirror() && &mesh != mirror.second))
-          mesh.Render();  // TODO: render mirror without blending
-      }
-    }
-
-    // e. Reverse all transparents.
-    // f. Sort reversed transparent based on distance to active Camera.
-    auto transparents = GetTransparents();
-    for (auto& transparent : transparents) {
-      transparent.first.SetMatrix(transparent.first.GetMatrix() * reflect);
-    }
-    auto camera_pos = GetCamera()->GetComponent<Transform>()->GetPosition();
-    std::sort(transparents.begin(), transparents.end(),
-      std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
-
-    // g. Render sorted transparent with stenciling and blending.
-    s_graphics_device->GetDeviceContex()->OMSetBlendState(
-      Graphics::CommonStates::AlphaBlend(), nullptr, 0xffffffff
-      );
-    for (auto& transparent : transparents) {
-      transparent.first.Render();
-      transparent.second->Render();
-    }
-
-    // h. Restore lights. (TODO)
-    /*for (auto light : GetLights()) {
-      light->GetComponent<Graphics::LightComponent>()->Update();
-    }*/
-
-    // i. Render current mirror with blending.
-    s_graphics_device->GetDeviceContex()->RSSetState(nullptr);
-    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
-      nullptr, 1);
-    
-    mirror.first.Render();
-    mirror.second->Render();
-  }
-
-  // 4. Sort transparent.
-
-  auto transparents = GetTransparents();
-  auto camera_pos = GetCamera()->GetComponent<Transform>()->GetPosition();
-  std::sort(transparents.begin(), transparents.end(),
-    std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
-
-  // 5. Render transparent with blending.
-
-  for (auto& transparent : transparents) {
-    transparent.first.Render();
-    transparent.second->Render();
-  }
-
-  ThrowIfFailed(s_graphics_device->GetSwapChain()->Present(0, 0));
 }
 
 }  // namespace LL3D

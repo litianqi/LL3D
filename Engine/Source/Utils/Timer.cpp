@@ -1,4 +1,4 @@
-#include "stopwatch.h"
+#include "Timer.h"
 #include <Windows.h>
 
 namespace LL3D {

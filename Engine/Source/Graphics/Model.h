@@ -24,7 +24,6 @@ struct Mesh {
   std::vector<unsigned int> indices;
   int                       material_index = -1;
   
-  // todo
   static Mesh CreateCube(float width, float height, float depth);
   static Mesh CreateSphere(float radius, int slice_count, int stack_count);
   static Mesh CreateGrid(float width, float depth, int m, int n);

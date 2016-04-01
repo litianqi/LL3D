@@ -17,7 +17,8 @@ void Initialize(ID3D11Device* device);
 
 //--------------------------------------
 // Blend states.
-ID3D11BlendState* Opaque();
+ID3D11BlendState* Opaque();  // Makes no sense, disable blending == Opaque, and 
+                             // has better performance.
 ID3D11BlendState* AlphaBlend();
 ID3D11BlendState* Additive();
 ID3D11BlendState* NonPremultiplied();

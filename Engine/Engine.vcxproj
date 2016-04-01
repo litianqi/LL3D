@@ -42,8 +42,8 @@
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\RecursiveSceneIterator.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
-    <ClCompile Include="Source\Utils\Encoding.cpp" />
-    <ClCompile Include="Source\Utils\Stopwatch.cpp" />
+    <ClCompile Include="Source\Utils\Unicode.cpp" />
+    <ClCompile Include="Source\Utils\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -76,8 +76,8 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\RecursiveSceneIterator.h" />
     <ClInclude Include="Source\Transform.h" />
-    <ClInclude Include="Source\Utils\Encoding.h" />
-    <ClInclude Include="Source\Utils\Stopwatch.h" />
+    <ClInclude Include="Source\Utils\Unicode.h" />
+    <ClInclude Include="Source\Utils\Timer.h" />
     <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>

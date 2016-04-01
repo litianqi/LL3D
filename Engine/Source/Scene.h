@@ -13,7 +13,6 @@ class LightComponent;
 }
 class RecursiveSceneIterator;
 using RenderableMesh = std::pair<Transform, const Graphics::MeshRender*>;
-using RenderableLight = std::pair<Transform*, Graphics::LightComponent*>;
 
 class Scene : private Graphics::Base {
   friend RecursiveSceneIterator;
@@ -23,12 +22,11 @@ public:
   void Update();
   void Render() noexcept;
 
+private:
   //>
-  // Get main(the first) Camera. Returns nullptr if there is no Camera.
+  // Get active(the first) Camera. Returns nullptr if there is no Camera.
   //
   GameObject* GetCamera() noexcept;
-
-private:   
   std::vector<RenderableMesh> GetMirrors() noexcept;
   std::vector<RenderableMesh> GetTransparents() noexcept;
   std::vector<GameObject*> GetLights() noexcept;
