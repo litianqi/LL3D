@@ -47,8 +47,8 @@ Model Model::LoadAssimp(filesystem::path pathname)
     aiProcess_GenUVCoords |
     aiProcess_TransformUVCoords |
     aiProcess_OptimizeMeshes |
-    aiProcess_OptimizeGraph /*|
-    aiProcess_ConvertToLeftHanded*/);
+    aiProcess_OptimizeGraph |
+    aiProcess_ConvertToLeftHanded);
 
   if (scene == nullptr)
     throw std::exception("scene == nullptr, empty or corrupted file?");
@@ -65,10 +65,10 @@ Model Model::LoadAssimp(filesystem::path pathname)
     // todo
   }
 
-  for (unsigned int materialIndex = 0; materialIndex < scene->mNumMaterials; materialIndex++)
+  for (unsigned int mat_index = 0; mat_index < scene->mNumMaterials; mat_index++)
   {
-    const aiMaterial *srcMat = scene->mMaterials[materialIndex];
-    auto dstMat = Material();
+    const aiMaterial *srcmat = scene->mMaterials[mat_index];
+    auto dstmat = Material();
 
     aiColor3D diffuse(1.0f, 1.0f, 1.0f);
     aiColor3D specular(1.0f, 1.0f, 1.0f);
@@ -84,80 +84,80 @@ Model Model::LoadAssimp(filesystem::path pathname)
     aiString texNormalPath;
     aiString texLightmapPath;
     aiString texReflectionPath;
-    srcMat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
-    srcMat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
-    srcMat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
-    srcMat->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
-    srcMat->Get(AI_MATKEY_COLOR_TRANSPARENT, transparent);
-    srcMat->Get(AI_MATKEY_OPACITY, opacity);
-    srcMat->Get(AI_MATKEY_SHININESS, shininess);
-    srcMat->Get(AI_MATKEY_SHININESS_STRENGTH, shininess_strength);
-    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), texDiffusePath);
-    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_SPECULAR, 0), texSpecularPath);
-    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_EMISSIVE, 0), texEmissivePath);
-    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), texNormalPath);
-    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_LIGHTMAP, 0), texLightmapPath);
-    srcMat->Get(AI_MATKEY_TEXTURE(aiTextureType_REFLECTION, 0), texReflectionPath);
+    srcmat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+    srcmat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+    srcmat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+    srcmat->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+    srcmat->Get(AI_MATKEY_COLOR_TRANSPARENT, transparent);
+    srcmat->Get(AI_MATKEY_OPACITY, opacity);
+    srcmat->Get(AI_MATKEY_SHININESS, shininess);
+    srcmat->Get(AI_MATKEY_SHININESS_STRENGTH, shininess_strength);
+    srcmat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), texDiffusePath);
+    srcmat->Get(AI_MATKEY_TEXTURE(aiTextureType_SPECULAR, 0), texSpecularPath);
+    srcmat->Get(AI_MATKEY_TEXTURE(aiTextureType_EMISSIVE, 0), texEmissivePath);
+    srcmat->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), texNormalPath);
+    srcmat->Get(AI_MATKEY_TEXTURE(aiTextureType_LIGHTMAP, 0), texLightmapPath);
+    srcmat->Get(AI_MATKEY_TEXTURE(aiTextureType_REFLECTION, 0), texReflectionPath);
 
-    dstMat.diffuse = Vector3(diffuse.r, diffuse.g, diffuse.b);
-    dstMat.specular = Vector3(specular.r, specular.g, specular.b);
-    dstMat.ambient = Vector3(ambient.r, ambient.g, ambient.b);
-    dstMat.emissive = Vector3(emissive.r, emissive.g, emissive.b);
-    dstMat.transparent = Vector3(transparent.r, transparent.g, transparent.b);
-    dstMat.opacity = opacity;
-    dstMat.shininess = shininess;
-    dstMat.shininess_strength = shininess_strength;
+    dstmat.diffuse = Vector3(diffuse.r, diffuse.g, diffuse.b);
+    dstmat.specular = Vector3(specular.r, specular.g, specular.b);
+    dstmat.ambient = Vector3(ambient.r, ambient.g, ambient.b);
+    dstmat.emissive = Vector3(emissive.r, emissive.g, emissive.b);
+    dstmat.transparent = Vector3(transparent.r, transparent.g, transparent.b);
+    dstmat.opacity = opacity;
+    dstmat.shininess = shininess;
+    dstmat.shininess_strength = shininess_strength;
 
     char *pRem = nullptr;
 
-    dstMat.diffuse_texture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
-    dstMat.specular_texture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
-    dstMat.emissive_texture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
-    dstMat.normal_texture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
-    dstMat.lightmap_texture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
-    dstMat.reflection_texture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
+    dstmat.diffuse_texture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
+    dstmat.specular_texture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
+    dstmat.emissive_texture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
+    dstmat.normal_texture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
+    dstmat.lightmap_texture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
+    dstmat.reflection_texture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
 
     aiString matName;
-    srcMat->Get(AI_MATKEY_NAME, matName);
-    dstMat.name = matName.C_Str();
+    srcmat->Get(AI_MATKEY_NAME, matName);
+    dstmat.name = matName.C_Str();
 
-    model.materials.push_back(dstMat);
+    model.materials.push_back(dstmat);
   }
 
   // fill in vertex and index data
-  for (unsigned int meshIndex = 0; meshIndex < scene->mNumMeshes; meshIndex++)
+  for (unsigned int mesh_index = 0; mesh_index < scene->mNumMeshes; mesh_index++)
   {
-    const aiMesh *srcMesh = scene->mMeshes[meshIndex];
-    auto dstMesh = Mesh();
+    const aiMesh *srcmesh = scene->mMeshes[mesh_index];
+    auto dstmesh = Mesh();
 
-    ASSERT(srcMesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE);
+    ASSERT(srcmesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE);
 
-    dstMesh.material_index = srcMesh->mMaterialIndex;
+    dstmesh.material_index = srcmesh->mMaterialIndex;
 
-    for (unsigned int v = 0; v < srcMesh->mNumVertices; v++)
+    for (unsigned int v = 0; v < srcmesh->mNumVertices; v++)
     {
       Vertex vertex;
 
-      if (srcMesh->mVertices)
+      if (srcmesh->mVertices)
       {
-        vertex.position = Vector3(srcMesh->mVertices[v].x, 
-          srcMesh->mVertices[v].y, srcMesh->mVertices[v].z);
+        vertex.position = Vector3(srcmesh->mVertices[v].x, 
+          srcmesh->mVertices[v].y, srcmesh->mVertices[v].z);
       } else
       {
         // no position? That's kind of bad.
         ASSERT(0);
       }
 
-      if (srcMesh->mTextureCoords[0])
+      if (srcmesh->mTextureCoords[0])
       {
-        vertex.texcoord = Vector2(srcMesh->mTextureCoords[0][v].x,
-          srcMesh->mTextureCoords[0][v].y);
+        vertex.texcoord = Vector2(srcmesh->mTextureCoords[0][v].x,
+          srcmesh->mTextureCoords[0][v].y);
       }
 
-      if (srcMesh->mNormals)
+      if (srcmesh->mNormals)
       {
-        vertex.normal = Vector3(srcMesh->mNormals[v].x, srcMesh->mNormals[v].y,
-          srcMesh->mNormals[v].z);
+        vertex.normal = Vector3(srcmesh->mNormals[v].x, srcmesh->mNormals[v].y,
+          srcmesh->mNormals[v].z);
       } else
       {
         // Assimp should generate normals if they are missing, according to the postprocessing flag specified on load,
@@ -165,37 +165,37 @@ Model Model::LoadAssimp(filesystem::path pathname)
         ASSERT(0);
       }
 
-      if (srcMesh->mTangents)
+      if (srcmesh->mTangents)
       {
-        vertex.tangent = Vector3(srcMesh->mTangents[v].x, srcMesh->mTangents[v].y,
-          srcMesh->mTangents[v].z);
+        vertex.tangent = Vector3(srcmesh->mTangents[v].x, srcmesh->mTangents[v].y,
+          srcmesh->mTangents[v].z);
       }
 
-      if (srcMesh->mBitangents)
+      if (srcmesh->mBitangents)
       {
-        vertex.bitangent = Vector3(srcMesh->mBitangents[v].x, srcMesh->mBitangents[v].y,
-          srcMesh->mBitangents[v].z);
+        vertex.bitangent = Vector3(srcmesh->mBitangents[v].x, srcmesh->mBitangents[v].y,
+          srcmesh->mBitangents[v].z);
       }
 
-      dstMesh.vertices.push_back(vertex);
+      dstmesh.vertices.push_back(vertex);
     }
 
-    for (unsigned int f = 0; f < srcMesh->mNumFaces; f++)
+    for (unsigned int f = 0; f < srcmesh->mNumFaces; f++)
     {
-      ASSERT(srcMesh->mFaces[f].mNumIndices == 3);
+      ASSERT(srcmesh->mFaces[f].mNumIndices == 3);
 
-      dstMesh.indices.push_back(srcMesh->mFaces[f].mIndices[0]);
-      dstMesh.indices.push_back(srcMesh->mFaces[f].mIndices[1]);
-      dstMesh.indices.push_back(srcMesh->mFaces[f].mIndices[2]);
+      dstmesh.indices.push_back(srcmesh->mFaces[f].mIndices[0]);
+      dstmesh.indices.push_back(srcmesh->mFaces[f].mIndices[1]);
+      dstmesh.indices.push_back(srcmesh->mFaces[f].mIndices[2]);
     }
 
-    model.meshes.push_back(dstMesh);
+    model.meshes.push_back(dstmesh);
   }
 
   return model;
 }
 
-Mesh Mesh::CreateBox(float width, float height, float depth)
+Mesh Mesh::CreateCube(float width, float height, float depth)
 {
   auto mesh = Mesh();
 
@@ -407,18 +407,18 @@ Mesh Mesh::CreateGrid(float width, float depth, int cols, int rows)
 
   // For each rect
   // From forward to backward.
-  for (int i = 0; i < rows; i++) {
+  for (int i = 0; i < rows - 1; i++) {
     // From left to right
-    for (int j = 0; j < cols; j++) {
+    for (int j = 0; j < cols - 1; j++) {
       // Get its four index.
       const int index_lf = cols * i + j;
       const int index_rf = cols * i + j + 1;
       const int index_lb = cols * (i + 1) + j; // (i + 1) * rows + j;
       const int index_rb = cols * (i + 1) + j + 1; // (i + 1) * rows + j + 1;
 
-                                                   // Split it to two triangles
+     // Split it to two triangles
 
-                                                   // Triangle 1
+     // Triangle 1
       mesh.indices.push_back(index_rb);
       mesh.indices.push_back(index_lb);
       mesh.indices.push_back(index_lf);

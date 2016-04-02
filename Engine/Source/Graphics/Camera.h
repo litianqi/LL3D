@@ -12,13 +12,8 @@ namespace Graphics {
 // Non-rollable Camera. 
 // Non-rollable means Up and Forward vector always on a YZ panel(of world space) 
 // roated some degree around Y.
-
 class Camera : public Component, private Base {
 public:
-
-  
-  //--------------------------------------
-  // Types
 
   // Frustum properties of a Camera.
   class Frustum {
@@ -39,10 +34,6 @@ public:
   Camera(Frustum frustum, DirectX::FXMVECTOR forward_vector);
   std::unique_ptr<Component> Clone() override;
 
-  
-  //--------------------------------------
-  // Properties
-
   void SetFrustum(const Frustum& frustum);
   void SetPosition(DirectX::FXMVECTOR p);
   void SetForwardVector(DirectX::FXMVECTOR v);
@@ -55,18 +46,10 @@ public:
   DirectX::XMVECTOR GetRightVector() const;
   DirectX::XMVECTOR GetUpVector() const;
 
-  
-  //--------------------------------------
-  // Operations
-
   //>
   // Writes properties to shader buffer.
   //
-  void Update() override;
-
-  
-  //--------------------------------------
-  // Helpers
+  void Render() const;
 
   DirectX::XMVECTOR ViewToWorldPosition(DirectX::FXMVECTOR p) const;
   DirectX::XMVECTOR WorldToViewPosition(DirectX::FXMVECTOR p) const;

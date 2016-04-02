@@ -12,29 +12,23 @@ struct Material {
   Math::Vector3 ambient;
   Math::Vector3 diffuse;
   Math::Vector3 specular;
-  Math::Vector3 emissive;
+  Math::Vector3 emissive;  // todo
   Math::Vector3 transparent;  // todo: light passing through a transparent surface is multiplied by this filter color
   float shininess = 0.f;  // specular_exponent
   float opacity = 0.f;
-  float shininess_strength = 0.f; // multiplier on top of specular color
+  float shininess_strength = 0.f; // todo: multiplier on top of specular color
 
   // Texture paths
   std::experimental::filesystem::path  diffuse_texture;
   std::experimental::filesystem::path  specular_texture;
-  std::experimental::filesystem::path  emissive_texture;
-  std::experimental::filesystem::path  normal_texture;
-  std::experimental::filesystem::path  lightmap_texture;
-  std::experimental::filesystem::path  reflection_texture;
+  std::experimental::filesystem::path  emissive_texture;  // todo
+  std::experimental::filesystem::path  normal_texture;  // todo
+  std::experimental::filesystem::path  lightmap_texture;  // todo
+  std::experimental::filesystem::path  reflection_texture;  // todo
 
-  struct EffectBuffer {
-    Math::Vector3 ambient; float _pad0 = 1.f;
-    Math::Vector3 diffuse; float _pad1 = 1.f;
-    Math::Vector3 specular; float _pad2 = 1.f;
-    Math::Vector3 emissive; float _pad3 = 1.f;  // todo: 1.f?
-    Math::Vector3 transparent; float _pad4 = 1.f;  // todo: 1.f?
-    float shininess; float opacity; float shininess_strength; float _pad5;
-  };
-  explicit operator EffectBuffer() const;
+  // Experimental properties !!! 
+  bool  is_mirror = false;
+  bool  is_shadow = false;
 };
 
 }  // namespace Graphics

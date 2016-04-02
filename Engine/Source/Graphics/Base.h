@@ -23,7 +23,7 @@ protected:
   static Microsoft::WRL::ComPtr<ID3D11InputLayout> s_input_layout;
 
 private:
-  static void Init(Device* device);
+  static void Initialize(Device* device);
 };
 
 }  // namespace Graphics

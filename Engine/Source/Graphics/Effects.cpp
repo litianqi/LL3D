@@ -4,7 +4,7 @@
 #include <d3dx11effect.h>
 #include "../Core/Assert.h"
 #include "../Core/Exceptions.h"
-#include "../Utils/Encoding.h"
+#include "../Utils/Unicode.h"
 #include "Device.h"
 
 using namespace std::experimental;
@@ -57,20 +57,20 @@ void BasicEffect::GetVertexShaderBytecode(const void ** byte_code, size_t* byte_
   *byte_code_length = pass_desc.IAInputSignatureSize;
 }
 
-void BasicEffect::SetAmbientLight(const AmbientLight & value) {
-  ambient_light_->SetRawValue(&value.data, 0, sizeof(AmbientLight::Data));
+void BasicEffect::SetAmbientLight(const AmbientLightFX & value) {
+  ambient_light_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetDirectionalLight(const DirectionalLight & value) {
-  directional_light_->SetRawValue(&value, 0, sizeof(DirectionalLight));
+void BasicEffect::SetDirectionalLight(const DirectionalLightFX & value) {
+  directional_light_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetPointLight(const PointLight & value) {
-  point_light_->SetRawValue(&value, 0, sizeof(PointLight));
+void BasicEffect::SetPointLight(const PointLightFX & value) {
+  point_light_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetSpotLight(const SpotLight & value) {
-  spot_light_->SetRawValue(&value, 0, sizeof(SpotLight));
+void BasicEffect::SetSpotLight(const SpotLightFX & value) {
+  spot_light_->SetRawValue(&value, 0, sizeof(value));
 }
 
 void BasicEffect::SetEyePosW(FXMVECTOR value) {
@@ -97,7 +97,7 @@ void BasicEffect::SetTexture(ID3D11ShaderResourceView* value) {
   texture_->SetResource(value);
 }
 
-void BasicEffect::SetMaterial(const Material::EffectBuffer& material) {
+void BasicEffect::SetMaterial(const MaterialFX& material) {
   material_->SetRawValue(&material, 0, sizeof(material));
 }
 

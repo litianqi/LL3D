@@ -12,9 +12,6 @@ namespace Input {
 class Keyboard {
 public:
   
-  //--------------------------------------
-  // Types
-
   enum Axis { Horizontal, Vertical };
 
   
@@ -53,10 +50,6 @@ public:
   // key KeyCode enum parameter.
   //
   static bool IsReleased(KeyCode key);
-
-  
-  //--------------------------------------
-  // Operations
   
   //>
   // Processes keyboard messages from system. Called by higher message process

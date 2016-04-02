@@ -5,8 +5,8 @@
 #include <DirectXMath.h>
 #include <d3dx11effect.h>
 #include "../Core/Uncopyable.h"
-#include "Light.h"
-#include "Material.h"
+#include "LightFX.h"
+#include "MaterialFX.h"
 #include "Base.h"
 #include "Fog.h"
 
@@ -47,10 +47,10 @@ public:
 
   //--------------------------------------
   // Light settings.
-  void SetAmbientLight(const AmbientLight& value);
-  void SetDirectionalLight(const DirectionalLight& value);
-  void SetPointLight(const PointLight& value);
-  void SetSpotLight(const SpotLight& value);
+  void SetAmbientLight(const AmbientLightFX& value);
+  void SetDirectionalLight(const DirectionalLightFX& value);
+  void SetPointLight(const PointLightFX& value);
+  void SetSpotLight(const SpotLightFX& value);
   void SetEyePosW(DirectX::FXMVECTOR value);
 
   //--------------------------------------
@@ -66,7 +66,7 @@ public:
 
   //--------------------------------------
   // Material settings.
-  void SetMaterial(const Material::EffectBuffer& material);
+  void SetMaterial(const MaterialFX& material);
 
   //--------------------------------------
   // Fog settings.

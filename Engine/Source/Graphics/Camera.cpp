@@ -26,8 +26,6 @@ void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
 Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const {
   return Math::Matrix::CreatePerspectiveFieldOfView(radian_fov_y_, aspect_ratio_,
     static_cast<float>(z_near_), static_cast<float>(z_far_));
-  /*return XMMatrixPerspectiveFovLH(radian_fov_y_, aspect_ratio_,
-    static_cast<float>(z_near_), static_cast<float>(z_far_));*/
 }
 
 Camera::Camera(Frustum frustum, FXMVECTOR forward_vector) :
@@ -42,13 +40,10 @@ std::unique_ptr<Component> Camera::Clone() {
   return std::make_unique<Camera>(*this);
 }
 
-void Camera::Update() {
+void Camera::Render() const {
   s_effect->SetEyePosW(GetPosition());
-  auto v = Math::Matrix(GetViewMatrix());
-  s_effect->SetView(v);
-  auto p = Math::Matrix(GetFrustum().GetProjectionMaxtrix());
-  p._44 = 1.f;  // todo
-  s_effect->SetProjection(p);
+  s_effect->SetView(GetViewMatrix());
+  s_effect->SetProjection(GetFrustum().GetProjectionMaxtrix());
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {
@@ -56,7 +51,7 @@ void Camera::SetFrustum(const Frustum & frustum) {
 }
 
 void Camera::SetPosition(FXMVECTOR p) {
-  GetGameObject()->GetComponent<Transform>()->SetWorldPosition(p);
+  GetGameObject()->GetComponent<Transform>()->SetPosition(p);
 }
 
 void Camera::SetForwardVector(FXMVECTOR v) {
@@ -65,7 +60,6 @@ void Camera::SetForwardVector(FXMVECTOR v) {
 
 Math::Matrix Camera::GetViewMatrix() const {
   return Math::Matrix::CreateLookAt(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
-  //return XMMatrixLookToLH();;
 }
 
 Math::Matrix Camera::GetViewProjectionMatrix() const {
@@ -78,7 +72,7 @@ const Camera::Frustum& Camera::GetFrustum() const {
 }
 
 XMVECTOR Camera::GetPosition() const {
-  return GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+  return GetGameObject()->GetComponent<Transform>()->GetPosition();
 }
 
 XMVECTOR Camera::GetForwardVector() const {

@@ -4,13 +4,13 @@
 #include <unordered_map>
 #include <typeindex>
 #include <memory>
-#include "Transform.h"
 
 namespace LL3D {
 
 class Scene;
 class Component;
 class RecursiveSceneIterator;
+class Transform;
 
 //-----------------------------------------------------------------------------
 // Base class for all entities in LL3D scenes.
@@ -26,7 +26,6 @@ public:
   GameObject(GameObject&&) = default;
   GameObject& operator=(GameObject&& other) = default;
   ~GameObject() = default;
-
   
   //--------------------------------------
   // Relations
@@ -40,7 +39,6 @@ public:
   const Scene* GetScene() const;
   GameObject* GetParent();
   const GameObject* GetParent() const;
-
   
   //--------------------------------------
   // Properties
@@ -62,14 +60,16 @@ public:
   T* GetComponent();
   template <typename T>
   const T* GetComponent() const;
-  
+  Transform& GetTransform();
+  const Transform& GetTransform() const;
   
   //--------------------------------------
   // Operations
 
   void Start();
   //>
-  // Updates its components and children. Called by it's parent or scene.
+  // Updates its components and children. Called
+  // by it's parent or Scene.
   //
   void Update();
 
@@ -87,6 +87,7 @@ private:
   ComponentMap  components_;
 };
 
+#include "GameObject.inl"
+
 }  // namespace LL3D
 
-#include "GameObject.inl"

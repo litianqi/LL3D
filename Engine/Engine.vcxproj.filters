@@ -27,9 +27,6 @@
     <ClCompile Include="Source\Game.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Assets.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Core\Exceptions.cpp">
       <Filter>Source\Core</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
     <ClCompile Include="Source\Graphics\Effects.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Light.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Component.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -68,12 +62,6 @@
     </ClCompile>
     <ClCompile Include="Source\Input\Keyboard.cpp">
       <Filter>Source\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utils\Encoding.cpp">
-      <Filter>Source\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utils\Stopwatch.cpp">
-      <Filter>Source\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Transform.cpp">
       <Filter>Source</Filter>
@@ -90,14 +78,32 @@
     <ClCompile Include="Source\Graphics\ModelRender.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Material.cpp">
+    <ClCompile Include="Source\Math\Math.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\MaterialFX.cpp">
       <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\LightFX.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\LightComponent.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\CommonStates.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Assets.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Unicode.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Timer.cpp">
+      <Filter>Source\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Assets.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -140,17 +146,8 @@
     <ClInclude Include="Source\Graphics\Material.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\Color.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\Effects.h">
       <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics\Light.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Math.h">
-      <Filter>Source\Math</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input\Mouse.h">
       <Filter>Source\Input</Filter>
@@ -160,12 +157,6 @@
     </ClInclude>
     <ClInclude Include="Source\Input\KeyCode.h">
       <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utils\Encoding.h">
-      <Filter>Source\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utils\Stopwatch.h">
-      <Filter>Source\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Behaviour.h">
       <Filter>Source</Filter>
@@ -179,22 +170,43 @@
     <ClInclude Include="Source\Graphics\Fog.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Math\Color.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Graphics\Model.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\ModelRender.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Math\Math.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\MaterialFX.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\LightFX.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\LightComponent.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Light.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\CommonStates.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Assets.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Unicode.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Timer.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Shaders\Light.fx">
-      <Filter>Source\Shaders</Filter>
-    </None>
-    <None Include="Source\Shaders\Material.fx">
-      <Filter>Source\Shaders</Filter>
+    <None Include="Source\Math\Math.inl">
+      <Filter>Source\Math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +216,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
+      <Filter>Source\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\Light.fx">
       <Filter>Source\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Game.h>
-#include <Utils/Stopwatch.h>
+#include <Utils/Timer.h>
 #include "EditorCameraController.h"
 #include "FirstPersonalCamera.h"
 

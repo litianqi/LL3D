@@ -1,6 +1,9 @@
 #include "GameObject.h"
 #include "Graphics/Model.h"
+#include "Graphics/ModelRender.h"
+#include "Core/Assert.h"
 #include "Component.h"
+#include "Transform.h"
 
 using namespace std;
 
@@ -58,14 +61,10 @@ void GameObject::Update() {
   }
 
   for (auto& component : components_) {
-    // If model needs transparent blending, defer rendering (rendering will 
-    // happen latter at Scene).
-    /*if (component.second->GetType() == "Model") {
-      auto model = dynamic_cast<Graphics::Model *>(component.second.get());
-      if (model->GetMaterial().diffuse.A() < 1.0f)
-        continue;
-    }*/
+    component.second->Update();
+  }
 
+  for (const auto& component : components_) {
     component.second->Update();
   }
 }
@@ -106,6 +105,18 @@ const std::string & GameObject::GetName() const {
 
 const std::string& GameObject::GetTag() const {
   return tag_;
+}
+
+Transform & GameObject::GetTransform()
+{
+  return const_cast<Transform&>(const_cast<const GameObject*>(this)->GetTransform());
+}
+
+const Transform & GameObject::GetTransform() const
+{
+  auto transform = GetComponent<Transform>();
+  ASSERT(transform);
+  return *transform;
 }
 
 GameObject * GameObject::GetParent() {

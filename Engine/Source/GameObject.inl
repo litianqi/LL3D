@@ -1,4 +1,4 @@
-namespace LL3D {
+#pragma once
 
 template<typename T>
 inline void GameObject::AddComponent() {
@@ -24,5 +24,3 @@ inline const T* GameObject::GetComponent() const {
   else
     return nullptr;
 }
-
-}  // namespace LL3D

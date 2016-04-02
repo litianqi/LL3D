@@ -19,32 +19,34 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Core\Assert.cpp" />
     <ClCompile Include="Source\Core\Exceptions.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Graphics\Assets.cpp" />
     <ClCompile Include="Source\Graphics\Base.cpp" />
     <ClCompile Include="Source\Graphics\Camera.cpp" />
+    <ClCompile Include="Source\Graphics\CommonStates.cpp" />
     <ClCompile Include="Source\Graphics\Device.cpp" />
     <ClCompile Include="Source\Graphics\Effects.cpp" />
     <ClCompile Include="Source\Graphics\Fog.cpp" />
-    <ClCompile Include="Source\Graphics\Light.cpp" />
-    <ClCompile Include="Source\Graphics\Material.cpp" />
+    <ClCompile Include="Source\Graphics\LightComponent.cpp" />
+    <ClCompile Include="Source\Graphics\LightFX.cpp" />
+    <ClCompile Include="Source\Graphics\MaterialFX.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Graphics\ModelRender.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\Math\Math.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\RecursiveSceneIterator.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
-    <ClCompile Include="Source\Utils\Encoding.cpp" />
-    <ClCompile Include="Source\Utils\Stopwatch.cpp" />
+    <ClCompile Include="Source\Utils\Unicode.cpp" />
+    <ClCompile Include="Source\Utils\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\Core\Assert.h" />
@@ -53,26 +55,29 @@
     <ClInclude Include="Source\Core\Uncopyable.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Graphics\Assets.h" />
     <ClInclude Include="Source\Graphics\Camera.h" />
     <ClInclude Include="Source\Graphics\Base.h" />
-    <ClInclude Include="Source\Graphics\Color.h" />
+    <ClInclude Include="Source\Graphics\CommonStates.h" />
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />
     <ClInclude Include="Source\Graphics\Fog.h" />
+    <ClInclude Include="Source\Graphics\LightComponent.h" />
+    <ClInclude Include="Source\Graphics\LightFX.h" />
     <ClInclude Include="Source\Graphics\Light.h" />
     <ClInclude Include="Source\Graphics\Material.h" />
+    <ClInclude Include="Source\Graphics\MaterialFX.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
     <ClInclude Include="Source\Graphics\ModelRender.h" />
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\KeyCode.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
-    <ClInclude Include="Source\Math\Color.h" />
     <ClInclude Include="Source\Math\Math.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\RecursiveSceneIterator.h" />
     <ClInclude Include="Source\Transform.h" />
-    <ClInclude Include="Source\Utils\Encoding.h" />
-    <ClInclude Include="Source\Utils\Stopwatch.h" />
+    <ClInclude Include="Source\Utils\Unicode.h" />
+    <ClInclude Include="Source\Utils\Timer.h" />
     <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -80,23 +85,21 @@
       <FileType>Document</FileType>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClInclude>
-    <None Include="Source\Shaders\Light.fx">
-      <FileType>Document</FileType>
-    </None>
+    <None Include="Source\Math\Math.inl" />
     <CustomBuild Include="Source\Shaders\Main.fx">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders/%(Filename).cso</ObjectFileOutput>
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)Resource/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Resource/Shaders/%(Filename).fxo</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)_Resource/Shaders/%(Filename).fxo" "%(FullPath)"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)_Resource/Shaders/%(Filename).fxo</Outputs>
     </CustomBuild>
-    <None Include="Source\Shaders\Material.fx">
-      <FileType>Document</FileType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\Light.fx">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
@@ -187,7 +190,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4838</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\DirectXTK\Inc;$(ProjectDir)ThirdParty\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\DirectXTK\Inc;$(ProjectDir)ThirdParty\assimp\include;$(SolutionDir)ThirdParty\cpplinq</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
