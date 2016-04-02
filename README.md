@@ -6,19 +6,26 @@ A C++/DirectX11 3D game engine.
 
 **Under development.**
 
-For now, project Editor is just a test ground.
-
 ## Features
 
-- Component-based Design
-- Lighting
-- Texturing
-- Blending
+- Unity-like Scene-GameObject-Component System
+- Graphics
+  - Camera
+  - Light (Ambient, Directional, Point and Spot)
+  - Load and Display model and material from mutiple type of files.
+  - Fog
+  - Mirror
+  - Shadow
+  - ...
+- Input
+- Math
 
 ## TODO
 
-- Stenciling
-- ...
+- Graphics
+  - Particle
+  - Bone
+  - ...
 - UI
 - Physics
 - Audio
