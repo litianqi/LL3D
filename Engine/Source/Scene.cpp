@@ -232,10 +232,6 @@ void Scene::Render() noexcept
     mirror.second->Render();
 
     // b. Reverse all lights. (TODO)
-    s_graphics_device->GetDeviceContex()->RSSetState(  // Reverse changes winding 
-      Graphics::CommonStates::CullClockwise());        // order, so cull clockwise.
-    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
-      Graphics::CommonStates::RenderReflection(), MirrorStencilRef);
     const auto plane = Math::Plane(mirror.first.GetPosition(), mirror.first.GetDirection());
     auto reflect = Math::XMMatrixReflect(plane);
     reflect *= Math::Matrix::CreateTranslation(ReflectionOffset);
@@ -251,6 +247,11 @@ void Scene::Render() noexcept
     // c. Reverse all opaque and mirrors (except current one).
     // d. Render all opaque and mirrors (except current one) with stenciling 
     //    and without blending. 
+    s_graphics_device->GetDeviceContex()->RSSetState(  // Reverse changes winding 
+      Graphics::CommonStates::CullClockwise());        // order, so cull clockwise.
+    s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
+      Graphics::CommonStates::RenderReflection(), MirrorStencilRef);
+
     for (const auto& object : RecursiveSceneIterator(*this)) {
       const auto* model = object.GetComponent<Graphics::ModelRender>();
       if (!model)
