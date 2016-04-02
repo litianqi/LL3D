@@ -9,8 +9,13 @@ namespace Graphics {
 
 class MeshRender : private Base {
 public:
+  MeshRender() = default;
   MeshRender(const Mesh& mesh, const std::vector<Material>& materials);
 
+  void SetMesh(const Mesh& value);
+  void SetMaterial(const Material& value);
+
+  const Material& GetMaterial() const;
   bool IsMirror() const;
   bool IsTransparent() const;
   bool IsOpaque() const;
@@ -18,8 +23,8 @@ public:
   void Render() const noexcept;
 
 private:
-  const Mesh     mesh_;
-  const Material material_;
+  Mesh     mesh_;
+  Material material_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> index_buffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertex_buffer_;
 };

@@ -4,7 +4,7 @@
 #include <d3dx11effect.h>
 #include "../Core/Assert.h"
 #include "../Core/Exceptions.h"
-#include "../Utils/Unicode.h.h"
+#include "../Utils/Unicode.h"
 #include "Device.h"
 
 using namespace std::experimental;

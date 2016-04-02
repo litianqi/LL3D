@@ -66,6 +66,7 @@ Editor::Editor()
   auto mr4 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Grid);
   auto grid = GameObject();
   grid.AddComponent(std::move(mr4));
+  grid.SetName("Earth");
   scene_->AddGameObject(grid);
 
   // Add transparent.
@@ -73,7 +74,7 @@ Editor::Editor()
   mesh0.material_index = 0;
   auto mat0 = Graphics::Material();
   mat0.diffuse = Math::Vector3(1.f, 1.f, 1.f);
-  mat0.opacity = 0.15f;
+  mat0.opacity = 0.45f;
   auto model0 = Graphics::Model();
   model0.meshes.push_back(mesh0);
   model0.materials.push_back(mat0);
@@ -99,7 +100,7 @@ Editor::Editor()
   mirror.GetComponent<Transform>()->SetRotation(
     Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
     );
-  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 45.f, 45.f));
+  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 45.f, 25.f));
   scene_->AddGameObject(mirror);
 
   // Add mirror2.
@@ -135,7 +136,9 @@ Editor::Editor()
     );
   auto directional_light = GameObject();
   directional_light.AddComponent(std::move(directional_component));
-  directional_light.GetComponent<Transform>()->SetRotation(Math::Vector3(Math::XM_PI - 0.1f, 0.f, 0.f));
+  directional_light.GetComponent<Transform>()->SetRotation(
+    Math::Vector3(Math::XM_PI - 0.1f, 0.f, 0.f)
+    );
   scene_->AddGameObject(directional_light);
 
   // Add point light:
@@ -165,5 +168,4 @@ void Editor::Update() {
 
 void Editor::OnResize() {
   graphics_device_->OnResize(IntSize2{ window_->GetClientRect().GetSize().w, window_->GetClientRect().GetSize().h });
-  scene_->Update();  // TODO: condider delete this line, only draw in main loop.
 }

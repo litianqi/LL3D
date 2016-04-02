@@ -12,9 +12,15 @@ namespace LL3D {
 namespace Graphics {
 
 MeshRender::MeshRender(const Mesh& mesh, const std::vector<Material>& materials) :
-  mesh_(mesh),
   material_(materials[mesh.material_index])
 {
+  SetMesh(mesh);
+}
+
+void MeshRender::SetMesh(const Mesh & mesh)
+{
+  mesh_ = mesh;
+
   // Creates vertext and index buffer.
   D3D11_BUFFER_DESC vbd;
   vbd.Usage = D3D11_USAGE_IMMUTABLE;
@@ -41,6 +47,11 @@ MeshRender::MeshRender(const Mesh& mesh, const std::vector<Material>& materials)
   ThrowIfFailed(
     s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &index_buffer_)
     );
+}
+
+void MeshRender::SetMaterial(const Material & value)
+{
+  material_ = value;
 }
 
 void MeshRender::Render() const noexcept
@@ -74,6 +85,11 @@ void MeshRender::Render() const noexcept
 
   // Roll back rasterizer option. For it's global so will affect other models.
   //s_graphics_device->GetDeviceContex()->RSSetState(0);
+}
+
+const Material & MeshRender::GetMaterial() const
+{
+  return material_;
 }
 
 bool MeshRender::IsMirror() const

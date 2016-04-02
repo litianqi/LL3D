@@ -35,7 +35,8 @@ public:
   //>
   // Writes world matrix to shader buffer.
   //
-  void Render();
+  void Render() const;
+  static void Render(Math::Matrix world);
 
 private:
   static Math::Matrix Compose(Math::Vector3 position, Math::Vector3 rotation,

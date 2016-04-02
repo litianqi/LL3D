@@ -4,13 +4,13 @@
 #include <unordered_map>
 #include <typeindex>
 #include <memory>
-#include "Transform.h"
 
 namespace LL3D {
 
 class Scene;
 class Component;
 class RecursiveSceneIterator;
+class Transform;
 
 //-----------------------------------------------------------------------------
 // Base class for all entities in LL3D scenes.
@@ -60,8 +60,8 @@ public:
   T* GetComponent();
   template <typename T>
   const T* GetComponent() const;
-  bool IsTransparent() const;
-  
+  Transform& GetTransform();
+  const Transform& GetTransform() const;
   
   //--------------------------------------
   // Operations

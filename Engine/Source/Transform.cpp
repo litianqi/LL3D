@@ -8,19 +8,18 @@ std::unique_ptr<Component> Transform::Clone() {
   return std::make_unique<Transform>(*this);
 }
 
-void Transform::Render() {
-  s_effect->SetWorld(GetMatrix());
-}
-
-void Transform::SetLocalPosition(Math::Vector3 value) {
+void Transform::SetLocalPosition(Math::Vector3 value) 
+{
   position_ = value;
 }
 
-void Transform::SetLocalRotation(Math::Vector3 value) {
+void Transform::SetLocalRotation(Math::Vector3 value) 
+{
   rotation_ = value;
 }
 
-void Transform::SetLocalScale(Math::Vector3 value) {
+void Transform::SetLocalScale(Math::Vector3 value) 
+{
   scale_ = value;
 }
 
@@ -131,6 +130,16 @@ Math::Vector3 Transform::GetDirection() const
 
 Math::Matrix Transform::GetMatrix() const {
   return Compose(GetPosition(), GetRotation(), GetScale());
+}
+
+void Transform::Render() const
+{
+  Render(GetMatrix());
+}
+
+void Transform::Render(Math::Matrix world)
+{
+  s_effect->SetWorld(world);
 }
 
 Math::Matrix Transform::Compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) {

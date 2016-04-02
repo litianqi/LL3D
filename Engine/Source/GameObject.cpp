@@ -1,7 +1,9 @@
 #include "GameObject.h"
 #include "Graphics/Model.h"
-#include "Component.h"
 #include "Graphics/ModelRender.h"
+#include "Core/Assert.h"
+#include "Component.h"
+#include "Transform.h"
 
 using namespace std;
 
@@ -103,6 +105,18 @@ const std::string & GameObject::GetName() const {
 
 const std::string& GameObject::GetTag() const {
   return tag_;
+}
+
+Transform & GameObject::GetTransform()
+{
+  return const_cast<Transform&>(const_cast<const GameObject*>(this)->GetTransform());
+}
+
+const Transform & GameObject::GetTransform() const
+{
+  auto transform = GetComponent<Transform>();
+  ASSERT(transform);
+  return *transform;
 }
 
 GameObject * GameObject::GetParent() {

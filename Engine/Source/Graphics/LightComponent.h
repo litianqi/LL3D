@@ -21,6 +21,8 @@ public:
 
   void Render() const;
 
+  LightType GetLightType() const;
+
 private:
   LightType type_;
   

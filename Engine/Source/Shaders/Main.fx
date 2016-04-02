@@ -29,17 +29,17 @@ SamplerState g_sampler {
   AddressV = WRAP;
 };
 
-BlendState g_blend
-{
-    BlendEnable[0] = TRUE;
-    SrcBlend[0] = SRC_ALPHA;
-    DestBlend[0] = INV_SRC_ALPHA;
-    BlendOp[0] = ADD;
-    SrcBlendAlpha[0] = INV_DEST_ALPHA;
-    DestBlendAlpha[0] = ONE;
-    BlendOpAlpha[0] = ADD;
-    RenderTargetWriteMask[0] = 0x0F;
-};
+//BlendState g_blend
+//{
+//    BlendEnable[0] = TRUE;
+//    SrcBlend[0] = SRC_ALPHA;
+//    DestBlend[0] = INV_SRC_ALPHA;
+//    BlendOp[0] = ADD;
+//    SrcBlendAlpha[0] = INV_DEST_ALPHA;
+//    DestBlendAlpha[0] = ONE;
+//    BlendOpAlpha[0] = ADD;
+//    RenderTargetWriteMask[0] = 0x0F;
+//};
 
 struct VertexIn {
   float3 pos_l  : POSITION;
@@ -83,6 +83,12 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
     clip(result.a - 0.1f);
   }
 
+  // Shadow do not need texturing and lighting.
+  if (g_material.is_shadow) {  
+    result.xyz = g_material.diffuse;
+    return result;
+  }
+
   // Texturing
   float3 tex_diffuse;
   if (use_tex) {
@@ -105,42 +111,14 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
 
   return result;
 
-  // Lighting
-  /*float4 to_eye = pin.pos_w - g_eye_pos_w;
-  float3 ambinet = ComputeAmbientLight(g_material, g_ambient_light);
-  float3 directiona*/
-  /*float4 direct = ComputeDirectionalLight(g_material, pin.normal_w, g_directional_light, to_eye);
-  float4 poin = ComputePointLight(g_material, pin.pos_w, pin.normal_w, g_point_light, to_eye);
-  float4 spot = ComputeSpotLight(g_material, pin.pos_w, pin.normal_w, g_spot_light, to_eye);*/
-  //float3 light_color = ambinet /*+ direct + poin + spot*/;
-
-  //float4 lit_color;
-  //float4 texture_color = float4(1, 1, 1, 1);
-  //if (use_tex) {
-  //  texture_color = g_texture.Sample(g_sampler, pin.texcoord);
-  //  if (use_alpha_clip) {
-  //    clip(texture_color.a - 0.1f);
-  //  }
-  //  lit_color.xyz = texture_color * light_color;  // TODO: modulate with late add.
-  //}
-  //else {
-  //  lit_color.xyz = light_color;
-  //}
-
   //// Fogging
   ///*float distance_to_eye = length(to_eye);
   //float s = saturate((distance_to_eye - g_fog.start) / g_fog.range);
   //lit_color = (1 - s) * lit_color + s * g_fog.color;*/
-
-  //// Common to take alpha from diffuse material and texture.
-  //lit_color.a = g_material.opacity;
-
-  //return lit_color;
 }
 
 technique11 Tech {
   pass P0 {
-    //SetBlendState(g_blend, float4(0, 0, 0, 0), 0xffffffff);
     SetVertexShader(CompileShader(vs_5_0, VS()));
     SetGeometryShader(NULL);
     SetPixelShader(CompileShader(ps_5_0, PS(true, false)));

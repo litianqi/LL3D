@@ -36,7 +36,7 @@ struct MaterialFX {
   float shininess;
   float opacity;
   float shininess_strength;
-  float _pad5;
+  int   is_shadow;
 };
 
 #ifdef __cplusplus

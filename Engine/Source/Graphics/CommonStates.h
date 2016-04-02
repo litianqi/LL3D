@@ -17,10 +17,12 @@ void Initialize(ID3D11Device* device);
 
 //--------------------------------------
 // Blend states.
-ID3D11BlendState* Opaque();  // Makes no sense, disable blending == Opaque, and 
-                             // has better performance.
+ID3D11BlendState* Opaque();  // Makes no sense, disabling blending has same effect
+                             // and better performance.
 ID3D11BlendState* AlphaBlend();
 ID3D11BlendState* Additive();
+ID3D11BlendState* Substract();
+ID3D11BlendState* Multiply();
 ID3D11BlendState* NonPremultiplied();
 
 //--------------------------------------
@@ -39,6 +41,7 @@ ID3D11DepthStencilState* MarkMirror();
 // scope allowed to render.
 //
 ID3D11DepthStencilState* RenderReflection();
+ID3D11DepthStencilState* Shadow();
 
 //--------------------------------------
 // Rasterizer states.

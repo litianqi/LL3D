@@ -475,6 +475,7 @@ struct Matrix : public XMFLOAT4X4
     static Matrix CreateFromYawPitchRoll( float yaw, float pitch, float roll );
 
     static Matrix CreateShadow( const Vector3& lightDir, const Plane& plane );
+    static Matrix CreateShadow(const Vector4& light, const Plane& plane);
 
     static Matrix CreateReflection( const Plane& plane );
 

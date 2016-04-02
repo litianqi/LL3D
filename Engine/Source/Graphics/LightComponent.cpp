@@ -87,6 +87,11 @@ void LightComponent::Render() const
   }
 }
 
+LightComponent::LightType LightComponent::GetLightType() const
+{
+  return type_;
+}
+
 LightComponent::Light::Light() noexcept {
   std::memset(this, 0, sizeof(*this));
 }

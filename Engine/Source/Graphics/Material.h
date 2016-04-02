@@ -28,6 +28,7 @@ struct Material {
 
   // Experimental properties !!! 
   bool  is_mirror = false;
+  bool  is_shadow = false;
 };
 
 }  // namespace Graphics

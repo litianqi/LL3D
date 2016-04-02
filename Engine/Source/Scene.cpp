@@ -8,11 +8,33 @@
 #include "Graphics\CommonStates.h"
 #include "RecursiveSceneIterator.h"
 #include "Graphics\LightComponent.h"
+#include "Transform.h"
 
 using namespace std::placeholders;
 using namespace LL3D;
 
 namespace {
+
+//>
+// Shadow stenciling appears before mirror stenciling.
+// Shadow use 0 as no shadow rendered, and 1 as shadow renderd
+// Mirror use 2 as mirror's scope (hence reflection can be renderd).
+//
+const auto ShadowStencilRef = 0u;
+const auto MirrorStencilRef = 2u;
+
+//>
+// # Why ReflectionOffset and ShadowOffset? 
+// When two pixel have same depth, DirectX is random at which one to use, even 
+// if you render one of them latter.
+// We render models in this order: opaque -> shadow -> mark mirror -> reflection. 
+// And after mark mirror, though pixels of shadow intersected with mirror will be
+// replaced, depth buffer will stay unchanged. 
+// There is a possibilty that opaque, shadow and reflection have a same position.
+// And hence these two offsets.
+//
+const auto ShadowOffset = Math::Vector3(0.01f, 0.01f, 0.01f);
+const auto ReflectionOffset = Math::Vector3(0.02f, 0.02f, 0.02f);
 
 bool SortBasedOnDistanceToCamera(Math::Vector3& camera_pos, 
   const RenderableMesh& lhs, const RenderableMesh& rhs)
@@ -26,7 +48,60 @@ bool SortBasedOnDistanceToCamera(Math::Vector3& camera_pos,
   return false;
 };
 
+//>
+// Trival planar shadow rendering function. Shadow will be rendered at
+// XZ plannar. (Note: This function is quit limited. TODO: improve this.)
+//
+void RenderPlanarShadow(Transform transform, 
+  const Graphics::MeshRender& mesh, const std::vector<GameObject*>& lights)
+{
+  const auto xz = Math::Plane(Math::Vector3(0.f, 0.f, 0.f), Math::Vector3::Up);
+  auto mat = Graphics::Material();
+  mat.diffuse = Math::Vector3(0.2f);
+  mat.emissive = Math::Vector3::One;
+  mat.transparent = Math::Vector3::One;
+  mat.shininess = 5.f;
+  mat.opacity = 0.5f;
+  mat.shininess_strength = 1.f;
+  mat.is_shadow = true;
+
+  Math::Vector4 vec;
+
+  for (const auto& light : lights) {
+    const auto* light_component = light->GetComponent<Graphics::LightComponent>();
+    switch (light_component->GetLightType()) {
+    case Graphics::LightComponent::Ambient: {
+      continue;
+    }
+    case Graphics::LightComponent::Directional: {
+      const auto dir = -light->GetTransform().GetDirection();
+      vec = Math::Vector4(dir.x, dir.y, dir.z, 0.f);
+      break;
+    }
+    case Graphics::LightComponent::Point:
+    case Graphics::LightComponent::Spot: {
+      const auto pos = light->GetTransform().GetPosition();
+      vec = Math::Vector4(pos.x, pos.y, pos.z, 1.f);
+      continue;
+    }
+    default: {
+      ASSERT(!"Invalid light type, This is not a valid LightComponent");
+    }
+    }
+
+    const auto shadow = Math::Matrix::CreateShadow(vec, xz);
+    const auto& world = transform.GetMatrix();
+    Transform::Render(world * shadow * Math::Matrix::CreateTranslation(ShadowOffset));
+    const auto old_mat = mesh.GetMaterial();
+    // We lied, but we will recover it latter, it's a good lie.
+    const_cast<Graphics::MeshRender&>(mesh).SetMaterial(mat);
+    mesh.Render();
+    // Recover old material like I said.
+    const_cast<Graphics::MeshRender&>(mesh).SetMaterial(old_mat);
+  }
 }
+
+}  // namespace
 
 namespace LL3D {
 
@@ -82,41 +157,77 @@ void Scene::Render() noexcept
     );
 
   // 0. Apply camera.
-  auto camera = GetCamera();
+
+ const auto* camera = GetCamera();
   if (!camera)
     return;
   camera->GetComponent<Transform>()->Render();
   camera->GetComponent<Graphics::Camera>()->Render();
 
   // 1. Apply lights.
-  for (auto light : GetLights()) {
+  
+  auto lights = GetLights();
+  for (const auto* light : lights) {
     light->GetComponent<Transform>()->Render();
     light->GetComponent<Graphics::LightComponent>()->Render();
   }
 
   // 2. Render all opaque.
+
+  // a. Render model itself.
   s_graphics_device->GetDeviceContex()->OMSetBlendState(
     nullptr, nullptr, 0xffffffff
     );
 
-  for (auto& object : RecursiveSceneIterator(*this)) {
-    auto model = object.GetComponent<Graphics::ModelRender>();
+  for (const auto& object : RecursiveSceneIterator(*this)) {
+    const auto* model = object.GetComponent<Graphics::ModelRender>();
     if (!model)
       continue;
-    object.GetComponent<Transform>()->Render();
+    const auto& transform = object.GetTransform();
+    transform.Render();
     for (const auto& mesh : model->GetMeshRenders())
     {
-      if (mesh.IsOpaque())
+      if (mesh.IsOpaque()) {
         mesh.Render();
+      }
+    }
+  }
+
+  // b. Render model's shadow with blending and stenciling.
+  s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
+    Graphics::CommonStates::Shadow(), ShadowStencilRef);
+  s_graphics_device->GetDeviceContex()->OMSetBlendState(
+    Graphics::CommonStates::Multiply(), nullptr, 0xffffffff
+    );
+
+  for (const auto& object : RecursiveSceneIterator(*this)) {
+    // Prevent earth have shadow (TODO: improve this)
+    if (object.GetName() == "Earth")  
+      continue;
+
+    const auto* model = object.GetComponent<Graphics::ModelRender>();
+    if (!model)
+      continue;
+
+    const auto& transform = object.GetTransform();
+    for (const auto& mesh : model->GetMeshRenders())
+    {
+      if (mesh.IsOpaque()) {
+        RenderPlanarShadow(transform, mesh, lights);
+      }
     }
   }
 
   // 3. For each mirror:
 
-  for (auto& mirror : GetMirrors()) {
+  for (const auto& mirror : GetMirrors()) {
     // a. Mark mirror.
+    s_graphics_device->GetDeviceContex()->OMSetBlendState(
+      nullptr, nullptr, 0xffffffff
+      );
     s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
-      Graphics::CommonStates::MarkMirror(), 1);
+      Graphics::CommonStates::MarkMirror(), MirrorStencilRef
+      );
     mirror.first.Render();
     mirror.second->Render();
 
@@ -124,15 +235,12 @@ void Scene::Render() noexcept
     s_graphics_device->GetDeviceContex()->RSSetState(  // Reverse changes winding 
       Graphics::CommonStates::CullClockwise());        // order, so cull clockwise.
     s_graphics_device->GetDeviceContex()->OMSetDepthStencilState(
-      Graphics::CommonStates::RenderReflection(), 1);
-    auto plane = Math::Plane(mirror.first.GetPosition(), mirror.first.GetDirection());
+      Graphics::CommonStates::RenderReflection(), MirrorStencilRef);
+    const auto plane = Math::Plane(mirror.first.GetPosition(), mirror.first.GetDirection());
     auto reflect = Math::XMMatrixReflect(plane);
-    // Raise reversed world a little, otherwise a plane long engough to exist 
-    // behind mirror may coincide with plane in mirror. DirectX is random at 
-    // which one to use, even you render one of them latter:(
-    reflect *= Math::Matrix::CreateTranslation(Math::Vector3(0.f, 0.1f, 0.f));
+    reflect *= Math::Matrix::CreateTranslation(ReflectionOffset);
 
-    /*for (auto light : GetLights()) {
+    /*for (auto light : light) {
     auto light_copy = *light;
     auto transform = light_copy.GetComponent<Transform>();
     auto backup = transform->GetMatrix();
@@ -144,16 +252,14 @@ void Scene::Render() noexcept
     // d. Render all opaque and mirrors (except current one) with stenciling 
     //    and without blending. 
     for (const auto& object : RecursiveSceneIterator(*this)) {
-      auto model = object.GetComponent<Graphics::ModelRender>();
+      const auto* model = object.GetComponent<Graphics::ModelRender>();
       if (!model)
         continue;
-      auto transform = *object.GetComponent<Transform>();
-      transform.SetMatrix(transform.GetMatrix() * reflect);
-      transform.Render();
+      Transform::Render(object.GetComponent<Transform>()->GetMatrix() * reflect);
       for (const auto& mesh : model->GetMeshRenders())
       {
         if (mesh.IsOpaque() || (mesh.IsMirror() && &mesh != mirror.second))
-          mesh.Render();  // TODO: render mirror without blending
+          mesh.Render();
       }
     }
 
@@ -163,7 +269,7 @@ void Scene::Render() noexcept
     for (auto& transparent : transparents) {
       transparent.first.SetMatrix(transparent.first.GetMatrix() * reflect);
     }
-    auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
+    const auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
     std::sort(transparents.begin(), transparents.end(),
       std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
@@ -171,13 +277,13 @@ void Scene::Render() noexcept
     s_graphics_device->GetDeviceContex()->OMSetBlendState(
       Graphics::CommonStates::AlphaBlend(), nullptr, 0xffffffff
       );
-    for (auto& transparent : transparents) {
+    for (const auto& transparent : transparents) {
       transparent.first.Render();
       transparent.second->Render();
     }
 
     // h. Restore lights. (TODO)
-    /*for (auto light : GetLights()) {
+    /*for (auto light : lights) {
     light->GetComponent<Graphics::LightComponent>()->Update();
     }*/
 
@@ -193,13 +299,13 @@ void Scene::Render() noexcept
   // 4. Sort transparent.
 
   auto transparents = GetTransparents();
-  auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
+  const auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
   std::sort(transparents.begin(), transparents.end(),
     std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
   // 5. Render transparent with blending.
 
-  for (auto& transparent : transparents) {
+  for (const auto& transparent : transparents) {
     transparent.first.Render();
     transparent.second->Render();
   }

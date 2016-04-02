@@ -10,4 +10,5 @@ LL3D::Graphics::MaterialFX::MaterialFX(const Material & mat) noexcept
   shininess = mat.shininess;
   opacity = mat.opacity;
   shininess_strength = mat.shininess_strength;
+  is_shadow = mat.is_shadow;
 }
