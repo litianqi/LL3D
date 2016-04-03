@@ -255,10 +255,12 @@ struct Vector4 : public XMFLOAT4
     Vector4() : XMFLOAT4(0.f, 0.f, 0.f, 0.f) {}
     explicit Vector4(float x) : XMFLOAT4( x, x, x, x ) {}
     Vector4(float _x, float _y, float _z, float _w) : XMFLOAT4(_x, _y, _z, _w) {}
+    Vector4(Vector3 v3, float _w) : XMFLOAT4(v3.x, v3.y, v3.z, _w) {}
     explicit Vector4(_In_reads_(4) const float *pArray) : XMFLOAT4(pArray) {}
     Vector4(FXMVECTOR V) { XMStoreFloat4( this, V ); }
     Vector4(const XMFLOAT4& V) { this->x = V.x; this->y = V.y; this->z = V.z; this->w = V.w; }
 
+    explicit operator Vector3() const { Vector3 v3(x, y, z); return v3; }
     operator XMVECTOR() const { return XMLoadFloat4( this ); }
 
     // Comparison operators
