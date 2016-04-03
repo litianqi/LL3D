@@ -13,7 +13,7 @@ namespace Graphics {
 
 std::map<std::experimental::filesystem::path, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> s_textures_cache;
 
-ID3D11ShaderResourceView * CreateTexture(ID3D11Device * device, std::experimental::filesystem::path pathname) {
+ID3D11ShaderResourceView * LoadDDSFromFile(ID3D11Device * device, std::experimental::filesystem::path pathname) {
   // First try to find it in cache.
   auto i = s_textures_cache.find(pathname);
   if (i != s_textures_cache.end()) {

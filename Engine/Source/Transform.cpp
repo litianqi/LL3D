@@ -40,7 +40,7 @@ void Transform::SetLocalMatrix(Math::Matrix value)
 void Transform::SetPosition(Math::Vector3 value) {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    position_ = value - parent->GetComponent<Transform>()->GetPosition();
+    position_ = value - parent->GetTransform().GetPosition();
   else
     position_ = value;
 }
@@ -48,7 +48,7 @@ void Transform::SetPosition(Math::Vector3 value) {
 void Transform::SetRotation(Math::Vector3 value) {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    SetLocalRotation(value - parent->GetComponent<Transform>()->GetRotation());
+    SetLocalRotation(value - parent->GetTransform().GetRotation());
   else
     SetLocalRotation(value);
 }
@@ -56,7 +56,7 @@ void Transform::SetRotation(Math::Vector3 value) {
 void Transform::SetScale(Math::Vector3 value) {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    scale_ = value / parent->GetComponent<Transform>()->GetScale();
+    scale_ = value / parent->GetTransform().GetScale();
   else
     scale_ = value;
 }
@@ -66,7 +66,7 @@ void Transform::SetMatrix(Math::Matrix value)
   auto matrix = Math::Matrix();
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    matrix = value / parent->GetComponent<Transform>()->GetMatrix();
+    matrix = value / parent->GetTransform().GetMatrix();
   else
     matrix = value;
   SetLocalMatrix(matrix);
@@ -98,7 +98,7 @@ Math::Matrix Transform::Compose() const {
 Math::Vector3 Transform::GetPosition() const {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    return position_ + parent->GetComponent<Transform>()->GetPosition();
+    return position_ + parent->GetTransform().GetPosition();
   else
     return position_;
 }
@@ -106,7 +106,7 @@ Math::Vector3 Transform::GetPosition() const {
 Math::Vector3 Transform::GetRotation() const {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    return rotation_ + parent->GetComponent<Transform>()->GetRotation();
+    return rotation_ + parent->GetTransform().GetRotation();
   else
     return rotation_;
 }
@@ -114,7 +114,7 @@ Math::Vector3 Transform::GetRotation() const {
 Math::Vector3 Transform::GetScale() const {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    return scale_ + parent->GetComponent<Transform>()->GetScale();
+    return scale_ + parent->GetTransform().GetScale();
   else
     return scale_;
 }
@@ -123,7 +123,7 @@ Math::Vector3 Transform::GetDirection() const
 {
   auto parent = GetGameObject()->GetParent();
   if (parent)
-    return GetLocalDirection() + parent->GetComponent<Transform>()->GetDirection();
+    return GetLocalDirection() + parent->GetTransform().GetDirection();
   else
     return GetLocalDirection();
 }
