@@ -56,8 +56,7 @@ public:
   //--------------------------------------
   // Camera settings.
   void SetWorld(DirectX::FXMMATRIX value);
-  void SetView(DirectX::FXMMATRIX value);
-  void SetProjection(DirectX::FXMMATRIX value);
+  void SetViewProjection(DirectX::FXMMATRIX value);
 
   //--------------------------------------
   // Texture setting.
@@ -80,17 +79,15 @@ private:
   ID3DX11EffectVariable* directional_light_;
   ID3DX11EffectVariable* point_light_;
   ID3DX11EffectVariable* spot_light_;
+  ID3DX11EffectMatrixVariable* view_projection_;
   ID3DX11EffectVectorVariable* eye_pos_w_;
   ID3DX11EffectVariable* fog_;
 
   // Per Object:
   ID3DX11EffectMatrixVariable* world_;
-  ID3DX11EffectMatrixVariable* view_;
-  ID3DX11EffectMatrixVariable* projection_;
-
-  ID3DX11EffectMatrixVariable* texture_transform_;
   ID3DX11EffectVariable* material_;
   ID3DX11EffectShaderResourceVariable* texture_;
+  ID3DX11EffectMatrixVariable* texture_transform_;
 };
 
 }  // namespace Graphics
