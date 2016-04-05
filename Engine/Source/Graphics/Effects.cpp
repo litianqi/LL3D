@@ -36,8 +36,7 @@ BasicEffect::BasicEffect(std::string path) :
   eye_pos_w_ = effect_->GetVariableByName("g_eye_pos_w")->AsVector();
 
   world_ = effect_->GetVariableByName("g_world")->AsMatrix();
-  view_ = effect_->GetVariableByName("g_view")->AsMatrix();
-  projection_ = effect_->GetVariableByName("g_projection")->AsMatrix();
+  view_projection_ = effect_->GetVariableByName("g_view_projection")->AsMatrix();
   texture_transform_ = effect_->GetVariableByName("g_texture_transform")->AsMatrix();
   material_ = effect_->GetVariableByName("g_material");
 
@@ -81,12 +80,8 @@ void BasicEffect::SetWorld(FXMMATRIX value) {
   world_->SetMatrix(reinterpret_cast<const float*>(&(value)));
 }
 
-void BasicEffect::SetView(FXMMATRIX value) {
-  view_->SetMatrix(reinterpret_cast<const float*>(&(value)));
-}
-
-void BasicEffect::SetProjection(FXMMATRIX value) {
-  projection_->SetMatrix(reinterpret_cast<const float*>(&(value)));
+void BasicEffect::SetViewProjection(FXMMATRIX value) {
+  view_projection_->SetMatrix(reinterpret_cast<const float*>(&(value)));
 }
 
 void BasicEffect::SetTextureTransform(FXMMATRIX value) {

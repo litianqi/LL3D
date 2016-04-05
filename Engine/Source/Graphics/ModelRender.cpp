@@ -69,7 +69,7 @@ void MeshRender::Render() const noexcept
   s_effect->SetMaterial(MaterialFX(material_));
   //s_effect->SetTextureTransform(texture_transform_);
   if (filesystem::exists(material_.diffuse_texture))
-    s_effect->SetTexture(CreateTexture(s_graphics_device->GetDevice(), material_.diffuse_texture));
+    s_effect->SetTexture(LoadDDSFromFile(s_graphics_device->GetDevice(), material_.diffuse_texture));
   else
     s_effect->SetTexture(nullptr);
 

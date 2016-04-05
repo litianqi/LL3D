@@ -6,8 +6,7 @@ cbuffer PerFrame {
   DirectionalLightFX  g_directional_light;
   PointLightFX        g_point_light;
   SpotLightFX         g_spot_light;
-  float4x4          g_view;
-  float4x4          g_projection;
+  float4x4          g_view_projection;
   float4            g_eye_pos_w;
   Fog               g_fog;
 };
@@ -64,13 +63,18 @@ VertexOut VS(VertexIn vin) {
   vout.normal_w = mul(float4(vin.normal_l, 0.f), g_world).xyz;
 
   // Transform to homogeneous clip space.
-  vout.pos_h = mul(vout.pos_w, g_view);
-  vout.pos_h = mul(vout.pos_h, g_projection);
+  vout.pos_h = mul(vout.pos_w, g_view_projection);
 
   vout.texcoord = /*mul(float4(*/vin.texcoord/*, 0.0, 1.0), g_texture_transform).xy*/;
 
   return vout;
 }
+
+//[maxvertexcount(2)]
+//void GS(point VertexOut gin[1], inout LineStream<VertexOut> gout)
+//{
+//  
+//}
 
 float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : SV_Target
 {

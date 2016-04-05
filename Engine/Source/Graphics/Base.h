@@ -15,15 +15,13 @@ class Device;
 class BasicEffect;
 
 class Base {
-  friend Game;
+public:
+  static void Initialize(Device* device);
 
 protected:
   static Device*                      s_graphics_device;
   static std::unique_ptr<BasicEffect> s_effect;
   static Microsoft::WRL::ComPtr<ID3D11InputLayout> s_input_layout;
-
-private:
-  static void Initialize(Device* device);
 };
 
 }  // namespace Graphics

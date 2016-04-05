@@ -102,6 +102,9 @@
     <ClCompile Include="Source\Utils\Timer.cpp">
       <Filter>Source\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\VertexTypes.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Source\Utils\Timer.h">
       <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\VertexTypes.h">
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,8 +42,7 @@ std::unique_ptr<Component> Camera::Clone() {
 
 void Camera::Render() const {
   s_effect->SetEyePosW(GetPosition());
-  s_effect->SetView(GetViewMatrix());
-  s_effect->SetProjection(GetFrustum().GetProjectionMaxtrix());
+  s_effect->SetViewProjection(GetViewMatrix() * GetFrustum().GetProjectionMaxtrix());
 }
 
 void Camera::SetFrustum(const Frustum & frustum) {
