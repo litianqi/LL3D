@@ -1,9 +1,10 @@
 #include "Base.h"
+#include "..\Core\Exceptions.h"
 #include "Device.h"
 #include "Effects.h"
 #include "Model.h"
-#include "..\Core\Exceptions.h"
 #include "CommonStates.h"
+#include "VertexTypes.h"
 
 namespace LL3D {
 namespace Graphics {
@@ -18,22 +19,15 @@ void Base::Initialize(Device* device) {
   // Init Effect.
   // todo: remove hard code.
   s_effect.reset(new BasicEffect("../Engine/_Resource/Shaders/Main.fxo"));
-  D3D11_INPUT_ELEMENT_DESC vertex_desc[] =
-  {
-    { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT , D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT , D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT , D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT , D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    { "BITANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT , D3D11_INPUT_PER_VERTEX_DATA, 0 }
-  };
 
   // Init InputLayout.
   const void* shader_bytecode;
   size_t shader_bytecode_size;
   s_effect->GetVertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
   ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateInputLayout(vertex_desc, 5, 
-      shader_bytecode, shader_bytecode_size, &s_input_layout)
+    s_graphics_device->GetDevice()->CreateInputLayout(Vertex::InputElements, 
+      Vertex::InputElementCount, shader_bytecode, shader_bytecode_size, 
+      &s_input_layout)
     );
 
   CommonStates::Initialize(device->GetDevice());

@@ -27,7 +27,7 @@ void CreateOpaque(ID3D11Device * device)
 void CreateAlphaBlend(ID3D11Device * device)
 {
   D3D11_BLEND_DESC desc;
-  desc.AlphaToCoverageEnable = false;
+  desc.AlphaToCoverageEnable = true;
   desc.IndependentBlendEnable = false;
   
   desc.RenderTarget[0].BlendEnable = true;
@@ -47,7 +47,7 @@ void CreateAlphaBlend(ID3D11Device * device)
 void CreateSubstract(ID3D11Device * device)
 {
   D3D11_BLEND_DESC desc;
-  desc.AlphaToCoverageEnable = false;
+  desc.AlphaToCoverageEnable = true;
   desc.IndependentBlendEnable = false;
 
   desc.RenderTarget[0].BlendEnable = true;
@@ -67,7 +67,7 @@ void CreateSubstract(ID3D11Device * device)
 void CreateMultiply(ID3D11Device * device)
 {
   D3D11_BLEND_DESC desc;
-  desc.AlphaToCoverageEnable = false;
+  desc.AlphaToCoverageEnable = true;
   desc.IndependentBlendEnable = false;
 
   desc.RenderTarget[0].BlendEnable = true;
