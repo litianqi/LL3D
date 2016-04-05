@@ -70,6 +70,12 @@ VertexOut VS(VertexIn vin) {
   return vout;
 }
 
+//[maxvertexcount(2)]
+//void GS(point VertexOut gin[1], inout LineStream<VertexOut> gout)
+//{
+//  
+//}
+
 float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : SV_Target
 {
   float4 result;
