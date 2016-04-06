@@ -209,9 +209,6 @@
     <ClInclude Include="Source\Graphics\VertexTypes.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Graphics\Blur.h">
-      <Filter>Source\Graphics</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Math\Math.inl">
