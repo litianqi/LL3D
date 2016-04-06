@@ -219,6 +219,9 @@
     <CustomBuild Include="Source\Shaders\Main.fx">
       <Filter>Source\Shaders</Filter>
     </CustomBuild>
+    <CustomBuild Include="Source\Shaders\Blur.fx">
+      <Filter>Source\Shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
