@@ -53,7 +53,7 @@ bool SortBasedOnDistanceToCamera(Math::Vector3& camera_pos,
 // XZ plannar. (Note: This function is quit limited. TODO: improve this.)
 //
 void RenderPlanarShadow(Transform transform, 
-  const Graphics::MeshRender& mesh, const std::vector<GameObject*>& lights)
+  const Graphics::MeshRender& mesh, const std::vector<const GameObject*>& lights)
 {
   const auto xz = Math::Plane(Math::Vector3(0.f, 0.f, 0.f), Math::Vector3::Up);
   auto mat = Graphics::Material();
@@ -161,14 +161,14 @@ void Scene::Render() noexcept
  const auto* camera = GetCamera();
   if (!camera)
     return;
-  camera->GetComponent<Transform>()->Render();
+  camera->GetTransform().Render();
   camera->GetComponent<Graphics::Camera>()->Render();
 
   // 1. Apply lights.
   
   auto lights = GetLights();
   for (const auto* light : lights) {
-    light->GetComponent<Transform>()->Render();
+    light->GetTransform().Render();
     light->GetComponent<Graphics::LightComponent>()->Render();
   }
 
@@ -256,7 +256,7 @@ void Scene::Render() noexcept
       const auto* model = object.GetComponent<Graphics::ModelRender>();
       if (!model)
         continue;
-      Transform::Render(object.GetComponent<Transform>()->GetMatrix() * reflect);
+      Transform::Render(object.GetTransform().GetMatrix() * reflect);
       for (const auto& mesh : model->GetMeshRenders())
       {
         if (mesh.IsOpaque() || (mesh.IsMirror() && &mesh != mirror.second))
@@ -270,7 +270,7 @@ void Scene::Render() noexcept
     for (auto& transparent : transparents) {
       transparent.first.SetMatrix(transparent.first.GetMatrix() * reflect);
     }
-    const auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
+    const auto camera_pos = camera->GetTransform().GetPosition();
     std::sort(transparents.begin(), transparents.end(),
       std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
@@ -300,7 +300,7 @@ void Scene::Render() noexcept
   // 4. Sort transparent.
 
   auto transparents = GetTransparents();
-  const auto camera_pos = camera->GetComponent<Transform>()->GetPosition();
+  const auto camera_pos = camera->GetTransform().GetPosition();
   std::sort(transparents.begin(), transparents.end(),
     std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
@@ -324,12 +324,12 @@ GameObject * Scene::GetCamera() noexcept
   return nullptr;
 }
 
-std::vector<GameObject*> Scene::GetLights() noexcept
+std::vector<const GameObject*> Scene::GetLights() noexcept
 {
-  auto result = std::vector<GameObject*>();
+  auto result = std::vector<const GameObject*>();
 
-  for (auto& object : RecursiveSceneIterator(*this)) {
-    auto light = object.GetComponent<Graphics::LightComponent>();
+  for (const auto& object : RecursiveSceneIterator(*this)) {
+    const auto* light = object.GetComponent<Graphics::LightComponent>();
     if (light) {
       result.push_back(&object);
     }
@@ -346,11 +346,11 @@ std::vector<RenderableMesh> Scene::GetMirrors() noexcept
     auto model = object.GetComponent<Graphics::ModelRender>();
     if (!model)
       continue;
-    auto transform = object.GetComponent<Transform>();
+    const auto& transform = object.GetTransform();
     for (const auto& mesh : model->GetMeshRenders())
     {
       if (mesh.IsMirror())
-        result.push_back(RenderableMesh(*transform, &mesh));
+        result.push_back(RenderableMesh(transform, &mesh));
     }
   }
 
@@ -362,14 +362,14 @@ std::vector<RenderableMesh> Scene::GetTransparents() noexcept
   auto result = std::vector<RenderableMesh>();
 
   for (const auto& object : RecursiveSceneIterator(*this)) {
-    auto model = object.GetComponent<Graphics::ModelRender>();
+    const auto* model = object.GetComponent<Graphics::ModelRender>();
     if (!model)
       continue;
-    auto transform = object.GetComponent<Transform>();
+    const auto& transform = object.GetTransform();
     for (const auto& mesh : model->GetMeshRenders())
     {
       if (mesh.IsTransparent())
-        result.push_back(RenderableMesh(*transform, &mesh));
+        result.push_back(RenderableMesh(transform, &mesh));
     }
   }
 

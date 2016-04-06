@@ -5,17 +5,10 @@
 #include <exception>
 #include "../Math/Math.h"
 #include "Material.h"
+#include "VertexTypes.h"
 
 namespace LL3D {
 namespace Graphics {
-
-struct Vertex {
-  Math::Vector3 position;
-  Math::Vector3 normal;
-  Math::Vector2 texcoord;
-  Math::Vector3 tangent;  // todo
-  Math::Vector3 bitangent;  // todo
-};
 
 //-----------------------------------------------------------------------------
 // A mesh represents a geometry or model with a single material.

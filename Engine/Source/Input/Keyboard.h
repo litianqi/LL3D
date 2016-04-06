@@ -6,7 +6,6 @@
 #include "KeyCode.h"
 
 namespace LL3D {
-
 namespace Input {
 
 class Keyboard {

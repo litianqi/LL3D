@@ -72,16 +72,16 @@ std::unique_ptr<Component> LightComponent::Clone()
 
 void LightComponent::Render() const
 {
-  const auto* transform = GetGameObject()->GetComponent<Transform>();
+  const auto& transform = GetGameObject()->GetTransform();
 
   if (type_ == Ambient) {
     s_effect->SetAmbientLight(AmbientLightFX(light_.ambient));
   } else if (type_ == Directional) {
-    s_effect->SetDirectionalLight(DirectionalLightFX(light_.directional, *transform));
+    s_effect->SetDirectionalLight(DirectionalLightFX(light_.directional, transform));
   } else if (type_ == Point) {
-    s_effect->SetPointLight(PointLightFX(light_.point, *transform));
+    s_effect->SetPointLight(PointLightFX(light_.point, transform));
   } else if (type_ == Spot) {
-    s_effect->SetSpotLight(SpotLightFX(light_.spot, *transform));
+    s_effect->SetSpotLight(SpotLightFX(light_.spot, transform));
   } else {
     ASSERT(false && "Invalid type_");
   }

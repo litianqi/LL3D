@@ -36,6 +36,7 @@
     <ClCompile Include="Source\Graphics\MaterialFX.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Graphics\ModelRender.cpp" />
+    <ClCompile Include="Source\Graphics\VertexTypes.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\Math\Math.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Source\Graphics\MaterialFX.h" />
     <ClInclude Include="Source\Graphics\Model.h" />
     <ClInclude Include="Source\Graphics\ModelRender.h" />
+    <ClInclude Include="Source\Graphics\VertexTypes.h" />
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\KeyCode.h" />
     <ClInclude Include="Source\Input\Mouse.h" />

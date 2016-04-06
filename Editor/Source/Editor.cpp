@@ -33,7 +33,7 @@ Editor::Editor()
   auto o0 = GameObject();
   o0.AddComponent(std::move(c0));
   o0.AddComponent(std::move(c00));
-  o0.GetComponent<Transform>()->SetPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
+  o0.GetTransform().SetPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
   //o0.AddComponent(std::move(c01));
   scene_->AddGameObject(o0);
 
@@ -43,8 +43,8 @@ Editor::Editor()
     );
   auto girl = GameObject();
   girl.AddComponent(std::move(mr1));
-  girl.GetComponent<Transform>()->SetScale(Math::Vector3(5.f, 5.f, 5.f));
-  girl.GetComponent<Transform>()->SetRotation(Math::Vector3(Math::XM_PIDIV2, 0.f, 0.f));
+  girl.GetTransform().SetScale(Math::Vector3(5.f, 5.f, 5.f));
+  girl.GetTransform().SetRotation(Math::Vector3(Math::XM_PIDIV2, 0.f, 0.f));
   girl.SetName("Model");
   scene_->AddGameObject(girl);
 
@@ -52,14 +52,14 @@ Editor::Editor()
   auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
   auto cube = GameObject();
   cube.AddComponent(std::move(mr2));
-  cube.GetComponent<Transform>()->SetPosition(Math::Vector3(10.f, 5.f, 0.f));
+  cube.GetTransform().SetPosition(Math::Vector3(10.f, 5.f, 0.f));
   scene_->AddGameObject(cube);
 
   // Add sphere.
   auto mr3 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Sphere);
   auto sphere = GameObject();
   sphere.AddComponent(std::move(mr3));
-  sphere.GetComponent<Transform>()->SetPosition(Math::Vector3(-10.f, 5.f, 0.f));
+  sphere.GetTransform().SetPosition(Math::Vector3(-10.f, 5.f, 0.f));
   scene_->AddGameObject(sphere);
 
   // Add grid.
@@ -81,7 +81,7 @@ Editor::Editor()
   auto mr5 = make_unique<Graphics::ModelRender>(model0);
   auto transparent = GameObject();
   transparent.AddComponent(std::move(mr5));
-  transparent.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 5.f, 0.f));
+  transparent.GetTransform().SetPosition(Math::Vector3(0.f, 5.f, 0.f));
   scene_->AddGameObject(transparent);
 
   // Add mirror.
@@ -97,20 +97,20 @@ Editor::Editor()
   auto mr6 = make_unique<Graphics::ModelRender>(model1);
   auto mirror = GameObject();
   mirror.AddComponent(std::move(mr6));
-  mirror.GetComponent<Transform>()->SetRotation(
+  mirror.GetTransform().SetRotation(
     Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
     );
-  mirror.GetComponent<Transform>()->SetPosition(Math::Vector3(0.f, 45.f, 25.f));
+  mirror.GetTransform().SetPosition(Math::Vector3(0.f, 45.f, 25.f));
   scene_->AddGameObject(mirror);
 
   // Add mirror2.
   auto mr7 = make_unique<Graphics::ModelRender>(model1);
   auto mirror2 = GameObject();
   mirror2.AddComponent(std::move(mr7));
-  mirror2.GetComponent<Transform>()->SetRotation(
+  mirror2.GetTransform().SetRotation(
     Math::Vector3(0.f, 0.f, Math::XM_PIDIV2)
     );
-  mirror2.GetComponent<Transform>()->SetPosition(Math::Vector3(45.f, 45.f, 0.f));
+  mirror2.GetTransform().SetPosition(Math::Vector3(45.f, 45.f, 0.f));
   //scene_->AddGameObject(mirror2);
 
   // Add castle.
@@ -119,7 +119,7 @@ Editor::Editor()
     );
   auto castle = GameObject();
   castle.AddComponent(std::move(mr5));
-  castle.GetComponent<Transform>()->SetPosition(Math::Vector3(-30.f, 212.f, 0.f));
+  castle.GetTransform().SetPosition(Math::Vector3(-30.f, 212.f, 0.f));
   scene_->AddGameObject(castle);*/
 
   // Add ambient light:
@@ -136,7 +136,7 @@ Editor::Editor()
     );
   auto directional_light = GameObject();
   directional_light.AddComponent(std::move(directional_component));
-  directional_light.GetComponent<Transform>()->SetRotation(
+  directional_light.GetTransform().SetRotation(
     Math::Vector3(Math::XM_PI - 0.1f, 0.f, 0.f)
     );
   scene_->AddGameObject(directional_light);
@@ -147,7 +147,7 @@ Editor::Editor()
     );
   auto point_light = GameObject();
   point_light.AddComponent(std::move(point_component));
-  point_light.GetComponent<Transform>()->SetPosition(Math::Vector3(-20.f, 5.f, 0.f));
+  point_light.GetTransform().SetPosition(Math::Vector3(-20.f, 5.f, 0.f));
   scene_->AddGameObject(point_light);
 
   // Add spot light:
@@ -156,8 +156,8 @@ Editor::Editor()
     );
   auto spot_light = GameObject();
   spot_light.AddComponent(std::move(spot_component));
-  spot_light.GetComponent<Transform>()->SetPosition(Math::Vector3(22.f, 5.f, 0.f));
-  spot_light.GetComponent<Transform>()->SetRotation(Math::Vector3(0.f, 0.f, Math::XM_PIDIV2));
+  spot_light.GetTransform().SetPosition(Math::Vector3(22.f, 5.f, 0.f));
+  spot_light.GetTransform().SetRotation(Math::Vector3(0.f, 0.f, Math::XM_PIDIV2));
   scene_->AddGameObject(spot_light);
 
   window_->SetVisible(true);

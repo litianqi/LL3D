@@ -44,9 +44,9 @@ void Game::Run() {
       DispatchMessage(&msg);
     }
 
-    Sleep(20);  // TODO: remove hardcode.
+    Sleep(10);  // TODO: remove hardcode.
 
-    Update();
+    Update(); 
     scene_->Update();
     scene_->Render();
     Input::Mouse::Update();
