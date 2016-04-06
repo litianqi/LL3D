@@ -209,6 +209,9 @@
     <ClInclude Include="Source\Graphics\VertexTypes.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\Blur.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Math\Math.inl">
@@ -217,6 +220,9 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Source\Shaders\Main.fx">
+      <Filter>Source\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source\Shaders\Blur.fx">
       <Filter>Source\Shaders</Filter>
     </CustomBuild>
   </ItemGroup>
