@@ -58,7 +58,7 @@ void Camera::SetForwardVector(FXMVECTOR v) {
 }
 
 Math::Matrix Camera::GetViewMatrix() const {
-  return Math::Matrix::CreateLookAt(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
+  return Math::Matrix::CreateLookTo(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
 }
 
 Math::Matrix Camera::GetViewProjectionMatrix() const {
@@ -79,9 +79,8 @@ XMVECTOR Camera::GetForwardVector() const {
 }
 
 XMVECTOR Camera::ViewToWorldPosition(FXMVECTOR p) const {
-  auto matrix_view = GetViewMatrix();
-  auto matrix = XMMatrixInverse(&XMMatrixDeterminant(matrix_view), matrix_view);
-  return XMVector3Transform(p, matrix);
+  auto view = GetViewMatrix();
+  return Math::Vector3::Transform(p, view.Invert());
 }
 
 XMVECTOR Camera::WorldToViewPosition(FXMVECTOR p) const {
