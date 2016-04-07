@@ -1,8 +1,8 @@
 #include "LightComponent.h"
-#include "..\Core\Assert.h"
-#include "Effects.h"
-#include "..\Transform.h"
-#include "..\GameObject.h"
+#include "Core/Assert.h"
+#include "Transform.h"
+#include "GameObject.h"
+#include "Graphics/Effects.h"
 
 namespace LL3D {
 namespace Graphics {

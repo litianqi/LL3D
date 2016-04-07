@@ -1,10 +1,10 @@
-#include "ModelRender.h"
+#include "Graphics/ModelRender.h"
 #include <sstream>
-#include "..\Core\Exceptions.h"
+#include "Core/Exceptions.h"
 #include "Device.h"
 #include "Effects.h"
 #include "Assets.h"
-#include "..\Core\Assert.h"
+#include "Core/Assert.h"
 
 using namespace std::experimental;
 

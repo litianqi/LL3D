@@ -1,4 +1,4 @@
-#include "MaterialFX.h"
+#include "Graphics/MaterialFX.h"
 
 LL3D::Graphics::MaterialFX::MaterialFX(const Material & mat) noexcept
 {

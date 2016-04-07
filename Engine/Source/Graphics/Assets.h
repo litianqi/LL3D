@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <map>
 #include <wrl.h>
-#include "../Core/Uncopyable.h"
+#include "Core/Uncopyable.h"
 
 struct ID3D11Device;
 struct ID3D11ShaderResourceView;

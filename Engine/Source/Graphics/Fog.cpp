@@ -1,5 +1,5 @@
-#include "Fog.h"
-#include "Effects.h"
+#include "Graphics/Fog.h"
+#include "Graphics/Effects.h"
 
 namespace LL3D {
 namespace Graphics {

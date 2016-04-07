@@ -1,5 +1,5 @@
-#include "LightFX.h"
-#include "../Transform.h"
+#include "Graphics/LightFX.h"
+#include "Transform.h"
 
 using namespace LL3D::Math;
 

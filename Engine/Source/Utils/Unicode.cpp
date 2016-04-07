@@ -1,6 +1,6 @@
-#include "Unicode.h"
+#include "Utils/Unicode.h"
 #include <Windows.h>
-#include "..\Core\Assert.h"
+#include "Core/Assert.h"
 
 namespace LL3D {
 namespace Utils {

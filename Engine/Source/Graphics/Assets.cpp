@@ -1,9 +1,9 @@
-#include "Assets.h"
+#include "Graphics/Assets.h"
 #include <filesystem>
 #include <d3d11.h>
 #include <DDSTextureLoader.h>
-#include "../Core/Assert.h"
-#include "../Core/Exceptions.h"
+#include "Core/Assert.h"
+#include "Core/Exceptions.h"
 
 using namespace std::experimental;
 using namespace DirectX;

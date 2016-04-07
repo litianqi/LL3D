@@ -1,8 +1,8 @@
 #ifdef __cplusplus
 #pragma once
 
-#include "../Math/Math.h"
-#include "Light.h"
+#include "Math/Math.h"
+#include "Graphics/Light.h"
 
 using float2 = LL3D::Math::Vector2;
 using float3 = LL3D::Math::Vector3;

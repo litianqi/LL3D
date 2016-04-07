@@ -1,10 +1,10 @@
-#include "Model.h"
+#include "Graphics/Model.h"
 #include <filesystem>
 #include <plog/Log.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "../Core/Assert.h"
+#include "Core/Assert.h"
 
 using namespace std;
 using namespace std::experimental;

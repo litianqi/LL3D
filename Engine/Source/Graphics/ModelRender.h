@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Component.h"
-#include "Model.h"
-#include "Base.h"
+#include "Component.h"
+#include "Graphics/Model.h"
+#include "Graphics/Base.h"
 
 namespace LL3D {
 namespace Graphics {

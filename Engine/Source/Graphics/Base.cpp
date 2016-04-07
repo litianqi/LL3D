@@ -1,10 +1,10 @@
-#include "Base.h"
-#include "..\Core\Exceptions.h"
-#include "Device.h"
-#include "Effects.h"
-#include "Model.h"
-#include "CommonStates.h"
-#include "VertexTypes.h"
+#include "Graphics/Base.h"
+#include "Core/Exceptions.h"
+#include "Graphics/Device.h"
+#include "Graphics/Effects.h"
+#include "Graphics/Model.h"
+#include "Graphics/CommonStates.h"
+#include "Graphics/VertexTypes.h"
 
 namespace LL3D {
 namespace Graphics {

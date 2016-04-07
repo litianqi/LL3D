@@ -1,6 +1,6 @@
-#include "Device.h"
-#include "../Core/Exceptions.h"
-#include "../Core/Assert.h"
+#include "Graphics/Device.h"
+#include "Core/Exceptions.h"
+#include "Core/Assert.h"
 
 namespace LL3D {
 namespace Graphics {

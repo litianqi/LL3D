@@ -3,7 +3,7 @@
 #include <D3D11.h>
 #include <wrl.h>
 #include <json11.hpp>
-#include "../Core/Types.h"
+#include "Core/Types.h"
 
 namespace LL3D {
 namespace Graphics {

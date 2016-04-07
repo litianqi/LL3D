@@ -1,8 +1,8 @@
-#include "Camera.h"
-#include "../Core/Assert.h"
-#include "../GameObject.h"
-#include "../Transform.h"
-#include "Effects.h"
+#include "Graphics/Camera.h"
+#include "Core/Assert.h"
+#include "GameObject.h"
+#include "Transform.h"
+#include "Graphics/Effects.h"
 
 using namespace DirectX;
 

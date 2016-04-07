@@ -4,11 +4,11 @@
 #include <wrl.h>
 #include <DirectXMath.h>
 #include <d3dx11effect.h>
-#include "../Core/Uncopyable.h"
-#include "LightFX.h"
-#include "MaterialFX.h"
-#include "Base.h"
-#include "Fog.h"
+#include "Core/Uncopyable.h"
+#include "Graphics/LightFX.h"
+#include "Graphics/MaterialFX.h"
+#include "Graphics/Base.h"
+#include "Graphics/Fog.h"
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;

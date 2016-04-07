@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../Component.h"
-#include "../Math/Math.h"
-#include "Base.h"
-#include "LightFX.h"
+#include "Component.h"
+#include "Math/Math.h"
+#include "Graphics/Base.h"
+#include "Graphics/LightFX.h"
 
 namespace LL3D {
 namespace Graphics {

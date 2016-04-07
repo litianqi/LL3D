@@ -1,11 +1,11 @@
-#include "Effects.h"
+#include "Graphics/Effects.h"
 #include <fstream>
 #include <D3D11.h>
 #include <d3dx11effect.h>
-#include "../Core/Assert.h"
-#include "../Core/Exceptions.h"
-#include "../Utils/Unicode.h"
-#include "Device.h"
+#include "Core/Assert.h"
+#include "Core/Exceptions.h"
+#include "Utils/Unicode.h"
+#include "Graphics/Device.h"
 
 using namespace std::experimental;
 using namespace DirectX;

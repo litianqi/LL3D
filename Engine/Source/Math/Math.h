@@ -823,7 +823,7 @@ public:
     static RECT __cdecl ComputeTitleSafeArea(UINT backBufferWidth, UINT backBufferHeight);
 };
 
-#include "Math.inl"
+#include "Math/Math.inl"
 
 }; // namespace Math
 }; // namespace LL3D

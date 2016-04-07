@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include <Windows.h>
-#include "KeyCode.h"
+#include "Input/KeyCode.h"
 
 namespace LL3D {
 namespace Input {

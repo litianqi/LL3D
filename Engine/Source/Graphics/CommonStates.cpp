@@ -1,7 +1,7 @@
-#include "CommonStates.h"
+#include "Graphics/CommonStates.h"
 #include <d3d11.h>
 #include <wrl.h>
-#include "../Core/Exceptions.h"
+#include "Core/Exceptions.h"
 
 using namespace Microsoft::WRL;
 using namespace LL3D;

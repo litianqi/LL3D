@@ -1,6 +1,6 @@
-#include "Mouse.h"
+#include "Input/Mouse.h"
 #include <windowsx.h>
-#include "..\Core\Assert.h"
+#include "Core/Assert.h"
 
 namespace LL3D {
 namespace Input {

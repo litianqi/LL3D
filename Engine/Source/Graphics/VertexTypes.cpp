@@ -1,4 +1,4 @@
-#include "VertexTypes.h"
+#include "Graphics/VertexTypes.h"
 
 namespace LL3D {
 namespace Graphics {
