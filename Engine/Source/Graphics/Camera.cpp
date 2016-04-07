@@ -4,8 +4,6 @@
 #include "Transform.h"
 #include "Graphics/Effects.h"
 
-using namespace DirectX;
-
 namespace LL3D {
 namespace Graphics {
 
@@ -28,12 +26,12 @@ Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const {
     static_cast<float>(z_near_), static_cast<float>(z_far_));
 }
 
-Camera::Camera(Frustum frustum, FXMVECTOR forward_vector) :
+Camera::Camera(Frustum frustum, Math::Vector3 forward_vector) :
   frustum_(frustum),
   forward_vector_(forward_vector) {
-  ASSERT(!XMVector3Equal(forward_vector, XMVectorZero()));
+  ASSERT(forward_vector != Math::Vector3::Zero);
   ASSERT(!XMVector3IsInfinite(forward_vector));
-  ASSERT(!XMVector3Equal(XMVector3Cross(forward_vector, XMVECTOR{ 0, 1.0f }), XMVectorZero()));
+  ASSERT(forward_vector.Cross(Math::Vector3::Up) != Math::Vector3::Zero);
 }
 
 std::unique_ptr<Component> Camera::Clone() {
@@ -49,11 +47,11 @@ void Camera::SetFrustum(const Frustum & frustum) {
   frustum_ = frustum;
 }
 
-void Camera::SetPosition(FXMVECTOR p) {
+void Camera::SetPosition(Math::Vector3 p) {
   GetGameObject()->GetComponent<Transform>()->SetPosition(p);
 }
 
-void Camera::SetForwardVector(FXMVECTOR v) {
+void Camera::SetForwardVector(Math::Vector3 v) {
   forward_vector_ = v;
 }
 
@@ -70,41 +68,31 @@ const Camera::Frustum& Camera::GetFrustum() const {
   return frustum_;
 }
 
-XMVECTOR Camera::GetPosition() const {
+Math::Vector3 Camera::GetPosition() const {
   return GetGameObject()->GetComponent<Transform>()->GetPosition();
 }
 
-XMVECTOR Camera::GetForwardVector() const {
+Math::Vector3 Camera::GetForwardVector() const {
   return forward_vector_;
 }
 
-XMVECTOR Camera::ViewToWorldPosition(FXMVECTOR p) const {
+Math::Vector3 Camera::ViewToWorldPosition(Math::Vector3 p) const {
   auto view = GetViewMatrix();
   return Math::Vector3::Transform(p, view.Invert());
 }
 
-XMVECTOR Camera::WorldToViewPosition(FXMVECTOR p) const {
+Math::Vector3 Camera::WorldToViewPosition(Math::Vector3 p) const {
   return XMVector3Transform(p, GetViewMatrix());
 }
 
-XMVECTOR Camera::GetRightVector() const {
-  return XMVector3Cross(XMVECTOR{ 0, 1.0f }, forward_vector_);
+Math::Vector3 Camera::GetRightVector() const {
+  return XMVector3Cross(Math::Vector3::Up, forward_vector_);
 }
 
-XMVECTOR Camera::GetUpVector() const {
-  // Ask: vec_up
-
-  // Answer:
-  // vec_up = pos_y - pos_target, with pos_target = forward_vector
-  // pos_y = {0, y, 0}
-  // length(forward_vector) / y = cos
-  // forward_vector * {0, 1, 0} = |forward_vector| * |{0, 1, 0}| * cos
-
-  // Program Answer:
-
-  float y = XMVectorGetX(XMVector3LengthSq(forward_vector_)) /
-    XMVectorGetX(XMVector3Dot(forward_vector_, XMVECTOR{ 0, 1.0f }));
-  XMVECTOR v{ 0, y, 0 };
+Math::Vector3 Camera::GetUpVector() const {
+  float y = forward_vector_.LengthSquared() /
+    forward_vector_.Dot(Math::Vector3::Up);
+  Math::Vector3 v{ 0, y, 0 };
 
   return forward_vector_ - v;
 }

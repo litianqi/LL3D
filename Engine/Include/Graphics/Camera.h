@@ -1,7 +1,6 @@
 #pragma once
 
 #include <list>
-#include <DirectXMath.h>
 #include "Math/Math.h"
 #include "Component.h"
 #include "Graphics/Base.h"
@@ -31,32 +30,32 @@ public:
     float z_far_;
   };
 
-  Camera(Frustum frustum, DirectX::FXMVECTOR forward_vector);
+  Camera(Frustum frustum, Math::Vector3 forward_vector);
   std::unique_ptr<Component> Clone() override;
 
   void SetFrustum(const Frustum& frustum);
-  void SetPosition(DirectX::FXMVECTOR p);
-  void SetForwardVector(DirectX::FXMVECTOR v);
+  void SetPosition(Math::Vector3 p);
+  void SetForwardVector(Math::Vector3 v);
 
   Math::Matrix GetViewMatrix() const;
   Math::Matrix GetViewProjectionMatrix() const;
   const Frustum& GetFrustum() const;
-  DirectX::XMVECTOR GetPosition() const;
-  DirectX::XMVECTOR GetForwardVector() const;
-  DirectX::XMVECTOR GetRightVector() const;
-  DirectX::XMVECTOR GetUpVector() const;
+  Math::Vector3 GetPosition() const;
+  Math::Vector3 GetForwardVector() const;
+  Math::Vector3 GetRightVector() const;
+  Math::Vector3 GetUpVector() const;
 
   //>
   // Writes properties to shader buffer.
   //
   void Render() const;
 
-  DirectX::XMVECTOR ViewToWorldPosition(DirectX::FXMVECTOR p) const;
-  DirectX::XMVECTOR WorldToViewPosition(DirectX::FXMVECTOR p) const;
+  Math::Vector3 ViewToWorldPosition(Math::Vector3 p) const;
+  Math::Vector3 WorldToViewPosition(Math::Vector3 p) const;
 
 protected:
   // Came coordinate system with coordinate relative to world space.
-  DirectX::XMVECTOR forward_vector_;
+  Math::Vector3 forward_vector_;
 
 private:
   Frustum frustum_;

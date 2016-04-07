@@ -8,35 +8,40 @@
 #include <GameObject.h>
 
 using namespace LL3D;
-using namespace DirectX;
 
 std::unique_ptr<Component> EditorCameraController::Clone() {
   return std::unique_ptr<Component>(new EditorCameraController(*this));
 }
 
 void EditorCameraController::MoveLeftRight(float d) {
-  SetPosition(GetPosition() + d * XMVector3Normalize(camera_->GetRightVector()));
+  auto normal_right = camera_->GetRightVector();
+  normal_right.Normalize();
+  SetPosition(GetPosition() + d * normal_right);
 }
 
 void EditorCameraController::MoveUpDown(float d) {
-  SetPosition(GetPosition() + d * XMVector3Normalize(camera_->GetUpVector()));
+  auto normal_up = camera_->GetUpVector();
+  normal_up.Normalize();
+  SetPosition(GetPosition() + d * normal_up);
 }
 
 void EditorCameraController::MoveBackForeward(float d) {
-  SetPosition(GetPosition() + d * XMVector3Normalize(camera_->GetForwardVector()));
+  auto normal_forward = camera_->GetForwardVector();
+  normal_forward.Normalize();
+  SetPosition(GetPosition() + d * normal_forward);
 }
 
 void EditorCameraController::Pitch(float angle) {
   // Prevent target vector too close to (or even pass) up vector:
   
   // Get angle between target and up.
-  auto cos_target_up = XMVectorGetX(XMVector3Dot(camera_->GetForwardVector(), 
-    XMVECTOR{ 0, 1.0f })) / XMVectorGetX(XMVector3Length(camera_->GetForwardVector()));
+  auto cos_target_up = camera_->GetForwardVector().Dot(Math::Vector3::Up) / 
+    camera_->GetForwardVector().Length();
   auto radian_target_up = acosf(cos_target_up);
-  if (radian_target_up > XM_PIDIV2)
-    radian_target_up = XM_PI - radian_target_up;
-  if (radian_target_up > XM_PIDIV4)
-    radian_target_up = XM_PIDIV2 - radian_target_up;
+  if (radian_target_up > Math::XM_PIDIV2)
+    radian_target_up = Math::XM_PI - radian_target_up;
+  if (radian_target_up > Math::XM_PIDIV4)
+    radian_target_up = Math::XM_PIDIV2 - radian_target_up;
   
   // Correct angle.
   if (cos_target_up < 0 &&  // Target vector towards Up vector.
@@ -52,47 +57,45 @@ void EditorCameraController::Pitch(float angle) {
     }
   }
   
-  XMMATRIX matrix_rotate = XMMatrixRotationAxis(camera_->GetRightVector(), angle);
+  auto matrix_rotate = XMMatrixRotationAxis(camera_->GetRightVector(), angle);
 
   // Change camera position:
 
   // Move target to origin
-  auto pos_target = GetTargetPosition();
-  auto vec = pos_target - XMVECTOR{ 0, 0, 0, 1.0f };
+  auto target_pos = GetTargetPosition();
   auto position = GetPosition();
-  position -= vec;
+  position -= target_pos;
 
   // Rotate
   position = XMVector3Transform(position, matrix_rotate);
   
   // Move back
-  position += vec;
+  position += target_pos;
   SetPosition(position);
 
   // Calulate new target vector.
-  camera_->SetForwardVector(pos_target - position);
+  camera_->SetForwardVector(target_pos - position);
 }
 
 void EditorCameraController::Yaw(float angle) {
-  XMMATRIX matrix_rotate = XMMatrixRotationAxis(XMVECTOR{ 0, 1.0f, 0 }, angle);
+  auto matrix_rotate = XMMatrixRotationAxis(Math::Vector3{ 0, 1.0f, 0 }, angle);
 
   // Change camera position:
   
   // Move target to origin
-  auto pos_target = GetTargetPosition();
-  auto vec = pos_target - XMVECTOR{ 0, 0, 0, 1.0f };
+  auto target_pos = GetTargetPosition();
   auto position = GetPosition();
-  position -= vec;
+  position -= target_pos;
   
   // Rotate
   position = XMVector3Transform(position, matrix_rotate);
   
   // Move back
-  position += vec;
+  position += target_pos;
   SetPosition(position);
 
   // Calulate new target vector:
-  camera_->SetForwardVector(pos_target - position);
+  camera_->SetForwardVector(target_pos - position);
 }
 
 void EditorCameraController::Start()
@@ -116,37 +119,19 @@ void EditorCameraController::Update() {
   }
 }
 
-XMVECTOR EditorCameraController::GetTargetPosition() const {
-  // Question:
-  // pos_v_target = {0, 0, z}, calculate z.
+Math::Vector3 EditorCameraController::GetTargetPosition() const {
+  Math::Vector3 world_origin = camera_->WorldToViewPosition(Math::Vector3::Zero);
+  Math::Vector3 world_up = camera_->WorldToViewPosition(Math::Vector3::Up);
   
-  // Answer:
-  // vec_v = pos_v_target_ - pos_v_origin, with pos_w_origin = {0, 0, 0}
-  // vec_v * vec_v_up = 0, with vec_w_up = {0, 1.0f}
+  float z_vec_v = -(world_origin.x * world_up.x + world_origin.y * world_up.y) / world_up.z;
+  float target_z = z_vec_v + world_origin.z;
 
-  // Program Answer:
-  // vec_v = pos_v_target_ - pos_v_origin
-  XMVECTOR pos_v_orgin = camera_->WorldToViewPosition(XMVECTOR{});
-  float x_vec_v = -XMVectorGetX(pos_v_orgin);
-  float y_vec_v = -XMVectorGetY(pos_v_orgin);
-  // float z_vec_v = z_pos_v_target - XMVectorGetZ(pos_v_orgin);
+  Math::Vector3 target_pos(0, 0, target_z);
   
-  // vec_v * vec_v_up = 0
-  // Expand,
-  // x_vec_v * XMVectorGetX(vec_v_up) + y_vec_v * XMVectorGetY(vec_v_up) + z_vec_v * XMVectorGetZ(vec_v_up) = 0
-  // So
-  XMVECTOR vec_v_up = camera_->WorldToViewPosition(XMVECTOR{ 0, 1.0f });
-  float z_vec_v = -(x_vec_v * XMVectorGetX(vec_v_up) + y_vec_v * XMVectorGetY(vec_v_up)) / XMVectorGetZ(vec_v_up);
-  
-  // So
-  float z_pos_v_target = z_vec_v + XMVectorGetZ(pos_v_orgin);
-
-  XMVECTOR pos_v_target{ 0, 0, z_pos_v_target, 1.0f };
-  
-  return camera_->ViewToWorldPosition(pos_v_target);
+  return camera_->ViewToWorldPosition(target_pos);
 }
 
-DirectX::XMVECTOR EditorCameraController::GetPosition() const
+Math::Vector3 EditorCameraController::GetPosition() const
 {
   return GetGameObject()->GetComponent<Transform>()->GetPosition();
 }

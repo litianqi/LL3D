@@ -48,8 +48,8 @@ public:
 
 private:
   // Point where vec_target cross with XZ panel of world space.
-  DirectX::XMVECTOR GetTargetPosition() const;
-  DirectX::XMVECTOR GetPosition() const;
+  LL3D::Math::Vector3 GetTargetPosition() const;
+  LL3D::Math::Vector3 GetPosition() const;
   void SetPosition(LL3D::Math::Vector3 value);
 
   LL3D::Graphics::Camera* camera_;

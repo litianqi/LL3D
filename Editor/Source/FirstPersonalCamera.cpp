@@ -11,15 +11,15 @@ FirstPersonalCamera::FirstPersonalCamera(Frustum frustum, XMVECTOR vec_target) :
 }
 
 void FirstPersonalCamera::MoveBackForeward(float d) {
-  SetPosition(GetPosition() + d * XMVector3Normalize(forward_vector_));
+  //SetPosition(GetPosition() + d * XMVector3Normalize(forward_vector_));
 }
 
 void FirstPersonalCamera::MoveUpDown(float d) {
-  SetPosition(GetPosition() + d * XMVECTOR{ 0, 1.0f });
+  //SetPosition(GetPosition() + d * XMVECTOR{ 0, 1.0f });
 }
 
 void FirstPersonalCamera::MoveLeftRight(float d) {
-  SetPosition(GetPosition() + d * XMVector3Normalize(GetRightVector()));
+  /*SetPosition(GetPosition() + d * XMVector3Normalize(GetRightVector()));*/
 }
 
 void FirstPersonalCamera::Pitch(float radians) {
