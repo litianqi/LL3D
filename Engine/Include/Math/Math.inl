@@ -2430,15 +2430,26 @@ inline Matrix Matrix::CreateOrthographicOffCenter( float left, float right, floa
     return R;
 }
 
-inline Matrix Matrix::CreateLookAt( const Vector3& eye, const Vector3& target, const Vector3& up )
+inline Matrix Matrix::CreateLookAt( const Vector3& camera_pos, const Vector3& target_pos, const Vector3& up_vec )
 {
     using namespace DirectX;
     Matrix R;
-    XMVECTOR eyev = XMLoadFloat3( &eye );
-    XMVECTOR targetv = XMLoadFloat3( &target );
-    XMVECTOR upv = XMLoadFloat3( &up );
+    XMVECTOR eyev = XMLoadFloat3( &camera_pos );
+    XMVECTOR targetv = XMLoadFloat3( &target_pos );
+    XMVECTOR upv = XMLoadFloat3( &up_vec );
     XMStoreFloat4x4( &R, XMMatrixLookAtLH( eyev, targetv, upv ) );
     return R;
+}
+
+inline Matrix Matrix::CreateLookTo(const Vector3& camera_pos, const Vector3& target_vec, const Vector3& up_vec)
+{
+  using namespace DirectX;
+  Matrix R;
+  XMVECTOR eyev = XMLoadFloat3(&camera_pos);
+  XMVECTOR targetv = XMLoadFloat3(&target_vec);
+  XMVECTOR upv = XMLoadFloat3(&up_vec);
+  XMStoreFloat4x4(&R, XMMatrixLookToLH(eyev, targetv, upv));
+  return R;
 }
 
 inline Matrix Matrix::CreateWorld( const Vector3& position, const Vector3& forward, const Vector3& up )

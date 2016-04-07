@@ -469,7 +469,8 @@ struct Matrix : public XMFLOAT4X4
     static Matrix CreateOrthographic( float width, float height, float zNearPlane, float zFarPlane );
     static Matrix CreateOrthographicOffCenter( float left, float right, float bottom, float top, float zNearPlane, float zFarPlane );
 
-    static Matrix CreateLookAt( const Vector3& position, const Vector3& target, const Vector3& up );
+    static Matrix CreateLookAt( const Vector3& camera_pos, const Vector3& target_pos, const Vector3& up_vec );
+    static Matrix CreateLookTo(const Vector3& camera_pos, const Vector3& target_vec, const Vector3& up_vec);
     static Matrix CreateWorld( const Vector3& position, const Vector3& forward, const Vector3& up );
 
     static Matrix CreateFromQuaternion( const Quaternion& quat );
