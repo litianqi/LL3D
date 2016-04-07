@@ -103,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Source;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Include;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
