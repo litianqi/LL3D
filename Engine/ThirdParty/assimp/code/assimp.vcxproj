@@ -187,7 +187,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;$(SolutionDir)Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;$(SolutionDir)Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
