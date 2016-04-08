@@ -1,1284 +1,1284 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Assimp.cpp">
+    <ClCompile Include="Assimp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseImporter.cpp">
+    <ClCompile Include="BaseImporter.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseProcess.cpp">
+    <ClCompile Include="BaseProcess.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PostStepRegistry.cpp">
+    <ClCompile Include="PostStepRegistry.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ImporterRegistry.cpp">
+    <ClCompile Include="ImporterRegistry.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOStream.cpp">
+    <ClCompile Include="DefaultIOStream.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOSystem.cpp">
+    <ClCompile Include="DefaultIOSystem.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Importer.cpp">
+    <ClCompile Include="Importer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SGSpatialSort.cpp">
+    <ClCompile Include="SGSpatialSort.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\VertexTriangleAdjacency.cpp">
+    <ClCompile Include="VertexTriangleAdjacency.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SpatialSort.cpp">
+    <ClCompile Include="SpatialSort.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SceneCombiner.cpp">
+    <ClCompile Include="SceneCombiner.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ScenePreprocessor.cpp">
+    <ClCompile Include="ScenePreprocessor.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SkeletonMeshBuilder.cpp">
+    <ClCompile Include="SkeletonMeshBuilder.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitByBoneCountProcess.cpp">
+    <ClCompile Include="SplitByBoneCountProcess.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StandardShapes.cpp">
+    <ClCompile Include="StandardShapes.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TargetAnimation.cpp">
+    <ClCompile Include="TargetAnimation.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveComments.cpp">
+    <ClCompile Include="RemoveComments.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Subdivision.cpp">
+    <ClCompile Include="Subdivision.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Bitmap.cpp">
+    <ClCompile Include="Bitmap.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Version.cpp">
+    <ClCompile Include="Version.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultLogger.cpp">
+    <ClCompile Include="DefaultLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Exporter.cpp">
+    <ClCompile Include="Exporter.cpp">
       <Filter>Exporter</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssimpCExport.cpp">
+    <ClCompile Include="AssimpCExport.cpp">
       <Filter>Exporter</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CalcTangentsProcess.cpp">
+    <ClCompile Include="CalcTangentsProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ComputeUVMappingProcess.cpp">
+    <ClCompile Include="ComputeUVMappingProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ConvertToLHProcess.cpp">
+    <ClCompile Include="ConvertToLHProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindDegenerates.cpp">
+    <ClCompile Include="FindDegenerates.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInstancesProcess.cpp">
+    <ClCompile Include="FindInstancesProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInvalidDataProcess.cpp">
+    <ClCompile Include="FindInvalidDataProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FixNormalsStep.cpp">
+    <ClCompile Include="FixNormalsStep.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenFaceNormalsProcess.cpp">
+    <ClCompile Include="GenFaceNormalsProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenVertexNormalsProcess.cpp">
+    <ClCompile Include="GenVertexNormalsProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PretransformVertices.cpp">
+    <ClCompile Include="PretransformVertices.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ImproveCacheLocality.cpp">
+    <ClCompile Include="ImproveCacheLocality.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\JoinVerticesProcess.cpp">
+    <ClCompile Include="JoinVerticesProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LimitBoneWeightsProcess.cpp">
+    <ClCompile Include="LimitBoneWeightsProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveRedundantMaterials.cpp">
+    <ClCompile Include="RemoveRedundantMaterials.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveVCProcess.cpp">
+    <ClCompile Include="RemoveVCProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SortByPTypeProcess.cpp">
+    <ClCompile Include="SortByPTypeProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitLargeMeshes.cpp">
+    <ClCompile Include="SplitLargeMeshes.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TextureTransform.cpp">
+    <ClCompile Include="TextureTransform.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TriangulateProcess.cpp">
+    <ClCompile Include="TriangulateProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ValidateDataStructure.cpp">
+    <ClCompile Include="ValidateDataStructure.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeGraph.cpp">
+    <ClCompile Include="OptimizeGraph.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeMeshes.cpp">
+    <ClCompile Include="OptimizeMeshes.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DeboneProcess.cpp">
+    <ClCompile Include="DeboneProcess.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ProcessHelper.cpp">
+    <ClCompile Include="ProcessHelper.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MakeVerboseFormat.cpp">
+    <ClCompile Include="MakeVerboseFormat.cpp">
       <Filter>PostProcessing</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MaterialSystem.cpp">
+    <ClCompile Include="MaterialSystem.cpp">
       <Filter>MaterialSystem</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StepExporter.cpp">
+    <ClCompile Include="StepExporter.cpp">
       <Filter>Step</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSConverter.cpp">
+    <ClCompile Include="3DSConverter.cpp">
       <Filter>3DS</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSLoader.cpp">
+    <ClCompile Include="3DSLoader.cpp">
       <Filter>3DS</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSExporter.cpp">
+    <ClCompile Include="3DSExporter.cpp">
       <Filter>3DS</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ACLoader.cpp">
+    <ClCompile Include="ACLoader.cpp">
       <Filter>AC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASELoader.cpp">
+    <ClCompile Include="ASELoader.cpp">
       <Filter>ASE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASEParser.cpp">
+    <ClCompile Include="ASEParser.cpp">
       <Filter>ASE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinExporter.cpp">
+    <ClCompile Include="AssbinExporter.cpp">
       <Filter>ASSBIN</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinLoader.cpp">
+    <ClCompile Include="AssbinLoader.cpp">
       <Filter>ASSBIN</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssxmlExporter.cpp">
+    <ClCompile Include="AssxmlExporter.cpp">
       <Filter>ASSXML</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\B3DImporter.cpp">
+    <ClCompile Include="B3DImporter.cpp">
       <Filter>B3D</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BVHLoader.cpp">
+    <ClCompile Include="BVHLoader.cpp">
       <Filter>BVH</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaLoader.cpp">
+    <ClCompile Include="ColladaLoader.cpp">
       <Filter>COLLADA</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaParser.cpp">
+    <ClCompile Include="ColladaParser.cpp">
       <Filter>COLLADA</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaExporter.cpp">
+    <ClCompile Include="ColladaExporter.cpp">
       <Filter>COLLADA</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DXFLoader.cpp">
+    <ClCompile Include="DXFLoader.cpp">
       <Filter>DXF</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CSMLoader.cpp">
+    <ClCompile Include="CSMLoader.cpp">
       <Filter>CSM</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HMPLoader.cpp">
+    <ClCompile Include="HMPLoader.cpp">
       <Filter>HMP</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRLoader.cpp">
+    <ClCompile Include="IRRLoader.cpp">
       <Filter>IRR</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRMeshLoader.cpp">
+    <ClCompile Include="IRRMeshLoader.cpp">
       <Filter>IRR</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRShared.cpp">
+    <ClCompile Include="IRRShared.cpp">
       <Filter>IRR</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOAnimation.cpp">
+    <ClCompile Include="LWOAnimation.cpp">
       <Filter>LWO</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOBLoader.cpp">
+    <ClCompile Include="LWOBLoader.cpp">
       <Filter>LWO</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOLoader.cpp">
+    <ClCompile Include="LWOLoader.cpp">
       <Filter>LWO</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOMaterial.cpp">
+    <ClCompile Include="LWOMaterial.cpp">
       <Filter>LWO</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWSLoader.cpp">
+    <ClCompile Include="LWSLoader.cpp">
       <Filter>LWS</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2Loader.cpp">
+    <ClCompile Include="MD2Loader.cpp">
       <Filter>MD2</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD3Loader.cpp">
+    <ClCompile Include="MD3Loader.cpp">
       <Filter>MD3</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Loader.cpp">
+    <ClCompile Include="MD5Loader.cpp">
       <Filter>MD5</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Parser.cpp">
+    <ClCompile Include="MD5Parser.cpp">
       <Filter>MD5</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCLoader.cpp">
+    <ClCompile Include="MDCLoader.cpp">
       <Filter>MDC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLLoader.cpp">
+    <ClCompile Include="MDLLoader.cpp">
       <Filter>MDL</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLMaterialLoader.cpp">
+    <ClCompile Include="MDLMaterialLoader.cpp">
       <Filter>MDL</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NFFLoader.cpp">
+    <ClCompile Include="NFFLoader.cpp">
       <Filter>NFF</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NDOLoader.cpp">
+    <ClCompile Include="NDOLoader.cpp">
       <Filter>NDO</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OFFLoader.cpp">
+    <ClCompile Include="OFFLoader.cpp">
       <Filter>OFF</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileImporter.cpp">
+    <ClCompile Include="ObjFileImporter.cpp">
       <Filter>OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileMtlImporter.cpp">
+    <ClCompile Include="ObjFileMtlImporter.cpp">
       <Filter>OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileParser.cpp">
+    <ClCompile Include="ObjFileParser.cpp">
       <Filter>OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjExporter.cpp">
+    <ClCompile Include="ObjExporter.cpp">
       <Filter>OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreImporter.cpp">
+    <ClCompile Include="OgreImporter.cpp">
       <Filter>OGRE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreStructs.cpp">
+    <ClCompile Include="OgreStructs.cpp">
       <Filter>OGRE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreBinarySerializer.cpp">
+    <ClCompile Include="OgreBinarySerializer.cpp">
       <Filter>OGRE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreXmlSerializer.cpp">
+    <ClCompile Include="OgreXmlSerializer.cpp">
       <Filter>OGRE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreMaterial.cpp">
+    <ClCompile Include="OgreMaterial.cpp">
       <Filter>OGRE</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXExporter.cpp">
+    <ClCompile Include="OpenGEXExporter.cpp">
       <Filter>OPENGEX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXImporter.cpp">
+    <ClCompile Include="OpenGEXImporter.cpp">
       <Filter>OPENGEX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyLoader.cpp">
+    <ClCompile Include="PlyLoader.cpp">
       <Filter>PLY</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyParser.cpp">
+    <ClCompile Include="PlyParser.cpp">
       <Filter>PLY</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyExporter.cpp">
+    <ClCompile Include="PlyExporter.cpp">
       <Filter>PLY</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MS3DLoader.cpp">
+    <ClCompile Include="MS3DLoader.cpp">
       <Filter>MS3D</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\COBLoader.cpp">
+    <ClCompile Include="COBLoader.cpp">
       <Filter>COB</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderLoader.cpp">
+    <ClCompile Include="BlenderLoader.cpp">
       <Filter>BLEND</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderDNA.cpp">
+    <ClCompile Include="BlenderDNA.cpp">
       <Filter>BLEND</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderScene.cpp">
+    <ClCompile Include="BlenderScene.cpp">
       <Filter>BLEND</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderModifier.cpp">
+    <ClCompile Include="BlenderModifier.cpp">
       <Filter>BLEND</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderBMesh.cpp">
+    <ClCompile Include="BlenderBMesh.cpp">
       <Filter>BLEND</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderTessellator.cpp">
+    <ClCompile Include="BlenderTessellator.cpp">
       <Filter>BLEND</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCLoader.cpp">
+    <ClCompile Include="IFCLoader.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCReaderGen.cpp">
+    <ClCompile Include="IFCReaderGen.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCUtil.cpp">
+    <ClCompile Include="IFCUtil.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCGeometry.cpp">
+    <ClCompile Include="IFCGeometry.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCMaterial.cpp">
+    <ClCompile Include="IFCMaterial.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCProfile.cpp">
+    <ClCompile Include="IFCProfile.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCCurve.cpp">
+    <ClCompile Include="IFCCurve.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCBoolean.cpp">
+    <ClCompile Include="IFCBoolean.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCOpenings.cpp">
+    <ClCompile Include="IFCOpenings.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileReader.cpp">
+    <ClCompile Include="STEPFileReader.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileEncoding.cpp">
+    <ClCompile Include="STEPFileEncoding.cpp">
       <Filter>IFC</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XGLLoader.cpp">
+    <ClCompile Include="XGLLoader.cpp">
       <Filter>XGL</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXImporter.cpp">
+    <ClCompile Include="FBXImporter.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXParser.cpp">
+    <ClCompile Include="FBXParser.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXTokenizer.cpp">
+    <ClCompile Include="FBXTokenizer.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXConverter.cpp">
+    <ClCompile Include="FBXConverter.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXUtil.cpp">
+    <ClCompile Include="FBXUtil.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDocument.cpp">
+    <ClCompile Include="FBXDocument.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXProperties.cpp">
+    <ClCompile Include="FBXProperties.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXMeshGeometry.cpp">
+    <ClCompile Include="FBXMeshGeometry.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXMaterial.cpp">
+    <ClCompile Include="FBXMaterial.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXModel.cpp">
+    <ClCompile Include="FBXModel.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXAnimation.cpp">
+    <ClCompile Include="FBXAnimation.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXNodeAttribute.cpp">
+    <ClCompile Include="FBXNodeAttribute.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDeformer.cpp">
+    <ClCompile Include="FBXDeformer.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXBinaryTokenizer.cpp">
+    <ClCompile Include="FBXBinaryTokenizer.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDocumentUtil.cpp">
+    <ClCompile Include="FBXDocumentUtil.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3DLoader.cpp">
+    <ClCompile Include="Q3DLoader.cpp">
       <Filter>Q3D</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileParser.cpp">
+    <ClCompile Include="Q3BSPFileParser.cpp">
       <Filter>Q3BSP</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileImporter.cpp">
+    <ClCompile Include="Q3BSPFileImporter.cpp">
       <Filter>Q3BSP</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPZipArchive.cpp">
+    <ClCompile Include="Q3BSPZipArchive.cpp">
       <Filter>Q3BSP</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RawLoader.cpp">
+    <ClCompile Include="RawLoader.cpp">
       <Filter>RAW</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SIBImporter.cpp">
+    <ClCompile Include="SIBImporter.cpp">
       <Filter>SIB</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SMDLoader.cpp">
+    <ClCompile Include="SMDLoader.cpp">
       <Filter>SMD</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLLoader.cpp">
+    <ClCompile Include="STLLoader.cpp">
       <Filter>STL</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLExporter.cpp">
+    <ClCompile Include="STLExporter.cpp">
       <Filter>STL</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TerragenLoader.cpp">
+    <ClCompile Include="TerragenLoader.cpp">
       <Filter>TERRAGEN</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\UnrealLoader.cpp">
+    <ClCompile Include="UnrealLoader.cpp">
       <Filter>3D</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileImporter.cpp">
+    <ClCompile Include="XFileImporter.cpp">
       <Filter>X</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileParser.cpp">
+    <ClCompile Include="XFileParser.cpp">
       <Filter>X</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileExporter.cpp">
+    <ClCompile Include="XFileExporter.cpp">
       <Filter>X</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFImporter.cpp">
+    <ClCompile Include="glTFImporter.cpp">
       <Filter>GLTF</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFExporter.cpp">
+    <ClCompile Include="glTFExporter.cpp">
       <Filter>GLTF</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrXML.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\irrXML.cpp">
       <Filter>IrrXML</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\ConvertUTF\ConvertUTF.c">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\ConvertUTF\ConvertUTF.c">
       <Filter>ConvertUTF</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\ioapi.c">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\unzip\ioapi.c">
       <Filter>unzip</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\unzip.c">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\unzip\unzip.c">
       <Filter>unzip</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\shapes.cc">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\shapes.cc">
       <Filter>Poly2Tri</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.cc">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.cc">
       <Filter>Poly2Tri</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\cdt.cc">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\cdt.cc">
       <Filter>Poly2Tri</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep.cc">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep.cc">
       <Filter>Poly2Tri</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.cc">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.cc">
       <Filter>Poly2Tri</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\clipper\clipper.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\clipper\clipper.cpp">
       <Filter>Clipper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLParser.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLParser.cpp">
       <Filter>openddl_parser</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\DDLNode.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\code\DDLNode.cpp">
       <Filter>openddl_parser</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLCommon.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLCommon.cpp">
       <Filter>openddl_parser</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLExport.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLExport.cpp">
       <Filter>openddl_parser</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\Value.cpp">
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\code\Value.cpp">
       <Filter>openddl_parser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\fast_atof.h">
+    <ClInclude Include="fast_atof.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\qnan.h">
+    <ClInclude Include="qnan.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseImporter.h">
+    <ClInclude Include="BaseImporter.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseProcess.h">
+    <ClInclude Include="BaseProcess.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Importer.h">
+    <ClInclude Include="Importer.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ScenePrivate.h">
+    <ClInclude Include="ScenePrivate.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ByteSwapper.h">
+    <ClInclude Include="ByteSwapper.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultProgressHandler.h">
+    <ClInclude Include="DefaultProgressHandler.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOStream.h">
+    <ClInclude Include="DefaultIOStream.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOSystem.h">
+    <ClInclude Include="DefaultIOSystem.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CInterfaceIOWrapper.h">
+    <ClInclude Include="CInterfaceIOWrapper.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Hash.h">
+    <ClInclude Include="Hash.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFF.h">
+    <ClInclude Include="IFF.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MemoryIOWrapper.h">
+    <ClInclude Include="MemoryIOWrapper.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ParsingUtils.h">
+    <ClInclude Include="ParsingUtils.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StreamReader.h">
+    <ClInclude Include="StreamReader.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StreamWriter.h">
+    <ClInclude Include="StreamWriter.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StringComparison.h">
+    <ClInclude Include="StringComparison.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StringUtils.h">
+    <ClInclude Include="StringUtils.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SGSpatialSort.h">
+    <ClInclude Include="SGSpatialSort.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\VertexTriangleAdjacency.h">
+    <ClInclude Include="VertexTriangleAdjacency.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenericProperty.h">
+    <ClInclude Include="GenericProperty.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SpatialSort.h">
+    <ClInclude Include="SpatialSort.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SceneCombiner.h">
+    <ClInclude Include="SceneCombiner.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ScenePreprocessor.h">
+    <ClInclude Include="ScenePreprocessor.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SkeletonMeshBuilder.h">
+    <ClInclude Include="SkeletonMeshBuilder.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitByBoneCountProcess.h">
+    <ClInclude Include="SplitByBoneCountProcess.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SmoothingGroups.h">
+    <ClInclude Include="SmoothingGroups.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StandardShapes.h">
+    <ClInclude Include="StandardShapes.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TargetAnimation.h">
+    <ClInclude Include="TargetAnimation.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveComments.h">
+    <ClInclude Include="RemoveComments.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Subdivision.h">
+    <ClInclude Include="Subdivision.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Vertex.h">
+    <ClInclude Include="Vertex.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LineSplitter.h">
+    <ClInclude Include="LineSplitter.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TinyFormatter.h">
+    <ClInclude Include="TinyFormatter.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Profiler.h">
+    <ClInclude Include="Profiler.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LogAux.h">
+    <ClInclude Include="LogAux.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Bitmap.h">
+    <ClInclude Include="Bitmap.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XMLTools.h">
+    <ClInclude Include="XMLTools.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\DefaultLogger.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\DefaultLogger.hpp">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\LogStream.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\LogStream.hpp">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Logger.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\Logger.hpp">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\NullLogger.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\NullLogger.hpp">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Win32DebugLogStream.h">
+    <ClInclude Include="Win32DebugLogStream.h">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FileLogStream.h">
+    <ClInclude Include="FileLogStream.h">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StdOStreamLogStream.h">
+    <ClInclude Include="StdOStreamLogStream.h">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlobIOSystem.h">
+    <ClInclude Include="BlobIOSystem.h">
       <Filter>Exporter</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CalcTangentsProcess.h">
+    <ClInclude Include="CalcTangentsProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ComputeUVMappingProcess.h">
+    <ClInclude Include="ComputeUVMappingProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ConvertToLHProcess.h">
+    <ClInclude Include="ConvertToLHProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindDegenerates.h">
+    <ClInclude Include="FindDegenerates.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInstancesProcess.h">
+    <ClInclude Include="FindInstancesProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInvalidDataProcess.h">
+    <ClInclude Include="FindInvalidDataProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FixNormalsStep.h">
+    <ClInclude Include="FixNormalsStep.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenFaceNormalsProcess.h">
+    <ClInclude Include="GenFaceNormalsProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenVertexNormalsProcess.h">
+    <ClInclude Include="GenVertexNormalsProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PretransformVertices.h">
+    <ClInclude Include="PretransformVertices.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ImproveCacheLocality.h">
+    <ClInclude Include="ImproveCacheLocality.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\JoinVerticesProcess.h">
+    <ClInclude Include="JoinVerticesProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LimitBoneWeightsProcess.h">
+    <ClInclude Include="LimitBoneWeightsProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveRedundantMaterials.h">
+    <ClInclude Include="RemoveRedundantMaterials.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveVCProcess.h">
+    <ClInclude Include="RemoveVCProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SortByPTypeProcess.h">
+    <ClInclude Include="SortByPTypeProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitLargeMeshes.h">
+    <ClInclude Include="SplitLargeMeshes.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TextureTransform.h">
+    <ClInclude Include="TextureTransform.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TriangulateProcess.h">
+    <ClInclude Include="TriangulateProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ValidateDataStructure.h">
+    <ClInclude Include="ValidateDataStructure.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeGraph.h">
+    <ClInclude Include="OptimizeGraph.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeMeshes.h">
+    <ClInclude Include="OptimizeMeshes.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DeboneProcess.h">
+    <ClInclude Include="DeboneProcess.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ProcessHelper.h">
+    <ClInclude Include="ProcessHelper.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PolyTools.h">
+    <ClInclude Include="PolyTools.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MakeVerboseFormat.h">
+    <ClInclude Include="MakeVerboseFormat.h">
       <Filter>PostProcessing</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MaterialSystem.h">
+    <ClInclude Include="MaterialSystem.h">
       <Filter>MaterialSystem</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StepExporter.h">
+    <ClInclude Include="StepExporter.h">
       <Filter>Step</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSHelper.h">
+    <ClInclude Include="3DSHelper.h">
       <Filter>3DS</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSLoader.h">
+    <ClInclude Include="3DSLoader.h">
       <Filter>3DS</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSExporter.h">
+    <ClInclude Include="3DSExporter.h">
       <Filter>3DS</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ACLoader.h">
+    <ClInclude Include="ACLoader.h">
       <Filter>AC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASELoader.h">
+    <ClInclude Include="ASELoader.h">
       <Filter>ASE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASEParser.h">
+    <ClInclude Include="ASEParser.h">
       <Filter>ASE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinExporter.h">
+    <ClInclude Include="AssbinExporter.h">
       <Filter>ASSBIN</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinLoader.h">
+    <ClInclude Include="AssbinLoader.h">
       <Filter>ASSBIN</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssxmlExporter.h">
+    <ClInclude Include="AssxmlExporter.h">
       <Filter>ASSXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\B3DImporter.h">
+    <ClInclude Include="B3DImporter.h">
       <Filter>B3D</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BVHLoader.h">
+    <ClInclude Include="BVHLoader.h">
       <Filter>BVH</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaHelper.h">
+    <ClInclude Include="ColladaHelper.h">
       <Filter>COLLADA</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaLoader.h">
+    <ClInclude Include="ColladaLoader.h">
       <Filter>COLLADA</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaParser.h">
+    <ClInclude Include="ColladaParser.h">
       <Filter>COLLADA</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaExporter.h">
+    <ClInclude Include="ColladaExporter.h">
       <Filter>COLLADA</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DXFLoader.h">
+    <ClInclude Include="DXFLoader.h">
       <Filter>DXF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DXFHelper.h">
+    <ClInclude Include="DXFHelper.h">
       <Filter>DXF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CSMLoader.h">
+    <ClInclude Include="CSMLoader.h">
       <Filter>CSM</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HMPFileData.h">
+    <ClInclude Include="HMPFileData.h">
       <Filter>HMP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HMPLoader.h">
+    <ClInclude Include="HMPLoader.h">
       <Filter>HMP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HalfLifeFileData.h">
+    <ClInclude Include="HalfLifeFileData.h">
       <Filter>HMP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRLoader.h">
+    <ClInclude Include="IRRLoader.h">
       <Filter>IRR</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRMeshLoader.h">
+    <ClInclude Include="IRRMeshLoader.h">
       <Filter>IRR</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRShared.h">
+    <ClInclude Include="IRRShared.h">
       <Filter>IRR</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOAnimation.h">
+    <ClInclude Include="LWOAnimation.h">
       <Filter>LWO</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOFileData.h">
+    <ClInclude Include="LWOFileData.h">
       <Filter>LWO</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOLoader.h">
+    <ClInclude Include="LWOLoader.h">
       <Filter>LWO</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWSLoader.h">
+    <ClInclude Include="LWSLoader.h">
       <Filter>LWS</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2FileData.h">
+    <ClInclude Include="MD2FileData.h">
       <Filter>MD2</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2Loader.h">
+    <ClInclude Include="MD2Loader.h">
       <Filter>MD2</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2NormalTable.h">
+    <ClInclude Include="MD2NormalTable.h">
       <Filter>MD2</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD3FileData.h">
+    <ClInclude Include="MD3FileData.h">
       <Filter>MD3</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD3Loader.h">
+    <ClInclude Include="MD3Loader.h">
       <Filter>MD3</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Loader.h">
+    <ClInclude Include="MD5Loader.h">
       <Filter>MD5</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Parser.h">
+    <ClInclude Include="MD5Parser.h">
       <Filter>MD5</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCFileData.h">
+    <ClInclude Include="MDCFileData.h">
       <Filter>MDC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCLoader.h">
+    <ClInclude Include="MDCLoader.h">
       <Filter>MDC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCNormalTable.h">
+    <ClInclude Include="MDCNormalTable.h">
       <Filter>MDC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLDefaultColorMap.h">
+    <ClInclude Include="MDLDefaultColorMap.h">
       <Filter>MDL</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLFileData.h">
+    <ClInclude Include="MDLFileData.h">
       <Filter>MDL</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLLoader.h">
+    <ClInclude Include="MDLLoader.h">
       <Filter>MDL</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NFFLoader.h">
+    <ClInclude Include="NFFLoader.h">
       <Filter>NFF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NDOLoader.h">
+    <ClInclude Include="NDOLoader.h">
       <Filter>NDO</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OFFLoader.h">
+    <ClInclude Include="OFFLoader.h">
       <Filter>OFF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileData.h">
+    <ClInclude Include="ObjFileData.h">
       <Filter>OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileImporter.h">
+    <ClInclude Include="ObjFileImporter.h">
       <Filter>OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileMtlImporter.h">
+    <ClInclude Include="ObjFileMtlImporter.h">
       <Filter>OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileParser.h">
+    <ClInclude Include="ObjFileParser.h">
       <Filter>OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjTools.h">
+    <ClInclude Include="ObjTools.h">
       <Filter>OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjExporter.h">
+    <ClInclude Include="ObjExporter.h">
       <Filter>OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreImporter.h">
+    <ClInclude Include="OgreImporter.h">
       <Filter>OGRE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreStructs.h">
+    <ClInclude Include="OgreStructs.h">
       <Filter>OGRE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreParsingUtils.h">
+    <ClInclude Include="OgreParsingUtils.h">
       <Filter>OGRE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreBinarySerializer.h">
+    <ClInclude Include="OgreBinarySerializer.h">
       <Filter>OGRE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreXmlSerializer.h">
+    <ClInclude Include="OgreXmlSerializer.h">
       <Filter>OGRE</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXExporter.h">
+    <ClInclude Include="OpenGEXExporter.h">
       <Filter>OPENGEX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXImporter.h">
+    <ClInclude Include="OpenGEXImporter.h">
       <Filter>OPENGEX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXStructs.h">
+    <ClInclude Include="OpenGEXStructs.h">
       <Filter>OPENGEX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyLoader.h">
+    <ClInclude Include="PlyLoader.h">
       <Filter>PLY</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyParser.h">
+    <ClInclude Include="PlyParser.h">
       <Filter>PLY</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyExporter.h">
+    <ClInclude Include="PlyExporter.h">
       <Filter>PLY</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MS3DLoader.h">
+    <ClInclude Include="MS3DLoader.h">
       <Filter>MS3D</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\COBLoader.h">
+    <ClInclude Include="COBLoader.h">
       <Filter>COB</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\COBScene.h">
+    <ClInclude Include="COBScene.h">
       <Filter>COB</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderLoader.h">
+    <ClInclude Include="BlenderLoader.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderDNA.h">
+    <ClInclude Include="BlenderDNA.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderDNA.inl">
+    <ClInclude Include="BlenderDNA.inl">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderScene.h">
+    <ClInclude Include="BlenderScene.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderSceneGen.h">
+    <ClInclude Include="BlenderSceneGen.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderIntermediate.h">
+    <ClInclude Include="BlenderIntermediate.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderModifier.h">
+    <ClInclude Include="BlenderModifier.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderBMesh.h">
+    <ClInclude Include="BlenderBMesh.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderTessellator.h">
+    <ClInclude Include="BlenderTessellator.h">
       <Filter>BLEND</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCLoader.h">
+    <ClInclude Include="IFCLoader.h">
       <Filter>IFC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCReaderGen.h">
+    <ClInclude Include="IFCReaderGen.h">
       <Filter>IFC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCUtil.h">
+    <ClInclude Include="IFCUtil.h">
       <Filter>IFC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFile.h">
+    <ClInclude Include="STEPFile.h">
       <Filter>IFC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileReader.h">
+    <ClInclude Include="STEPFileReader.h">
       <Filter>IFC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileEncoding.h">
+    <ClInclude Include="STEPFileEncoding.h">
       <Filter>IFC</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XGLLoader.h">
+    <ClInclude Include="XGLLoader.h">
       <Filter>XGL</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXCompileConfig.h">
+    <ClInclude Include="FBXCompileConfig.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXImporter.h">
+    <ClInclude Include="FBXImporter.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXParser.h">
+    <ClInclude Include="FBXParser.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXTokenizer.h">
+    <ClInclude Include="FBXTokenizer.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXImportSettings.h">
+    <ClInclude Include="FBXImportSettings.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXConverter.h">
+    <ClInclude Include="FBXConverter.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXUtil.h">
+    <ClInclude Include="FBXUtil.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDocument.h">
+    <ClInclude Include="FBXDocument.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXProperties.h">
+    <ClInclude Include="FBXProperties.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXMeshGeometry.h">
+    <ClInclude Include="FBXMeshGeometry.h">
       <Filter>FBX</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3DLoader.h">
+    <ClInclude Include="Q3DLoader.h">
       <Filter>Q3D</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileData.h">
+    <ClInclude Include="Q3BSPFileData.h">
       <Filter>Q3BSP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileParser.h">
+    <ClInclude Include="Q3BSPFileParser.h">
       <Filter>Q3BSP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileImporter.h">
+    <ClInclude Include="Q3BSPFileImporter.h">
       <Filter>Q3BSP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPZipArchive.h">
+    <ClInclude Include="Q3BSPZipArchive.h">
       <Filter>Q3BSP</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RawLoader.h">
+    <ClInclude Include="RawLoader.h">
       <Filter>RAW</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SIBImporter.h">
+    <ClInclude Include="SIBImporter.h">
       <Filter>SIB</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SMDLoader.h">
+    <ClInclude Include="SMDLoader.h">
       <Filter>SMD</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLLoader.h">
+    <ClInclude Include="STLLoader.h">
       <Filter>STL</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLExporter.h">
+    <ClInclude Include="STLExporter.h">
       <Filter>STL</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TerragenLoader.h">
+    <ClInclude Include="TerragenLoader.h">
       <Filter>TERRAGEN</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\UnrealLoader.h">
+    <ClInclude Include="UnrealLoader.h">
       <Filter>3D</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileHelper.h">
+    <ClInclude Include="XFileHelper.h">
       <Filter>X</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileImporter.h">
+    <ClInclude Include="XFileImporter.h">
       <Filter>X</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileParser.h">
+    <ClInclude Include="XFileParser.h">
       <Filter>X</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileExporter.h">
+    <ClInclude Include="XFileExporter.h">
       <Filter>X</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAsset.h">
+    <ClInclude Include="glTFAsset.h">
       <Filter>GLTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAsset.inl">
+    <ClInclude Include="glTFAsset.inl">
       <Filter>GLTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAssetWriter.h">
+    <ClInclude Include="glTFAssetWriter.h">
       <Filter>GLTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAssetWriter.inl">
+    <ClInclude Include="glTFAssetWriter.inl">
       <Filter>GLTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFImporter.h">
+    <ClInclude Include="glTFImporter.h">
       <Filter>GLTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFExporter.h">
+    <ClInclude Include="glTFExporter.h">
       <Filter>GLTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\irrXMLWrapper.h">
+    <ClInclude Include="irrXMLWrapper.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\CXMLReaderImpl.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\CXMLReaderImpl.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\heapsort.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\heapsort.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrArray.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\irrArray.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrString.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\irrString.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrTypes.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\irrTypes.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrXML.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\irrXML\irrXML.h">
       <Filter>IrrXML</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\ConvertUTF\ConvertUTF.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\ConvertUTF\ConvertUTF.h">
       <Filter>ConvertUTF</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\crypt.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\unzip\crypt.h">
       <Filter>unzip</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\ioapi.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\unzip\ioapi.h">
       <Filter>unzip</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\unzip.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\unzip\unzip.h">
       <Filter>unzip</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\shapes.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\shapes.h">
       <Filter>Poly2Tri</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\utils.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\utils.h">
       <Filter>Poly2Tri</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.h">
       <Filter>Poly2Tri</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\cdt.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\cdt.h">
       <Filter>Poly2Tri</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep.h">
       <Filter>Poly2Tri</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.h">
       <Filter>Poly2Tri</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\clipper\clipper.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\clipper\clipper.hpp">
       <Filter>Clipper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParser.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParser.h">
       <Filter>openddl_parser</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParserUtils.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParserUtils.h">
       <Filter>openddl_parser</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLCommon.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLCommon.h">
       <Filter>openddl_parser</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLExport.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLExport.h">
       <Filter>openddl_parser</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\DDLNode.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\DDLNode.h">
       <Filter>openddl_parser</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\Value.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\Value.h">
       <Filter>openddl_parser</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\math\common_factor_rt.hpp">
+    <ClInclude Include="BoostWorkaround\boost\math\common_factor_rt.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\foreach.hpp">
+    <ClInclude Include="BoostWorkaround\boost\foreach.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\format.hpp">
+    <ClInclude Include="BoostWorkaround\boost\format.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\scoped_array.hpp">
+    <ClInclude Include="BoostWorkaround\boost\scoped_array.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\scoped_ptr.hpp">
+    <ClInclude Include="BoostWorkaround\boost\scoped_ptr.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\shared_array.hpp">
+    <ClInclude Include="BoostWorkaround\boost\shared_array.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\shared_ptr.hpp">
+    <ClInclude Include="BoostWorkaround\boost\shared_ptr.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\make_shared.hpp">
+    <ClInclude Include="BoostWorkaround\boost\make_shared.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\static_assert.hpp">
+    <ClInclude Include="BoostWorkaround\boost\static_assert.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\tuple\tuple.hpp">
+    <ClInclude Include="BoostWorkaround\boost\tuple\tuple.hpp">
       <Filter>Boost</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\anim.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\anim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\ai_assert.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\ai_assert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\camera.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\color4.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\color4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\color4.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\color4.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\config.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\defs.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\cfileio.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\cfileio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\light.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\material.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\material.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\material.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix3x3.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\matrix3x3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix3x3.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\matrix3x3.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix4x4.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\matrix4x4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix4x4.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\matrix4x4.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\mesh.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\postprocess.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\postprocess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\quaternion.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\quaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\quaternion.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\quaternion.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\scene.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\metadata.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\metadata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\texture.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\types.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector2.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector2.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\vector2.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector3.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector3.inl">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\vector3.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\version.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\cimport.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\cimport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\importerdesc.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\importerdesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Importer.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\Importer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\ProgressHandler.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\ProgressHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\IOStream.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\IOStream.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\IOSystem.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\IOSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\cexport.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\cexport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Exporter.hpp">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\Exporter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Compiler\pushpack1.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\Compiler\pushpack1.h">
       <Filter>Compiler</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Compiler\poppack1.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\Compiler\poppack1.h">
       <Filter>Compiler</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Compiler\pstdint.h">
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\include\assimp\Compiler\pstdint.h">
       <Filter>Compiler</Filter>
     </ClInclude>
   </ItemGroup>

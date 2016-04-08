@@ -39,7 +39,7 @@ Editor::Editor()
 
   // Add girl.
   auto mr1 = make_unique<Graphics::ModelRender>(
-    "D:\\Workspace\\LL3D\\Editor\\Resource\\Models\\girl\\girl.obj"
+    "Resource\\Models\\girl\\girl.obj"
     );
   auto girl = GameObject();
   girl.AddComponent(std::move(mr1));
@@ -115,7 +115,7 @@ Editor::Editor()
 
   // Add castle.
   /*auto mr5 = make_unique<Graphics::ModelRender>(
-    "D:\\Workspace\\LL3D\\Editor\\Resource\\Models\\Castle Interior\\Castle Interior.3DS"
+    "Resource\\Models\\Castle Interior\\Castle Interior.3DS"
     );
   auto castle = GameObject();
   castle.AddComponent(std::move(mr5));

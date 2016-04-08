@@ -99,23 +99,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zlibstatic.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zlibstaticd</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zlibstatic.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zlibstatic</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">zlibstatic</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">zlibstatic.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">zlibstatic</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">zlibstatic</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">zlibstatic.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">zlibstatic</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">zlibstatic</TargetName>
@@ -125,7 +125,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsC</CompileAs>
@@ -143,10 +143,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -177,10 +177,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -193,7 +193,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <ExceptionHandling>
@@ -211,10 +211,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -227,7 +227,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <ExceptionHandling>
@@ -245,10 +245,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -261,7 +261,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <ExceptionHandling>
@@ -279,10 +279,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -295,7 +295,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <ExceptionHandling>
@@ -313,10 +313,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -329,7 +329,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -346,10 +346,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -362,7 +362,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -379,10 +379,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -394,32 +394,32 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib\zconf.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\zlib.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\crc32.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\deflate.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\gzguts.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inffast.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inffixed.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inflate.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inftrees.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\trees.h" />
-    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\zutil.h" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\adler32.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\compress.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\crc32.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\deflate.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\gzclose.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\gzlib.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\gzread.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\gzwrite.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inflate.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\infback.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inftrees.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\inffast.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\trees.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\uncompr.c" />
-    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib\zutil.c" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib\zconf.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\zlib.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\crc32.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\deflate.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\gzguts.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inffast.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inffixed.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inflate.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inftrees.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\trees.h" />
+    <ClInclude Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\zutil.h" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\adler32.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\compress.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\crc32.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\deflate.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\gzclose.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\gzlib.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\gzread.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\gzwrite.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inflate.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\infback.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inftrees.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\inffast.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\trees.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\uncompr.c" />
+    <ClCompile Include="$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib\zutil.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
