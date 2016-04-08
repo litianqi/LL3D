@@ -171,6 +171,18 @@
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{543b5569-7c16-41af-95a2-62e39c0576bd}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Engine\ThirdParty\assimp\code\assimp.vcxproj">
+      <Project>{ab25988c-7f8c-378b-8a21-d503b043023d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\ThirdParty\DirectXTK\DirectXTK_Desktop_2015.vcxproj">
+      <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\FX11\Effects11_2015.vcxproj">
+      <Project>{df460eab-570d-4b50-9089-2e2fc801bf38}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\json11\json11.vcxproj">
+      <Project>{926e051c-ff60-4871-9200-62f8547f61ff}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,15 +11,20 @@ using namespace LL3D;
 
 namespace Test
 {		
-	TEST_CLASS(TestCamera)
+	TEST_CLASS(Camera)
 	{
 	public:
 		
-		TEST_METHOD(TestDirection)
+		TEST_METHOD(Direction)
 		{
       auto object = ConstructAGameObject();
       Assert::AreEqual(1, 1);
 		}
+
+    TEST_METHOD(Fail)
+    {
+      Assert::Fail(L"Failed");
+    }
 
   private:
     static GameObject ConstructAGameObject() 
