@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{AB25988C-7F8C-378B-8A21-D503B043023D}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>assimp</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\code\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">assimp.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">assimp-vc140-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">assimp-vc140-mt</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\code\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">assimp.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">assimp-vc140-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">assimp-vc140-mt</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\code\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">assimp.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">assimp-vc140-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">assimp-vc140-mt</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\code\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">assimp.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">assimp-vc140-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">assimp-vc140-mt</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Debug";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Debug\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\Debug\zlibstaticd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Debug/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Debug/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\ThirdParty\assimp\build;$(SolutionDir)Engine\ThirdParty\assimp\include;$(SolutionDir)Engine\ThirdParty\assimp\code\BoostWorkaround;$(SolutionDir)Engine\ThirdParty\assimp\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\build\contrib\zlib;$(SolutionDir)Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Debug";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DisableSpecificWarnings>4267;4244;4477;4717;4800</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Debug\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X64 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Debug/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Debug/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+      <AdditionalDependencies>zlibstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Release";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Release\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\Release\zlibstatic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Release/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Release/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Release";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Release\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\Release\zlibstatic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Release/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/Release/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="MinSizeRel";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"MinSizeRel\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\MinSizeRel\zlibstatic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/MinSizeRel/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/MinSizeRel/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="MinSizeRel";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"MinSizeRel\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\MinSizeRel\zlibstatic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/MinSizeRel/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/MinSizeRel/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="RelWithDebInfo";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\RelWithDebInfo\zlibstatic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/RelWithDebInfo/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/RelWithDebInfo/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="RelWithDebInfo";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;OPENDDL_NO_USE_CPP11;ASSIMP_BUILD_BOOST_WORKAROUND;ASSIMP_BUILD_NO_C4D_IMPORTER;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";assimp_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Workspace\LL3D\Engine\ThirdParty\assimp\build;D:\Workspace\LL3D\Engine\ThirdParty\assimp\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround;D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\build\contrib\zlib;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\rapidjson\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\openddlparser\include;D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\..\contrib\unzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\contrib\zlib\RelWithDebInfo\zlibstatic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/RelWithDebInfo/assimp-vc140-mt.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Workspace/LL3D/Engine/ThirdParty/assimp/build/code/RelWithDebInfo/assimp-vc140-mt.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\fast_atof.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\qnan.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Importer.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ScenePrivate.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ByteSwapper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultProgressHandler.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOStream.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOSystem.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CInterfaceIOWrapper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Hash.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFF.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MemoryIOWrapper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ParsingUtils.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StreamReader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StreamWriter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StringComparison.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StringUtils.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SGSpatialSort.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\VertexTriangleAdjacency.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenericProperty.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SpatialSort.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SceneCombiner.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ScenePreprocessor.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SkeletonMeshBuilder.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitByBoneCountProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SmoothingGroups.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StandardShapes.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TargetAnimation.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveComments.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Subdivision.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Vertex.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LineSplitter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TinyFormatter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Profiler.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LogAux.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Bitmap.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XMLTools.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\DefaultLogger.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\LogStream.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Logger.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\NullLogger.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Win32DebugLogStream.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FileLogStream.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StdOStreamLogStream.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlobIOSystem.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CalcTangentsProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ComputeUVMappingProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ConvertToLHProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindDegenerates.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInstancesProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInvalidDataProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FixNormalsStep.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenFaceNormalsProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenVertexNormalsProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PretransformVertices.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ImproveCacheLocality.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\JoinVerticesProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LimitBoneWeightsProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveRedundantMaterials.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveVCProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SortByPTypeProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitLargeMeshes.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TextureTransform.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TriangulateProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ValidateDataStructure.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeGraph.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeMeshes.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DeboneProcess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ProcessHelper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PolyTools.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MakeVerboseFormat.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MaterialSystem.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StepExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSHelper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ACLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASELoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASEParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssxmlExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\B3DImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BVHLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaHelper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DXFLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DXFHelper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CSMLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HMPFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HMPLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HalfLifeFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRMeshLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRShared.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOAnimation.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWSLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2FileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2Loader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2NormalTable.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD3FileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD3Loader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Loader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Parser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCNormalTable.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLDefaultColorMap.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NFFLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NDOLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OFFLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileMtlImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjTools.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreStructs.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreParsingUtils.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreBinarySerializer.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreXmlSerializer.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXStructs.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MS3DLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\COBLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\COBScene.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderDNA.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderDNA.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderScene.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderSceneGen.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderIntermediate.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderModifier.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderBMesh.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderTessellator.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCReaderGen.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCUtil.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFile.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileReader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileEncoding.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XGLLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXCompileConfig.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXTokenizer.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXImportSettings.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXConverter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXUtil.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDocument.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXProperties.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXMeshGeometry.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3DLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileData.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPZipArchive.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RawLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SIBImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SMDLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TerragenLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\UnrealLoader.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileHelper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAsset.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAsset.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAssetWriter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFAssetWriter.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFImporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFExporter.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\irrXMLWrapper.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\CXMLReaderImpl.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\heapsort.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrArray.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrString.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrTypes.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrXML.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\ConvertUTF\ConvertUTF.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\crypt.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\ioapi.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\unzip.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\shapes.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\utils.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\cdt.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\clipper\clipper.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParser.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLParserUtils.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLCommon.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\OpenDDLExport.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\DDLNode.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\include\openddlparser\Value.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\math\common_factor_rt.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\foreach.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\format.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\scoped_array.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\scoped_ptr.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\shared_array.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\shared_ptr.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\make_shared.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\static_assert.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BoostWorkaround\boost\tuple\tuple.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\anim.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\camera.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\color4.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\color4.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\config.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\defs.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\light.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\material.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\material.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix3x3.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\matrix4x4.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\mesh.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\quaternion.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\scene.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\metadata.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\texture.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\types.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector2.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\vector3.inl" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\version.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\cimport.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Importer.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\ProgressHandler.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\IOStream.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\cexport.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Exporter.hpp" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Compiler\pushpack1.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Compiler\poppack1.h" />
+    <ClInclude Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\include\assimp\Compiler\pstdint.h" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Assimp.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BaseProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PostStepRegistry.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ImporterRegistry.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOStream.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultIOSystem.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Importer.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SGSpatialSort.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\VertexTriangleAdjacency.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SpatialSort.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SceneCombiner.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ScenePreprocessor.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SkeletonMeshBuilder.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitByBoneCountProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StandardShapes.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TargetAnimation.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveComments.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Subdivision.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Bitmap.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Version.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DefaultLogger.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Exporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssimpCExport.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CalcTangentsProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ComputeUVMappingProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ConvertToLHProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindDegenerates.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInstancesProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FindInvalidDataProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FixNormalsStep.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenFaceNormalsProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\GenVertexNormalsProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PretransformVertices.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ImproveCacheLocality.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\JoinVerticesProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LimitBoneWeightsProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveRedundantMaterials.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RemoveVCProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SortByPTypeProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SplitLargeMeshes.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TextureTransform.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TriangulateProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ValidateDataStructure.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeGraph.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OptimizeMeshes.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DeboneProcess.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ProcessHelper.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MakeVerboseFormat.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MaterialSystem.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\StepExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSConverter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\3DSExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ACLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASELoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ASEParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssbinLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\AssxmlExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\B3DImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BVHLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ColladaExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\DXFLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\CSMLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\HMPLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRMeshLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IRRShared.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOAnimation.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOBLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWOMaterial.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\LWSLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD2Loader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD3Loader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Loader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MD5Parser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDCLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MDLMaterialLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NFFLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\NDOLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OFFLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileMtlImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjFileParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\ObjExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreStructs.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreBinarySerializer.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreXmlSerializer.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OgreMaterial.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\OpenGEXImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\PlyExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\MS3DLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\COBLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderDNA.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderScene.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderModifier.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderBMesh.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\BlenderTessellator.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCReaderGen.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCUtil.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCGeometry.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCMaterial.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCProfile.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCCurve.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCBoolean.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\IFCOpenings.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileReader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STEPFileEncoding.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XGLLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXTokenizer.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXConverter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXUtil.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDocument.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXProperties.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXMeshGeometry.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXMaterial.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXModel.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXAnimation.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXNodeAttribute.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDeformer.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXBinaryTokenizer.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\FBXDocumentUtil.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3DLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPFileImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\Q3BSPZipArchive.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\RawLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SIBImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\SMDLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\STLExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\TerragenLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\UnrealLoader.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\XFileExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFImporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\code\glTFExporter.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\irrXML\irrXML.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\ConvertUTF\ConvertUTF.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\ioapi.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\unzip\unzip.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\common\shapes.cc" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\advancing_front.cc" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\cdt.cc" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep.cc" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\poly2tri\poly2tri\sweep\sweep_context.cc" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\clipper\clipper.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLParser.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\DDLNode.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLCommon.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\OpenDDLExport.cpp" />
+    <ClCompile Include="D:\Workspace\LL3D\Engine\ThirdParty\assimp\contrib\openddlparser\code\Value.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\contrib\zlib\zlibstatic.vcxproj">
+      <Project>{709e21e8-3d82-32e8-a2e3-17cec4800706}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

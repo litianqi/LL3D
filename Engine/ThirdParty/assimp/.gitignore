@@ -4,9 +4,7 @@ build
 *.kdev4*
 
 # Visual Studio
-*.sln
 *.ncb
-*.vcproj
 
 # Output
 bin/
@@ -34,8 +32,6 @@ test/results
 # Python
 __pycache__
 *.log
-*.vcxproj
-*.filters
 *.tlog
 Assimp.sdf
 test/gtest/tmp/gtest-gitupdate.cmake
