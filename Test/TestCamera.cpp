@@ -5,7 +5,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Test
 {		
-	TEST_CLASS(UnitTest1)
+	TEST_CLASS(TestCamera)
 	{
 	public:
 		

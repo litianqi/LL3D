@@ -4,9 +4,6 @@
     <Filter Include="Source">
       <UniqueIdentifier>{1787d0a3-35b1-4b1a-8240-7d4288497fc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Shaders">
-      <UniqueIdentifier>{c618bb8a-3f66-435f-8470-68e29d481723}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Core">
       <UniqueIdentifier>{86a989a2-6c88-4673-8f8d-7df2fc97bace}</UniqueIdentifier>
     </Filter>
@@ -21,6 +18,9 @@
     </Filter>
     <Filter Include="Source\Utils">
       <UniqueIdentifier>{3323eb62-dc78-4d1c-9b2e-63f9cd37b3be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Effects">
+      <UniqueIdentifier>{c618bb8a-3f66-435f-8470-68e29d481723}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -217,18 +217,18 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Source\Shaders\Main.fx">
-      <Filter>Source\Shaders</Filter>
+      <Filter>Source\Effects</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Shaders\Blur.fx">
-      <Filter>Source\Shaders</Filter>
+      <Filter>Source\Effects</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
-      <Filter>Source\Shaders</Filter>
+      <Filter>Source\Effects</Filter>
     </FxCompile>
     <FxCompile Include="Source\Shaders\Light.fx">
-      <Filter>Source\Shaders</Filter>
+      <Filter>Source\Effects</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

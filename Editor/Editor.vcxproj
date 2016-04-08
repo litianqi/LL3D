@@ -164,7 +164,7 @@
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{543b5569-7c16-41af-95a2-62e39c0576bd}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Engine\ThirdParty\assimp\build\code\assimp.vcxproj">
+    <ProjectReference Include="..\Engine\ThirdParty\assimp\code\assimp.vcxproj">
       <Project>{ab25988c-7f8c-378b-8a21-d503b043023d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ThirdParty\DirectXTK\DirectXTK_Desktop_2015.vcxproj">

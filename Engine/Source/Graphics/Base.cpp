@@ -18,7 +18,7 @@ void Base::Initialize(Device* device) {
   
   // Init Effect.
   // todo: remove hard code.
-  s_effect.reset(new BasicEffect("../Engine/_Resource/Shaders/Main.fxo"));
+  s_effect.reset(new BasicEffect("../Engine/_Resource/Effects/Main.fxo"));
 
   // Init InputLayout.
   const void* shader_bytecode;
