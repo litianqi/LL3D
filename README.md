@@ -4,6 +4,8 @@ A C++/DirectX11 3D game engine.
 
 ## Status
 
+[![Build status](https://ci.appveyor.com/api/projects/status/5099p8c414wdjib8?svg=true)](https://ci.appveyor.com/project/litianqi/ll3d)
+
 **Under development.**
 
 ## Features
