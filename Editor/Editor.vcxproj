@@ -103,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Include;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\json11;$(SolutionDir)ThirdParty\DirectXTK\Inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Include;$(SolutionDir)ThirdParty\plog\include;$(SolutionDir)ThirdParty\FX11\inc;$(SolutionDir)ThirdParty\json11</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -167,7 +167,7 @@
     <ProjectReference Include="..\Engine\ThirdParty\assimp\code\assimp.vcxproj">
       <Project>{ab25988c-7f8c-378b-8a21-d503b043023d}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ThirdParty\DirectXTK\DirectXTK_Desktop_2015.vcxproj">
+    <ProjectReference Include="..\Engine\ThirdParty\DirectXTK\DirectXTK_Desktop_2015.vcxproj">
       <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ThirdParty\FX11\Effects11_2015.vcxproj">
