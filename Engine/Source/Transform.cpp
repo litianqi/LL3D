@@ -1,6 +1,5 @@
 #include "Transform.h"
-#include "Graphics/Effects.h"
-#include "Math/Quaternion.h"
+#include "Graphics\Effects.h"
 #include "GameObject.h"
 
 namespace LL3D {
