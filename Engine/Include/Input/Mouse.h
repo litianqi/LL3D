@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 #include <map>
-#include "Math/Vector.h"
+#include "Math/Math.h"
 
 namespace LL3D {
 

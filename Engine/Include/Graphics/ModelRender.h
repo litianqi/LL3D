@@ -4,8 +4,6 @@
 #include "Graphics/Model.h"
 #include "Graphics/Base.h"
 
-struct ID3D11Buffer;
-
 namespace LL3D {
 namespace Graphics {
 

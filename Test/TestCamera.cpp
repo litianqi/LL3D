@@ -1,8 +1,7 @@
 #include <stdafx.h>
 #include <CppUnitTest.h>
 #include <Graphics/Camera.h>
-#include <Math/Vector.h>
-#include <Math/Matrix.h>
+#include <Math/Math.h>
 #include <GameObject.h>
 #include <Transform.h>
 

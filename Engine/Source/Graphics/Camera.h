@@ -1,8 +1,7 @@
 #pragma once
 
 #include <list>
-#include "Math/Vector.h"
-#include "Math/Matrix.h"
+#include "Math/Math.h"
 #include "Component.h"
 #include "Graphics/Base.h"
 

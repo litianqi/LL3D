@@ -10,7 +10,7 @@ class Scene;
 class GameObject;
 
 class RecursiveSceneIterator : public 
-  std::iterator<std::forward_iterator_tag, GameObject> {  // TODO: change to bidirectional
+  std::iterator<std::forward_iterator_tag, GameObject> {
 public:
   //>
   // Constructs an end iterator.
@@ -32,7 +32,7 @@ public:
   bool operator!=(const RecursiveSceneIterator& rhs) const noexcept;
   //>
   // Summary: Returns value this iterator points to.
-  // Exception: Throw a std::out_of_range exception if dereferenced an end.
+  // Exception: Throw a std::out_of_range exception if dereferenced end.
   //
   GameObject& operator*();
   GameObject* operator->();

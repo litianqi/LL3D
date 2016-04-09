@@ -1,6 +1,5 @@
 #include "EditorCameraController.h"
-#include <Math/Vector.h>
-#include <Math/Matrix.h>
+#include <Math/Math.h>
 #include <Core/Assert.h>
 #include <Input/Mouse.h>
 #include <Graphics/Camera.h>

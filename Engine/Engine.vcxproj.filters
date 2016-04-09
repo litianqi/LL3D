@@ -78,6 +78,9 @@
     <ClCompile Include="Source\Graphics\ModelRender.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Math\Math.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Graphics\MaterialFX.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
@@ -101,30 +104,6 @@
     </ClCompile>
     <ClCompile Include="Source\Graphics\VertexTypes.cpp">
       <Filter>Source\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Constants.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Viewport.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Matrix.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Color.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Plane.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Quaternion.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Ray.cpp">
-      <Filter>Source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Math\Vector.cpp">
-      <Filter>Source\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +179,9 @@
     <ClInclude Include="Source\Graphics\ModelRender.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Math\Math.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Graphics\MaterialFX.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
@@ -227,30 +209,11 @@
     <ClInclude Include="Source\Graphics\VertexTypes.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Math\Frustum.h">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Math\Math.inl">
       <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Vector.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Matrix.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Plane.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Color.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Quaternion.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Ray.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Viewport.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Source\Shaders\Main.fx">
