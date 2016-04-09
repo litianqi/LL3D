@@ -39,7 +39,8 @@
     <ClCompile Include="Source\Graphics\VertexTypes.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
-    <ClCompile Include="Source\Math\Math.cpp" />
+    <ClCompile Include="Source\Math\Constants.cpp" />
+    <ClCompile Include="Source\Math\Viewport.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\RecursiveSceneIterator.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
@@ -74,7 +75,14 @@
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\KeyCode.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
-    <ClInclude Include="Source\Math\Math.h" />
+    <ClInclude Include="Source\Math\Color.h" />
+    <ClInclude Include="Source\Math\Frustum.h" />
+    <ClInclude Include="Source\Math\Matrix.h" />
+    <ClInclude Include="Source\Math\Plane.h" />
+    <ClInclude Include="Source\Math\Quaternion.h" />
+    <ClInclude Include="Source\Math\Ray.h" />
+    <ClInclude Include="Source\Math\Vector.h" />
+    <ClInclude Include="Source\Math\Viewport.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\RecursiveSceneIterator.h" />
     <ClInclude Include="Source\Transform.h" />
@@ -87,7 +95,9 @@
       <FileType>Document</FileType>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClInclude>
-    <None Include="Source\Math\Math.inl" />
+    <ClCompile Include="Source\Math\Color.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
     <CustomBuild Include="Source\Shaders\Main.fx">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Shaders/%(Filename).cso</ObjectFileOutput>
       <FileType>Document</FileType>
@@ -96,6 +106,21 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(ProjectDir)_Resource/Effects/%(Filename).fxo" "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)_Resource/Effects/%(Filename).fxo</Outputs>
     </CustomBuild>
+    <ClCompile Include="Source\Math\Matrix.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Plane.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Quaternion.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Ray.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Vector.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Source\Shaders\Blur.fx">

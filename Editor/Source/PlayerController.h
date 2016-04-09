@@ -2,7 +2,8 @@
 
 #include <Behaviour.h>
 #include <Input\Keyboard.h>
-#include <Math\Math.h>
+#include <Math/Vector.h>
+#include <Math/Matrix.h>
 #include <GameObject.h>
 #include <Transform.h>
 

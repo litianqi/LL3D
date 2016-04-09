@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Math/Math.h"
+#include <d3d11.h>
+#include "Math/Vector.h"
 
 namespace LL3D {
 namespace Graphics {

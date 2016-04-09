@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "Math/Math.h"
+#include "Math/Vector.h"
 #include "Graphics/Base.h"
 #include "Graphics/LightFX.h"
 

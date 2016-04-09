@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Math/Math.h"
+#include "Math/Vector.h"
+#include "Math/Color.h"
 #include "Component.h"
 #include "Graphics/Base.h"
 

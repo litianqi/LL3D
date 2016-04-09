@@ -3,7 +3,7 @@
 #include <vector>
 #include <filesystem>
 #include <exception>
-#include "Math/Math.h"
+#include "Math/Vector.h"
 #include "Material.h"
 #include "VertexTypes.h"
 
