@@ -6,8 +6,9 @@
 #include "Graphics\ModelRender.h"
 #include "Graphics\Camera.h"
 #include "Graphics\CommonStates.h"
-#include "RecursiveSceneIterator.h"
 #include "Graphics\LightComponent.h"
+#include "Math\Plane.h"
+#include "RecursiveSceneIterator.h"
 #include "Transform.h"
 
 using namespace std::placeholders;
