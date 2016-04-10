@@ -17,7 +17,6 @@ namespace Test
 		
 		TEST_METHOD(Direction)
 		{
-      auto object = ConstructAGameObject();
       Assert::AreEqual(1, 1);
 		}
 
@@ -27,22 +26,6 @@ namespace Test
     }
 
   private:
-    static GameObject ConstructAGameObject() 
-    {
-      auto camera = make_unique<Graphics::Camera>(Graphics::Camera::Frustum(
-        Math::XM_PI / 8.f,
-        0.5f,
-        1,
-        1000),
-        Math::Vector3(0.f, -100.f, 100.f)
-        );
-
-      auto object =GameObject();
-      
-      object.transform().setPosition(Math::Vector3(0.f, 100.f, -100.f));
-      object.addComponent(std::move(camera));
-
-      return object;
-    }
+    
 	};
 }
