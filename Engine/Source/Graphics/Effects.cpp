@@ -49,11 +49,11 @@ void BasicEffect::apply(ID3D11DeviceContext* device_context) {
   tech_->GetPassByIndex(0)->Apply(0, device_context);
 }
 
-void BasicEffect::vertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) {
+void BasicEffect::vertexShaderBytecode(const void ** bytecode, size_t* bytecodeLength) {
   D3DX11_PASS_DESC pass_desc;
   tech_->GetPassByIndex(0)->GetDesc(&pass_desc);
-  *byte_code = pass_desc.pIAInputSignature;
-  *byte_code_length = pass_desc.IAInputSignatureSize;
+  *bytecode = pass_desc.pIAInputSignature;
+  *bytecodeLength = pass_desc.IAInputSignatureSize;
 }
 
 void BasicEffect::setAmbientLight(const AmbientLightFX & value) {

@@ -26,10 +26,10 @@ Game::Game() {
   std::string err;
   auto config = json11::Json::parse(content, err);
   ASSERT(err.size() == 0 && "Config error (possibly no config file at all).");
-  graphics_device_.reset(new Graphics::Device(config,
+  graphicsDevice_.reset(new Graphics::Device(config,
     window_->clientRect().GetSize(), window_->handle()));
 
-  Graphics::Base::initialize(graphics_device_.get());
+  Graphics::Base::initialize(graphicsDevice_.get());
 
   scene_.reset(new Scene);
 }

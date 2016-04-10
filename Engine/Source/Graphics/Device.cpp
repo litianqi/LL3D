@@ -113,31 +113,31 @@ void Device::onResize(IntSize2 window_size) {
 
   // Create the depth/stencil buffer and view.
 
-  D3D11_TEXTURE2D_DESC depth_stencil_desc;
+  D3D11_TEXTURE2D_DESC depthStencilDesc;
 
-  depth_stencil_desc.Width = window_size.w;
-  depth_stencil_desc.Height = window_size.h;
-  depth_stencil_desc.MipLevels = 1;
-  depth_stencil_desc.ArraySize = 1;
-  depth_stencil_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+  depthStencilDesc.Width = window_size.w;
+  depthStencilDesc.Height = window_size.h;
+  depthStencilDesc.MipLevels = 1;
+  depthStencilDesc.ArraySize = 1;
+  depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
   // Use 4X MSAA? --must match swap chain MSAA values.
   if (enable4xMsaa_) {
-    depth_stencil_desc.SampleDesc.Count = 4;
-    depth_stencil_desc.SampleDesc.Quality = msaaQuality_ - 1;
+    depthStencilDesc.SampleDesc.Count = 4;
+    depthStencilDesc.SampleDesc.Quality = msaaQuality_ - 1;
   }
   // No MSAA
   else {
-    depth_stencil_desc.SampleDesc.Count = 1;
-    depth_stencil_desc.SampleDesc.Quality = 0;
+    depthStencilDesc.SampleDesc.Count = 1;
+    depthStencilDesc.SampleDesc.Quality = 0;
   }
 
-  depth_stencil_desc.Usage = D3D11_USAGE_DEFAULT;
-  depth_stencil_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-  depth_stencil_desc.CPUAccessFlags = 0;
-  depth_stencil_desc.MiscFlags = 0;
+  depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+  depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+  depthStencilDesc.CPUAccessFlags = 0;
+  depthStencilDesc.MiscFlags = 0;
 
-  throwIfFailed(device_->CreateTexture2D(&depth_stencil_desc, 0, &depthStencilBuffer_));
+  throwIfFailed(device_->CreateTexture2D(&depthStencilDesc, 0, &depthStencilBuffer_));
   throwIfFailed(device_->CreateDepthStencilView(depthStencilBuffer_.Get(), 0, &depthStencilView_));
 
 

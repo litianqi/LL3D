@@ -22,7 +22,7 @@ protected:
   virtual void onResize() = 0;
 
   std::unique_ptr<Window>           window_;
-  std::unique_ptr<Graphics::Device> graphics_device_;
+  std::unique_ptr<Graphics::Device> graphicsDevice_;
   std::unique_ptr<Scene>            scene_;
 };
 
