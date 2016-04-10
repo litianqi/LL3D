@@ -119,7 +119,7 @@ ModelRender::ModelRender(const Model & model) :
 
 ModelRender::ModelRender(std::experimental::filesystem::path pathname)
 {
-  auto model = Model::LoadAssimp(pathname);
+  auto model = Model::loadAssimp(pathname);
   for (const auto& m : model.meshes) {
     meshRenders_.push_back(MeshRender(m, model.materials));
   }
@@ -130,19 +130,19 @@ ModelRender::ModelRender(BuiltInModel type)
 {
   auto model = Model();
   if (type == Cube) {
-    auto mesh = Mesh::CreateCube(10.f, 10.f, 10.f);
+    auto mesh = Mesh::createCube(10.f, 10.f, 10.f);
     mesh.materialIndex = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Cube";
   }
   else if (type == Sphere) {
-    auto mesh = Mesh::CreateSphere(5.f, 50, 50);
+    auto mesh = Mesh::createSphere(5.f, 50, 50);
     mesh.materialIndex = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Sphere";
   }
   else if (type == Grid) {
-    auto mesh = Mesh::CreateGrid(100.f, 100.f, 2, 2);
+    auto mesh = Mesh::createGrid(100.f, 100.f, 2, 2);
     mesh.materialIndex = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Grid";

@@ -13,7 +13,7 @@ using namespace LL3D::Math;
 namespace LL3D {
 namespace Graphics {
 
-Model Model::LoadAssimp(filesystem::path pathname)
+Model Model::loadAssimp(filesystem::path pathname)
 {
   if (!filesystem::exists(pathname))
     throw std::exception("File doesn't exists");
@@ -195,7 +195,7 @@ Model Model::LoadAssimp(filesystem::path pathname)
   return model;
 }
 
-Mesh Mesh::CreateCube(float width, float height, float depth)
+Mesh Mesh::createCube(float width, float height, float depth)
 {
   auto mesh = Mesh();
 
@@ -277,7 +277,7 @@ Mesh Mesh::CreateCube(float width, float height, float depth)
   return mesh;
 }
 
-Mesh Mesh::CreateSphere(float radius, int sliceCount, int stackCount)
+Mesh Mesh::createSphere(float radius, int sliceCount, int stackCount)
 {
   auto mesh = Mesh();
 
@@ -368,7 +368,7 @@ Mesh Mesh::CreateSphere(float radius, int sliceCount, int stackCount)
   return mesh;
 }
 
-Mesh Mesh::CreateGrid(float width, float depth, int cols, int rows)
+Mesh Mesh::createGrid(float width, float depth, int cols, int rows)
 {
   auto mesh = Mesh();
 

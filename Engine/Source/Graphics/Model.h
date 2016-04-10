@@ -17,9 +17,9 @@ struct Mesh {
   std::vector<unsigned int> indices;
   int                       materialIndex = -1;
   
-  static Mesh CreateCube(float width, float height, float depth);
-  static Mesh CreateSphere(float radius, int sliceCount, int stackCount);
-  static Mesh CreateGrid(float width, float depth, int m, int n);
+  static Mesh createCube(float width, float height, float depth);
+  static Mesh createSphere(float radius, int sliceCount, int stackCount);
+  static Mesh createGrid(float width, float depth, int m, int n);
 };
 
 struct Model {
@@ -28,12 +28,12 @@ struct Model {
   std::vector<Material> materials;
   DirectX::BoundingBox  boundingBox;
 
-  static DirectX::BoundingBox CalculateLocalBox(const std::vector<Mesh>& meshs);
+  static DirectX::BoundingBox localBoundingBox(const std::vector<Mesh>& meshs);
   //>
   // Load a Model from file using Assimp.
   // Throw std::exception if filename doesn't exists or parsing faild. 
   //
-  static Model LoadAssimp(std::experimental::filesystem::path pathname);
+  static Model loadAssimp(std::experimental::filesystem::path pathname);
 };
 
 }  // namespace Graphics

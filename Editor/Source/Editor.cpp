@@ -74,7 +74,7 @@ Editor::Editor()
   scene_->add(std::move(grid));
 
   // Add transparent.
-  auto mesh0 = Graphics::Mesh::CreateGrid(90, 90, 2, 2);
+  auto mesh0 = Graphics::Mesh::createGrid(90, 90, 2, 2);
   mesh0.materialIndex = 0;
   auto mat0 = Graphics::Material();
   mat0.diffuse = Math::Vector3(1.f, 1.f, 1.f);
@@ -89,7 +89,7 @@ Editor::Editor()
   scene_->add(std::move(transparent));
 
   // Add mirror.
-  auto mesh1 = Graphics::Mesh::CreateGrid(90, 90, 2, 2);
+  auto mesh1 = Graphics::Mesh::createGrid(90, 90, 2, 2);
   mesh1.materialIndex = 0;
   auto mat1 = Graphics::Material();
   mat1.diffuse = Math::Vector3(1.f, 1.f, 1.f);
@@ -175,5 +175,5 @@ void Editor::update() {
 }
 
 void Editor::onResize() {
-  graphics_device_->onResize(IntSize2{ window_->clientRect().GetSize().w, window_->clientRect().GetSize().h });
+  graphicsDevice_->onResize(IntSize2{ window_->clientRect().GetSize().w, window_->clientRect().GetSize().h });
 }
