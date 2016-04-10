@@ -6,6 +6,10 @@
 #include "Graphics/Base.h"
 
 namespace LL3D {
+class Transform;
+}
+
+namespace LL3D {
 namespace Graphics {
 
 // Non-rollable Camera. 
@@ -30,8 +34,7 @@ public:
     float z_far_;
   };
 
-  Camera(Frustum frustum, Math::Vector3 forward_vector);
-  std::unique_ptr<Component> Clone() override;
+  Camera(Transform& transform, Frustum frustum, Math::Vector3 forward_vector);
 
   void SetFrustum(const Frustum& frustum);
   void SetPosition(Math::Vector3 p);
@@ -44,6 +47,7 @@ public:
   Math::Vector3 GetForwardVector() const;
   Math::Vector3 GetRightVector() const;
   Math::Vector3 GetUpVector() const;
+  DirectX::BoundingFrustum GetBoundingFrustum() const;
 
   //>
   // Writes properties to shader buffer.
@@ -59,6 +63,7 @@ protected:
 
 private:
   Frustum frustum_;
+  Transform& transform_;
 };
 
 }  // namespace Graphics

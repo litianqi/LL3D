@@ -21,67 +21,77 @@ void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
   aspect_ratio_ = aspect_ratio;
 }
 
-Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const {
+Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const 
+{
   return Math::Matrix::CreatePerspectiveFieldOfView(radian_fov_y_, aspect_ratio_,
     static_cast<float>(z_near_), static_cast<float>(z_far_));
 }
 
-Camera::Camera(Frustum frustum, Math::Vector3 forward_vector) :
+Camera::Camera(Transform& transform, Frustum frustum, Math::Vector3 forward_vector) :
+  transform_(transform),
   frustum_(frustum),
-  forward_vector_(forward_vector) {
+  forward_vector_(forward_vector) 
+{
   ASSERT(forward_vector != Math::Vector3::Zero);
   ASSERT(!XMVector3IsInfinite(forward_vector));
   ASSERT(forward_vector.Cross(Math::Vector3::Up) != Math::Vector3::Zero);
 }
 
-std::unique_ptr<Component> Camera::Clone() {
-  return std::make_unique<Camera>(*this);
-}
-
-void Camera::Render() const {
+void Camera::Render() const 
+{
   s_effect->SetEyePosW(GetPosition());
   s_effect->SetViewProjection(GetViewMatrix() * GetFrustum().GetProjectionMaxtrix());
 }
 
-void Camera::SetFrustum(const Frustum & frustum) {
+void Camera::SetFrustum(const Frustum & frustum) 
+{
   frustum_ = frustum;
 }
 
-void Camera::SetPosition(Math::Vector3 p) {
-  GetGameObject()->GetComponent<Transform>()->SetPosition(p);
+void Camera::SetPosition(Math::Vector3 p) 
+{
+  transform_.SetPosition(p);
 }
 
-void Camera::SetForwardVector(Math::Vector3 v) {
+void Camera::SetForwardVector(Math::Vector3 v) 
+{
   forward_vector_ = v;
 }
 
-Math::Matrix Camera::GetViewMatrix() const {
+Math::Matrix Camera::GetViewMatrix() const 
+{
   return Math::Matrix::CreateLookTo(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
 }
 
-Math::Matrix Camera::GetViewProjectionMatrix() const {
+Math::Matrix Camera::GetViewProjectionMatrix() const 
+{
   Math::Matrix projection = frustum_.GetProjectionMaxtrix();
   return GetViewMatrix() * projection;
 }
 
-const Camera::Frustum& Camera::GetFrustum() const {
+const Camera::Frustum& Camera::GetFrustum() const 
+{
   return frustum_;
 }
 
-Math::Vector3 Camera::GetPosition() const {
-  return GetGameObject()->GetComponent<Transform>()->GetPosition();
+Math::Vector3 Camera::GetPosition() const 
+{
+  return transform_.position();
 }
 
-Math::Vector3 Camera::GetForwardVector() const {
+Math::Vector3 Camera::GetForwardVector() const 
+{
   return forward_vector_;
 }
 
-Math::Vector3 Camera::ViewToWorldPosition(Math::Vector3 p) const {
+Math::Vector3 Camera::ViewToWorldPosition(Math::Vector3 p) const 
+{
   auto view = GetViewMatrix();
   return Math::Vector3::Transform(p, view.Invert());
 }
 
-Math::Vector3 Camera::WorldToViewPosition(Math::Vector3 p) const {
+Math::Vector3 Camera::WorldToViewPosition(Math::Vector3 p) const 
+{
   return XMVector3Transform(p, GetViewMatrix());
 }
 

@@ -3,6 +3,7 @@
 #include <iterator>
 #include <stack>
 #include <list>
+#include <memory>
 
 namespace LL3D {
 
@@ -30,10 +31,9 @@ public:
   //
   bool operator==(const RecursiveSceneIterator& rhs) const noexcept;
   bool operator!=(const RecursiveSceneIterator& rhs) const noexcept;
-  //>
-  // Summary: Returns value this iterator points to.
+  
+  // Returns value this iterator points to.
   // Exception: Throw a std::out_of_range exception if dereferenced end.
-  //
   GameObject& operator*();
   GameObject* operator->();
 
@@ -47,11 +47,11 @@ private:
   //>
   // Iterator points to value.
   //
-  std::list<GameObject>::iterator iter_;
+  std::list<std::unique_ptr<GameObject>>::iterator iter_;
   //>
   // Parents. If parents is empty, then parent is Scene.
   //
-  std::stack<std::list<GameObject>::iterator> parents_;
+  std::stack<std::list<std::unique_ptr<GameObject>>::iterator> parents_;
 };
 
 //--------------------------------------

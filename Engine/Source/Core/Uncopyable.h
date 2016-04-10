@@ -1,6 +1,7 @@
 #pragma once
 
 namespace LL3D {
+namespace Core {
 
 class Uncopyable {
 public:
@@ -12,4 +13,5 @@ protected:
   ~Uncopyable() = default;
 };
 
+}  // namespace Core
 }  // namespace LL3D

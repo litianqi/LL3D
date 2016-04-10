@@ -7,7 +7,8 @@
 namespace LL3D {
 namespace Graphics {
 
-LightComponent::LightComponent(LightType type) :
+LightComponent::LightComponent(const Transform& transform, LightType type) :
+  transform_(transform),
   type_(type)
 {
   if (type == Ambient) {
@@ -41,47 +42,44 @@ LightComponent::LightComponent(LightType type) :
   }
 }
 
-LightComponent::LightComponent(const AmbientLight & light) :
+LightComponent::LightComponent(const Transform& transform, const AmbientLight & light) :
+  transform_(transform),
   type_(Ambient)
 {
   light_.ambient = light;
 }
 
-LightComponent::LightComponent(const DirectionalLight & light) :
+LightComponent::LightComponent(const Transform& transform, const DirectionalLight & light) :
+  transform_(transform),
   type_(Directional)
 {
   light_.directional = light;
 }
 
-LightComponent::LightComponent(const PointLight & light) :
+LightComponent::LightComponent(const Transform& transform, const PointLight & light) :
+  transform_(transform),
   type_(Point)
 {
   light_.point = light;
 }
 
-LightComponent::LightComponent(const SpotLight & light) :
+LightComponent::LightComponent(const Transform& transform, const SpotLight & light) :
+  transform_(transform),
   type_(Spot)
 {
   light_.spot = light;
 }
 
-std::unique_ptr<Component> LightComponent::Clone()
-{
-  return std::make_unique<LightComponent>(*this);
-}
-
 void LightComponent::Render() const
 {
-  const auto& transform = GetGameObject()->GetTransform();
-
   if (type_ == Ambient) {
     s_effect->SetAmbientLight(AmbientLightFX(light_.ambient));
   } else if (type_ == Directional) {
-    s_effect->SetDirectionalLight(DirectionalLightFX(light_.directional, transform));
+    s_effect->SetDirectionalLight(DirectionalLightFX(light_.directional, transform_));
   } else if (type_ == Point) {
-    s_effect->SetPointLight(PointLightFX(light_.point, transform));
+    s_effect->SetPointLight(PointLightFX(light_.point, transform_));
   } else if (type_ == Spot) {
-    s_effect->SetSpotLight(SpotLightFX(light_.spot, transform));
+    s_effect->SetSpotLight(SpotLightFX(light_.spot, transform_));
   } else {
     ASSERT(false && "Invalid type_");
   }

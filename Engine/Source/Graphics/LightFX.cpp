@@ -14,8 +14,8 @@ SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) no
   inner_cone_angle = light.inner_cone_angle;
   outer_cone_angle = light.outer_cone_angle;
 
-  position = transform.GetPosition();
-  direction = transform.GetDirection();
+  position = transform.position();
+  direction = transform.direction();
 }
 
 AmbientLightFX::AmbientLightFX(const AmbientLight & light) noexcept
@@ -28,8 +28,8 @@ DirectionalLightFX::DirectionalLightFX(const DirectionalLight & light, const Tra
   diffuse = light.diffuse;
   specular = light.specular;
   
-  auto rotation = transform.GetRotation();
-  direction = transform.GetDirection();
+  auto rotation = transform.rotation();
+  direction = transform.direction();
 }
 
 PointLightFX::PointLightFX(const PointLight & light, const Transform& transform) noexcept
@@ -38,7 +38,7 @@ PointLightFX::PointLightFX(const PointLight & light, const Transform& transform)
   specular = light.specular;
   attenuation = light.attenuation;
   
-  position = transform.GetPosition();
+  position = transform.position();
 }
 
 }  // namespace Graphics

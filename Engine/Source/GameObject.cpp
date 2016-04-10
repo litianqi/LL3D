@@ -10,44 +10,21 @@ using namespace std;
 namespace LL3D {
 
 GameObject::GameObject() {
-  AddComponent<Transform>();
+  auto transform = make_unique<Transform>(nullptr);
+  AddComponent(std::move(transform));
 }
 
 GameObject::GameObject(const std::string & name) noexcept :
 name_(name) 
 {
-  AddComponent<Transform>();
-}
-
-GameObject::GameObject(const GameObject & other) noexcept :
-parent_(other.parent_),
-children_(other.children_),
-scene_(other.scene_),
-active_(other.active_),
-name_(other.name_),
-tag_(other.tag_)
-{
-  for (auto& child : children_) {
-    child.SetParent(this);
-  }
-
-  for (const auto& component : other.components_) {
-    components_[component.first] = std::move(component.second->Clone());
-    components_[component.first]->SetGameObject(this);
-  }
-}
-
-GameObject& GameObject::operator=(const GameObject& other) noexcept
-{
-  GameObject tmp(other);
-  swap(tmp, *this);
-  return *this;
+  auto transform = make_unique<Transform>(nullptr);
+  AddComponent(std::move(transform));
 }
 
 void GameObject::Start()
 {
   for (auto& child : children_) {
-    child.Start();
+    child->Start();
   }
 
   for (auto& component : components_) {
@@ -57,7 +34,7 @@ void GameObject::Start()
 
 void GameObject::Update() {
   for (auto& child : children_) {
-    child.Update();
+    child->Update();
   }
 
   for (auto& component : components_) {
@@ -79,15 +56,16 @@ void GameObject::SetScene(Scene * scene) {
 
 void GameObject::SetParent(GameObject * parent) {
   parent_ = parent;
+  const auto& parentTransform = parent->GetTransform();
+  GetTransform().setParentTransform(&parentTransform);
 }
 
-void GameObject::AddChild(GameObject child) {
-  child.SetParent(this);
-  children_.push_back(child);
+void GameObject::AddChild(std::unique_ptr<GameObject> child) {
+  child->SetParent(this);
+  children_.push_back(std::move(child));
 }
 
 void GameObject::AddComponent(std::unique_ptr<Component> component) {
-  component->SetGameObject(this);
   components_[type_index(typeid(*component))] = std::move(component);
 }
 

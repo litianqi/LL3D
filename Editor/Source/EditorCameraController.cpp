@@ -9,10 +9,6 @@
 
 using namespace LL3D;
 
-std::unique_ptr<Component> EditorCameraController::Clone() {
-  return std::unique_ptr<Component>(new EditorCameraController(*this));
-}
-
 void EditorCameraController::MoveLeftRight(float d) {
   auto normal_right = camera_->GetRightVector();
   normal_right.Normalize();
@@ -100,7 +96,7 @@ void EditorCameraController::Yaw(float angle) {
 
 void EditorCameraController::Start()
 {
-  camera_ = GetGameObject()->GetComponent<LL3D::Graphics::Camera>();
+  camera_ = object()->GetComponent<LL3D::Graphics::Camera>();
 }
 
 void EditorCameraController::Update() {
@@ -133,10 +129,10 @@ Math::Vector3 EditorCameraController::GetTargetPosition() const {
 
 Math::Vector3 EditorCameraController::GetPosition() const
 {
-  return GetGameObject()->GetComponent<Transform>()->GetPosition();
+  return object()->GetComponent<Transform>()->position();
 }
 
 void EditorCameraController::SetPosition(Math::Vector3 value)
 {
-  GetGameObject()->GetComponent<Transform>()->SetPosition(value);
+  object()->GetComponent<Transform>()->SetPosition(value);
 }

@@ -5,6 +5,7 @@
 #include "Effects.h"
 #include "Assets.h"
 #include "Core/Assert.h"
+#include "Transform.h"
 
 using namespace std::experimental;
 
@@ -14,10 +15,10 @@ namespace Graphics {
 MeshRender::MeshRender(const Mesh& mesh, const std::vector<Material>& materials) :
   material_(materials[mesh.material_index])
 {
-  SetMesh(mesh);
+  setMesh(mesh);
 }
 
-void MeshRender::SetMesh(const Mesh & mesh)
+void MeshRender::setMesh(const Mesh & mesh)
 {
   mesh_ = mesh;
 
@@ -32,7 +33,7 @@ void MeshRender::SetMesh(const Mesh & mesh)
   vinitData.pSysMem = mesh.vertices.data();
 
   ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateBuffer(&vbd, &vinitData, &vertex_buffer_)
+    s_graphics_device->GetDevice()->CreateBuffer(&vbd, &vinitData, &vertexBuffer_)
     );
 
   D3D11_BUFFER_DESC ibd;
@@ -45,23 +46,23 @@ void MeshRender::SetMesh(const Mesh & mesh)
   iinitData.pSysMem = mesh.indices.data();
 
   ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &index_buffer_)
+    s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &indexBuffer_)
     );
 }
 
-void MeshRender::SetMaterial(const Material & value)
+void MeshRender::setMaterial(const Material & material)
 {
-  material_ = value;
+  material_ = material;
 }
 
-void MeshRender::Render() const noexcept
+void MeshRender::render() const noexcept
 {
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
 
   s_graphics_device->GetDeviceContex()->IASetVertexBuffers(0, 1, 
-    vertex_buffer_.GetAddressOf(), &stride, &offset);
-  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(index_buffer_.Get(), 
+    vertexBuffer_.GetAddressOf(), &stride, &offset);
+  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(indexBuffer_.Get(), 
     DXGI_FORMAT_R32_UINT, 0);
 
   //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
@@ -87,23 +88,23 @@ void MeshRender::Render() const noexcept
   //s_graphics_device->GetDeviceContex()->RSSetState(0);
 }
 
-const Material & MeshRender::GetMaterial() const
+const Material & MeshRender::material() const
 {
   return material_;
 }
 
-bool MeshRender::IsMirror() const
+bool MeshRender::mirror() const
 {
   return material_.is_mirror;
 }
 
-bool MeshRender::IsTransparent() const
+bool MeshRender::transparent() const
 {
   return !material_.is_mirror && 
     (0.f < material_.opacity && material_.opacity < 1.f);
 }
 
-bool MeshRender::IsOpaque() const
+bool MeshRender::opaque() const
 {
   return material_.opacity >= 1.f;
 }
@@ -112,7 +113,7 @@ ModelRender::ModelRender(const Model & model) :
   name_(model.name)
 {
   for (const auto& m : model.meshes) {
-    mesh_renders_.push_back(MeshRender(m, model.materials));
+    meshRenders_.push_back(MeshRender(m, model.materials));
   }
 }
 
@@ -120,7 +121,7 @@ ModelRender::ModelRender(std::experimental::filesystem::path pathname)
 {
   auto model = Model::LoadAssimp(pathname);
   for (const auto& m : model.meshes) {
-    mesh_renders_.push_back(MeshRender(m, model.materials));
+    meshRenders_.push_back(MeshRender(m, model.materials));
   }
   name_ = model.name;
 }
@@ -162,25 +163,38 @@ ModelRender::ModelRender(BuiltInModel type)
   model.materials.push_back(mat);
   
   for (const auto& m : model.meshes) {
-    mesh_renders_.push_back(MeshRender(m, model.materials));
+    meshRenders_.push_back(MeshRender(m, model.materials));
   }
 
   name_ = model.name;
 }
 
-std::unique_ptr<Component> ModelRender::Clone()
-{
-  return std::make_unique<ModelRender>(*this);
-}
-
-const std::string & ModelRender::GetName() const
+const std::string & ModelRender::name() const
 {
   return name_;
 }
 
-const std::vector<MeshRender>& ModelRender::GetMeshRenders() const
+const std::vector<MeshRender>& ModelRender::meshRenders() const
 {
-  return mesh_renders_;
+  return meshRenders_;
+}
+
+const DirectX::BoundingBox & ModelRender::localBoundingBox() const
+{
+  return localBoundingBox_;
+}
+
+DirectX::BoundingOrientedBox convertToWorldBoundingBox(
+  const DirectX::BoundingBox & localBoundingBox, 
+  const Transform & transform)
+{
+  const auto center = localBoundingBox.Center + transform.position();
+  const auto extents = localBoundingBox.Extents * transform.scale();
+  const auto rotation = transform.rotationQuaternion();
+  
+  return DirectX::BoundingOrientedBox(
+      center, extents, rotation
+    );
 }
 
 }  // namespace Graphics

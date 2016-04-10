@@ -26,7 +26,9 @@ struct Model {
   std::string           name;
   std::vector<Mesh>     meshes;
   std::vector<Material> materials;
+  DirectX::BoundingBox  bounding_box;
 
+  static DirectX::BoundingBox CalculateLocalBox(const std::vector<Mesh>& meshs);
   //>
   // Load a Model from file using Assimp.
   // Throw std::exception if filename doesn't exists or parsing faild. 

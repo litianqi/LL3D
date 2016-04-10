@@ -4,6 +4,7 @@
 #include <Math/Math.h>
 
 namespace LL3D {
+class GameObject;
 namespace Graphics {
 class Camera;
 }
@@ -11,39 +12,22 @@ class Camera;
 
 class EditorCameraController : public LL3D::Behaviour {
 public:
-  std::unique_ptr<Component> Clone() override;
+  EditorCameraController(LL3D::GameObject* object) : Behaviour(object) {}
   
-  //--------------------------------------
-  // Move
-
-  //>  
   // Move d in world space.
-  //
   void MoveLeftRight(float d);
   void MoveUpDown(float d);
   void MoveBackForeward(float d);
-
   
-  //--------------------------------------
-  // Rotate
-
-  //>  
   // Rotate around right vector in target pos.
-  //
   void Pitch(float angle);
-  //>  
   // Rotate around world up vector in target pos.
-  //
   void Yaw(float angle);
 
-  
-  //--------------------------------------
   // Operations
   void Start() override;
-  //>  
   // Update Camera properties based on user input. Then writes properties
   // to shader input.
-  //
   void Update() override;
 
 private:

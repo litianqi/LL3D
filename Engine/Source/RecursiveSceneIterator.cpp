@@ -16,17 +16,17 @@ RecursiveSceneIterator& RecursiveSceneIterator::operator++() noexcept
     return *this;
 
   // If has child
-  if (!iter_->children_.empty()) {
+  if (!(*iter_)->children_.empty()) {
     // References to first child
     parents_.push(iter_);
-    iter_ = iter_->children_.begin();
+    iter_ = (*iter_)->children_.begin();
   }
   // Else if has GameObject as parent
   else if (!parents_.empty()) {
     ASSERT(scene_);
     // If has brother, references to brother
     // Else, references to parent
-    if (++iter_ == parents_.top()->children_.end()){
+    if (++iter_ == (*parents_.top())->children_.end()){
       iter_ = parents_.top();
       parents_.pop();
     }
@@ -65,14 +65,14 @@ GameObject& RecursiveSceneIterator::operator*()
 {
   if (IsEnd())
     throw std::out_of_range("Dereferenced(*) an end RecursiveSceneIterator.");
-  return *iter_;
+  return **iter_;
 }
 
 GameObject* RecursiveSceneIterator::operator->()
 {
   if (IsEnd())
     throw std::out_of_range("Dereferenced(->) an end RecursiveSceneIterator.");
-  return &(*iter_);
+  return iter_->get();
 }
 
 bool RecursiveSceneIterator::IsEnd() const noexcept
@@ -80,7 +80,7 @@ bool RecursiveSceneIterator::IsEnd() const noexcept
   auto is_end = true;
     if (!parents_.empty()) {
       ASSERT(scene_);
-      if (iter_ != parents_.top()->children_.end())
+      if (iter_ != (*parents_.top())->children_.end())
         is_end = false;
     }
     else if (scene_) {

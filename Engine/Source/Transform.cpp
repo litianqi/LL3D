@@ -3,12 +3,17 @@
 #include "GameObject.h"
 
 namespace LL3D {
-
-std::unique_ptr<Component> Transform::Clone() {
-  return std::make_unique<Transform>(*this);
+Transform::Transform(const Transform * parent_transform) :
+  parent_transform_(parent_transform)
+{
 }
 
-void Transform::SetLocalPosition(Math::Vector3 value) 
+void Transform::setParentTransform(const Transform * parent_transform)
+{
+  parent_transform_ = parent_transform;
+}
+
+void Transform::SetLocalPosition(Math::Vector3 value)
 {
   position_ = value;
 }
@@ -38,25 +43,22 @@ void Transform::SetLocalMatrix(Math::Matrix value)
 }
 
 void Transform::SetPosition(Math::Vector3 value) {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    position_ = value - parent->GetTransform().GetPosition();
+  if (parent_transform_)
+    position_ = value - parent_transform_->position();
   else
     position_ = value;
 }
 
 void Transform::SetRotation(Math::Vector3 value) {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    SetLocalRotation(value - parent->GetTransform().GetRotation());
+  if (parent_transform_)
+    SetLocalRotation(value - parent_transform_->rotation());
   else
     SetLocalRotation(value);
 }
 
 void Transform::SetScale(Math::Vector3 value) {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    scale_ = value / parent->GetTransform().GetScale();
+  if (parent_transform_)
+    scale_ = value / parent_transform_->scale();
   else
     scale_ = value;
 }
@@ -64,77 +66,79 @@ void Transform::SetScale(Math::Vector3 value) {
 void Transform::SetMatrix(Math::Matrix value)
 {
   auto matrix = Math::Matrix();
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    matrix = value / parent->GetTransform().GetMatrix();
+  if (parent_transform_)
+    matrix = value / parent_transform_->matrix();
   else
     matrix = value;
   SetLocalMatrix(matrix);
 }
 
-Math::Vector3 Transform::GetLocalPosition() const {
+Math::Vector3 Transform::localPosition() const {
   return position_;
 }
 
-Math::Vector3 Transform::GetLocalRotation() const {
+Math::Vector3 Transform::localRotation() const {
   return rotation_;
 }
 
-Math::Vector3 Transform::GetLocalScale() const {
+Math::Vector3 Transform::localScale() const {
   return scale_;
 }
 
-Math::Vector3 Transform::GetLocalDirection() const
+Math::Vector3 Transform::localDirection() const
 {
-  auto rotation = GetLocalRotation();
+  auto rotation = localRotation();
   auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   return Math::Vector3::Transform(Math::Vector3::Up, matrix);
 }
 
-Math::Matrix Transform::Compose() const {
-  return Compose(position_, rotation_, scale_);
+Math::Matrix Transform::compose() const {
+  return compose(position_, rotation_, scale_);
 }
 
-Math::Vector3 Transform::GetPosition() const {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    return position_ + parent->GetTransform().GetPosition();
+Math::Vector3 Transform::position() const {
+  if (parent_transform_)
+    return position_ + parent_transform_->position();
   else
     return position_;
 }
 
-Math::Vector3 Transform::GetRotation() const {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    return rotation_ + parent->GetTransform().GetRotation();
+Math::Vector3 Transform::rotation() const {
+  if (parent_transform_)
+    return rotation_ + parent_transform_->rotation();
   else
     return rotation_;
 }
 
-Math::Vector3 Transform::GetScale() const {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    return scale_ + parent->GetTransform().GetScale();
+Math::Quaternion Transform::rotationQuaternion() const
+{
+  return Math::Quaternion::CreateFromYawPitchRoll(
+    rotation_.x, rotation_.y, rotation_.z
+    );
+}
+
+Math::Vector3 Transform::scale() const {
+  if (parent_transform_)
+    return scale_ + parent_transform_->scale();
   else
     return scale_;
 }
 
-Math::Vector3 Transform::GetDirection() const
+Math::Vector3 Transform::direction() const
 {
-  auto parent = GetGameObject()->GetParent();
-  if (parent)
-    return GetLocalDirection() + parent->GetTransform().GetDirection();
+  if (parent_transform_)
+    return localDirection() + parent_transform_->direction();
   else
-    return GetLocalDirection();
+    return localDirection();
 }
 
-Math::Matrix Transform::GetMatrix() const {
-  return Compose(GetPosition(), GetRotation(), GetScale());
+Math::Matrix Transform::matrix() const {
+  return compose(position(), rotation(), scale());
 }
 
 void Transform::Render() const
 {
-  Render(GetMatrix());
+  Render(matrix());
 }
 
 void Transform::Render(Math::Matrix world)
@@ -142,7 +146,7 @@ void Transform::Render(Math::Matrix world)
   s_effect->SetWorld(world);
 }
 
-Math::Matrix Transform::Compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) {
+Math::Matrix Transform::compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) {
   auto r = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   auto s = Math::Matrix::CreateScale(scale);
   auto t = Math::Matrix::CreateTranslation(position);

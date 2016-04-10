@@ -24,7 +24,7 @@ struct ID3D11ShaderResourceView;
 namespace LL3D {
 namespace Graphics {
 
-class Effect : private Uncopyable, protected Base {
+class Effect : private Core::Uncopyable, protected Base {
 public:
   Effect(std::string path);
   virtual ~Effect() {}

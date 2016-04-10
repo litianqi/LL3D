@@ -8,9 +8,7 @@
 
 class WaveController : public LL3D::Behaviour {
 public:
-  std::unique_ptr<Component> Clone() override {
-    return std::make_unique<WaveController>(*this);
-  }
+  WaveController(LL3D::GameObject* object) : Behaviour(object) {}
 
   void Update() override {
     /*auto p = GetGameObject()->GetComponent<LL3D::Graphics::Model>()->GetTextureTransform();

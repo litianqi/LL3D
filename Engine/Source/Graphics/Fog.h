@@ -29,7 +29,6 @@ public:
   // Note: Alpha of color is unused.
   //
   Fog(Math::Color color, float start, float range);
-  std::unique_ptr<Component> Clone() override;
 
   void Update() override;
 

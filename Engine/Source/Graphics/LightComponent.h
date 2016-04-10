@@ -6,18 +6,21 @@
 #include "Graphics/LightFX.h"
 
 namespace LL3D {
+class Transform;
+}
+
+namespace LL3D {
 namespace Graphics {
 
 class LightComponent : public Component, private Base {
 public:
   enum LightType {Ambient, Directional, Point, Spot};
 
-  LightComponent(LightType type);
-  LightComponent(const AmbientLight& light);
-  LightComponent(const DirectionalLight& light);
-  LightComponent(const PointLight& light);
-  LightComponent(const SpotLight& light);
-  std::unique_ptr<Component> Clone() override;
+  LightComponent(const Transform& transform, LightType type);
+  LightComponent(const Transform& transform, const AmbientLight& light);
+  LightComponent(const Transform& transform, const DirectionalLight& light);
+  LightComponent(const Transform& transform, const PointLight& light);
+  LightComponent(const Transform& transform, const SpotLight& light);
 
   void Render() const;
 
@@ -39,6 +42,7 @@ private:
     ~Light() noexcept;
 
   } light_;
+  const Transform& transform_;
 };
 
 }  // namespace Graphics

@@ -39,8 +39,8 @@ const auto ReflectionOffset = Math::Vector3(0.02f, 0.02f, 0.02f);
 bool SortBasedOnDistanceToCamera(Math::Vector3& camera_pos, 
   const RenderableMesh& lhs, const RenderableMesh& rhs)
 {
-  auto lhs_pos = lhs.first.GetPosition();
-  auto rhs_pos = rhs.first.GetPosition();
+  auto lhs_pos = lhs.first.position();
+  auto rhs_pos = rhs.first.position();
   auto lhs_d = Math::Vector3::Distance(camera_pos, lhs_pos);
   auto rhs_d = Math::Vector3::Distance(camera_pos, rhs_pos);
   if (lhs_d != rhs_d)
@@ -74,13 +74,13 @@ void RenderPlanarShadow(Transform transform,
       continue;
     }
     case Graphics::LightComponent::Directional: {
-      const auto dir = -light->GetTransform().GetDirection();
+      const auto dir = -light->GetTransform().direction();
       vec = Math::Vector4(dir.x, dir.y, dir.z, 0.f);
       break;
     }
     case Graphics::LightComponent::Point:
     case Graphics::LightComponent::Spot: {
-      const auto pos = light->GetTransform().GetPosition();
+      const auto pos = light->GetTransform().position();
       vec = Math::Vector4(pos.x, pos.y, pos.z, 1.f);
       continue;
     }
@@ -90,14 +90,14 @@ void RenderPlanarShadow(Transform transform,
     }
 
     const auto shadow = Math::Matrix::CreateShadow(vec, xz);
-    const auto& world = transform.GetMatrix();
+    const auto& world = transform.matrix();
     Transform::Render(world * shadow * Math::Matrix::CreateTranslation(ShadowOffset));
-    const auto old_mat = mesh.GetMaterial();
+    const auto old_mat = mesh.material();
     // We lied, but we will recover it latter, it's a good lie.
-    const_cast<Graphics::MeshRender&>(mesh).SetMaterial(mat);
-    mesh.Render();
+    const_cast<Graphics::MeshRender&>(mesh).setMaterial(mat);
+    mesh.render();
     // Recover old material like I said.
-    const_cast<Graphics::MeshRender&>(mesh).SetMaterial(old_mat);
+    const_cast<Graphics::MeshRender&>(mesh).setMaterial(old_mat);
   }
 }
 
@@ -105,17 +105,16 @@ void RenderPlanarShadow(Transform transform,
 
 namespace LL3D {
 
-void Scene::AddGameObject(const GameObject& object) {
-  auto tmp = object;
-  tmp.SetScene(this);
-  objects_.push_back(tmp);
+void Scene::Add(std::unique_ptr<GameObject> object) {
+  object->SetScene(this);
+  objects_.push_back(std::move(object));
 }
 
 void LL3D::Scene::Update() {
 
   if (first_update_) {
     for (auto& object : objects_) {
-      object.Start();
+      object->Start();
     }
     first_update_ = false;
   }
@@ -132,7 +131,7 @@ void LL3D::Scene::Update() {
   //s_effect->SetProjection(camera->GetFrustum().GetProjectionMaxtrix());
 
   for (auto& object : objects_) {
-    object.Update();
+    object->Update();
   }
 }
 
@@ -185,10 +184,10 @@ void Scene::Render() noexcept
       continue;
     const auto& transform = object.GetTransform();
     transform.Render();
-    for (const auto& mesh : model->GetMeshRenders())
+    for (const auto& mesh : model->meshRenders())
     {
-      if (mesh.IsOpaque()) {
-        mesh.Render();
+      if (mesh.opaque()) {
+        mesh.render();
       }
     }
   }
@@ -210,9 +209,9 @@ void Scene::Render() noexcept
       continue;
 
     const auto& transform = object.GetTransform();
-    for (const auto& mesh : model->GetMeshRenders())
+    for (const auto& mesh : model->meshRenders())
     {
-      if (mesh.IsOpaque()) {
+      if (mesh.opaque()) {
         RenderPlanarShadow(transform, mesh, lights);
       }
     }
@@ -229,10 +228,10 @@ void Scene::Render() noexcept
       Graphics::CommonStates::MarkMirror(), MirrorStencilRef
       );
     mirror.first.Render();
-    mirror.second->Render();
+    mirror.second->render();
 
     // b. Reverse all lights. (TODO)
-    const auto plane = Math::Plane(mirror.first.GetPosition(), mirror.first.GetDirection());
+    const auto plane = Math::Plane(mirror.first.position(), mirror.first.direction());
     auto reflect = Math::XMMatrixReflect(plane);
     reflect *= Math::Matrix::CreateTranslation(ReflectionOffset);
 
@@ -256,11 +255,11 @@ void Scene::Render() noexcept
       const auto* model = object.GetComponent<Graphics::ModelRender>();
       if (!model)
         continue;
-      Transform::Render(object.GetTransform().GetMatrix() * reflect);
-      for (const auto& mesh : model->GetMeshRenders())
+      Transform::Render(object.GetTransform().matrix() * reflect);
+      for (const auto& mesh : model->meshRenders())
       {
-        if (mesh.IsOpaque() || (mesh.IsMirror() && &mesh != mirror.second))
-          mesh.Render();
+        if (mesh.opaque() || (mesh.mirror() && &mesh != mirror.second))
+          mesh.render();
       }
     }
 
@@ -268,9 +267,9 @@ void Scene::Render() noexcept
     // f. Sort reversed transparent based on distance to active Camera.
     auto transparents = GetTransparents();
     for (auto& transparent : transparents) {
-      transparent.first.SetMatrix(transparent.first.GetMatrix() * reflect);
+      transparent.first.SetMatrix(transparent.first.matrix() * reflect);
     }
-    const auto camera_pos = camera->GetTransform().GetPosition();
+    const auto camera_pos = camera->GetTransform().position();
     std::sort(transparents.begin(), transparents.end(),
       std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
@@ -280,7 +279,7 @@ void Scene::Render() noexcept
       );
     for (const auto& transparent : transparents) {
       transparent.first.Render();
-      transparent.second->Render();
+      transparent.second->render();
     }
 
     // h. Restore lights. (TODO)
@@ -294,13 +293,13 @@ void Scene::Render() noexcept
       nullptr, 1);
 
     mirror.first.Render();
-    mirror.second->Render();
+    mirror.second->render();
   }
 
   // 4. Sort transparent.
 
   auto transparents = GetTransparents();
-  const auto camera_pos = camera->GetTransform().GetPosition();
+  const auto camera_pos = camera->GetTransform().position();
   std::sort(transparents.begin(), transparents.end(),
     std::bind(SortBasedOnDistanceToCamera, camera_pos, _1, _2));
 
@@ -308,7 +307,7 @@ void Scene::Render() noexcept
 
   for (const auto& transparent : transparents) {
     transparent.first.Render();
-    transparent.second->Render();
+    transparent.second->render();
   }
 
   ThrowIfFailed(s_graphics_device->GetSwapChain()->Present(0, 0));
@@ -317,9 +316,9 @@ void Scene::Render() noexcept
 GameObject * Scene::GetCamera() noexcept
 {
   for(auto& object : objects_) {
-    auto camera = object.GetComponent<Graphics::Camera>();
+    auto camera = object->GetComponent<Graphics::Camera>();
     if (camera)
-      return &object;
+      return object.get();
   }
   return nullptr;
 }
@@ -347,9 +346,9 @@ std::vector<RenderableMesh> Scene::GetMirrors() noexcept
     if (!model)
       continue;
     const auto& transform = object.GetTransform();
-    for (const auto& mesh : model->GetMeshRenders())
+    for (const auto& mesh : model->meshRenders())
     {
-      if (mesh.IsMirror())
+      if (mesh.mirror())
         result.push_back(RenderableMesh(transform, &mesh));
     }
   }
@@ -366,9 +365,9 @@ std::vector<RenderableMesh> Scene::GetTransparents() noexcept
     if (!model)
       continue;
     const auto& transform = object.GetTransform();
-    for (const auto& mesh : model->GetMeshRenders())
+    for (const auto& mesh : model->meshRenders())
     {
-      if (mesh.IsTransparent())
+      if (mesh.transparent())
         result.push_back(RenderableMesh(transform, &mesh));
     }
   }

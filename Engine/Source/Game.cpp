@@ -44,8 +44,6 @@ void Game::Run() {
       DispatchMessage(&msg);
     }
 
-    Sleep(10);  // TODO: remove hardcode.
-
     Update(); 
     scene_->Update();
     scene_->Render();

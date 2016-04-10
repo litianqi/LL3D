@@ -3,7 +3,6 @@
 template<typename T>
 inline void GameObject::AddComponent() {
   components_[type_index(typeid(T))] = make_unique<T>();
-  components_[type_index(typeid(T))]->SetGameObject(this);
 }
 
 template<typename T>
