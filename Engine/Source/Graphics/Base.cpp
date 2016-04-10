@@ -9,12 +9,12 @@
 namespace LL3D {
 namespace Graphics {
 
-Device*                       Base::s_graphics_device;
+Device*                       Base::s_graphicsDevice;
 std::unique_ptr<BasicEffect>  Base::s_effect;
-Microsoft::WRL::ComPtr<ID3D11InputLayout>  Base::s_input_layout;
+Microsoft::WRL::ComPtr<ID3D11InputLayout>  Base::s_inputLayout;
 
-void Base::Initialize(Device* device) {
-  s_graphics_device = device;
+void Base::initialize(Device* device) {
+  s_graphicsDevice = device;
   
   // Init Effect.
   // todo: remove hard code.
@@ -23,14 +23,14 @@ void Base::Initialize(Device* device) {
   // Init InputLayout.
   const void* shader_bytecode;
   size_t shader_bytecode_size;
-  s_effect->GetVertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateInputLayout(Vertex::InputElements, 
-      Vertex::InputElementCount, shader_bytecode, shader_bytecode_size, 
-      &s_input_layout)
+  s_effect->vertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
+  throwIfFailed(
+    s_graphicsDevice->device()->CreateInputLayout(Vertex::kInputElements, 
+      Vertex::kInputElementCount, shader_bytecode, shader_bytecode_size, 
+      &s_inputLayout)
     );
 
-  CommonStates::Initialize(device->GetDevice());
+  CommonStates::initialize(device->device());
 }
 
 }  // namespace Graphics

@@ -23,24 +23,24 @@ public:
   Window(json11::Json config);  // TODO: support config
   virtual ~Window();
 
-  void SetVisible(bool visible);
-  void SetClientRect(IntRectangle rect);
+  void setVisible(bool visible);
+  void setClientRect(IntRectangle rect);
 
-  HWND GetHandle() const;
+  HWND handle() const;
   //bool IsVisible() const;
-  IntRectangle GetClientRect() const;
-  IntRectangle GetWindowRect() const;
+  IntRectangle clientRect() const;
+  IntRectangle windowRect() const;
 
-  void OnResize(std::function<void(void)> callback);
+  void onResize(std::function<void(void)> callback);
 
 private:
 
-  static LRESULT CALLBACK MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
+  static LRESULT CALLBACK msgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam);
 
-  std::function<void(void)> resize_callback_;
+  std::function<void(void)> resizeCallback_;
   HWND handle_;
   bool active_;
-  ShowState show_state_ = ShowState::Normal;
+  ShowState showState_ = ShowState::Normal;
   bool resizing_;
 
 };

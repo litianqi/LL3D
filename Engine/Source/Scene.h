@@ -22,19 +22,19 @@ class Scene : private Graphics::Base {
 
 public: 
 
-  void Add(std::unique_ptr<GameObject> object);
-  void Remove(RecursiveSceneIterator iter);
+  void add(std::unique_ptr<GameObject> object);
+  void remove(RecursiveSceneIterator iter);
   
-  void Update();
-  void Render() noexcept;
+  void update();
+  void render() noexcept;
 
 private:
 
   // Get active(the first) Camera. Returns nullptr if there is no Camera.
-  GameObject* GetCamera() noexcept;
-  std::vector<RenderableMesh> GetMirrors() noexcept;
-  std::vector<RenderableMesh> GetTransparents() noexcept;
-  std::vector<const GameObject*> GetLights() noexcept;
+  GameObject* camera() noexcept;
+  std::vector<RenderableMesh> mirrors() noexcept;
+  std::vector<RenderableMesh> transparents() noexcept;
+  std::vector<const GameObject*> lights() noexcept;
 
   std::list<std::unique_ptr<GameObject>> objects_;
   bool first_update_ = true;

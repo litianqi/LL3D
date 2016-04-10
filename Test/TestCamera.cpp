@@ -39,8 +39,8 @@ namespace Test
 
       auto object =GameObject();
       
-      object.GetTransform().SetPosition(Math::Vector3(0.f, 100.f, -100.f));
-      object.AddComponent(std::move(camera));
+      object.transform().setPosition(Math::Vector3(0.f, 100.f, -100.f));
+      object.addComponent(std::move(camera));
 
       return object;
     }

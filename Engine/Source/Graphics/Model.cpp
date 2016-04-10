@@ -110,12 +110,12 @@ Model Model::LoadAssimp(filesystem::path pathname)
 
     char *pRem = nullptr;
 
-    dstmat.diffuse_texture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
-    dstmat.specular_texture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
-    dstmat.emissive_texture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
-    dstmat.normal_texture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
-    dstmat.lightmap_texture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
-    dstmat.reflection_texture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
+    dstmat.diffuseTexture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
+    dstmat.specularTexture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
+    dstmat.emissiveTexture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
+    dstmat.normalTexture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
+    dstmat.lightmapTexture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
+    dstmat.reflectionTexture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
 
     aiString matName;
     srcmat->Get(AI_MATKEY_NAME, matName);
@@ -132,7 +132,7 @@ Model Model::LoadAssimp(filesystem::path pathname)
 
     ASSERT(srcmesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE);
 
-    dstmesh.material_index = srcmesh->mMaterialIndex;
+    dstmesh.materialIndex = srcmesh->mMaterialIndex;
 
     for (unsigned int v = 0; v < srcmesh->mNumVertices; v++)
     {

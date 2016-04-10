@@ -34,7 +34,7 @@ LightComponent::LightComponent(const Transform& transform, LightType type) :
     spot.diffuse = Math::Color::Yellow.ToVector3();
     spot.specular = Math::Vector3(0.2f, 0.2f, 0.2f);
     spot.attenuation = Math::Vector3(0.02f, 0.02f, 0.02f);
-    spot.inner_cone_angle = 0.05f;
+    spot.innerConeAngle = 0.05f;
     light_.spot = spot;
   }
   else {
@@ -70,22 +70,22 @@ LightComponent::LightComponent(const Transform& transform, const SpotLight & lig
   light_.spot = light;
 }
 
-void LightComponent::Render() const
+void LightComponent::render() const
 {
   if (type_ == Ambient) {
-    s_effect->SetAmbientLight(AmbientLightFX(light_.ambient));
+    s_effect->setAmbientLight(AmbientLightFX(light_.ambient));
   } else if (type_ == Directional) {
-    s_effect->SetDirectionalLight(DirectionalLightFX(light_.directional, transform_));
+    s_effect->setDirectionalLight(DirectionalLightFX(light_.directional, transform_));
   } else if (type_ == Point) {
-    s_effect->SetPointLight(PointLightFX(light_.point, transform_));
+    s_effect->setPointLight(PointLightFX(light_.point, transform_));
   } else if (type_ == Spot) {
-    s_effect->SetSpotLight(SpotLightFX(light_.spot, transform_));
+    s_effect->setSpotLight(SpotLightFX(light_.spot, transform_));
   } else {
     ASSERT(false && "Invalid type_");
   }
 }
 
-LightComponent::LightType LightComponent::GetLightType() const
+LightComponent::LightType LightComponent::lightType() const
 {
   return type_;
 }

@@ -29,8 +29,8 @@ public:
   Effect(std::string path);
   virtual ~Effect() {}
 
-  virtual void Apply(ID3D11DeviceContext* deviceContext) = 0;
-  virtual void GetVertexShaderBytecode(const void ** pShaderByteCode, size_t* pByteCodeLength) = 0;
+  virtual void apply(ID3D11DeviceContext* deviceContext) = 0;
+  virtual void vertexShaderBytecode(const void ** pShaderByteCode, size_t* pByteCodeLength) = 0;
 
 protected:
   Microsoft::WRL::ComPtr<ID3DX11Effect> effect_;
@@ -42,52 +42,52 @@ public:
 
   //--------------------------------------
   // Effect methods.
-  void Apply(ID3D11DeviceContext* device_context) override;
-  void GetVertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) override;
+  void apply(ID3D11DeviceContext* device_context) override;
+  void vertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) override;
 
   //--------------------------------------
   // Light settings.
-  void SetAmbientLight(const AmbientLightFX& value);
-  void SetDirectionalLight(const DirectionalLightFX& value);
-  void SetPointLight(const PointLightFX& value);
-  void SetSpotLight(const SpotLightFX& value);
-  void SetEyePosW(DirectX::FXMVECTOR value);
+  void setAmbientLight(const AmbientLightFX& value);
+  void setDirectionalLight(const DirectionalLightFX& value);
+  void setPointLight(const PointLightFX& value);
+  void setSpotLight(const SpotLightFX& value);
+  void setEyePosW(DirectX::FXMVECTOR value);
 
   //--------------------------------------
   // Camera settings.
-  void SetWorld(DirectX::FXMMATRIX value);
-  void SetViewProjection(DirectX::FXMMATRIX value);
+  void setWorld(DirectX::FXMMATRIX value);
+  void setViewProjection(DirectX::FXMMATRIX value);
 
   //--------------------------------------
   // Texture setting.
-  void SetTextureTransform(DirectX::FXMMATRIX value);
-  void SetTexture(ID3D11ShaderResourceView* value);
+  void setTextureTransform(DirectX::FXMMATRIX value);
+  void setTexture(ID3D11ShaderResourceView* value);
 
   //--------------------------------------
   // Material settings.
-  void SetMaterial(const MaterialFX& material);
+  void setMaterial(const MaterialFX& material);
 
   //--------------------------------------
   // Fog settings.
-  void SetFog(const EffectFog& value);
+  void setFog(const EffectFog& value);
 
 private:
   ID3DX11EffectTechnique* tech_;
 
   // Per Frame:
-  ID3DX11EffectVariable* ambient_light_;
-  ID3DX11EffectVariable* directional_light_;
-  ID3DX11EffectVariable* point_light_;
-  ID3DX11EffectVariable* spot_light_;
-  ID3DX11EffectMatrixVariable* view_projection_;
-  ID3DX11EffectVectorVariable* eye_pos_w_;
+  ID3DX11EffectVariable* ambientLight_;
+  ID3DX11EffectVariable* directionalLight_;
+  ID3DX11EffectVariable* pointLight_;
+  ID3DX11EffectVariable* spotLight_;
+  ID3DX11EffectMatrixVariable* viewProjection_;
+  ID3DX11EffectVectorVariable* eyePosW_;
   ID3DX11EffectVariable* fog_;
 
   // Per Object:
   ID3DX11EffectMatrixVariable* world_;
   ID3DX11EffectVariable* material_;
   ID3DX11EffectShaderResourceVariable* texture_;
-  ID3DX11EffectMatrixVariable* texture_transform_;
+  ID3DX11EffectMatrixVariable* textureTransform_;
 };
 
 }  // namespace Graphics

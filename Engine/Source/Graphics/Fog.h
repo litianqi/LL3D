@@ -30,7 +30,7 @@ public:
   //
   Fog(Math::Color color, float start, float range);
 
-  void Update() override;
+  void update() override;
 
 private:
   //>

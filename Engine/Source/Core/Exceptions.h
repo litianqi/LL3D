@@ -18,7 +18,7 @@ private:
 };
 
 // Helper utility converts D3D API failures into exceptions.
-inline void ThrowIfFailed(HRESULT hr) {
+inline void throwIfFailed(HRESULT hr) {
   if (FAILED(hr)) {
     throw ComException(hr);
   }

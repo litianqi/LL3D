@@ -13,51 +13,51 @@ namespace CommonStates {
 //>
 // Initialize CommonStates, called by Base::Init
 //
-void Initialize(ID3D11Device* device);
+void initialize(ID3D11Device* device);
 
 //--------------------------------------
 // Blend states.
-ID3D11BlendState* Opaque();  // Makes no sense, disabling blending has same effect
+ID3D11BlendState* opaque();  // Makes no sense, disabling blending has same effect
                              // and better performance.
-ID3D11BlendState* AlphaBlend();
-ID3D11BlendState* Additive();
-ID3D11BlendState* Substract();
-ID3D11BlendState* Multiply();
-ID3D11BlendState* NonPremultiplied();
+ID3D11BlendState* alphaBlend();
+ID3D11BlendState* additive();
+ID3D11BlendState* substract();
+ID3D11BlendState* multiply();
+ID3D11BlendState* nonPremultiplied();
 
 //--------------------------------------
 // Depth stencil states.
-ID3D11DepthStencilState* DepthNone();
-ID3D11DepthStencilState* DepthDefault();
-ID3D11DepthStencilState* DepthRead();
+ID3D11DepthStencilState* depthNone();
+ID3D11DepthStencilState* depthDefault();
+ID3D11DepthStencilState* depthRead();
 //>
 // Set MakMirror before render mirror, so visible part of mirror in stencil 
 // buffer will be replaced to StencilRef, others will be 0.
 //
-ID3D11DepthStencilState* MarkMirror();
+ID3D11DepthStencilState* markMirror();
 //>
 // Set RenderReflection before render reflection (in mirror), and StencilRef
 // to the same StencilRef used in MarkMirror. So only objects inside mirror
 // scope allowed to render.
 //
-ID3D11DepthStencilState* RenderReflection();
-ID3D11DepthStencilState* Shadow();
+ID3D11DepthStencilState* renderReflection();
+ID3D11DepthStencilState* shadow();
 
 //--------------------------------------
 // Rasterizer states.
-ID3D11RasterizerState* CullNone();
-ID3D11RasterizerState* CullClockwise();
-ID3D11RasterizerState* CullCounterClockwise();
-ID3D11RasterizerState* Wireframe();
+ID3D11RasterizerState* cullNone();
+ID3D11RasterizerState* cullClockwise();
+ID3D11RasterizerState* cullCounterClockwise();
+ID3D11RasterizerState* wireframe();
 
 //--------------------------------------
 // Sampler states.
-ID3D11SamplerState* PointWrap();
-ID3D11SamplerState* PointClamp();
-ID3D11SamplerState* LinearWrap();
-ID3D11SamplerState* LinearClamp();
-ID3D11SamplerState* AnisotropicWrap();
-ID3D11SamplerState* AnisotropicClamp();
+ID3D11SamplerState* pointWrap();
+ID3D11SamplerState* pointClamp();
+ID3D11SamplerState* linearWrap();
+ID3D11SamplerState* linearClamp();
+ID3D11SamplerState* anisotropicWrap();
+ID3D11SamplerState* anisotropicClamp();
 
 }  // namespace CommonStates
 }  // namespace Graphics

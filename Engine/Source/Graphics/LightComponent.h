@@ -22,9 +22,9 @@ public:
   LightComponent(const Transform& transform, const PointLight& light);
   LightComponent(const Transform& transform, const SpotLight& light);
 
-  void Render() const;
+  void render() const;
 
-  LightType GetLightType() const;
+  LightType lightType() const;
 
 private:
   LightType type_;

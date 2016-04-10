@@ -15,8 +15,8 @@ public:
 
   virtual ~Component() = default;
  
-  virtual void Start() {}
-  virtual void Update() {}
+  virtual void start() {}
+  virtual void update() {}
 
 };
 

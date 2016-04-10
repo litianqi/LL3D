@@ -22,7 +22,7 @@ inline void DebugTrace(_In_z_ _Printf_format_string_ const char* format, ...) {
 #endif
 }
 
-std::string GetLastErrorAsString();
+std::string lastErrorAsString();
 
 // Replacement for std::assert
 #ifdef _DEBUG
@@ -32,7 +32,7 @@ std::string GetLastErrorAsString();
     LOGF << "Assert failed with "#expression << " = " << e << "\n"\
       << "\tWin32 Error Status:\n"\
       << "\t\tError Code:    " << GetLastError() << "\n"\
-      << "\t\tError Message: " << GetLastErrorAsString() << "\n";\
+      << "\t\tError Message: " << lastErrorAsString() << "\n";\
   }\
   assert(e);\
 }
@@ -43,7 +43,7 @@ std::string GetLastErrorAsString();
     LOGF << "Assert failed with "#expression << " = " << e << "\n"\
       << "\tWin32 Error Status:\n"\
       << "\t\tError Code:    " << GetLastError() << "\n"\
-      << "\t\tError Message: " << GetLastErrorAsString() << "\n";\
+      << "\t\tError Message: " << lastErrorAsString() << "\n";\
   }\
 }
 #endif

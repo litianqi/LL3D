@@ -47,12 +47,12 @@ public:
   Math::Vector3 GetForwardVector() const;
   Math::Vector3 GetRightVector() const;
   Math::Vector3 GetUpVector() const;
-  DirectX::BoundingFrustum GetBoundingFrustum() const;
+  DirectX::BoundingFrustum boundingFrustum() const;
 
   //>
   // Writes properties to shader buffer.
   //
-  void Render() const;
+  void render() const;
 
   Math::Vector3 ViewToWorldPosition(Math::Vector3 p) const;
   Math::Vector3 WorldToViewPosition(Math::Vector3 p) const;

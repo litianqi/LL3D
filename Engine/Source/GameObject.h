@@ -27,39 +27,39 @@ public:
   GameObject& operator=(GameObject&& other) = default;
   ~GameObject() = default;
   
-  void SetScene(Scene* scene);
-  void SetParent(GameObject* parent);
-  void AddChild(std::unique_ptr<GameObject> child);
-  void RemoveChild(GameObject* child);
+  void setScene(Scene* scene);
+  void setParent(GameObject* parent);
+  void addChild(std::unique_ptr<GameObject> child);
+  void removeChild(GameObject* child);
 
   Scene* GetScene();
   const Scene* GetScene() const;
   GameObject* GetParent();
   const GameObject* GetParent() const;
      
-  void SetActive(bool value);
-  void SetName(const std::string& value);
-  void SetTag(const std::string& value);
-  void AddComponent(std::unique_ptr<Component> component);
+  void setActive(bool value);
+  void setName(const std::string& value);
+  void setTag(const std::string& value);
+  void addComponent(std::unique_ptr<Component> component);
   template<typename T> 
-  void AddComponent();
+  void addComponent();
   template<typename T>
-  void RemoveComponent();
+  void removeComponent();
 
-  bool GetActive() const;
-  bool GetActiveInHierarchy() const;
-  const std::string& GetName() const;
-  const std::string& GetTag() const;
+  bool active() const;
+  bool activeInHierarchy() const;
+  const std::string& name() const;
+  const std::string& tag() const;
   template <typename T> 
-  T* GetComponent();
+  T* component();
   template <typename T>
-  const T* GetComponent() const;
-  Transform& GetTransform();
-  const Transform& GetTransform() const;
+  const T* component() const;
+  Transform& transform();
+  const Transform& transform() const;
   
-  void Start();
+  void start();
   // Updates its components and children. Called by it's parent or Scene.
-  void Update();
+  void update();
 
 private:
 

@@ -11,38 +11,38 @@ namespace LL3D {
 
 GameObject::GameObject() {
   auto transform = make_unique<Transform>(nullptr);
-  AddComponent(std::move(transform));
+  addComponent(std::move(transform));
 }
 
 GameObject::GameObject(const std::string & name) noexcept :
 name_(name) 
 {
   auto transform = make_unique<Transform>(nullptr);
-  AddComponent(std::move(transform));
+  addComponent(std::move(transform));
 }
 
-void GameObject::Start()
+void GameObject::start()
 {
   for (auto& child : children_) {
-    child->Start();
+    child->start();
   }
 
   for (auto& component : components_) {
-    component.second->Start();
+    component.second->start();
   }
 }
 
-void GameObject::Update() {
+void GameObject::update() {
   for (auto& child : children_) {
-    child->Update();
+    child->update();
   }
 
   for (auto& component : components_) {
-    component.second->Update();
+    component.second->update();
   }
 
   for (const auto& component : components_) {
-    component.second->Update();
+    component.second->update();
   }
 }
 
@@ -50,49 +50,49 @@ Scene * GameObject::GetScene() {
   return scene_;
 }
 
-void GameObject::SetScene(Scene * scene) {
+void GameObject::setScene(Scene * scene) {
   scene_ = scene;
 }
 
-void GameObject::SetParent(GameObject * parent) {
+void GameObject::setParent(GameObject * parent) {
   parent_ = parent;
-  const auto& parentTransform = parent->GetTransform();
-  GetTransform().setParentTransform(&parentTransform);
+  const auto& parentTransform = parent->transform();
+  transform().setParentTransform(&parentTransform);
 }
 
-void GameObject::AddChild(std::unique_ptr<GameObject> child) {
-  child->SetParent(this);
+void GameObject::addChild(std::unique_ptr<GameObject> child) {
+  child->setParent(this);
   children_.push_back(std::move(child));
 }
 
-void GameObject::AddComponent(std::unique_ptr<Component> component) {
+void GameObject::addComponent(std::unique_ptr<Component> component) {
   components_[type_index(typeid(*component))] = std::move(component);
 }
 
-void GameObject::SetName(const std::string & value) {
+void GameObject::setName(const std::string & value) {
   name_ = value;
 }
 
-void GameObject::SetTag(const std::string & value) {
+void GameObject::setTag(const std::string & value) {
   tag_ = value;
 }
 
-const std::string & GameObject::GetName() const {
+const std::string & GameObject::name() const {
   return name_;
 }
 
-const std::string& GameObject::GetTag() const {
+const std::string& GameObject::tag() const {
   return tag_;
 }
 
-Transform & GameObject::GetTransform()
+Transform & GameObject::transform()
 {
-  return const_cast<Transform&>(const_cast<const GameObject*>(this)->GetTransform());
+  return const_cast<Transform&>(const_cast<const GameObject*>(this)->transform());
 }
 
-const Transform & GameObject::GetTransform() const
+const Transform & GameObject::transform() const
 {
-  auto transform = GetComponent<Transform>();
+  auto transform = component<Transform>();
   ASSERT(transform);
   return *transform;
 }

@@ -11,8 +11,8 @@ SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) no
   diffuse = light.diffuse;
   specular = light.specular;
   attenuation = light.attenuation;
-  inner_cone_angle = light.inner_cone_angle;
-  outer_cone_angle = light.outer_cone_angle;
+  innerConeAngle = light.innerConeAngle;
+  outerConeAngle = light.outerConeAngle;
 
   position = transform.position();
   direction = transform.direction();

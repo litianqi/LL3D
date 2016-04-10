@@ -25,10 +25,10 @@ public:
   void Yaw(float angle);
 
   // Operations
-  void Start() override;
+  void start() override;
   // Update Camera properties based on user input. Then writes properties
   // to shader input.
-  void Update() override;
+  void update() override;
 
 private:
   // Point where vec_target cross with XZ panel of world space.

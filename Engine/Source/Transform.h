@@ -11,16 +11,16 @@ public:
   Transform(const Transform* parent_transform);
 
   void setParentTransform(const Transform* parent_transform);
-  void SetLocalPosition(Math::Vector3 value);
-  void SetLocalRotation(Math::Vector3 value);
-  void SetLocalScale(Math::Vector3 value);
-  void SetLocalDirection(Math::Vector3 value);
-  void SetLocalMatrix(Math::Matrix value);
-  void SetPosition(Math::Vector3 value);
-  void SetRotation(Math::Vector3 value);
-  void SetScale(Math::Vector3 value);
-  void SetDirection(Math::Vector3 value);
-  void SetMatrix(Math::Matrix value);
+  void setLocalPosition(Math::Vector3 value);
+  void setLocalRotation(Math::Vector3 value);
+  void setLocalScale(Math::Vector3 value);
+  void setLocalDirection(Math::Vector3 value);
+  void setLocalMatrix(Math::Matrix value);
+  void setPosition(Math::Vector3 value);
+  void setRotation(Math::Vector3 value);
+  void setScale(Math::Vector3 value);
+  void setDirection(Math::Vector3 value);
+  void setMatrix(Math::Matrix value);
 
   Math::Vector3 localPosition() const;
   Math::Vector3 localRotation() const;
@@ -37,15 +37,15 @@ public:
   //>
   // Writes world matrix to shader buffer.
   //
-  void Render() const;
-  static void Render(Math::Matrix world);
+  void render() const;
+  static void render(Math::Matrix world);
 
 private:
   static Math::Matrix compose(Math::Vector3 position, Math::Vector3 rotation,
     Math::Vector3 scale);
 
   // transform of parent GameObject, nullptr if no parent.
-  const Transform* parent_transform_;
+  const Transform* parentTransform_;
   // local position
   Math::Vector3 position_;
   // local rotation

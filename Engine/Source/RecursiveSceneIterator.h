@@ -41,7 +41,7 @@ private:
   //>
   // Returns if this is an end iterator.
   //
-  bool IsEnd() const noexcept;
+  bool isEnd() const noexcept;
 
   Scene* scene_ = nullptr;
   //>

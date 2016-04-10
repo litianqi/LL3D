@@ -13,7 +13,7 @@ namespace LL3D {
 namespace Graphics {
 
 MeshRender::MeshRender(const Mesh& mesh, const std::vector<Material>& materials) :
-  material_(materials[mesh.material_index])
+  material_(materials[mesh.materialIndex])
 {
   setMesh(mesh);
 }
@@ -32,8 +32,8 @@ void MeshRender::setMesh(const Mesh & mesh)
   D3D11_SUBRESOURCE_DATA vinitData;
   vinitData.pSysMem = mesh.vertices.data();
 
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateBuffer(&vbd, &vinitData, &vertexBuffer_)
+  throwIfFailed(
+    s_graphicsDevice->device()->CreateBuffer(&vbd, &vinitData, &vertexBuffer_)
     );
 
   D3D11_BUFFER_DESC ibd;
@@ -45,8 +45,8 @@ void MeshRender::setMesh(const Mesh & mesh)
   D3D11_SUBRESOURCE_DATA iinitData;
   iinitData.pSysMem = mesh.indices.data();
 
-  ThrowIfFailed(
-    s_graphics_device->GetDevice()->CreateBuffer(&ibd, &iinitData, &indexBuffer_)
+  throwIfFailed(
+    s_graphicsDevice->device()->CreateBuffer(&ibd, &iinitData, &indexBuffer_)
     );
 }
 
@@ -60,28 +60,28 @@ void MeshRender::render() const noexcept
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
 
-  s_graphics_device->GetDeviceContex()->IASetVertexBuffers(0, 1, 
+  s_graphicsDevice->deviceContex()->IASetVertexBuffers(0, 1, 
     vertexBuffer_.GetAddressOf(), &stride, &offset);
-  s_graphics_device->GetDeviceContex()->IASetIndexBuffer(indexBuffer_.Get(), 
+  s_graphicsDevice->deviceContex()->IASetIndexBuffer(indexBuffer_.Get(), 
     DXGI_FORMAT_R32_UINT, 0);
 
   //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
   // Set per object constant buffer.
-  s_effect->SetMaterial(MaterialFX(material_));
+  s_effect->setMaterial(MaterialFX(material_));
   //s_effect->SetTextureTransform(texture_transform_);
-  if (filesystem::exists(material_.diffuse_texture))
-    s_effect->SetTexture(LoadDDSFromFile(s_graphics_device->GetDevice(), material_.diffuse_texture));
+  if (filesystem::exists(material_.diffuseTexture))
+    s_effect->setTexture(loadDDSFromFile(s_graphicsDevice->device(), material_.diffuseTexture));
   else
-    s_effect->SetTexture(nullptr);
+    s_effect->setTexture(nullptr);
 
-  s_effect->SetTextureTransform(DirectX::XMMatrixIdentity());
+  s_effect->setTextureTransform(DirectX::XMMatrixIdentity());
 
   // Apply rasterizer option, if specified.
   //s_graphics_device->GetDeviceContex()->RSSetState(rasterizer_state_.Get());
 
   // Draw object.
-  s_effect->Apply(s_graphics_device->GetDeviceContex());
-  s_graphics_device->GetDeviceContex()->DrawIndexed(
+  s_effect->apply(s_graphicsDevice->deviceContex());
+  s_graphicsDevice->deviceContex()->DrawIndexed(
     static_cast<UINT>(mesh_.indices.size()), 0, 0);
 
   // Roll back rasterizer option. For it's global so will affect other models.
@@ -95,12 +95,12 @@ const Material & MeshRender::material() const
 
 bool MeshRender::mirror() const
 {
-  return material_.is_mirror;
+  return material_.mirror;
 }
 
 bool MeshRender::transparent() const
 {
-  return !material_.is_mirror && 
+  return !material_.mirror && 
     (0.f < material_.opacity && material_.opacity < 1.f);
 }
 
@@ -131,19 +131,19 @@ ModelRender::ModelRender(BuiltInModel type)
   auto model = Model();
   if (type == Cube) {
     auto mesh = Mesh::CreateCube(10.f, 10.f, 10.f);
-    mesh.material_index = 0;
+    mesh.materialIndex = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Cube";
   }
   else if (type == Sphere) {
     auto mesh = Mesh::CreateSphere(5.f, 50, 50);
-    mesh.material_index = 0;
+    mesh.materialIndex = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Sphere";
   }
   else if (type == Grid) {
     auto mesh = Mesh::CreateGrid(100.f, 100.f, 2, 2);
-    mesh.material_index = 0;
+    mesh.materialIndex = 0;
     model.meshes.push_back(std::move(mesh));
     model.name = "Grid";
   }

@@ -35,8 +35,8 @@ struct SpotLightFX {
   float3  attenuation;
   float   _pad4;
 
-  float   inner_cone_angle;
-  float   outer_cone_angle;
+  float   innerConeAngle;
+  float   outerConeAngle;
   float2  _pad5;
 };
 

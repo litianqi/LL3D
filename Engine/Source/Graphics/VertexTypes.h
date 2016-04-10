@@ -12,8 +12,8 @@ struct Vertex {
   Math::Vector3 tangent;  // todo
   Math::Vector3 bitangent;  // todo
 
-  static const int InputElementCount = 5;
-  static const D3D11_INPUT_ELEMENT_DESC InputElements[InputElementCount];
+  static const int kInputElementCount = 5;
+  static const D3D11_INPUT_ELEMENT_DESC kInputElements[kInputElementCount];
 };
 
 }  // namespace Graphics

@@ -94,22 +94,22 @@ void EditorCameraController::Yaw(float angle) {
   camera_->SetForwardVector(target_pos - position);
 }
 
-void EditorCameraController::Start()
+void EditorCameraController::start()
 {
-  camera_ = object()->GetComponent<LL3D::Graphics::Camera>();
+  camera_ = object()->component<LL3D::Graphics::Camera>();
 }
 
-void EditorCameraController::Update() {
-  auto delta = Input::Mouse::GetPosition() - last_mouse_position_;
-  last_mouse_position_ = Input::Mouse::GetPosition();
+void EditorCameraController::update() {
+  auto delta = Input::Mouse::position() - last_mouse_position_;
+  last_mouse_position_ = Input::Mouse::position();
 
-  if (Input::Mouse::IsHeldingDown(Input::Mouse::Right)) {
+  if (Input::Mouse::isHeldingDown(Input::Mouse::kRight)) {
     MoveLeftRight(-0.05f * delta.x);
     MoveUpDown(0.05f * delta.y);
   }
-  MoveBackForeward(Input::Mouse::GetScrollDelta() * 0.02f);
+  MoveBackForeward(Input::Mouse::scrollDelta() * 0.02f);
 
-  if (Input::Mouse::IsHeldingDown(Input::Mouse::Left)) {
+  if (Input::Mouse::isHeldingDown(Input::Mouse::kLeft)) {
     Yaw(0.005f * delta.x);
     Pitch(0.005f * delta.y);
   }
@@ -129,10 +129,10 @@ Math::Vector3 EditorCameraController::GetTargetPosition() const {
 
 Math::Vector3 EditorCameraController::GetPosition() const
 {
-  return object()->GetComponent<Transform>()->position();
+  return object()->component<Transform>()->position();
 }
 
 void EditorCameraController::SetPosition(Math::Vector3 value)
 {
-  object()->GetComponent<Transform>()->SetPosition(value);
+  object()->component<Transform>()->setPosition(value);
 }

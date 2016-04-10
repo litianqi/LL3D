@@ -6,7 +6,7 @@ namespace LL3D {
 namespace Graphics {
 
 Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle):
-  enable_4x_msaa_(config["enable_4x_msaa"].bool_value()) {
+  enable4xMsaa_(config["enable_4x_msaa"].bool_value()) {
   // Create the device and device context.
 
   UINT createDeviceFlags = 0;
@@ -15,7 +15,7 @@ Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle):
 #endif
 
   D3D_FEATURE_LEVEL featureLevel;
-  ThrowIfFailed(D3D11CreateDevice(
+  throwIfFailed(D3D11CreateDevice(
     0,                 // default adapter
     D3D_DRIVER_TYPE_HARDWARE,
     0,                 // no software device
@@ -33,8 +33,8 @@ Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle):
   // target formats, so we only need to check quality support.
 
   device_->CheckMultisampleQualityLevels(
-    DXGI_FORMAT_R8G8B8A8_UNORM, 4, &msaa_quality_);
-  ASSERT(msaa_quality_ > 0);
+    DXGI_FORMAT_R8G8B8A8_UNORM, 4, &msaaQuality_);
+  ASSERT(msaaQuality_ > 0);
 
   // Fill out a DXGI_SWAP_CHAIN_DESC to describe our swap chain.
 
@@ -48,9 +48,9 @@ Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle):
   sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
   // Use 4X MSAA? 
-  if (enable_4x_msaa_) {
+  if (enable4xMsaa_) {
     sd.SampleDesc.Count = 4;
-    sd.SampleDesc.Quality = msaa_quality_ - 1;
+    sd.SampleDesc.Quality = msaaQuality_ - 1;
   }
   // No MSAA
   else {
@@ -79,7 +79,7 @@ Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle):
   IDXGIFactory* dxgiFactory = 0;
   dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory);
 
-  dxgiFactory->CreateSwapChain(device_.Get(), &sd, &swap_chain_);
+  dxgiFactory->CreateSwapChain(device_.Get(), &sd, &swapChain_);
 
   dxgiDevice->Release();
   dxgiAdapter->Release();
@@ -89,26 +89,26 @@ Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle):
   // also need to be executed every time the window is resized.  So
   // just call the OnResize method here to avoid code duplication.
 
-  OnResize(window_size);
+  onResize(window_size);
 }
 
-void Device::OnResize(IntSize2 window_size) {
+void Device::onResize(IntSize2 window_size) {
   ASSERT(context_);
   ASSERT(device_);
-  ASSERT(swap_chain_);
+  ASSERT(swapChain_);
   // Release the old views, as they hold references to the buffers we
   // will be destroying.  Also release the old depth/stencil buffer.
-  render_target_view_.Reset();
-  depth_stencil_view_.Reset();
-  depth_stencil_buffer_.Reset();
+  renderTargetView_.Reset();
+  depthStencilView_.Reset();
+  depthStencilBuffer_.Reset();
 
   // Resize the swap chain and recreate the render target view.
 
-  ThrowIfFailed(swap_chain_->ResizeBuffers(1, window_size.w, window_size.h,
+  throwIfFailed(swapChain_->ResizeBuffers(1, window_size.w, window_size.h,
     DXGI_FORMAT_R8G8B8A8_UNORM, 0));
   ID3D11Texture2D* back_buffer;
-  ThrowIfFailed(swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&back_buffer)));
-  ThrowIfFailed(device_->CreateRenderTargetView(back_buffer, 0, &render_target_view_));
+  throwIfFailed(swapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&back_buffer)));
+  throwIfFailed(device_->CreateRenderTargetView(back_buffer, 0, &renderTargetView_));
   back_buffer->Release();
 
   // Create the depth/stencil buffer and view.
@@ -122,9 +122,9 @@ void Device::OnResize(IntSize2 window_size) {
   depth_stencil_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
   // Use 4X MSAA? --must match swap chain MSAA values.
-  if (enable_4x_msaa_) {
+  if (enable4xMsaa_) {
     depth_stencil_desc.SampleDesc.Count = 4;
-    depth_stencil_desc.SampleDesc.Quality = msaa_quality_ - 1;
+    depth_stencil_desc.SampleDesc.Quality = msaaQuality_ - 1;
   }
   // No MSAA
   else {
@@ -137,13 +137,13 @@ void Device::OnResize(IntSize2 window_size) {
   depth_stencil_desc.CPUAccessFlags = 0;
   depth_stencil_desc.MiscFlags = 0;
 
-  ThrowIfFailed(device_->CreateTexture2D(&depth_stencil_desc, 0, &depth_stencil_buffer_));
-  ThrowIfFailed(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), 0, &depth_stencil_view_));
+  throwIfFailed(device_->CreateTexture2D(&depth_stencil_desc, 0, &depthStencilBuffer_));
+  throwIfFailed(device_->CreateDepthStencilView(depthStencilBuffer_.Get(), 0, &depthStencilView_));
 
 
   // Bind the render target view and depth/stencil view to the pipeline.
 
-  context_->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
+  context_->OMSetRenderTargets(1, renderTargetView_.GetAddressOf(), depthStencilView_.Get());
 
 
   // Set the viewport transform.
@@ -158,24 +158,24 @@ void Device::OnResize(IntSize2 window_size) {
   context_->RSSetViewports(1, &viewport_);
 }
 
-ID3D11Device * Device::GetDevice() const {
+ID3D11Device * Device::device() const {
   return device_.Get();
 }
 
-ID3D11DeviceContext * Device::GetDeviceContex() const {
+ID3D11DeviceContext * Device::deviceContex() const {
   return context_.Get();
 }
 
-IDXGISwapChain * Device::GetSwapChain() const {
-  return swap_chain_.Get();
+IDXGISwapChain * Device::swapChain() const {
+  return swapChain_.Get();
 }
 
-ID3D11RenderTargetView * Device::GetRenderTargetView() const {
-  return render_target_view_.Get();
+ID3D11RenderTargetView * Device::renderTargetView() const {
+  return renderTargetView_.Get();
 }
 
-ID3D11DepthStencilView * Device::GetDepthStencilView() const {
-  return depth_stencil_view_.Get();
+ID3D11DepthStencilView * Device::depthStencilView() const {
+  return depthStencilView_.Get();
 }
 
 }  // namespace Graphics

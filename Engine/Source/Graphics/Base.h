@@ -16,12 +16,12 @@ class BasicEffect;
 
 class Base {
 public:
-  static void Initialize(Device* device);
+  static void initialize(Device* device);
 
 protected:
-  static Device*                      s_graphics_device;
+  static Device*                      s_graphicsDevice;
   static std::unique_ptr<BasicEffect> s_effect;
-  static Microsoft::WRL::ComPtr<ID3D11InputLayout> s_input_layout;
+  static Microsoft::WRL::ComPtr<ID3D11InputLayout> s_inputLayout;
 };
 
 }  // namespace Graphics

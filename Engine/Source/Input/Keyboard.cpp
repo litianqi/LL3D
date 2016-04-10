@@ -6,40 +6,40 @@ using namespace std;
 namespace LL3D {
 namespace Input {
 
-const std::string& Keyboard::GetInputString() {
+const std::string& Keyboard::inputString() {
   return s_input;
 }
 
-float Keyboard::GetAxis(Axis axis) {
+float Keyboard::axis(Axis axis) {
   //>
   // When a key is holding down, its possible it receives none OS message.
   // We mock a message result anyway.
   //
   if (axis == Vertical && s_axis[Vertical] == 0) {
-    if (IsHeldingDown(W) || IsHeldingDown(Up))
-      s_axis[Vertical] += PressesPerHeldingDown * AxisPerKey;
-    else if (IsHeldingDown(S) || IsHeldingDown(Down))
-      s_axis[Vertical] -= PressesPerHeldingDown * AxisPerKey;
+    if (isHeldingDown(W) || isHeldingDown(Up))
+      s_axis[Vertical] += kPressesPerHeldingDown * kAxisPerKey;
+    else if (isHeldingDown(S) || isHeldingDown(Down))
+      s_axis[Vertical] -= kPressesPerHeldingDown * kAxisPerKey;
   }
   if (axis == Horizontal && s_axis[Horizontal] == 0) {
-    if (IsHeldingDown(D) || IsHeldingDown(Right))
-      s_axis[Horizontal] += PressesPerHeldingDown * AxisPerKey;
-    else if (IsHeldingDown(A) || IsHeldingDown(Left))
-      s_axis[Horizontal] -= PressesPerHeldingDown * AxisPerKey;
+    if (isHeldingDown(D) || isHeldingDown(Right))
+      s_axis[Horizontal] += kPressesPerHeldingDown * kAxisPerKey;
+    else if (isHeldingDown(A) || isHeldingDown(Left))
+      s_axis[Horizontal] -= kPressesPerHeldingDown * kAxisPerKey;
   }
 
   return s_axis[axis];
 }
 
-bool Keyboard::IsAnyHeldingDown() {
-  for (auto key : s_helding_down) {
+bool Keyboard::isAnyHeldingDown() {
+  for (auto key : s_heldingDown) {
     if (key.second)
       return true;
   }
   return false;
 }
 
-bool Keyboard::IsAnyPressed() {
+bool Keyboard::isAnyPressed() {
   for (auto key : s_pressed) {
     if (key.second)
       return true;
@@ -47,22 +47,22 @@ bool Keyboard::IsAnyPressed() {
   return false;
 }
 
-bool Keyboard::IsHeldingDown(KeyCode key) {
-  return s_helding_down[key];
+bool Keyboard::isHeldingDown(KeyCode key) {
+  return s_heldingDown[key];
 }
 
-bool Keyboard::IsPressed(KeyCode key) {
+bool Keyboard::isPressed(KeyCode key) {
   return s_pressed[key];
 }
 
-bool Keyboard::IsReleased(KeyCode key) {
+bool Keyboard::isReleased(KeyCode key) {
   return s_released[key];
 }
 
-const float Keyboard::AxisPerKey = 0.5f;
-const float Keyboard::PressesPerHeldingDown = 0.5f;
+const float Keyboard::kAxisPerKey = 0.5f;
+const float Keyboard::kPressesPerHeldingDown = 0.5f;
 
-void Keyboard::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
+void Keyboard::processMessage(UINT message, WPARAM wparam, LPARAM lparam) {
   bool down = false;
 
   switch (message) {
@@ -99,32 +99,32 @@ void Keyboard::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
 
         case Up:
         case W:
-          s_axis[Vertical] += AxisPerKey;
+          s_axis[Vertical] += kAxisPerKey;
           break;
 
         case Down:
         case S:
-          s_axis[Vertical] -= AxisPerKey;
+          s_axis[Vertical] -= kAxisPerKey;
           break;
 
         case Right:
         case D:
-          s_axis[Horizontal] += AxisPerKey;
+          s_axis[Horizontal] += kAxisPerKey;
           break;
 
         case Left:
         case A:
-          s_axis[Horizontal] -= AxisPerKey;
+          s_axis[Horizontal] -= kAxisPerKey;
           break;
       }
 
       if (down) {
         s_pressed[static_cast<KeyCode>(vk)] = true;
-        s_helding_down[static_cast<KeyCode>(vk)] = true;
+        s_heldingDown[static_cast<KeyCode>(vk)] = true;
       }
       else {
         s_released[static_cast<KeyCode>(vk)] = true;
-        s_helding_down[static_cast<KeyCode>(vk)] = false;
+        s_heldingDown[static_cast<KeyCode>(vk)] = false;
       }
       break;
     }
@@ -150,7 +150,7 @@ void Keyboard::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
   }
 }
 
-void Keyboard::Update() {
+void Keyboard::update() {
   s_axis.clear();
   s_input.clear();
   s_pressed.clear();
@@ -159,7 +159,7 @@ void Keyboard::Update() {
 
 string                      Keyboard::s_input;
 map<Keyboard::Axis, float>  Keyboard::s_axis;
-map<KeyCode, bool>          Keyboard::s_helding_down;
+map<KeyCode, bool>          Keyboard::s_heldingDown;
 map<KeyCode, bool>          Keyboard::s_pressed;
 map<KeyCode, bool>          Keyboard::s_released;
 

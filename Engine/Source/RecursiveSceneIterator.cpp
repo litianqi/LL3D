@@ -12,7 +12,7 @@ RecursiveSceneIterator::RecursiveSceneIterator(Scene & scene) noexcept
 
 RecursiveSceneIterator& RecursiveSceneIterator::operator++() noexcept
 {
-  if (IsEnd())
+  if (isEnd())
     return *this;
 
   // If has child
@@ -50,8 +50,8 @@ RecursiveSceneIterator& RecursiveSceneIterator::operator++(int) noexcept
 bool RecursiveSceneIterator::operator==(const RecursiveSceneIterator& rhs) 
 const noexcept
 {
-  if (IsEnd() || rhs.IsEnd()) {
-    return IsEnd() == rhs.IsEnd();
+  if (isEnd() || rhs.isEnd()) {
+    return isEnd() == rhs.isEnd();
   }
   return &(*iter_) == &(*rhs.iter_);
 }
@@ -63,19 +63,19 @@ const noexcept
 
 GameObject& RecursiveSceneIterator::operator*()
 {
-  if (IsEnd())
+  if (isEnd())
     throw std::out_of_range("Dereferenced(*) an end RecursiveSceneIterator.");
   return **iter_;
 }
 
 GameObject* RecursiveSceneIterator::operator->()
 {
-  if (IsEnd())
+  if (isEnd())
     throw std::out_of_range("Dereferenced(->) an end RecursiveSceneIterator.");
   return iter_->get();
 }
 
-bool RecursiveSceneIterator::IsEnd() const noexcept
+bool RecursiveSceneIterator::isEnd() const noexcept
 {
   auto is_end = true;
     if (!parents_.empty()) {

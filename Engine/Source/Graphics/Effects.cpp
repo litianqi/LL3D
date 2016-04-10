@@ -21,23 +21,23 @@ Effect::Effect(std::string path) {
   std::vector<char> content(static_cast<unsigned>(size));
   fs.read(content.data(), size);
 
-  ThrowIfFailed(D3DX11CreateEffectFromMemory(content.data(), size,
-    0, s_graphics_device->GetDevice(), &effect_));
+  throwIfFailed(D3DX11CreateEffectFromMemory(content.data(), size,
+    0, s_graphicsDevice->device(), &effect_));
 }
 
 BasicEffect::BasicEffect(std::string path) :
   Effect(path) {
   tech_ = effect_->GetTechniqueByName("Tech");
 
-  ambient_light_ = effect_->GetVariableByName("g_ambient_light");
-  directional_light_ = effect_->GetVariableByName("g_directional_light");
-  point_light_ = effect_->GetVariableByName("g_point_light");
-  spot_light_ = effect_->GetVariableByName("g_spot_light");
-  eye_pos_w_ = effect_->GetVariableByName("g_eye_pos_w")->AsVector();
+  ambientLight_ = effect_->GetVariableByName("g_ambient_light");
+  directionalLight_ = effect_->GetVariableByName("g_directional_light");
+  pointLight_ = effect_->GetVariableByName("g_point_light");
+  spotLight_ = effect_->GetVariableByName("g_spot_light");
+  eyePosW_ = effect_->GetVariableByName("g_eye_pos_w")->AsVector();
 
   world_ = effect_->GetVariableByName("g_world")->AsMatrix();
-  view_projection_ = effect_->GetVariableByName("g_view_projection")->AsMatrix();
-  texture_transform_ = effect_->GetVariableByName("g_texture_transform")->AsMatrix();
+  viewProjection_ = effect_->GetVariableByName("g_view_projection")->AsMatrix();
+  textureTransform_ = effect_->GetVariableByName("g_texture_transform")->AsMatrix();
   material_ = effect_->GetVariableByName("g_material");
 
   texture_ = effect_->GetVariableByName("g_texture")->AsShaderResource();
@@ -45,58 +45,58 @@ BasicEffect::BasicEffect(std::string path) :
   fog_ = effect_->GetVariableByName("g_fog");
 }
 
-void BasicEffect::Apply(ID3D11DeviceContext* device_context) {
+void BasicEffect::apply(ID3D11DeviceContext* device_context) {
   tech_->GetPassByIndex(0)->Apply(0, device_context);
 }
 
-void BasicEffect::GetVertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) {
+void BasicEffect::vertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) {
   D3DX11_PASS_DESC pass_desc;
   tech_->GetPassByIndex(0)->GetDesc(&pass_desc);
   *byte_code = pass_desc.pIAInputSignature;
   *byte_code_length = pass_desc.IAInputSignatureSize;
 }
 
-void BasicEffect::SetAmbientLight(const AmbientLightFX & value) {
-  ambient_light_->SetRawValue(&value, 0, sizeof(value));
+void BasicEffect::setAmbientLight(const AmbientLightFX & value) {
+  ambientLight_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetDirectionalLight(const DirectionalLightFX & value) {
-  directional_light_->SetRawValue(&value, 0, sizeof(value));
+void BasicEffect::setDirectionalLight(const DirectionalLightFX & value) {
+  directionalLight_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetPointLight(const PointLightFX & value) {
-  point_light_->SetRawValue(&value, 0, sizeof(value));
+void BasicEffect::setPointLight(const PointLightFX & value) {
+  pointLight_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetSpotLight(const SpotLightFX & value) {
-  spot_light_->SetRawValue(&value, 0, sizeof(value));
+void BasicEffect::setSpotLight(const SpotLightFX & value) {
+  spotLight_->SetRawValue(&value, 0, sizeof(value));
 }
 
-void BasicEffect::SetEyePosW(FXMVECTOR value) {
-  eye_pos_w_->SetFloatVector(reinterpret_cast<const float*>(&value));
+void BasicEffect::setEyePosW(FXMVECTOR value) {
+  eyePosW_->SetFloatVector(reinterpret_cast<const float*>(&value));
 }
 
-void BasicEffect::SetWorld(FXMMATRIX value) {
+void BasicEffect::setWorld(FXMMATRIX value) {
   world_->SetMatrix(reinterpret_cast<const float*>(&(value)));
 }
 
-void BasicEffect::SetViewProjection(FXMMATRIX value) {
-  view_projection_->SetMatrix(reinterpret_cast<const float*>(&(value)));
+void BasicEffect::setViewProjection(FXMMATRIX value) {
+  viewProjection_->SetMatrix(reinterpret_cast<const float*>(&(value)));
 }
 
-void BasicEffect::SetTextureTransform(FXMMATRIX value) {
-  texture_transform_->SetMatrix(reinterpret_cast<const float*>(&(value)));
+void BasicEffect::setTextureTransform(FXMMATRIX value) {
+  textureTransform_->SetMatrix(reinterpret_cast<const float*>(&(value)));
 }
 
-void BasicEffect::SetTexture(ID3D11ShaderResourceView* value) {
+void BasicEffect::setTexture(ID3D11ShaderResourceView* value) {
   texture_->SetResource(value);
 }
 
-void BasicEffect::SetMaterial(const MaterialFX& material) {
+void BasicEffect::setMaterial(const MaterialFX& material) {
   material_->SetRawValue(&material, 0, sizeof(material));
 }
 
-void BasicEffect::SetFog(const EffectFog & value)
+void BasicEffect::setFog(const EffectFog & value)
 {
   fog_->SetRawValue(&value, 0, sizeof(value));
 }

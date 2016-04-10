@@ -17,7 +17,7 @@ Game::Game() {
   plog::init(plog::debug, "Engine.log");
 
   window_.reset(new Window(json11::Json{}));
-  window_->OnResize(std::bind(&Game::OnResize, this));
+  window_->onResize(std::bind(&Game::onResize, this));
 
   std::ifstream ifs("_Config/GraphicsDevice.json");
   std::string content((std::istreambuf_iterator<char>(ifs)),
@@ -27,14 +27,14 @@ Game::Game() {
   auto config = json11::Json::parse(content, err);
   ASSERT(err.size() == 0 && "Config error (possibly no config file at all).");
   graphics_device_.reset(new Graphics::Device(config,
-    window_->GetClientRect().GetSize(), window_->GetHandle()));
+    window_->clientRect().GetSize(), window_->handle()));
 
-  Graphics::Base::Initialize(graphics_device_.get());
+  Graphics::Base::initialize(graphics_device_.get());
 
   scene_.reset(new Scene);
 }
 
-void Game::Run() {
+void Game::run() {
   MSG msg = { 0 };
 
   while (msg.message != WM_QUIT) {
@@ -44,11 +44,11 @@ void Game::Run() {
       DispatchMessage(&msg);
     }
 
-    Update(); 
-    scene_->Update();
-    scene_->Render();
-    Input::Mouse::Update();
-    Input::Keyboard::Update();
+    update(); 
+    scene_->update();
+    scene_->render();
+    Input::Mouse::update();
+    Input::Keyboard::update();
   }
 }
 

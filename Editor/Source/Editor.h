@@ -10,9 +10,9 @@ public:
   Editor();
 
 protected:
-  void Update() override;
+  void update() override;
 
-  void OnResize() override;
+  void onResize() override;
 
 private:
   //LL3D::Graphics::FirstPersonalCamera first_personal_camera_;

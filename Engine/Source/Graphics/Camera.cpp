@@ -37,10 +37,10 @@ Camera::Camera(Transform& transform, Frustum frustum, Math::Vector3 forward_vect
   ASSERT(forward_vector.Cross(Math::Vector3::Up) != Math::Vector3::Zero);
 }
 
-void Camera::Render() const 
+void Camera::render() const 
 {
-  s_effect->SetEyePosW(GetPosition());
-  s_effect->SetViewProjection(GetViewMatrix() * GetFrustum().GetProjectionMaxtrix());
+  s_effect->setEyePosW(GetPosition());
+  s_effect->setViewProjection(GetViewMatrix() * GetFrustum().GetProjectionMaxtrix());
 }
 
 void Camera::SetFrustum(const Frustum & frustum) 
@@ -50,7 +50,7 @@ void Camera::SetFrustum(const Frustum & frustum)
 
 void Camera::SetPosition(Math::Vector3 p) 
 {
-  transform_.SetPosition(p);
+  transform_.setPosition(p);
 }
 
 void Camera::SetForwardVector(Math::Vector3 v) 

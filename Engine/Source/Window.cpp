@@ -19,7 +19,7 @@ Window::Window(json11::Json config) {
   wnd_class_.lpszClassName = L"LL3DWndClass";*/
   WNDCLASS wc;
   wc.style = CS_HREDRAW | CS_VREDRAW;
-  wc.lpfnWndProc = MsgProc;
+  wc.lpfnWndProc = msgProc;
   wc.cbClsExtra = 0;
   wc.cbWndExtra = 0;
   wc.hInstance = GetModuleHandle(NULL);
@@ -63,11 +63,11 @@ Window::~Window() {
   DestroyWindow(handle_);
 }
 
-HWND Window::GetHandle() const {
+HWND Window::handle() const {
   return handle_;
 }
 
-void Window::SetVisible(bool visible) {
+void Window::setVisible(bool visible) {
   if (visible) {
     ShowWindow(handle_, SW_SHOW);
   }
@@ -77,36 +77,36 @@ void Window::SetVisible(bool visible) {
   UpdateWindow(handle_);
 }
 
-void Window::SetClientRect(IntRectangle rect) {
+void Window::setClientRect(IntRectangle rect) {
   RECT r{ rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
   WA(AdjustWindowRect(&r,
     WS_OVERLAPPEDWINDOW, false));
 }
 
-void Window::OnResize(std::function<void(void)> callback) {
-  resize_callback_ = callback;
+void Window::onResize(std::function<void(void)> callback) {
+  resizeCallback_ = callback;
 }
 
-IntRectangle Window::GetClientRect() const {
+IntRectangle Window::clientRect() const {
   RECT r;
-  ::GetClientRect(GetHandle(), &r);
+  ::GetClientRect(handle(), &r);
   return IntRectangle(r.left, r.top, r.right, r.bottom);
 }
 
-IntRectangle Window::GetWindowRect() const {
+IntRectangle Window::windowRect() const {
   RECT r;
-  ::GetWindowRect(GetHandle(), &r);
+  ::GetWindowRect(handle(), &r);
   return IntRectangle(r.left, r.top, r.right, r.bottom);
 }
 
-LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
+LRESULT Window::msgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
   Window* self = reinterpret_cast<Window*>(
     GetWindowLongPtr(handle, GWLP_USERDATA));
 
   switch (msg) {
     case WM_CREATE:
     {
-      Input::Mouse::Initialize(handle);
+      Input::Mouse::initialize(handle);
       return 0;
     }
     case WM_DESTROY:
@@ -137,27 +137,27 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     {
       if (wparam == SIZE_MINIMIZED) {
         self->active_ = false;
-        self->show_state_ = Minimized;
+        self->showState_ = Minimized;
       }
       else if (wparam == SIZE_MAXIMIZED) {
-        self->show_state_ = Maximized;
-        if (self->resize_callback_) 
-          self->resize_callback_();
+        self->showState_ = Maximized;
+        if (self->resizeCallback_) 
+          self->resizeCallback_();
       }
       else if (wparam == SIZE_RESTORED) {
         
         // Restoring from minimized state
-        if (self->show_state_ == Minimized) {
+        if (self->showState_ == Minimized) {
           self->active_ = true;
-          self->show_state_ = Normal;
-          if (self->resize_callback_)
-            self->resize_callback_();
+          self->showState_ = Normal;
+          if (self->resizeCallback_)
+            self->resizeCallback_();
         }
         // Restoring from maximized state
-        else if (self->show_state_ == Maximized) {
-          self->show_state_ = Normal;
-          if (self->resize_callback_)
-            self->resize_callback_();
+        else if (self->showState_ == Maximized) {
+          self->showState_ = Normal;
+          if (self->resizeCallback_)
+            self->resizeCallback_();
         }
         else if (self->resizing_) {
           // If user is dragging the resize bars, we do not resize 
@@ -168,13 +168,13 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
           // the resize bars.  So instead, we reset after the user is 
           // done resizing the window and releases the resize bars, which 
           // sends a WM_EXITSIZEMOVE message.
-          if (self->resize_callback_)
-            self->resize_callback_();
+          if (self->resizeCallback_)
+            self->resizeCallback_();
         }
         else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
         {
-          if (self->resize_callback_)
-            self->resize_callback_();
+          if (self->resizeCallback_)
+            self->resizeCallback_();
         }
       }
       return 0;
@@ -189,8 +189,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     case WM_EXITSIZEMOVE:
     {
       self->resizing_ = false;
-      if (self->resize_callback_)
-        self->resize_callback_();
+      if (self->resizeCallback_)
+        self->resizeCallback_();
       return 0;
     }
     // The WM_MENUCHAR message is sent when a menu is active and the user presses 
@@ -209,8 +209,8 @@ LRESULT Window::MsgProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam) {
     }
     default:
     {
-      Input::Mouse::ProcessMessage(msg, wparam, lparam);
-      Input::Keyboard::ProcessMessage(msg, wparam, lparam);
+      Input::Mouse::processMessage(msg, wparam, lparam);
+      Input::Keyboard::processMessage(msg, wparam, lparam);
 
       return DefWindowProc(handle, msg, wparam, lparam);
     }

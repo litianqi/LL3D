@@ -5,13 +5,13 @@
 namespace LL3D {
 namespace Input {
 
-void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
+void Mouse::processMessage(UINT message, WPARAM wparam, LPARAM lparam) {
   switch (message) {
     case WM_MOUSELEAVE:
     {
-      for (int btn = Left; btn < Count; btn++) {
+      for (int btn = kLeft; btn < kCount; btn++) {
         s_released[static_cast<Button>(btn)] = true;
-        s_helding_down[static_cast<Button>(btn)] = false;
+        s_heldingDown[static_cast<Button>(btn)] = false;
       }
       return;
     }
@@ -21,38 +21,38 @@ void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
     }
     case WM_LBUTTONDOWN:
     {
-      s_pressed[Left] = true;
-      s_helding_down[Left] = true;
+      s_pressed[kLeft] = true;
+      s_heldingDown[kLeft] = true;
       break;
     }
     case WM_MBUTTONDOWN:
     {
-      s_pressed[Middle] = true;
-      s_helding_down[Middle] = true;
+      s_pressed[kMiddle] = true;
+      s_heldingDown[kMiddle] = true;
       break;
     }
     case WM_RBUTTONDOWN:
     {
-      s_pressed[Right] = true;
-      s_helding_down[Right] = true;
+      s_pressed[kRight] = true;
+      s_heldingDown[kRight] = true;
       break;;
     }
     case WM_LBUTTONUP:
     {
-      s_released[Left] = true;
-      s_helding_down[Left] = false;
+      s_released[kLeft] = true;
+      s_heldingDown[kLeft] = false;
       break;
     }
     case WM_MBUTTONUP:
     {
-      s_released[Middle] = true;
-      s_helding_down[Middle] = false;
+      s_released[kMiddle] = true;
+      s_heldingDown[kMiddle] = false;
       break;
     }
     case WM_RBUTTONUP:
     {
-      s_released[Right] = true;
-      s_helding_down[Right] = false;
+      s_released[kRight] = true;
+      s_heldingDown[kRight] = false;
       break;
     }
     case WM_MOUSEMOVE:
@@ -62,7 +62,7 @@ void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
     }
     case WM_MOUSEWHEEL:
     {
-      s_scroll_delta += GET_WHEEL_DELTA_WPARAM(wparam);
+      s_scrollDelta += GET_WHEEL_DELTA_WPARAM(wparam);
       break;
     }
     default:
@@ -85,40 +85,40 @@ void Mouse::ProcessMessage(UINT message, WPARAM wparam, LPARAM lparam) {
   s_position.y = static_cast<short>(HIWORD(lparam)); // GET_Y_LPARAM(lParam);
 }
 
-void Mouse::Update() {
-  s_scroll_delta = 0;
+void Mouse::update() {
+  s_scrollDelta = 0;
   s_pressed.clear();
   s_released.clear();
 }
 
-void Mouse::Initialize(HWND hwnd)
+void Mouse::initialize(HWND hwnd)
 {
   s_hwnd = hwnd;
 }
 
-Math::Vector2 Mouse::GetPosition() {
+Math::Vector2 Mouse::position() {
   return s_position;
 }
 
-int Mouse::GetScrollDelta() {
-  return s_scroll_delta;
+int Mouse::scrollDelta() {
+  return s_scrollDelta;
 }
 
-bool Mouse::IsHeldingDown(Button button) {
-  return s_helding_down[button];
+bool Mouse::isHeldingDown(Button button) {
+  return s_heldingDown[button];
 }
 
-bool Mouse::IsPressed(Button button) {
+bool Mouse::isPressed(Button button) {
   return s_pressed[button];
 }
 
-bool Mouse::IsReleased(Button button) {
+bool Mouse::isReleased(Button button) {
   return s_released[button];
 }
 
 Math::Vector2                 Mouse::s_position;
-int                           Mouse::s_scroll_delta;
-std::map<Mouse::Button, bool> Mouse::s_helding_down;
+int                           Mouse::s_scrollDelta;
+std::map<Mouse::Button, bool> Mouse::s_heldingDown;
 std::map<Mouse::Button, bool> Mouse::s_pressed;
 std::map<Mouse::Button, bool> Mouse::s_released;
 HWND                          Mouse::s_hwnd;

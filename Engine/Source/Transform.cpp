@@ -4,31 +4,31 @@
 
 namespace LL3D {
 Transform::Transform(const Transform * parent_transform) :
-  parent_transform_(parent_transform)
+  parentTransform_(parent_transform)
 {
 }
 
 void Transform::setParentTransform(const Transform * parent_transform)
 {
-  parent_transform_ = parent_transform;
+  parentTransform_ = parent_transform;
 }
 
-void Transform::SetLocalPosition(Math::Vector3 value)
+void Transform::setLocalPosition(Math::Vector3 value)
 {
   position_ = value;
 }
 
-void Transform::SetLocalRotation(Math::Vector3 value) 
+void Transform::setLocalRotation(Math::Vector3 value) 
 {
   rotation_ = value;
 }
 
-void Transform::SetLocalScale(Math::Vector3 value) 
+void Transform::setLocalScale(Math::Vector3 value) 
 {
   scale_ = value;
 }
 
-void Transform::SetLocalMatrix(Math::Matrix value)
+void Transform::setLocalMatrix(Math::Matrix value)
 {
   auto scale = Math::Vector3();
   auto roatation = Math::Quaternion();
@@ -42,35 +42,35 @@ void Transform::SetLocalMatrix(Math::Matrix value)
   position_ = position;
 }
 
-void Transform::SetPosition(Math::Vector3 value) {
-  if (parent_transform_)
-    position_ = value - parent_transform_->position();
+void Transform::setPosition(Math::Vector3 value) {
+  if (parentTransform_)
+    position_ = value - parentTransform_->position();
   else
     position_ = value;
 }
 
-void Transform::SetRotation(Math::Vector3 value) {
-  if (parent_transform_)
-    SetLocalRotation(value - parent_transform_->rotation());
+void Transform::setRotation(Math::Vector3 value) {
+  if (parentTransform_)
+    setLocalRotation(value - parentTransform_->rotation());
   else
-    SetLocalRotation(value);
+    setLocalRotation(value);
 }
 
-void Transform::SetScale(Math::Vector3 value) {
-  if (parent_transform_)
-    scale_ = value / parent_transform_->scale();
+void Transform::setScale(Math::Vector3 value) {
+  if (parentTransform_)
+    scale_ = value / parentTransform_->scale();
   else
     scale_ = value;
 }
 
-void Transform::SetMatrix(Math::Matrix value)
+void Transform::setMatrix(Math::Matrix value)
 {
   auto matrix = Math::Matrix();
-  if (parent_transform_)
-    matrix = value / parent_transform_->matrix();
+  if (parentTransform_)
+    matrix = value / parentTransform_->matrix();
   else
     matrix = value;
-  SetLocalMatrix(matrix);
+  setLocalMatrix(matrix);
 }
 
 Math::Vector3 Transform::localPosition() const {
@@ -97,15 +97,15 @@ Math::Matrix Transform::compose() const {
 }
 
 Math::Vector3 Transform::position() const {
-  if (parent_transform_)
-    return position_ + parent_transform_->position();
+  if (parentTransform_)
+    return position_ + parentTransform_->position();
   else
     return position_;
 }
 
 Math::Vector3 Transform::rotation() const {
-  if (parent_transform_)
-    return rotation_ + parent_transform_->rotation();
+  if (parentTransform_)
+    return rotation_ + parentTransform_->rotation();
   else
     return rotation_;
 }
@@ -118,16 +118,16 @@ Math::Quaternion Transform::rotationQuaternion() const
 }
 
 Math::Vector3 Transform::scale() const {
-  if (parent_transform_)
-    return scale_ + parent_transform_->scale();
+  if (parentTransform_)
+    return scale_ + parentTransform_->scale();
   else
     return scale_;
 }
 
 Math::Vector3 Transform::direction() const
 {
-  if (parent_transform_)
-    return localDirection() + parent_transform_->direction();
+  if (parentTransform_)
+    return localDirection() + parentTransform_->direction();
   else
     return localDirection();
 }
@@ -136,14 +136,14 @@ Math::Matrix Transform::matrix() const {
   return compose(position(), rotation(), scale());
 }
 
-void Transform::Render() const
+void Transform::render() const
 {
-  Render(matrix());
+  render(matrix());
 }
 
-void Transform::Render(Math::Matrix world)
+void Transform::render(Math::Matrix world)
 {
-  s_effect->SetWorld(world);
+  s_effect->setWorld(world);
 }
 
 Math::Matrix Transform::compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) {

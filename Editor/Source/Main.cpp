@@ -18,7 +18,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 
   try {
     Editor app;
-    app.Run();
+    app.run();
   }
   catch (ComException& e) {
     LOGF << e.what();

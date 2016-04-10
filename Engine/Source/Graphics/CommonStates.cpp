@@ -39,7 +39,7 @@ void CreateAlphaBlend(ID3D11Device * device)
   desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
   desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateBlendState(&desc, &s_alpha_blend)
     );
 }
@@ -59,7 +59,7 @@ void CreateSubstract(ID3D11Device * device)
   desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
   desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateBlendState(&desc, &s_substract)
     );
 }
@@ -79,7 +79,7 @@ void CreateMultiply(ID3D11Device * device)
   desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
   desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateBlendState(&desc, &s_multiply)
     );
 }
@@ -104,7 +104,7 @@ void CreateMakrMirror(ID3D11Device * device)
   desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
   desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
   
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateDepthStencilState(&desc, &s_mark_mirror)
     );
 }
@@ -128,7 +128,7 @@ void CreateRenderReflection(ID3D11Device * device)
   desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
   desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
   
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateDepthStencilState(&desc, &s_render_reflection)
     );
 }
@@ -152,7 +152,7 @@ void CreateShadow(ID3D11Device * device)
   desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
   desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateDepthStencilState(&desc, &s_shadow)
     );
 }
@@ -164,7 +164,7 @@ void CreateCullNone(ID3D11Device * device) {
   desc.FrontCounterClockwise = false;
   desc.DepthClipEnable = true;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateRasterizerState(&desc, &s_cull_none)
     );
 }
@@ -176,7 +176,7 @@ void CreateCullClockwise(ID3D11Device * device) {
   desc.FrontCounterClockwise = true;
   desc.DepthClipEnable = true;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateRasterizerState(&desc, &s_cull_clockwise)
     );
 }
@@ -188,7 +188,7 @@ void CreateCullCounterClockwise(ID3D11Device * device) {
   desc.FrontCounterClockwise = false;
   desc.DepthClipEnable = true;
 
-  ThrowIfFailed(
+  throwIfFailed(
     device->CreateRasterizerState(&desc, &s_cull_counter_clockwise)
     );
 }
@@ -200,7 +200,7 @@ namespace LL3D {
 namespace Graphics {
 namespace CommonStates {
 
-void Initialize(ID3D11Device * device)
+void initialize(ID3D11Device * device)
 {
   CreateOpaque(device);
   CreateAlphaBlend(device);
@@ -220,47 +220,47 @@ void Initialize(ID3D11Device * device)
 //  //return s_opaque.Get();
 //}
 
-ID3D11BlendState * AlphaBlend()
+ID3D11BlendState * alphaBlend()
 {
   return s_alpha_blend.Get();
 }
 
-ID3D11BlendState * Substract()
+ID3D11BlendState * substract()
 {
   return s_substract.Get();
 }
 
-ID3D11BlendState * Multiply()
+ID3D11BlendState * multiply()
 {
   return s_multiply.Get();
 }
 
-ID3D11DepthStencilState * MarkMirror()
+ID3D11DepthStencilState * markMirror()
 {
   return s_mark_mirror.Get();
 }
 
-ID3D11DepthStencilState * RenderReflection()
+ID3D11DepthStencilState * renderReflection()
 {
   return s_render_reflection.Get();
 }
 
-ID3D11DepthStencilState * Shadow()
+ID3D11DepthStencilState * shadow()
 {
   return s_shadow.Get();
 }
 
-ID3D11RasterizerState * CullNone()
+ID3D11RasterizerState * cullNone()
 {
   return s_cull_none.Get();
 }
 
-ID3D11RasterizerState * CullClockwise()
+ID3D11RasterizerState * cullClockwise()
 {
   return s_cull_clockwise.Get();
 }
 
-ID3D11RasterizerState * CullCounterClockwise()
+ID3D11RasterizerState * cullCounterClockwise()
 {
   return s_cull_counter_clockwise.Get();
 }

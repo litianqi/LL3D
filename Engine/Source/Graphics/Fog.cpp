@@ -10,9 +10,9 @@ Fog::Fog(Math::Color color, float start, float range) :
 
 }
 
-void Fog::Update()
+void Fog::update()
 {
-  s_effect->SetFog(data_);
+  s_effect->setFog(data_);
 }
 
 }
