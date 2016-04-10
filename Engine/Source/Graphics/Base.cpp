@@ -21,12 +21,12 @@ void Base::initialize(Device* device) {
   s_effect.reset(new BasicEffect("../Engine/_Resource/Effects/Main.fxo"));
 
   // Init InputLayout.
-  const void* shader_bytecode;
-  size_t shader_bytecode_size;
-  s_effect->vertexShaderBytecode(&shader_bytecode, &shader_bytecode_size);
+  const void* shaderBytecode;
+  size_t shaderBytecodeSize;
+  s_effect->vertexShaderBytecode(&shaderBytecode, &shaderBytecodeSize);
   throwIfFailed(
     s_graphicsDevice->device()->CreateInputLayout(Vertex::kInputElements, 
-      Vertex::kInputElementCount, shader_bytecode, shader_bytecode_size, 
+      Vertex::kInputElementCount, shaderBytecode, shaderBytecodeSize, 
       &s_inputLayout)
     );
 

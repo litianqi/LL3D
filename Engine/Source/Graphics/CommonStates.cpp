@@ -9,15 +9,15 @@ using namespace LL3D;
 namespace {
 
 ComPtr<ID3D11BlendState>        s_opaque;
-ComPtr<ID3D11BlendState>        s_alpha_blend;
+ComPtr<ID3D11BlendState>        s_alphaBlend;
 ComPtr<ID3D11BlendState>        s_substract;
 ComPtr<ID3D11BlendState>        s_multiply;
-ComPtr<ID3D11DepthStencilState> s_mark_mirror;
-ComPtr<ID3D11DepthStencilState> s_render_reflection;
+ComPtr<ID3D11DepthStencilState> s_markMirror;
+ComPtr<ID3D11DepthStencilState> s_renderReflection;
 ComPtr<ID3D11DepthStencilState> s_shadow;
-ComPtr<ID3D11RasterizerState>   s_cull_none;
-ComPtr<ID3D11RasterizerState>   s_cull_clockwise;
-ComPtr<ID3D11RasterizerState>   s_cull_counter_clockwise;
+ComPtr<ID3D11RasterizerState>   s_cullNone;
+ComPtr<ID3D11RasterizerState>   s_cullClockwise;
+ComPtr<ID3D11RasterizerState>   s_cullCounterClockwise;
 
 void CreateOpaque(ID3D11Device * device)
 {
@@ -40,7 +40,7 @@ void CreateAlphaBlend(ID3D11Device * device)
   desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
 
   throwIfFailed(
-    device->CreateBlendState(&desc, &s_alpha_blend)
+    device->CreateBlendState(&desc, &s_alphaBlend)
     );
 }
 
@@ -105,7 +105,7 @@ void CreateMakrMirror(ID3D11Device * device)
   desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
   
   throwIfFailed(
-    device->CreateDepthStencilState(&desc, &s_mark_mirror)
+    device->CreateDepthStencilState(&desc, &s_markMirror)
     );
 }
 
@@ -129,7 +129,7 @@ void CreateRenderReflection(ID3D11Device * device)
   desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
   
   throwIfFailed(
-    device->CreateDepthStencilState(&desc, &s_render_reflection)
+    device->CreateDepthStencilState(&desc, &s_renderReflection)
     );
 }
 
@@ -165,7 +165,7 @@ void CreateCullNone(ID3D11Device * device) {
   desc.DepthClipEnable = true;
 
   throwIfFailed(
-    device->CreateRasterizerState(&desc, &s_cull_none)
+    device->CreateRasterizerState(&desc, &s_cullNone)
     );
 }
 
@@ -177,7 +177,7 @@ void CreateCullClockwise(ID3D11Device * device) {
   desc.DepthClipEnable = true;
 
   throwIfFailed(
-    device->CreateRasterizerState(&desc, &s_cull_clockwise)
+    device->CreateRasterizerState(&desc, &s_cullClockwise)
     );
 }
 
@@ -189,7 +189,7 @@ void CreateCullCounterClockwise(ID3D11Device * device) {
   desc.DepthClipEnable = true;
 
   throwIfFailed(
-    device->CreateRasterizerState(&desc, &s_cull_counter_clockwise)
+    device->CreateRasterizerState(&desc, &s_cullCounterClockwise)
     );
 }
 
@@ -222,7 +222,7 @@ void initialize(ID3D11Device * device)
 
 ID3D11BlendState * alphaBlend()
 {
-  return s_alpha_blend.Get();
+  return s_alphaBlend.Get();
 }
 
 ID3D11BlendState * substract()
@@ -237,12 +237,12 @@ ID3D11BlendState * multiply()
 
 ID3D11DepthStencilState * markMirror()
 {
-  return s_mark_mirror.Get();
+  return s_markMirror.Get();
 }
 
 ID3D11DepthStencilState * renderReflection()
 {
-  return s_render_reflection.Get();
+  return s_renderReflection.Get();
 }
 
 ID3D11DepthStencilState * shadow()
@@ -252,17 +252,17 @@ ID3D11DepthStencilState * shadow()
 
 ID3D11RasterizerState * cullNone()
 {
-  return s_cull_none.Get();
+  return s_cullNone.Get();
 }
 
 ID3D11RasterizerState * cullClockwise()
 {
-  return s_cull_clockwise.Get();
+  return s_cullClockwise.Get();
 }
 
 ID3D11RasterizerState * cullCounterClockwise()
 {
-  return s_cull_counter_clockwise.Get();
+  return s_cullCounterClockwise.Get();
 }
 
 }  // namespace CommonStates

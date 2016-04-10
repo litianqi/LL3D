@@ -11,27 +11,27 @@ using namespace DirectX;
 namespace LL3D {
 namespace Graphics {
 
-std::map<std::experimental::filesystem::path, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> s_textures_cache;
+std::map<std::experimental::filesystem::path, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> s_texturesCache;
 
 ID3D11ShaderResourceView * loadDDSFromFile(ID3D11Device * device, std::experimental::filesystem::path pathname) {
   // First try to find it in cache.
-  auto i = s_textures_cache.find(pathname);
-  if (i != s_textures_cache.end()) {
+  auto i = s_texturesCache.find(pathname);
+  if (i != s_texturesCache.end()) {
     return i->second.Get();
   }
 
   // If cannot find it, create it
-  Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture_view;
+  Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> textureView;
   if (pathname.extension() == ".dds") {
     throwIfFailed(
-      CreateDDSTextureFromFile(device, pathname.c_str(), nullptr, &texture_view)
+      CreateDDSTextureFromFile(device, pathname.c_str(), nullptr, &textureView)
       );
   } else {
     throw InvalidArgument("path does not has a extension, or has a extension not supported!");
   }
 
-  s_textures_cache[pathname] = texture_view;
-  return texture_view.Get();
+  s_texturesCache[pathname] = textureView;
+  return textureView.Get();
 }
 
 }  // namespace Graphics
