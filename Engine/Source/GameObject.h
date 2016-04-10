@@ -13,7 +13,11 @@ class Component;
 class RecursiveSceneIterator;
 class Transform;
 
-//-----------------------------------------------------------------------------
+}
+
+
+namespace LL3D {
+
 // Base class for all entities in LL3D scenes.
 class GameObject : private Core::Uncopyable {
 
@@ -32,10 +36,10 @@ public:
   void addChild(std::unique_ptr<GameObject> child);
   void removeChild(GameObject* child);
 
-  Scene* GetScene();
-  const Scene* GetScene() const;
-  GameObject* GetParent();
-  const GameObject* GetParent() const;
+  Scene* scene();
+  const Scene* scene() const;
+  GameObject* parent();
+  const GameObject* parent() const;
      
   void setActive(bool value);
   void setName(const std::string& value);
@@ -69,7 +73,7 @@ private:
   GameObject*           parent_ = nullptr;
   std::list<std::unique_ptr<GameObject>> children_;
   Scene*                scene_ = nullptr;
-
+  
   bool          active_;
   std::string   name_;
   std::string   tag_;

@@ -7,12 +7,17 @@
 
 namespace LL3D {
 namespace Graphics {
+
 class MeshRender;
 class LightComponent;
+
 }
+
 class RecursiveSceneIterator;
 using RenderableMesh = std::pair<Transform, const Graphics::MeshRender*>;
+
 }
+
 
 namespace LL3D {
 

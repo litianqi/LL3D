@@ -6,16 +6,9 @@
 namespace LL3D {
 namespace Utils {
 
-//--------------------------------------
-// For interface to win32 API functions
-
-//>
 // Unicode -> code_page 
-// 
 std::string Convert(const std::wstring& text, unsigned int code_page = CP_UTF8);
-//>
 // code_page -> Unicode 
-//
 std::wstring Convert(const std::string& text, unsigned int code_page = CP_UTF8);
 
 }  // namespace Utils

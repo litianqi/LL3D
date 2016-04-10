@@ -46,7 +46,7 @@ void GameObject::update() {
   }
 }
 
-Scene * GameObject::GetScene() {
+Scene * GameObject::scene() {
   return scene_;
 }
 
@@ -97,11 +97,11 @@ const Transform & GameObject::transform() const
   return *transform;
 }
 
-GameObject * GameObject::GetParent() {
+GameObject * GameObject::parent() {
   return parent_;
 }
 
-const GameObject * GameObject::GetParent() const {
+const GameObject * GameObject::parent() const {
   return parent_;
 }
 

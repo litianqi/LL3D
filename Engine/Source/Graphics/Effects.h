@@ -40,35 +40,23 @@ class BasicEffect : public Effect {
 public:
   BasicEffect(std::string path);
 
-  //--------------------------------------
-  // Effect methods.
   void apply(ID3D11DeviceContext* device_context) override;
   void vertexShaderBytecode(const void ** byte_code, size_t* byte_code_length) override;
 
-  //--------------------------------------
-  // Light settings.
   void setAmbientLight(const AmbientLightFX& value);
   void setDirectionalLight(const DirectionalLightFX& value);
   void setPointLight(const PointLightFX& value);
   void setSpotLight(const SpotLightFX& value);
   void setEyePosW(DirectX::FXMVECTOR value);
 
-  //--------------------------------------
-  // Camera settings.
   void setWorld(DirectX::FXMMATRIX value);
   void setViewProjection(DirectX::FXMMATRIX value);
 
-  //--------------------------------------
-  // Texture setting.
   void setTextureTransform(DirectX::FXMMATRIX value);
   void setTexture(ID3D11ShaderResourceView* value);
 
-  //--------------------------------------
-  // Material settings.
   void setMaterial(const MaterialFX& material);
 
-  //--------------------------------------
-  // Fog settings.
   void setFog(const EffectFog& value);
 
 private:

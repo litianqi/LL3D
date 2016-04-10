@@ -10,48 +10,33 @@ namespace LL3D {
 namespace Graphics {
 namespace CommonStates {
 
-//>
-// Initialize CommonStates, called by Base::Init
-//
 void initialize(ID3D11Device* device);
 
-//--------------------------------------
-// Blend states.
-ID3D11BlendState* opaque();  // Makes no sense, disabling blending has same effect
-                             // and better performance.
+// Makes no sense, disabling blending has same effect and better performance.
+ID3D11BlendState* opaque();  
 ID3D11BlendState* alphaBlend();
 ID3D11BlendState* additive();
 ID3D11BlendState* substract();
 ID3D11BlendState* multiply();
 ID3D11BlendState* nonPremultiplied();
 
-//--------------------------------------
-// Depth stencil states.
 ID3D11DepthStencilState* depthNone();
 ID3D11DepthStencilState* depthDefault();
 ID3D11DepthStencilState* depthRead();
-//>
 // Set MakMirror before render mirror, so visible part of mirror in stencil 
 // buffer will be replaced to StencilRef, others will be 0.
-//
 ID3D11DepthStencilState* markMirror();
-//>
 // Set RenderReflection before render reflection (in mirror), and StencilRef
 // to the same StencilRef used in MarkMirror. So only objects inside mirror
 // scope allowed to render.
-//
 ID3D11DepthStencilState* renderReflection();
 ID3D11DepthStencilState* shadow();
 
-//--------------------------------------
-// Rasterizer states.
 ID3D11RasterizerState* cullNone();
 ID3D11RasterizerState* cullClockwise();
 ID3D11RasterizerState* cullCounterClockwise();
 ID3D11RasterizerState* wireframe();
 
-//--------------------------------------
-// Sampler states.
 ID3D11SamplerState* pointWrap();
 ID3D11SamplerState* pointClamp();
 ID3D11SamplerState* linearWrap();

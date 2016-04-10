@@ -8,6 +8,7 @@ namespace LL3D {
 
 class Transform : public Component, private Graphics::Base {
 public:
+
   Transform(const Transform* parent_transform);
 
   void setParentTransform(const Transform* parent_transform);
@@ -34,13 +35,12 @@ public:
   Math::Vector3 direction() const;
   Math::Matrix  matrix() const;
 
-  //>
   // Writes world matrix to shader buffer.
-  //
   void render() const;
   static void render(Math::Matrix world);
 
 private:
+
   static Math::Matrix compose(Math::Vector3 position, Math::Vector3 rotation,
     Math::Vector3 scale);
 
@@ -52,6 +52,7 @@ private:
   Math::Vector3 rotation_;
   // local scale
   Math::Vector3 scale_ = Math::Vector3::One;
+
 };
 
 }  // namespace LL3D 
