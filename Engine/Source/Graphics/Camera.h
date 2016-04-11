@@ -13,7 +13,7 @@ class Transform;
 namespace LL3D {
 namespace Graphics {
 
-// A camera that can not be moved or rotated.
+// Camera that can not be moved or rotated.
 class StaticCamera : public Component {
 public:
   StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ);
@@ -36,7 +36,6 @@ private:
 };
 
 
-// Normal camera.
 class Camera : public StaticCamera, private Core::Uncopyable, private Base {
 public:
   Camera(Transform& transform);
