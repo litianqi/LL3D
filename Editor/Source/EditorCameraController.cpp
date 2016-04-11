@@ -116,15 +116,15 @@ void EditorCameraController::update() {
 }
 
 Math::Vector3 EditorCameraController::GetTargetPosition() const {
-  Math::Vector3 world_origin = camera_->WorldToViewPosition(Math::Vector3::Zero);
-  Math::Vector3 world_up = camera_->WorldToViewPosition(Math::Vector3::Up);
+  Math::Vector3 world_origin = camera_->convertWorldToView(Math::Vector3::Zero);
+  Math::Vector3 world_up = camera_->convertWorldToView(Math::Vector3::Up);
   
   float z_vec_v = -(world_origin.x * world_up.x + world_origin.y * world_up.y) / world_up.z;
   float target_z = z_vec_v + world_origin.z;
 
   Math::Vector3 target_pos(0, 0, target_z);
   
-  return camera_->ViewToWorldPosition(target_pos);
+  return camera_->convertViewToWorld(target_pos);
 }
 
 Math::Vector3 EditorCameraController::GetPosition() const

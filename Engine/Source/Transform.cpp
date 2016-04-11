@@ -113,7 +113,7 @@ Math::Vector3 Transform::rotation() const {
 Math::Quaternion Transform::rotationQuaternion() const
 {
   return Math::Quaternion::CreateFromYawPitchRoll(
-    rotation_.x, rotation_.y, rotation_.z
+    rotation_.y, rotation_.x, rotation_.z
     );
 }
 

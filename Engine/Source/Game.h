@@ -7,13 +7,21 @@ namespace LL3D {
 
 class Window;
 class Scene;
+
 namespace Graphics {
+
 class Device;
+
+}
 }
 
+
+namespace LL3D {
+
 class Game {
-public:
-  
+
+public:  
+
   Game();
   void run();
 

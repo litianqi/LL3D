@@ -5,8 +5,11 @@
 #include "Graphics/Base.h"
 
 namespace LL3D {
+
 class Transform;
+
 }
+
 
 namespace LL3D {
 namespace Graphics {
@@ -33,8 +36,11 @@ private:
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer_;
 };
 
+
 class ModelRender : public Component {
+
 public:
+
   enum BuiltInModel { Cube, Sphere, Grid };
 
   ModelRender(const Model& model);
@@ -46,10 +52,13 @@ public:
   const DirectX::BoundingBox& localBoundingBox() const;
 
 private:
+
   std::string             name_;
   std::vector<MeshRender> meshRenders_;
   DirectX::BoundingBox    localBoundingBox_;
+
 };
+
 
 DirectX::BoundingOrientedBox convertToWorldBoundingBox(
   const DirectX::BoundingBox& localBoundingBox,

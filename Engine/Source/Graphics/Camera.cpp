@@ -17,11 +17,11 @@ Camera::Frustum::Frustum(float radian_fov_y, float aspect_ratio, float z_near, f
   ASSERT(z_far > z_near);
 }
 
-void Camera::Frustum::SetAspectRatio(float aspect_ratio) {
+void Camera::Frustum::setAspectRatio(float aspect_ratio) {
   aspect_ratio_ = aspect_ratio;
 }
 
-Math::Matrix Camera::Frustum::GetProjectionMaxtrix() const 
+Math::Matrix Camera::Frustum::projectionMaxtrix() const 
 {
   return Math::Matrix::CreatePerspectiveFieldOfView(radian_fov_y_, aspect_ratio_,
     static_cast<float>(z_near_), static_cast<float>(z_far_));
@@ -40,7 +40,7 @@ Camera::Camera(Transform& transform, Frustum frustum, Math::Vector3 forward_vect
 void Camera::render() const 
 {
   s_effect->setEyePosW(GetPosition());
-  s_effect->setViewProjection(GetViewMatrix() * GetFrustum().GetProjectionMaxtrix());
+  s_effect->setViewProjection(viewMatrix() * frustum().projectionMaxtrix());
 }
 
 void Camera::SetFrustum(const Frustum & frustum) 
@@ -58,18 +58,18 @@ void Camera::SetForwardVector(Math::Vector3 v)
   forward_vector_ = v;
 }
 
-Math::Matrix Camera::GetViewMatrix() const 
+Math::Matrix Camera::viewMatrix() const 
 {
   return Math::Matrix::CreateLookTo(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
 }
 
-Math::Matrix Camera::GetViewProjectionMatrix() const 
+Math::Matrix Camera::viewProjectionMatrix() const 
 {
-  Math::Matrix projection = frustum_.GetProjectionMaxtrix();
-  return GetViewMatrix() * projection;
+  Math::Matrix projection = frustum_.projectionMaxtrix();
+  return viewMatrix() * projection;
 }
 
-const Camera::Frustum& Camera::GetFrustum() const 
+const Camera::Frustum& Camera::frustum() const 
 {
   return frustum_;
 }
@@ -84,15 +84,15 @@ Math::Vector3 Camera::GetForwardVector() const
   return forward_vector_;
 }
 
-Math::Vector3 Camera::ViewToWorldPosition(Math::Vector3 p) const 
+Math::Vector3 Camera::convertViewToWorld(Math::Vector3 position) const 
 {
-  auto view = GetViewMatrix();
-  return Math::Vector3::Transform(p, view.Invert());
+  auto view = viewMatrix();
+  return Math::Vector3::Transform(position, view.Invert());
 }
 
-Math::Vector3 Camera::WorldToViewPosition(Math::Vector3 p) const 
+Math::Vector3 Camera::convertWorldToView(Math::Vector3 position) const 
 {
-  return XMVector3Transform(p, GetViewMatrix());
+  return XMVector3Transform(position, viewMatrix());
 }
 
 Math::Vector3 Camera::GetRightVector() const {
@@ -105,6 +105,18 @@ Math::Vector3 Camera::GetUpVector() const {
   Math::Vector3 v{ 0, y, 0 };
 
   return forward_vector_ - v;
+}
+
+DirectX::BoundingFrustum Camera::boundingFrustum() const
+{
+  auto localFrustum = DirectX::BoundingFrustum(
+    frustum().projectionMaxtrix()
+    );
+  // local -> world
+ /* localFrustum.Origin = GetPosition();
+  auto yawPitchRoll = GetForwardVector()- Math::Vector3::Up;
+  localFrustum.Orientation = Math::Quaternion::CreateFromYawPitchRoll();*/
+  return localFrustum;
 }
 
 }  // namespace Graphics

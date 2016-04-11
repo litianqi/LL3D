@@ -8,10 +8,32 @@
 
 using namespace std;
 using namespace std::experimental;
+using namespace DirectX;
 using namespace LL3D::Math;
 
 namespace LL3D {
 namespace Graphics {
+
+Model::Model(const string & _name, const std::vector<Mesh>& _meshes, const std::vector<Material>& _materials) :
+  name(_name),
+  meshes(_meshes),
+  materials(_materials),
+  boundingBox(calculateBoundingBox(meshes))
+{
+}
+
+DirectX::BoundingBox Model::calculateBoundingBox(const std::vector<Mesh>& meshes)
+{
+  auto model_box = BoundingBox();
+  if (meshes.size() > 0)
+  {
+    for (const auto& mesh : meshes)
+    {
+      BoundingBox::CreateMerged(model_box, model_box, mesh.boudingBox());
+    }
+  }
+  return model_box;
+}
 
 Model Model::loadAssimp(filesystem::path pathname)
 {
@@ -53,7 +75,8 @@ Model Model::loadAssimp(filesystem::path pathname)
   if (scene == nullptr)
     throw std::exception("scene == nullptr, empty or corrupted file?");
 
-  auto model = Model();
+  std::vector<Mesh> meshes;
+  std::vector<Material> materials;
 
   if (scene->HasTextures())
   {
@@ -121,7 +144,7 @@ Model Model::loadAssimp(filesystem::path pathname)
     srcmat->Get(AI_MATKEY_NAME, matName);
     dstmat.name = matName.C_Str();
 
-    model.materials.push_back(dstmat);
+    materials.push_back(dstmat);
   }
 
   // fill in vertex and index data
@@ -189,10 +212,23 @@ Model Model::loadAssimp(filesystem::path pathname)
       dstmesh.indices.push_back(srcmesh->mFaces[f].mIndices[2]);
     }
 
-    model.meshes.push_back(dstmesh);
+    meshes.push_back(dstmesh);
   }
 
-  return model;
+  return Model("", std::move(meshes), std::move(materials));
+}
+
+DirectX::BoundingBox Mesh::boudingBox() const
+{
+  auto box = BoundingBox();
+  BoundingBox::CreateFromPoints(
+    box, 
+    vertices.size(), 
+    reinterpret_cast<const XMFLOAT3*>(vertices.data()), 
+    sizeof(Vertex)
+    );
+
+  return box;
 }
 
 Mesh Mesh::createCube(float width, float height, float depth)

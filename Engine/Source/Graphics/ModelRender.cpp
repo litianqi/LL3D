@@ -110,7 +110,8 @@ bool MeshRender::opaque() const
 }
 
 ModelRender::ModelRender(const Model & model) :
-  name_(model.name)
+  name_(model.name),
+  localBoundingBox_(model.boundingBox)
 {
   for (const auto& m : model.meshes) {
     meshRenders_.push_back(MeshRender(m, model.materials));
@@ -124,28 +125,32 @@ ModelRender::ModelRender(std::experimental::filesystem::path pathname)
     meshRenders_.push_back(MeshRender(m, model.materials));
   }
   name_ = model.name;
+  localBoundingBox_ = model.boundingBox;
 }
 
 ModelRender::ModelRender(BuiltInModel type)
 {
-  auto model = Model();
+  std::string name;
+  std::vector<Mesh> meshes;
+  std::vector<Material> materials;
+
   if (type == Cube) {
     auto mesh = Mesh::createCube(10.f, 10.f, 10.f);
     mesh.materialIndex = 0;
-    model.meshes.push_back(std::move(mesh));
-    model.name = "Cube";
+    meshes.push_back(std::move(mesh));
+    name = "Cube";
   }
   else if (type == Sphere) {
     auto mesh = Mesh::createSphere(5.f, 50, 50);
     mesh.materialIndex = 0;
-    model.meshes.push_back(std::move(mesh));
-    model.name = "Sphere";
+    meshes.push_back(std::move(mesh));
+    name = "Sphere";
   }
   else if (type == Grid) {
     auto mesh = Mesh::createGrid(100.f, 100.f, 2, 2);
     mesh.materialIndex = 0;
-    model.meshes.push_back(std::move(mesh));
-    model.name = "Grid";
+    meshes.push_back(std::move(mesh));
+    name = "Grid";
   }
   else {
     ASSERT(false && "Wrong parameter, not in range");
@@ -160,13 +165,15 @@ ModelRender::ModelRender(BuiltInModel type)
   mat.shininess = 5.f;
   mat.opacity = 1.f;
   mat.shininess_strength = 1.f;
-  model.materials.push_back(mat);
+  materials.push_back(mat);
   
+  const auto model = Model(move(name), move(meshes), move(materials));
+
   for (const auto& m : model.meshes) {
     meshRenders_.push_back(MeshRender(m, model.materials));
   }
-
   name_ = model.name;
+  localBoundingBox_ = model.boundingBox;
 }
 
 const std::string & ModelRender::name() const

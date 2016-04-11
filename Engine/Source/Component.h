@@ -5,7 +5,9 @@
 #include "Core/Uncopyable.h"
 
 namespace LL3D {
+
 class GameObject;
+
 }
 
 namespace LL3D {

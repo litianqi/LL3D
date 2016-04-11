@@ -23,7 +23,7 @@ class GameObject : private Core::Uncopyable {
 
   friend RecursiveSceneIterator;
 
-public:          
+public:
 
   GameObject();
   GameObject(const std::string& name) noexcept;

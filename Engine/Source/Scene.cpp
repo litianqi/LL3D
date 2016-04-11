@@ -176,17 +176,27 @@ void Scene::render() noexcept
   s_graphicsDevice->deviceContex()->OMSetBlendState(
     nullptr, nullptr, 0xffffffff
     );
+  auto frustum = _camera->component<Graphics::Camera>()->boundingFrustum();
 
-  for (const auto& object : RecursiveSceneIterator(*this)) {
+  for (const auto& object : RecursiveSceneIterator(*this)) 
+  {
     const auto* model = object.component<Graphics::ModelRender>();
-    if (!model)
-      continue;
-    const auto& transform = object.transform();
-    transform.render();
-    for (const auto& mesh : model->meshRenders())
+    if (model) 
     {
-      if (mesh.opaque()) {
-        mesh.render();
+      const auto localBox = model->localBoundingBox();
+      const auto& transform = object.transform();
+      const auto worldBox = convertToWorldBoundingBox(localBox, transform);
+      if (frustum.Intersects(worldBox)) 
+      {
+        const auto& transform = object.transform();
+        transform.render();
+        for (const auto& mesh : model->meshRenders())
+        {
+          if (mesh.opaque()) 
+          {
+            mesh.render();
+          }
+        }
       }
     }
   }
