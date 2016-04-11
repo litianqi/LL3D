@@ -74,7 +74,7 @@ void RenderPlanarShadow(Transform transform,
       continue;
     }
     case Graphics::LightComponent::Directional: {
-      const auto dir = -light->transform().direction();
+      const auto dir = -light->transform().upVec();
       vec = Math::Vector4(dir.x, dir.y, dir.z, 0.f);
       break;
     }
@@ -240,7 +240,7 @@ void Scene::render() noexcept
     mirror.second->render();
 
     // b. Reverse all lights. (TODO)
-    const auto plane = Math::Plane(mirror.first.position(), mirror.first.direction());
+    const auto plane = Math::Plane(mirror.first.position(), mirror.first.upVec());
     auto reflect = Math::XMMatrixReflect(plane);
     reflect *= Math::Matrix::CreateTranslation(ReflectionOffset);
 

@@ -15,7 +15,7 @@ SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) no
   outerConeAngle = light.outerConeAngle;
 
   position = transform.position();
-  direction = transform.direction();
+  direction = transform.upVec();
 }
 
 AmbientLightFX::AmbientLightFX(const AmbientLight & light) noexcept
@@ -29,7 +29,7 @@ DirectionalLightFX::DirectionalLightFX(const DirectionalLight & light, const Tra
   specular = light.specular;
   
   auto rotation = transform.rotation();
-  direction = transform.direction();
+  direction = transform.upVec();
 }
 
 PointLightFX::PointLightFX(const PointLight & light, const Transform& transform) noexcept

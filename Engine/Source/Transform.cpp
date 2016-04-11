@@ -1,6 +1,7 @@
 #include "Transform.h"
 #include "Graphics\Effects.h"
 #include "GameObject.h"
+#include "Core\Assert.h"
 
 namespace LL3D {
 Transform::Transform(const Transform * parent_transform) :
@@ -42,21 +43,24 @@ void Transform::setLocalMatrix(Math::Matrix value)
   position_ = position;
 }
 
-void Transform::setPosition(Math::Vector3 value) {
+void Transform::setPosition(Math::Vector3 value) 
+{
   if (parentTransform_)
     position_ = value - parentTransform_->position();
   else
     position_ = value;
 }
 
-void Transform::setRotation(Math::Vector3 value) {
+void Transform::setRotation(Math::Vector3 value) 
+{
   if (parentTransform_)
     setLocalRotation(value - parentTransform_->rotation());
   else
     setLocalRotation(value);
 }
 
-void Transform::setScale(Math::Vector3 value) {
+void Transform::setScale(Math::Vector3 value) 
+{
   if (parentTransform_)
     scale_ = value / parentTransform_->scale();
   else
@@ -73,37 +77,57 @@ void Transform::setMatrix(Math::Matrix value)
   setLocalMatrix(matrix);
 }
 
-Math::Vector3 Transform::localPosition() const {
+Math::Vector3 Transform::localPosition() const 
+{
   return position_;
 }
 
-Math::Vector3 Transform::localRotation() const {
+Math::Vector3 Transform::localRotation() const 
+{
   return rotation_;
 }
 
-Math::Vector3 Transform::localScale() const {
+Math::Vector3 Transform::localScale() const 
+{
   return scale_;
 }
 
-Math::Vector3 Transform::localDirection() const
+Math::Vector3 Transform::localUpVec() const
 {
   auto rotation = localRotation();
   auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   return Math::Vector3::Transform(Math::Vector3::Up, matrix);
 }
 
-Math::Matrix Transform::compose() const {
+Math::Vector3 Transform::localRightVec() const
+{
+  auto rotation = localRotation();
+  auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
+  return Math::Vector3::Transform(Math::Vector3::Right, matrix);
+}
+
+Math::Vector3 Transform::localForwardVec() const
+{
+  auto rotation = localRotation();
+  auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
+  return Math::Vector3::Transform(Math::Vector3::Forward, matrix);
+}
+
+Math::Matrix Transform::compose() const 
+{
   return compose(position_, rotation_, scale_);
 }
 
-Math::Vector3 Transform::position() const {
+Math::Vector3 Transform::position() const 
+{
   if (parentTransform_)
     return position_ + parentTransform_->position();
   else
     return position_;
 }
 
-Math::Vector3 Transform::rotation() const {
+Math::Vector3 Transform::rotation() const 
+{
   if (parentTransform_)
     return rotation_ + parentTransform_->rotation();
   else
@@ -117,22 +141,50 @@ Math::Quaternion Transform::rotationQuaternion() const
     );
 }
 
-Math::Vector3 Transform::scale() const {
+Math::Vector3 Transform::scale() const 
+{
   if (parentTransform_)
     return scale_ + parentTransform_->scale();
   else
     return scale_;
 }
 
-Math::Vector3 Transform::direction() const
+Math::Vector3 Transform::upVec() const
 {
-  if (parentTransform_)
-    return localDirection() + parentTransform_->direction();
-  else
-    return localDirection();
+  if (parentTransform_) {
+    ASSERT(false);
+    // TODO
+    return localUpVec();
+  }    
+  else {
+    return localUpVec();
+  }
 }
 
-Math::Matrix Transform::matrix() const {
+Math::Vector3 Transform::rightVec() const
+{
+  if (parentTransform_) {
+    ASSERT(false);
+    // TODO
+    return localRightVec();
+  }
+  else
+    return localRightVec();
+}
+
+Math::Vector3 Transform::forwardVec() const
+{
+  if (parentTransform_) {
+    ASSERT(false);
+    // TODO
+    return localForwardVec();
+  }
+  else
+    return localForwardVec();
+}
+
+Math::Matrix Transform::matrix() const 
+{
   return compose(position(), rotation(), scale());
 }
 
@@ -146,7 +198,8 @@ void Transform::render(Math::Matrix world)
   s_effect->setWorld(world);
 }
 
-Math::Matrix Transform::compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) {
+Math::Matrix Transform::compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) 
+{
   auto r = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   auto s = Math::Matrix::CreateScale(scale);
   auto t = Math::Matrix::CreateTranslation(position);
