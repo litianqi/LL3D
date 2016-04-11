@@ -43,14 +43,14 @@ void Game::run() {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     }
-
-    Sleep(10);
-
-    update(); 
-    scene_->update();
-    scene_->render();
-    Input::Mouse::update();
-    Input::Keyboard::update();
+    else {
+      Sleep(5);
+      update();
+      scene_->update();
+      scene_->render();
+      Input::Mouse::update();
+      Input::Keyboard::update();
+    }
   }
 }
 
