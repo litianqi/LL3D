@@ -57,6 +57,7 @@ private:
   std::vector<MeshRender> meshRenders_;
   DirectX::BoundingBox    localBoundingBox_;
 
+  int __debugTag = 0;
 };
 
 

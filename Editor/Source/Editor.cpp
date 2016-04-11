@@ -79,6 +79,16 @@ Editor::Editor()
   cube->transform().setPosition(Math::Vector3(10.f, 5.f, 0.f));
   scene_->add(std::move(cube));
 
+  for (auto i = 2; i < 12; i++) {
+    for (auto j = 2; j < 12; j++) {
+      auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
+      auto cube = make_unique<GameObject>();
+      cube->addComponent(std::move(mr2));
+      cube->transform().setPosition(Math::Vector3(20.f * i, 20.f * j, 0.f));
+      scene_->add(std::move(cube));
+    }
+  }
+
   // Add sphere.
   auto mr3 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Sphere);
   auto sphere = make_unique<GameObject>();
