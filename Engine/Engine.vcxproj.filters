@@ -48,9 +48,6 @@
     <ClCompile Include="Source\Graphics\Device.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics\Camera.cpp">
-      <Filter>Source\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Graphics\Effects.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
@@ -102,6 +99,9 @@
     <ClCompile Include="Source\Graphics\VertexTypes.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\Camera.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -130,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="Source\Transform.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics\Camera.h">
-      <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene.h">
       <Filter>Source</Filter>
@@ -204,6 +201,9 @@
       <Filter>Source\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Graphics\VertexTypes.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Camera.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

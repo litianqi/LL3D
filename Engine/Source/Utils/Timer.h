@@ -9,23 +9,22 @@ class Stopwatch {
 public:
   Stopwatch();
 
-  void Start();
-  void Pause();
-  void Resume();
+  void start();
+  void pause();
+  void resume();
 
-  int RunDurationMs();
-  float RunDurationS();
+  int durationMs();
+  float durationS();
 
 private:
-  enum State { Unstarted, Running, Paused };
+  enum State { kUnstarted, kRunning, kPaused };
 
-  State current_state_ = Unstarted;
+  State curState = kUnstarted;
+  uint64_t startPoint_;
+  uint64_t pausePoint_;
+  uint64_t pauseDuration_;
 
-  uint64_t start_time_;
-  uint64_t pause_time_;
-  uint64_t paused_duration_;
-
-  static float seconds_per_count_;
+  static float secondsPerCount_;
 };
 
 }  // namespace Utils

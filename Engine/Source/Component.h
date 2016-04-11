@@ -14,12 +14,10 @@ namespace LL3D {
 
 class Component {
 public:
-
   virtual ~Component() = default;
  
   virtual void start() {}
   virtual void update() {}
-
 };
 
 }  // namespace LL3D

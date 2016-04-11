@@ -56,8 +56,8 @@
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Graphics\Assets.h" />
-    <ClInclude Include="Source\Graphics\Camera.h" />
     <ClInclude Include="Source\Graphics\Base.h" />
+    <ClInclude Include="Source\Graphics\Camera.h" />
     <ClInclude Include="Source\Graphics\CommonStates.h" />
     <ClInclude Include="Source\Graphics\Device.h" />
     <ClInclude Include="Source\Graphics\Effects.h" />

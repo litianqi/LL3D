@@ -6,18 +6,12 @@ namespace LL3D {
 
 class Behaviour : public Component {
 public:
-
-  Behaviour(GameObject* object) : object_(object) {}
-
-protected:
-
+  void setObject(GameObject* object) { object_ = object; }
   const GameObject* object() const { return object_; }
   GameObject* object() { return object_; }
 
 private:
-
-  GameObject* object_;
-
+  GameObject* object_ = nullptr;
 };
 
 }  // namespace LL3D

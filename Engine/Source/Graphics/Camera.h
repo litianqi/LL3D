@@ -1,75 +1,61 @@
 #pragma once
 
-#include <list>
 #include "Math/Math.h"
+#include "Core/Uncopyable.h"
 #include "Component.h"
 #include "Graphics/Base.h"
 
 namespace LL3D {
-
 class Transform;
-
 }
 
 
 namespace LL3D {
 namespace Graphics {
 
-// Non-rollable Camera. 
-// Non-rollable means Up and Forward vector always on a YZ panel(of world space) 
-// roated some degree around Y.
-class Camera : public Component, private Base {
+// A camera that can not be moved or rotated.
+class StaticCamera : public Component {
 public:
+  StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ);
+  void setAspectRatio(float aspectRatio);
 
-  // Frustum properties of a Camera.
-  class Frustum {
-  public:
-
-    Frustum(float radian_fov_y, float aspect_ratio, float z_near, float z_far);
-    void setAspectRatio(float aspect_ratio);
-    Math::Matrix projectionMaxtrix() const;
-
-  private:
-
-    float radian_fov_y_;
-    float aspect_ratio_;
-    float z_near_;
-    float z_far_;
-
-  };
-
-
-  Camera(Transform& transform, Frustum frustum, Math::Vector3 forward_vector);
- 
-  // Writes properties to shader buffer.
-  void render() const;
-
-  void SetFrustum(const Frustum& frustum);
-  void SetPosition(Math::Vector3 p);
-  void SetForwardVector(Math::Vector3 v);
-
-  Math::Matrix viewMatrix() const;
-  Math::Matrix viewProjectionMatrix() const;
-  const Frustum& frustum() const;
-  Math::Vector3 GetPosition() const;
-  Math::Vector3 GetForwardVector() const;
-  Math::Vector3 GetRightVector() const;
-  Math::Vector3 GetUpVector() const;
-  DirectX::BoundingFrustum boundingFrustum() const;
-
-  Math::Vector3 convertViewToWorld(Math::Vector3 position) const;
-  Math::Vector3 convertWorldToView(Math::Vector3 position) const;
+  // Update cahed value (view matrix).
+  void update() override;
 
 protected:
-
-  // Came coordinate system with coordinate relative to world space.
-  Math::Vector3 forward_vector_;
+  Math::Matrix projMaxtrix() const;
 
 private:
+  float fovY_;
+  float aspectRatio_;
+  float nearZ_;
+  float farZ_;
 
-  Frustum frustum_;
+  // Cached values, updated one frame one time.
+  Math::Matrix proj_;
+};
+
+
+// Normal camera.
+class Camera : public StaticCamera, private Core::Uncopyable, private Base {
+public:
+  Camera(Transform& transform);
+
+  Math::Matrix viewMatrix() const;
+  Math::Matrix viewProjMatrix() const;
+  DirectX::BoundingFrustum frustum() const;
+
+  // Update cached values.
+  void update() override;
+  void writeToEffect() const;
+
+private:
   Transform& transform_;
-
+  
+  // Cached values, updated once per frame.
+  DirectX::BoundingFrustum frustum_;
+  Math::Matrix view_;
+  Math::Matrix viewProj_;
 };
 
 }  // namespace Graphics

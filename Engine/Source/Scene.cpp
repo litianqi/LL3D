@@ -161,7 +161,7 @@ void Scene::render() noexcept
   if (!_camera)
     return;
   _camera->transform().render();
-  _camera->component<Graphics::Camera>()->render();
+  _camera->component<Graphics::Camera>()->writeToEffect();
 
   // 1. Apply lights.
   auto _lights = lights();
@@ -176,7 +176,7 @@ void Scene::render() noexcept
   s_graphicsDevice->deviceContex()->OMSetBlendState(
     nullptr, nullptr, 0xffffffff
     );
-  auto frustum = _camera->component<Graphics::Camera>()->boundingFrustum();
+  auto frustum = _camera->component<Graphics::Camera>()->frustum();
 
   for (const auto& object : RecursiveSceneIterator(*this)) 
   {

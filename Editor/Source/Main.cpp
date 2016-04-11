@@ -2,6 +2,7 @@
 #include <plog\Log.h>
 #include <Scene.h>
 #include <Window.h>
+#include <Component.h>
 #include <Graphics\Device.h>
 #include <Core\Exceptions.h>
 #include "Editor.h"

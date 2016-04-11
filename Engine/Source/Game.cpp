@@ -44,6 +44,8 @@ void Game::run() {
       DispatchMessage(&msg);
     }
 
+    Sleep(10);
+
     update(); 
     scene_->update();
     scene_->render();

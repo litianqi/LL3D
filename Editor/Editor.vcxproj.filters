@@ -31,9 +31,6 @@
     <ClInclude Include="Source\Editor.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PlayerController.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\WaveController.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -41,6 +38,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\EditorCameraController.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerController.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

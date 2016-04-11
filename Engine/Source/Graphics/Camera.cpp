@@ -1,122 +1,90 @@
 #include "Graphics/Camera.h"
 #include "Core/Assert.h"
-#include "GameObject.h"
 #include "Transform.h"
 #include "Graphics/Effects.h"
 
 namespace LL3D {
 namespace Graphics {
 
-Camera::Frustum::Frustum(float radian_fov_y, float aspect_ratio, float z_near, float z_far) :
-  radian_fov_y_(radian_fov_y),
-  aspect_ratio_(aspect_ratio),
-  z_near_(z_near),
-  z_far_(z_far) {
-  ASSERT(aspect_ratio > 0);
-  ASSERT(z_near > 0);
-  ASSERT(z_far > z_near);
+StaticCamera::StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ) :
+  fovY_(fovY),
+  aspectRatio_(aspectRatio),
+  nearZ_(nearZ),
+  farZ_(farZ) {
+  ASSERT(aspectRatio > 0);
+  ASSERT(nearZ > 0);
+  ASSERT(farZ > nearZ);
 }
 
-void Camera::Frustum::setAspectRatio(float aspect_ratio) {
-  aspect_ratio_ = aspect_ratio;
+void StaticCamera::setAspectRatio(float aspectRatio) {
+  aspectRatio_ = aspectRatio;
 }
 
-Math::Matrix Camera::Frustum::projectionMaxtrix() const 
+void StaticCamera::update()
 {
-  return Math::Matrix::CreatePerspectiveFieldOfView(radian_fov_y_, aspect_ratio_,
-    static_cast<float>(z_near_), static_cast<float>(z_far_));
+  proj_ = Math::Matrix::CreatePerspectiveFieldOfView(
+    fovY_,
+    aspectRatio_,
+    static_cast<float>(nearZ_),
+    static_cast<float>(farZ_)
+    );
 }
 
-Camera::Camera(Transform& transform, Frustum frustum, Math::Vector3 forward_vector) :
-  transform_(transform),
-  frustum_(frustum),
-  forward_vector_(forward_vector) 
+Math::Matrix StaticCamera::projMaxtrix() const
 {
-  ASSERT(forward_vector != Math::Vector3::Zero);
-  ASSERT(!XMVector3IsInfinite(forward_vector));
-  ASSERT(forward_vector.Cross(Math::Vector3::Up) != Math::Vector3::Zero);
+  return proj_;
 }
 
-void Camera::render() const 
+
+Camera::Camera(Transform & transform) :
+  StaticCamera(Math::XM_PIDIV4 / 1.5f, 9.0f / 16.0f, 1.0f, 1000.0f),
+  transform_(transform)
 {
-  s_effect->setEyePosW(GetPosition());
-  s_effect->setViewProjection(viewMatrix() * frustum().projectionMaxtrix());
+  ASSERT(transform.forwardVec() != Math::Vector3::Zero);
+  ASSERT(!XMVector3IsInfinite(transform.forwardVec()));
+  ASSERT(transform.forwardVec().Cross(transform.upVec()) != Math::Vector3::Zero);
 }
 
-void Camera::SetFrustum(const Frustum & frustum) 
+Math::Matrix Camera::viewMatrix() const
 {
-  frustum_ = frustum;
+  return view_;
 }
 
-void Camera::SetPosition(Math::Vector3 p) 
+Math::Matrix Camera::viewProjMatrix() const
 {
-  transform_.setPosition(p);
+  return viewProj_;
 }
 
-void Camera::SetForwardVector(Math::Vector3 v) 
-{
-  forward_vector_ = v;
-}
-
-Math::Matrix Camera::viewMatrix() const 
-{
-  return Math::Matrix::CreateLookTo(GetPosition(), forward_vector_, Math::Vector3{ 0.f, 1.f, 0.f });
-}
-
-Math::Matrix Camera::viewProjectionMatrix() const 
-{
-  Math::Matrix projection = frustum_.projectionMaxtrix();
-  return viewMatrix() * projection;
-}
-
-const Camera::Frustum& Camera::frustum() const 
+DirectX::BoundingFrustum Camera::frustum() const
 {
   return frustum_;
 }
 
-Math::Vector3 Camera::GetPosition() const 
+void Camera::update()
 {
-  return transform_.position();
+  // Update proj matrix.
+  StaticCamera::update();
+
+  // Update view matrix.
+  const auto pos = transform_.position();
+  const auto forward = transform_.forwardVec();
+  const auto up = transform_.upVec();
+  view_ = Math::Matrix::CreateLookTo(pos, forward, up);
+
+  // Update viewProj matrix.
+  viewProj_ = viewMatrix() * projMaxtrix();
+
+  // Update bounding frustum.
+  auto frustum = DirectX::BoundingFrustum(projMaxtrix());
+  frustum.Origin = transform_.position();
+  frustum.Orientation = transform_.rotationQuaternion();
+  frustum_ = frustum;
 }
 
-Math::Vector3 Camera::GetForwardVector() const 
+void Camera::writeToEffect() const
 {
-  return forward_vector_;
-}
-
-Math::Vector3 Camera::convertViewToWorld(Math::Vector3 position) const 
-{
-  auto view = viewMatrix();
-  return Math::Vector3::Transform(position, view.Invert());
-}
-
-Math::Vector3 Camera::convertWorldToView(Math::Vector3 position) const 
-{
-  return XMVector3Transform(position, viewMatrix());
-}
-
-Math::Vector3 Camera::GetRightVector() const {
-  return XMVector3Cross(Math::Vector3::Up, forward_vector_);
-}
-
-Math::Vector3 Camera::GetUpVector() const {
-  float y = forward_vector_.LengthSquared() /
-    forward_vector_.Dot(Math::Vector3::Up);
-  Math::Vector3 v{ 0, y, 0 };
-
-  return forward_vector_ - v;
-}
-
-DirectX::BoundingFrustum Camera::boundingFrustum() const
-{
-  auto localFrustum = DirectX::BoundingFrustum(
-    frustum().projectionMaxtrix()
-    );
-  // local -> world
- /* localFrustum.Origin = GetPosition();
-  auto yawPitchRoll = GetForwardVector()- Math::Vector3::Up;
-  localFrustum.Orientation = Math::Quaternion::CreateFromYawPitchRoll();*/
-  return localFrustum;
+  s_effect->setEyePosW(transform_.position());
+  s_effect->setViewProjection(viewProjMatrix());
 }
 
 }  // namespace Graphics

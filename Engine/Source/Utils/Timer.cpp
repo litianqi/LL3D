@@ -4,51 +4,51 @@
 namespace LL3D {
 namespace Utils {
 
-float Stopwatch::seconds_per_count_;
+float Stopwatch::secondsPerCount_;
 
 Stopwatch::Stopwatch() {
   uint64_t counts_per_second;
   QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&counts_per_second));
-  seconds_per_count_ = 1.0f / counts_per_second;
+  secondsPerCount_ = 1.0f / counts_per_second;
 }
 
-void Stopwatch::Start() {
-  current_state_ = Running;
-  paused_duration_ = 0;
-  QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&start_time_));
+void Stopwatch::start() {
+  curState = kRunning;
+  pauseDuration_ = 0;
+  QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&startPoint_));
 }
 
-void Stopwatch::Pause() {
-  if (current_state_ == Running) {
-    current_state_ = Paused;
-    QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&pause_time_));
+void Stopwatch::pause() {
+  if (curState == kRunning) {
+    curState = kPaused;
+    QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&pausePoint_));
   }
 }
 
-void Stopwatch::Resume() {
-  if (current_state_ == Paused) {
-    current_state_ = Running;
+void Stopwatch::resume() {
+  if (curState == kPaused) {
+    curState = kRunning;
     uint64_t resume_time;
     QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&resume_time));
-    paused_duration_ += resume_time - pause_time_;
+    pauseDuration_ += resume_time - pausePoint_;
   }
 }
 
-int Stopwatch::RunDurationMs() {
-  return static_cast<int>(RunDurationS() * 1000.0);
+int Stopwatch::durationMs() {
+  return static_cast<int>(durationS() * 1000.0);
 }
 
-float Stopwatch::RunDurationS() {
-  if (current_state_ == Unstarted) {
+float Stopwatch::durationS() {
+  if (curState == kUnstarted) {
     return 0.0;
   }
-  else if (current_state_ == Running) {
+  else if (curState == kRunning) {
     uint64_t current_time;
     QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&current_time));
-    return (current_time - start_time_ - paused_duration_) * seconds_per_count_;
+    return (current_time - startPoint_ - pauseDuration_) * secondsPerCount_;
   }
   else {  // current_state_ == Paused
-    return (pause_time_ - start_time_ - paused_duration_) * seconds_per_count_;
+    return (pausePoint_ - startPoint_ - pauseDuration_) * secondsPerCount_;
   }
 }
 

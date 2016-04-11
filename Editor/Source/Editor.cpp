@@ -9,8 +9,8 @@
 #include <Graphics\Device.h>
 #include <Graphics\LightComponent.h>
 #include <Graphics\Fog.h>
-#include "PlayerController.h"
 #include "WaveController.h"
+#include "PlayerController.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -19,27 +19,47 @@ using namespace DirectX;
 
 Editor::Editor()
 {  
-  timer_.Start();
+  timer_.start();
  
   // Add Camera.
-  auto o0 = make_unique<GameObject>();
-  const auto frustum = Graphics::Camera::Frustum(
-    XM_PI / 8.0,
-    static_cast<float>(window_->clientRect().GetSize().w) / window_->clientRect().GetSize().h,
-    1,
-    1000);
-  auto c0 = make_unique<Graphics::Camera>(
-    o0->transform(),
-    frustum,
-    XMVECTOR{ 0.0f, -100.0f, 100.0f });
-  auto c00 = make_unique<EditorCameraController>(o0.get());
-  auto c01 = make_unique<Graphics::Fog>(Math::Color(0.75f, 0.75f, 0.75f, 1.0f), 25.f, 1275.f);
-  
-  o0->addComponent(std::move(c0));
-  o0->addComponent(std::move(c00));
-  o0->transform().setPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
-  //o0.AddComponent(std::move(c01));
-  scene_->add(std::move(o0));
+  //auto o0 = make_unique<GameObject>();
+  //const auto frustum = Graphics::Camera::Frustum(
+  //  XM_PI / 8.0,
+  //  static_cast<float>(window_->clientRect().GetSize().w) / window_->clientRect().GetSize().h,
+  //  1,
+  //  1000);
+  //auto c0 = make_unique<Graphics::Camera>(
+  //  o0->transform(),
+  //  frustum,
+  //  XMVECTOR{ 0.0f, -100.0f, 100.0f });
+  //auto c00 = make_unique<EditorCameraController>(o0.get());
+  //auto c01 = make_unique<Graphics::Fog>(Math::Color(0.75f, 0.75f, 0.75f, 1.0f), 25.f, 1275.f);
+  //
+  //o0->addComponent(std::move(c0));
+  //o0->addComponent(std::move(c00));
+  //o0->transform().setPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
+  ////o0.AddComponent(std::move(c01));
+  //scene_->add(std::move(o0));
+
+  // Add player.
+  auto player = make_unique<GameObject>();
+  auto camera = make_unique<Graphics::Camera>(
+    player->transform()
+    );
+  const auto aspectRation = static_cast<float>(window_->clientRect().GetSize().w) / 
+                            window_->clientRect().GetSize().h;
+  camera->setAspectRatio(aspectRation);
+  player->addComponent(std::move(camera));
+
+  auto controller = make_unique<PlayerController>();
+  controller->setObject(player.get());
+  player->addComponent(std::move(controller));
+
+  player->transform().setPosition(
+    Math::Vector3(0.0f, 10.0f, -100)
+    );
+  //camera_object->transform().setRotation();
+  scene_->add(std::move(player));
 
   // Add girl.
   auto mr1 = make_unique<Graphics::ModelRender>(
