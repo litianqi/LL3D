@@ -210,18 +210,22 @@ void Scene::render() noexcept
 
   for (const auto& object : RecursiveSceneIterator(*this)) {
     // Prevent earth have shadow (TODO: improve this)
-    if (object.name() == "Earth")  
-      continue;
-
     const auto* model = object.component<Graphics::ModelRender>();
-    if (!model)
-      continue;
-
-    const auto& transform = object.transform();
-    for (const auto& mesh : model->meshRenders())
+    if (model &&
+      object.name() != "Earth") 
     {
-      if (mesh.opaque()) {
-        RenderPlanarShadow(transform, mesh, _lights);
+      const auto localBox = model->localBoundingBox();
+      const auto& transform = object.transform();
+      const auto worldBox = convertToWorldBoundingBox(localBox, transform);
+      if (frustum.Intersects(worldBox))
+      {
+        const auto& transform = object.transform();
+        for (const auto& mesh : model->meshRenders())
+        {
+          if (mesh.opaque()) {
+            RenderPlanarShadow(transform, mesh, _lights);
+          }
+        }
       }
     }
   }
