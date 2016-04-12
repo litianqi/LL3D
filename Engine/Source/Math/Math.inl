@@ -2176,8 +2176,7 @@ inline Matrix Matrix::Invert() const
     using namespace DirectX;
     XMMATRIX M = XMLoadFloat4x4( this );
     Matrix R;
-    XMVECTOR det;
-    XMStoreFloat4x4( &R, XMMatrixInverse( &det, M ) );
+    XMStoreFloat4x4( &R, XMMatrixInverse(&XMMatrixDeterminant(M), M ) );
     return R;
 }
 
@@ -2185,8 +2184,7 @@ inline void Matrix::Invert( Matrix& result ) const
 {
     using namespace DirectX;
     XMMATRIX M = XMLoadFloat4x4( this );
-    XMVECTOR det;
-    XMStoreFloat4x4( &result, XMMatrixInverse( &det, M ) );
+    XMStoreFloat4x4( &result, XMMatrixInverse( &XMMatrixDeterminant(M), M ) );
 }
 
 inline float Matrix::Determinant() const

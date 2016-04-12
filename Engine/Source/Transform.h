@@ -29,7 +29,7 @@ public:
   Math::Vector3 localUpVec() const;
   Math::Vector3 localRightVec() const;
   Math::Vector3 localForwardVec() const;
-  Math::Matrix  compose() const;
+  Math::Matrix  composeMatrix() const;
   Math::Vector3 position() const;
   Math::Vector3 rotation() const;
   Math::Quaternion rotationQuaternion() const;
@@ -46,12 +46,12 @@ public:
   Math::Vector3 forwardVec() const;
 
   // Writes world matrix to shader buffer.
-  void render() const;
-  static void render(Math::Matrix world);
+  void writeToEffect() const;
+  static void writeToEffect(Math::Matrix world);
 
 private:
 
-  static Math::Matrix compose(Math::Vector3 position, Math::Vector3 rotation,
+  static Math::Matrix composeMatrix(Math::Vector3 position, Math::Vector3 rotation,
     Math::Vector3 scale);
 
   // transform of parent GameObject, nullptr if no parent.

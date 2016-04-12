@@ -22,6 +22,7 @@ public:
   void setMesh(const Mesh& value);
   void setMaterial(const Material& material);
 
+  const Mesh& mesh() const;
   const Material& material() const;
   bool mirror() const;
   bool transparent() const;

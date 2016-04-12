@@ -20,26 +20,6 @@ using namespace DirectX;
 Editor::Editor()
 {  
   timer_.start();
- 
-  // Add Camera.
-  //auto o0 = make_unique<GameObject>();
-  //const auto frustum = Graphics::Camera::Frustum(
-  //  XM_PI / 8.0,
-  //  static_cast<float>(window_->clientRect().GetSize().w) / window_->clientRect().GetSize().h,
-  //  1,
-  //  1000);
-  //auto c0 = make_unique<Graphics::Camera>(
-  //  o0->transform(),
-  //  frustum,
-  //  XMVECTOR{ 0.0f, -100.0f, 100.0f });
-  //auto c00 = make_unique<EditorCameraController>(o0.get());
-  //auto c01 = make_unique<Graphics::Fog>(Math::Color(0.75f, 0.75f, 0.75f, 1.0f), 25.f, 1275.f);
-  //
-  //o0->addComponent(std::move(c0));
-  //o0->addComponent(std::move(c00));
-  //o0->transform().setPosition(XMVECTOR{ 0.0f, 100.0f, -100, 1.0f });
-  ////o0.AddComponent(std::move(c01));
-  //scene_->add(std::move(o0));
 
   // Add player.
   auto player = make_unique<GameObject>();
@@ -58,6 +38,7 @@ Editor::Editor()
   player->transform().setPosition(
     Math::Vector3(0.0f, 10.0f, -100)
     );
+  player->setName("player");
   //camera_object->transform().setRotation();
   scene_->add(std::move(player));
 
@@ -69,7 +50,7 @@ Editor::Editor()
   girl->addComponent(std::move(mr1));
   girl->transform().setScale(Math::Vector3(5.f, 5.f, 5.f));
   girl->transform().setRotation(Math::Vector3(Math::XM_PIDIV2, 0.f, 0.f));
-  girl->setName("Model");
+  girl->setName("girl");
   scene_->add(std::move(girl));
 
   // Add cube.
@@ -77,23 +58,25 @@ Editor::Editor()
   auto cube = make_unique<GameObject>();
   cube->addComponent(std::move(mr2));
   cube->transform().setPosition(Math::Vector3(10.f, 5.f, 0.f));
+  cube->setName("cube");
   scene_->add(std::move(cube));
 
-  for (auto i = 2; i < 12; i++) {
-    for (auto j = 2; j < 12; j++) {
-      auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
-      auto cube = make_unique<GameObject>();
-      cube->addComponent(std::move(mr2));
-      cube->transform().setPosition(Math::Vector3(20.f * i, 20.f * j, 0.f));
-      scene_->add(std::move(cube));
-    }
-  }
+  //for (auto i = 2; i < 12; i++) {
+  //  for (auto j = 2; j < 12; j++) {
+  //    auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
+  //    auto cube = make_unique<GameObject>();
+  //    cube->addComponent(std::move(mr2));
+  //    cube->transform().setPosition(Math::Vector3(20.f * i, 20.f * j, 0.f));
+  //    scene_->add(std::move(cube));
+  //  }
+  //}
 
   // Add sphere.
   auto mr3 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Sphere);
   auto sphere = make_unique<GameObject>();
   sphere->addComponent(std::move(mr3));
   sphere->transform().setPosition(Math::Vector3(-10.f, 5.f, 0.f));
+  sphere->setName("sphere");
   scene_->add(std::move(sphere));
 
   // Add grid.
@@ -118,6 +101,7 @@ Editor::Editor()
   auto transparent = make_unique<GameObject>();
   transparent->addComponent(std::move(mr5));
   transparent->transform().setPosition(Math::Vector3(0.f, 5.f, 0.f));
+  transparent->setName("transparent");
   scene_->add(std::move(transparent));
 
   // Add mirror.
@@ -139,6 +123,7 @@ Editor::Editor()
     Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
     );
   mirror->transform().setPosition(Math::Vector3(0.f, 45.f, 25.f));
+  mirror->setName("mirror");
   scene_->add(std::move(mirror));
 
   // Add mirror2.
@@ -149,6 +134,7 @@ Editor::Editor()
     Math::Vector3(0.f, 0.f, Math::XM_PIDIV2)
     );
   mirror2->transform().setPosition(Math::Vector3(45.f, 45.f, 0.f));
+  mirror2->setName("mirror2");
   //scene_->AddGameObject(mirror2);
 
   // Add castle.
@@ -167,6 +153,7 @@ Editor::Editor()
     Graphics::LightComponent::Ambient
   );
   ambient_light->addComponent(std::move(ambient_component));
+  ambient_light->setName("ambient");
   scene_->add(std::move(ambient_light));
 
   // Add directional light:
@@ -179,6 +166,7 @@ Editor::Editor()
   directional_light->transform().setRotation(
     Math::Vector3(Math::XM_PI - 0.1f, 0.f, 0.f)
     );
+  directional_light->setName("directional");
   scene_->add(std::move(directional_light));
 
   // Add point light:
@@ -189,6 +177,7 @@ Editor::Editor()
     );
   point_light->addComponent(std::move(point_component));
   point_light->transform().setPosition(Math::Vector3(-20.f, 5.f, 0.f));
+  point_light->setName("point");
   scene_->add(std::move(point_light));
 
   // Add spot light:
@@ -200,6 +189,7 @@ Editor::Editor()
   spot_light->addComponent(std::move(spot_component));
   spot_light->transform().setPosition(Math::Vector3(22.f, 5.f, 0.f));
   spot_light->transform().setRotation(Math::Vector3(0.f, 0.f, Math::XM_PIDIV2));
+  spot_light->setName("spot");
   scene_->add(std::move(spot_light));
 
   window_->setVisible(true);

@@ -19,11 +19,9 @@ public:
   StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ);
   void setAspectRatio(float aspectRatio);
 
-  // Update cahed value (view matrix).
+  // Updates cahed value (view matrix).
   void update() override;
-
-protected:
-  Math::Matrix projMaxtrix() const;
+  const Math::Matrix& projMaxtrix() const;
 
 private:
   float fovY_;
@@ -40,8 +38,8 @@ class Camera : public StaticCamera, private Core::Uncopyable, private Base {
 public:
   Camera(Transform& transform);
 
-  Math::Matrix viewMatrix() const;
-  Math::Matrix viewProjMatrix() const;
+  const Math::Matrix& viewMatrix() const;
+  const Math::Matrix& viewProjMatrix() const;
   DirectX::BoundingFrustum frustum() const;
 
   // Update cached values.

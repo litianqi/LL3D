@@ -30,14 +30,14 @@ void StaticCamera::update()
     );
 }
 
-Math::Matrix StaticCamera::projMaxtrix() const
+const Math::Matrix& StaticCamera::projMaxtrix() const
 {
   return proj_;
 }
 
 
 Camera::Camera(Transform & transform) :
-  StaticCamera(Math::XM_PIDIV4 / 1.5f, 9.0f / 16.0f, 3.f, 1000.0f),
+  StaticCamera(Math::XM_PIDIV4, 16.0f / 9.0f, 1.f, 1000.0f),
   transform_(transform)
 {
   ASSERT(transform.forwardVec() != Math::Vector3::Zero);
@@ -45,12 +45,12 @@ Camera::Camera(Transform & transform) :
   ASSERT(transform.forwardVec().Cross(transform.upVec()) != Math::Vector3::Zero);
 }
 
-Math::Matrix Camera::viewMatrix() const
+const Math::Matrix& Camera::viewMatrix() const
 {
   return view_;
 }
 
-Math::Matrix Camera::viewProjMatrix() const
+const Math::Matrix& Camera::viewProjMatrix() const
 {
   return viewProj_;
 }

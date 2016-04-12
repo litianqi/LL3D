@@ -96,26 +96,26 @@ Math::Vector3 Transform::localUpVec() const
 {
   auto rotation = localRotation();
   auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
-  return Math::Vector3::Transform(Math::Vector3::Up, matrix);
+  return Math::Vector3::TransformNormal(Math::Vector3::Up, matrix);
 }
 
 Math::Vector3 Transform::localRightVec() const
 {
   auto rotation = localRotation();
   auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
-  return Math::Vector3::Transform(Math::Vector3::Right, matrix);
+  return Math::Vector3::TransformNormal(Math::Vector3::Right, matrix);
 }
 
 Math::Vector3 Transform::localForwardVec() const
 {
   auto rotation = localRotation();
   auto matrix = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
-  return Math::Vector3::Transform(Math::Vector3::Forward, matrix);
+  return Math::Vector3::TransformNormal(Math::Vector3::Forward, matrix);
 }
 
-Math::Matrix Transform::compose() const 
+Math::Matrix Transform::composeMatrix() const 
 {
-  return compose(position_, rotation_, scale_);
+  return composeMatrix(position_, rotation_, scale_);
 }
 
 Math::Vector3 Transform::position() const 
@@ -185,24 +185,25 @@ Math::Vector3 Transform::forwardVec() const
 
 Math::Matrix Transform::matrix() const 
 {
-  return compose(position(), rotation(), scale());
+  return composeMatrix(position(), rotation(), scale());
 }
 
-void Transform::render() const
+void Transform::writeToEffect() const
 {
-  render(matrix());
+  writeToEffect(matrix());
 }
 
-void Transform::render(Math::Matrix world)
+void Transform::writeToEffect(Math::Matrix world)
 {
   s_effect->setWorld(world);
 }
 
-Math::Matrix Transform::compose(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) 
+Math::Matrix Transform::composeMatrix(Math::Vector3 position, Math::Vector3 rotation, Math::Vector3 scale) 
 {
   auto r = Math::Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
   auto s = Math::Matrix::CreateScale(scale);
   auto t = Math::Matrix::CreateTranslation(position);
+  auto tmp = r * s * t;
   return r * s * t;
 }
 

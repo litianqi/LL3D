@@ -31,7 +31,7 @@ Game::Game() {
 
   Graphics::Base::initialize(graphicsDevice_.get());
 
-  scene_.reset(new Scene);
+  scene_.reset(new Scene(window_.get()));
 }
 
 void Game::run() {

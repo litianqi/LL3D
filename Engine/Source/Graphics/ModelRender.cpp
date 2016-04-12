@@ -88,6 +88,11 @@ void MeshRender::render() const noexcept
   //s_graphics_device->GetDeviceContex()->RSSetState(0);
 }
 
+const Mesh & MeshRender::mesh() const
+{
+  return mesh_;
+}
+
 const Material & MeshRender::material() const
 {
   return material_;

@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <limits>
 #include "Core\Assert.h"
 #include "Core\Exceptions.h"
 #include "Graphics\Device.h"
@@ -6,9 +7,11 @@
 #include "Graphics\ModelRender.h"
 #include "Graphics\Camera.h"
 #include "Graphics\CommonStates.h"
-#include "RecursiveSceneIterator.h"
 #include "Graphics\LightComponent.h"
+#include "Input\Mouse.h"
+#include "RecursiveSceneIterator.h"
 #include "Transform.h"
+#include "Window.h"
 
 using namespace std::placeholders;
 using namespace LL3D;
@@ -91,7 +94,7 @@ void RenderPlanarShadow(Transform transform,
 
     const auto shadow = Math::Matrix::CreateShadow(vec, xz);
     const auto& world = transform.matrix();
-    Transform::render(world * shadow * Math::Matrix::CreateTranslation(ShadowOffset));
+    Transform::writeToEffect(world * shadow * Math::Matrix::CreateTranslation(ShadowOffset));
     const auto old_mat = mesh.material();
     // We lied, but we will recover it latter, it's a good lie.
     const_cast<Graphics::MeshRender&>(mesh).setMaterial(mat);
@@ -104,10 +107,19 @@ void RenderPlanarShadow(Transform transform,
 }  // namespace
 
 namespace LL3D {
+Scene::Scene(Window * window) :
+  window_(window)
+{
+}
 
 void Scene::add(std::unique_ptr<GameObject> object) {
   object->setScene(this);
   objects_.push_back(std::move(object));
+}
+
+const GameObject * Scene::picking() const
+{
+  return picking_;
 }
 
 void LL3D::Scene::update() {
@@ -133,6 +145,7 @@ void LL3D::Scene::update() {
   for (auto& object : objects_) {
     object->update();
   }
+  calculatePicking();
 }
 
 //>
@@ -160,13 +173,13 @@ void Scene::render() noexcept
  const auto* _camera = camera();
   if (!_camera)
     return;
-  _camera->transform().render();
+  _camera->transform().writeToEffect();
   _camera->component<Graphics::Camera>()->writeToEffect();
 
   // 1. Apply lights.
   auto _lights = lights();
   for (const auto* light : _lights) {
-    light->transform().render();
+    light->transform().writeToEffect();
     light->component<Graphics::LightComponent>()->render();
   }
 
@@ -189,7 +202,7 @@ void Scene::render() noexcept
       if (frustum.Intersects(worldBox)) 
       {
         const auto& transform = object.transform();
-        transform.render();
+        transform.writeToEffect();
         for (const auto& mesh : model->meshRenders())
         {
           if (mesh.opaque()) 
@@ -240,7 +253,7 @@ void Scene::render() noexcept
     s_graphicsDevice->deviceContex()->OMSetDepthStencilState(
       Graphics::CommonStates::markMirror(), MirrorStencilRef
       );
-    mirror.first.render();
+    mirror.first.writeToEffect();
     mirror.second->render();
 
     // b. Reverse all lights. (TODO)
@@ -268,7 +281,7 @@ void Scene::render() noexcept
       const auto* model = object.component<Graphics::ModelRender>();
       if (!model)
         continue;
-      Transform::render(object.transform().matrix() * reflect);
+      Transform::writeToEffect(object.transform().matrix() * reflect);
       for (const auto& mesh : model->meshRenders())
       {
         if (mesh.opaque() || (mesh.mirror() && &mesh != mirror.second))
@@ -291,7 +304,7 @@ void Scene::render() noexcept
       Graphics::CommonStates::alphaBlend(), nullptr, 0xffffffff
       );
     for (const auto& transparent : _transparents) {
-      transparent.first.render();
+      transparent.first.writeToEffect();
       transparent.second->render();
     }
 
@@ -305,7 +318,7 @@ void Scene::render() noexcept
     s_graphicsDevice->deviceContex()->OMSetDepthStencilState(
       nullptr, 1);
 
-    mirror.first.render();
+    mirror.first.writeToEffect();
     mirror.second->render();
   }
 
@@ -319,7 +332,7 @@ void Scene::render() noexcept
   // 5. Render transparent with blending.
 
   for (const auto& transparent : _transparents) {
-    transparent.first.render();
+    transparent.first.writeToEffect();
     transparent.second->render();
   }
 
@@ -348,6 +361,66 @@ std::vector<const GameObject*> Scene::lights() noexcept
   }
 
   return result;
+}
+
+void Scene::calculatePicking()
+{
+  picking_ = nullptr;
+
+  if (camera() != nullptr) {
+    if (Input::Mouse::isHeldingDown(Input::Mouse::kLeft)) {
+
+      // Change mouse position from screen space to view space.
+      const auto posSS = Input::Mouse::position();
+      const auto clientSize = window_->clientRect().GetSize();
+      const auto& proj = camera()->component<Graphics::Camera>()->projMaxtrix();
+      float xVS = (+2.f * posSS.x / clientSize.w - 1.f) / proj(0, 0);
+      float yVS = (-2.f * posSS.y / clientSize.h + 1.f) / proj(1, 1);
+
+      // Change ray from view space to world space.
+      const auto rayVS = Math::Ray(Math::Vector3::Zero, Math::Vector3(xVS, yVS, 1.f));
+      auto rayWS = rayVS;
+      const auto& view = camera()->component<Graphics::Camera>()->viewMatrix();
+      rayWS.position = Math::Vector3::Transform(rayWS.position, view.Invert());
+      rayWS.direction = Math::Vector3::TransformNormal(rayWS.direction, view.Invert());
+
+      // Collect all GameObject that being intersected with ray to pickings.
+      float dist;
+      for (const auto& object : RecursiveSceneIterator(*this)) {
+        const auto* model = object.component<Graphics::ModelRender>();
+        if (model) {
+
+          // Change ray from world space to local space.
+          auto rayLS = rayWS;
+          const auto world = object.transform().matrix();
+          rayLS.position = Math::Vector3::Transform(rayLS.position, world.Invert());
+          rayLS.direction = Math::Vector3::TransformNormal(rayLS.direction, world.Invert());
+          // Make the ray direction unit length for the intersection tests.
+          rayLS.direction.Normalize();
+
+          // Check if ray intersects with object.
+          float tmp;
+          if (rayLS.Intersects(model->localBoundingBox(), tmp)) {
+            for (const auto& meshRender : model->meshRenders()) {
+              const auto& mesh = meshRender.mesh();
+              for (int i = 2; i < mesh.indices.size(); i += 3) {
+                if (rayLS.Intersects(
+                  mesh.vertices[mesh.indices[i - 2]].position,
+                  mesh.vertices[mesh.indices[i - 1]].position,
+                  mesh.vertices[mesh.indices[i]].position,
+                  tmp)) {
+                  if (!picking_ || tmp < dist) {
+                    picking_ = &object;
+                    dist = tmp;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 std::vector<RenderableMesh> Scene::mirrors() noexcept
