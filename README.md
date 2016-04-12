@@ -1,6 +1,6 @@
 # LL3D
 
-A C++/DirectX11 3D game engine.
+A Mini C++/DirectX11 3D game engine (study project).
 
 ## Status
 
@@ -10,14 +10,14 @@ A C++/DirectX11 3D game engine.
 
 ## Features
 
-- Unity-like Scene-GameObject-Component System
+- Component based architecture.
 - Graphics
   - Camera
   - Light (Ambient, Directional, Point and Spot)
-  - Load and Display model and material from mutiple type of files.
-  - Fog
-  - Mirror
-  - Shadow
+  - Load and display model from many file types.
+  - Mirror, fog, shadow...
+  - Bounding box
+  - Picking
   - ...
 - Input
 - Math
