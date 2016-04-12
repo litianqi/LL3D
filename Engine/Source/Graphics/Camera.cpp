@@ -37,7 +37,7 @@ Math::Matrix StaticCamera::projMaxtrix() const
 
 
 Camera::Camera(Transform & transform) :
-  StaticCamera(Math::XM_PIDIV4 / 1.5f, 9.0f / 16.0f, 1.0f, 1000.0f),
+  StaticCamera(Math::XM_PIDIV4 / 1.5f, 9.0f / 16.0f, 3.f, 1000.0f),
   transform_(transform)
 {
   ASSERT(transform.forwardVec() != Math::Vector3::Zero);
