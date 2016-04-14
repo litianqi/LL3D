@@ -29,29 +29,35 @@ class Scene : private Graphics::Base {
 public: 
   Scene(Window* window);
 
+  void update();
+  void render();
+
   void add(std::unique_ptr<GameObject> object);
   void remove(RecursiveSceneIterator iter);
-
-  const GameObject* picking() const;
   
-  void update();
-  void render() noexcept;
+  // Gets active(the first) Camera. Returns nullptr if there is no Camera.
+  const GameObject* camera() const;
+  
+  // Gets GameObject user is picking at in this frame. 
+  // Returns nullptr if user isn't picking.
+  const GameObject* picking() const;
 
 private:
-  // Get active(the first) Camera. Returns nullptr if there is no Camera.
-  GameObject* camera() noexcept;
-  std::vector<RenderableMesh> mirrors() noexcept;
-  std::vector<RenderableMesh> transparents() noexcept;
-  std::vector<const GameObject*> lights() noexcept;
+  std::vector<RenderableMesh> mirrors();
+  std::vector<RenderableMesh> transparents();
+  std::vector<const GameObject*> lights();
+  
+  void retrieveCamera();
   void calculatePicking();
 
   std::list<std::unique_ptr<GameObject>> objects_;
   Window* window_ = nullptr;
   bool first_update_ = true;
 
-  // Cached values, calculated once per frame.
-  // Which GameObject user is picking on, nullptr if no picking.
+  // BEGIN Cached values, calculate/retrieve once a frame.
+  const GameObject* camera_ = nullptr;
   const GameObject* picking_ = nullptr;
+  // END
 };
 
 }  // namespace LL3D

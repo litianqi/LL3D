@@ -22,7 +22,7 @@ public:
   LightComponent(const Transform& transform, const PointLight& light);
   LightComponent(const Transform& transform, const SpotLight& light);
 
-  void render() const;
+  void writeToEffect() const;
 
   LightType lightType() const;
 

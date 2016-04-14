@@ -75,6 +75,7 @@ private:
   ID3DX11EffectMatrixVariable* world_;
   ID3DX11EffectVariable* material_;
   ID3DX11EffectShaderResourceVariable* texture_;
+  ID3DX11EffectShaderResourceVariable* cubeMap_;
   ID3DX11EffectMatrixVariable* textureTransform_;
 };
 

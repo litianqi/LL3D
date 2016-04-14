@@ -33,14 +33,15 @@ BasicEffect::BasicEffect(std::string path) :
   directionalLight_ = effect_->GetVariableByName("g_directional_light");
   pointLight_ = effect_->GetVariableByName("g_point_light");
   spotLight_ = effect_->GetVariableByName("g_spot_light");
-  eyePosW_ = effect_->GetVariableByName("g_eye_pos_w")->AsVector();
+  eyePosW_ = effect_->GetVariableByName("g_eyePosWS")->AsVector();
 
   world_ = effect_->GetVariableByName("g_world")->AsMatrix();
-  viewProjection_ = effect_->GetVariableByName("g_view_projection")->AsMatrix();
-  textureTransform_ = effect_->GetVariableByName("g_texture_transform")->AsMatrix();
+  viewProjection_ = effect_->GetVariableByName("g_viewProj")->AsMatrix();
+  textureTransform_ = effect_->GetVariableByName("g_texTransform")->AsMatrix();
   material_ = effect_->GetVariableByName("g_material");
 
   texture_ = effect_->GetVariableByName("g_texture")->AsShaderResource();
+  cubeMap_ = effect_->GetVariableByName("g_cubeMap")->AsShaderResource();
 
   fog_ = effect_->GetVariableByName("g_fog");
 }
@@ -89,7 +90,20 @@ void BasicEffect::setTextureTransform(FXMMATRIX value) {
 }
 
 void BasicEffect::setTexture(ID3D11ShaderResourceView* value) {
-  texture_->SetResource(value);
+  
+  texture_->SetResource(nullptr);
+  cubeMap_->SetResource(nullptr);
+
+  if (value) {
+    D3D11_SHADER_RESOURCE_VIEW_DESC desc;
+    value->GetDesc(&desc);
+    if (desc.ViewDimension == D3D11_SRV_DIMENSION_TEXTURECUBE) {
+      cubeMap_->SetResource(value);
+    }
+    else {
+      texture_->SetResource(value);
+    }
+  }
 }
 
 void BasicEffect::setMaterial(const MaterialFX& material) {

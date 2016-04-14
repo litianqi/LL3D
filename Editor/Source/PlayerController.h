@@ -21,14 +21,14 @@ public:
     using namespace LL3D;
 
     // Move.
-    auto h = LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Horizontal);
-    auto v = LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Vertical);
+    const auto h = LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Horizontal);
+    const auto v = LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Vertical);
     moveRight(h);
     moveForeward(v);
     scrollNear(Input::Mouse::scrollDelta() * 0.02f);
 
     // Rotate.
-    auto delta = Input::Mouse::position() - last_mouse_position_;
+    const auto delta = Input::Mouse::position() - last_mouse_position_;
     if (Input::Mouse::isHeldingDown(Input::Mouse::kRight)) {
       yawFP(0.005f * delta.x);
       pitchFP(0.005f * delta.y);

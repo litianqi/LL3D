@@ -70,7 +70,7 @@ LightComponent::LightComponent(const Transform& transform, const SpotLight & lig
   light_.spot = light;
 }
 
-void LightComponent::render() const
+void LightComponent::writeToEffect() const
 {
   if (type_ == Ambient) {
     s_effect->setAmbientLight(AmbientLightFX(light_.ambient));

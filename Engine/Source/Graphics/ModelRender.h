@@ -21,27 +21,30 @@ public:
 
   void setMesh(const Mesh& value);
   void setMaterial(const Material& material);
+  void setCastShadow(bool value);
 
   const Mesh& mesh() const;
   const Material& material() const;
   bool mirror() const;
   bool transparent() const;
   bool opaque() const;
+  bool castShadow() const;
 
-  void render() const noexcept;
+  void render() const;
+
+  int __debugTag = 0;
 
 private:
   Mesh     mesh_;
   Material material_;
+  bool castShadow_ = true;
   Microsoft::WRL::ComPtr<ID3D11Buffer> indexBuffer_;
   Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer_;
 };
 
 
 class ModelRender : public Component {
-
 public:
-
   enum BuiltInModel { Cube, Sphere, Grid };
 
   ModelRender(const Model& model);
@@ -49,16 +52,14 @@ public:
   ModelRender(BuiltInModel type);
 
   const std::string& name() const;
+  std::vector<MeshRender>& meshRenders();
   const std::vector<MeshRender>& meshRenders() const;
   const DirectX::BoundingBox& localBoundingBox() const;
 
 private:
-
   std::string             name_;
   std::vector<MeshRender> meshRenders_;
   DirectX::BoundingBox    localBoundingBox_;
-
-  int __debugTag = 0;
 };
 
 

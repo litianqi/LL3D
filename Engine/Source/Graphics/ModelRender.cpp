@@ -55,7 +55,12 @@ void MeshRender::setMaterial(const Material & material)
   material_ = material;
 }
 
-void MeshRender::render() const noexcept
+void MeshRender::setCastShadow(bool value)
+{
+  castShadow_ = value;
+}
+
+void MeshRender::render() const
 {
   UINT stride = sizeof(Vertex);
   UINT offset = 0;
@@ -69,10 +74,7 @@ void MeshRender::render() const noexcept
   // Set per object constant buffer.
   s_effect->setMaterial(MaterialFX(material_));
   //s_effect->SetTextureTransform(texture_transform_);
-  if (filesystem::exists(material_.diffuseTexture))
-    s_effect->setTexture(loadDDSFromFile(s_graphicsDevice->device(), material_.diffuseTexture));
-  else
-    s_effect->setTexture(nullptr);
+  s_effect->setTexture(loadDDSFromFile(s_graphicsDevice->device(), material_.diffuseTexture));
 
   s_effect->setTextureTransform(DirectX::XMMatrixIdentity());
 
@@ -114,6 +116,11 @@ bool MeshRender::opaque() const
   return material_.opacity >= 1.f;
 }
 
+bool MeshRender::castShadow() const
+{
+  return castShadow_;
+}
+
 ModelRender::ModelRender(const Model & model) :
   name_(model.name),
   localBoundingBox_(model.boundingBox)
@@ -152,7 +159,7 @@ ModelRender::ModelRender(BuiltInModel type)
     name = "Sphere";
   }
   else if (type == Grid) {
-    auto mesh = Mesh::createGrid(100.f, 100.f, 2, 2);
+    auto mesh = Mesh::createGrid(10000.f, 10000.f, 2, 2);
     mesh.materialIndex = 0;
     meshes.push_back(std::move(mesh));
     name = "Grid";
@@ -184,6 +191,11 @@ ModelRender::ModelRender(BuiltInModel type)
 const std::string & ModelRender::name() const
 {
   return name_;
+}
+
+std::vector<MeshRender>& ModelRender::meshRenders()
+{
+  return meshRenders_;
 }
 
 const std::vector<MeshRender>& ModelRender::meshRenders() const

@@ -31,6 +31,7 @@ ID3D11DepthStencilState* markMirror();
 // scope allowed to render.
 ID3D11DepthStencilState* renderReflection();
 ID3D11DepthStencilState* shadow();
+ID3D11DepthStencilState* depthLessEqual();
 
 ID3D11RasterizerState* cullNone();
 ID3D11RasterizerState* cullClockwise();

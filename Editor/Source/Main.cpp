@@ -21,8 +21,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
     Editor app;
     app.run();
   }
-  catch (ComException& e) {
+  catch (std::exception& e) {
     LOGF << e.what();
+  }
+  catch (...) {
+    LOGF << "...";
   }
   
 

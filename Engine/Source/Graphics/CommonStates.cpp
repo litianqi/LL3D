@@ -15,16 +15,17 @@ ComPtr<ID3D11BlendState>        s_multiply;
 ComPtr<ID3D11DepthStencilState> s_markMirror;
 ComPtr<ID3D11DepthStencilState> s_renderReflection;
 ComPtr<ID3D11DepthStencilState> s_shadow;
+ComPtr<ID3D11DepthStencilState> s_depthLessEqual;
 ComPtr<ID3D11RasterizerState>   s_cullNone;
 ComPtr<ID3D11RasterizerState>   s_cullClockwise;
 ComPtr<ID3D11RasterizerState>   s_cullCounterClockwise;
 
-void CreateOpaque(ID3D11Device * device)
+void createOpaque(ID3D11Device * device)
 {
   // TODO
 }
 
-void CreateAlphaBlend(ID3D11Device * device)
+void createAlphaBlend(ID3D11Device * device)
 {
   D3D11_BLEND_DESC desc;
   desc.AlphaToCoverageEnable = true;
@@ -44,7 +45,7 @@ void CreateAlphaBlend(ID3D11Device * device)
     );
 }
 
-void CreateSubstract(ID3D11Device * device)
+void createSubstract(ID3D11Device * device)
 {
   D3D11_BLEND_DESC desc;
   desc.AlphaToCoverageEnable = true;
@@ -157,6 +158,30 @@ void CreateShadow(ID3D11Device * device)
     );
 }
 
+void createDepthLessEqual(ID3D11Device * device)
+{
+  auto desc = D3D11_DEPTH_STENCIL_DESC();
+  desc.DepthEnable = true;  // default
+  desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;  // default
+  desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+  desc.StencilEnable = false;
+  // We do not use stenciling, so these settings do not matter.
+  desc.StencilReadMask = 0xff;
+  desc.StencilWriteMask = 0xff;
+  desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+  desc.FrontFace.StencilFunc = D3D11_COMPARISON_EQUAL;
+  desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_INCR;
+  desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+  desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+  desc.BackFace.StencilFunc = D3D11_COMPARISON_EQUAL;
+  desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+  desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+
+  throwIfFailed(
+    device->CreateDepthStencilState(&desc, &s_depthLessEqual)
+    );
+}
+
 void CreateCullNone(ID3D11Device * device) {
   auto desc = D3D11_RASTERIZER_DESC();
   desc.FillMode = D3D11_FILL_SOLID;
@@ -202,13 +227,14 @@ namespace CommonStates {
 
 void initialize(ID3D11Device * device)
 {
-  CreateOpaque(device);
-  CreateAlphaBlend(device);
-  CreateSubstract(device);
+  createOpaque(device);
+  createAlphaBlend(device);
+  createSubstract(device);
   CreateMultiply(device);
   CreateMakrMirror(device);
   CreateRenderReflection(device);
   CreateShadow(device);
+  createDepthLessEqual(device);
   CreateCullNone(device);
   CreateCullClockwise(device);
   CreateCullCounterClockwise(device);
@@ -248,6 +274,11 @@ ID3D11DepthStencilState * renderReflection()
 ID3D11DepthStencilState * shadow()
 {
   return s_shadow.Get();
+}
+
+ID3D11DepthStencilState * depthLessEqual()
+{
+  return s_depthLessEqual.Get();
 }
 
 ID3D11RasterizerState * cullNone()

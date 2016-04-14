@@ -17,10 +17,11 @@ namespace Graphics {
 class StaticCamera : public Component {
 public:
   StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ);
+  
   void setAspectRatio(float aspectRatio);
-
   // Updates cahed value (view matrix).
   void update() override;
+
   const Math::Matrix& projMaxtrix() const;
 
 private:
@@ -36,7 +37,7 @@ private:
 
 class Camera : public StaticCamera, private Core::Uncopyable, private Base {
 public:
-  Camera(Transform& transform);
+  Camera(const Transform& transform);
 
   const Math::Matrix& viewMatrix() const;
   const Math::Matrix& viewProjMatrix() const;
@@ -47,12 +48,13 @@ public:
   void writeToEffect() const;
 
 private:
-  Transform& transform_;
+  const Transform& transform_;
   
-  // Cached values, updated once per frame.
+  // BEGIN Cached values, updated once per frame.
   DirectX::BoundingFrustum frustum_;
   Math::Matrix view_;
   Math::Matrix viewProj_;
+  // END
 };
 
 }  // namespace Graphics

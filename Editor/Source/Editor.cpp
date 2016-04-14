@@ -11,6 +11,7 @@
 #include <Graphics\Fog.h>
 #include "WaveController.h"
 #include "PlayerController.h"
+#include "SkyboxController.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -104,6 +105,32 @@ Editor::Editor()
   transparent->setName("transparent");
   scene_->add(std::move(transparent));
 
+  // Add sky box.
+  auto skybox = make_unique<GameObject>();
+
+  auto meshSB = Graphics::Mesh::createSphere(900, 20, 20);
+  meshSB.materialIndex = 0;
+  std::vector<Graphics::Mesh>     meshesSB;
+  meshesSB.push_back(meshSB);
+ 
+  auto matSB = Graphics::Material();
+  matSB.diffuseTexture = "Resource\\Textures\\sunsetcube1024.dds";
+  std::vector<Graphics::Material> materialsSB;
+  materialsSB.push_back(matSB);
+
+  auto modelSB = Graphics::Model("", move(meshesSB), move(materialsSB));
+  auto mrSB = make_unique<Graphics::ModelRender>(modelSB);
+  mrSB->meshRenders()[0].setCastShadow(false);
+  skybox->addComponent(std::move(mrSB));
+
+  auto sbCtroller = make_unique<SkyboxController>();
+  sbCtroller->setObject(skybox.get());
+  skybox->addComponent(std::move(sbCtroller));
+
+  //skyBox->transform().setScale(Math::Vector3(100.f, 100.f, 100.f));
+  skybox->setName("skyBox");
+  scene_->add(std::move(skybox));
+
   // Add mirror.
   auto mesh1 = Graphics::Mesh::createGrid(90, 90, 2, 2);
   mesh1.materialIndex = 0;
@@ -124,7 +151,7 @@ Editor::Editor()
     );
   mirror->transform().setPosition(Math::Vector3(0.f, 45.f, 25.f));
   mirror->setName("mirror");
-  scene_->add(std::move(mirror));
+  //scene_->add(std::move(mirror));
 
   // Add mirror2.
   auto mr7 = make_unique<Graphics::ModelRender>(model1);

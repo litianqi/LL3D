@@ -15,7 +15,7 @@ struct Material {
   Math::Vector3 emissive;  // todo
   Math::Vector3 transparent;  // todo: light passing through a transparent surface is multiplied by this filter color
   float shininess = 0.f;  // specular_exponent
-  float opacity = 0.f;
+  float opacity = 1.f;
   float shininess_strength = 0.f; // todo: multiplier on top of specular color
 
   // Texture paths

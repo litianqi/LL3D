@@ -14,6 +14,9 @@ namespace Graphics {
 std::map<std::experimental::filesystem::path, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> s_texturesCache;
 
 ID3D11ShaderResourceView * loadDDSFromFile(ID3D11Device * device, std::experimental::filesystem::path pathname) {
+  if (pathname.empty())
+    return nullptr;
+
   // First try to find it in cache.
   auto i = s_texturesCache.find(pathname);
   if (i != s_texturesCache.end()) {
@@ -30,7 +33,9 @@ ID3D11ShaderResourceView * loadDDSFromFile(ID3D11Device * device, std::experimen
     throw InvalidArgument("path does not has a extension, or has a extension not supported!");
   }
 
-  s_texturesCache[pathname] = textureView;
+  if (textureView.Get())
+    s_texturesCache[pathname] = textureView;
+  
   return textureView.Get();
 }
 

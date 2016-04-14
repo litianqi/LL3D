@@ -36,7 +36,7 @@ const Math::Matrix& StaticCamera::projMaxtrix() const
 }
 
 
-Camera::Camera(Transform & transform) :
+Camera::Camera(const Transform & transform) :
   StaticCamera(Math::XM_PIDIV4, 16.0f / 9.0f, 1.f, 1000.0f),
   transform_(transform)
 {

@@ -6,19 +6,20 @@ cbuffer PerFrame {
   DirectionalLightFX  g_directional_light;
   PointLightFX        g_point_light;
   SpotLightFX         g_spot_light;
-  float4x4          g_view_projection;
-  float4            g_eye_pos_w;
+  float4x4          g_viewProj;
+  float4            g_eyePosWS;
   Fog               g_fog;
 };
 
 cbuffer PerObject {
   float4x4 g_world;
   float4x4 g_wvp;
-  float4x4 g_texture_transform;
+  float4x4 g_texTransform;
   MaterialFX g_material;
 };
 
 Texture2D g_texture;
+TextureCube g_cubeMap;
 
 SamplerState g_sampler {
   Filter = ANISOTROPIC;
@@ -41,31 +42,29 @@ SamplerState g_sampler {
 //};
 
 struct VertexIn {
-  float3 pos_l  : POSITION;
-  float3 normal_l : NORMAL;
+  float3 posLS  : POSITION;
+  float3 normalLS : NORMAL;
   float2 texcoord : TEXCOORD;
   float3 tangent : TANGENT;
   float3 bitangent : BITANGENT;
 };
 
 struct VertexOut {
-  float4 pos_h  : SV_POSITION;
-  float4 pos_w  : POSITION;
+  float4 posPS  : SV_POSITION;
+  float4 posWS  : POSITIONWS;
+  float3 posLS  : POSITIONLS;
   float3 normal_w : NORMAL;
   float2 texcoord : TEXCOORD;
 };
 
 VertexOut VS(VertexIn vin) {
   VertexOut vout;
-
-  // Transform to world space.
-  vout.pos_w = mul(float4(vin.pos_l, 1.f), g_world);
-  vout.normal_w = mul(float4(vin.normal_l, 0.f), g_world).xyz;
-
-  // Transform to homogeneous clip space.
-  vout.pos_h = mul(vout.pos_w, g_view_projection);
-
-  vout.texcoord = /*mul(float4(*/vin.texcoord/*, 0.0, 1.0), g_texture_transform).xy*/;
+  
+  vout.posLS = vin.posLS;
+  vout.posWS = mul(float4(vin.posLS, 1.f), g_world);
+  vout.normal_w = mul(float4(vin.normalLS, 0.f), g_world).xyz;
+  vout.posPS = mul(vout.posWS, g_viewProj);
+  vout.texcoord = /*mul(float4(*/vin.texcoord/*, 0.0, 1.0), g_texTransform).xy*/;
 
   return vout;
 }
@@ -94,24 +93,29 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
   }
 
   // Texturing
-  float3 tex_diffuse;
+  float3 texDiffuse;
   if (use_tex) {
-    tex_diffuse = g_texture.Sample(g_sampler, pin.texcoord).xyz;
+    float3 cubeMapDiffuse = g_cubeMap.Sample(g_sampler, pin.posLS).xyz;
+    float3 otherDiffuse = g_texture.Sample(g_sampler, pin.texcoord).xyz;
+      
+    texDiffuse = cubeMapDiffuse + otherDiffuse;
   }
 
   // Lighting
-  float3 view_dir = g_eye_pos_w.xyz - pin.pos_w.xyz;
+  float3 viewDir = g_eyePosWS.xyz - pin.posWS.xyz;
   float3 ambient_contribution = ApplyAmbientLight(g_material, g_ambient_light);
   float3 directional_contribution = ApplyDirectionalLight(g_material, 
-    g_directional_light, pin.normal_w, view_dir);
+    g_directional_light, pin.normal_w, viewDir);
   float3 point_contribution = ApplyPointLight(g_material,
-    g_point_light, pin.pos_w.xyz, pin.normal_w, view_dir);
+    g_point_light, pin.posWS.xyz, pin.normal_w, viewDir);
   float3 spot_contribution = ApplySpotLight(g_material,
-    g_spot_light, pin.pos_w.xyz, pin.normal_w, view_dir);
+    g_spot_light, pin.posWS.xyz, pin.normal_w, viewDir);
   
+  float3 lightColor = ambient_contribution + directional_contribution +
+    point_contribution + spot_contribution;
+
   // TODO: better way?
-  result.xyz = (ambient_contribution + directional_contribution +
-    point_contribution + spot_contribution + tex_diffuse) / 2.f;
+  result.xyz = max(lightColor, float3(0, 0, 0)) * 0.4f + texDiffuse * 0.6f;
 
   return result;
 

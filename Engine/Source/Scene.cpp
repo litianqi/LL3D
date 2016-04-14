@@ -130,29 +130,18 @@ void LL3D::Scene::update() {
     }
     first_update_ = false;
   }
-
-  // Set per frame constant buffer.
-  // Find first active camera.
-  /*auto it = std::find_if(objects_.begin(), objects_.end(), [](auto& o) {
-    
-  })*/
-  // TODO
-  //const auto& camera = dynamic_cast<Graphics::Camera* const>((*((*objects_.begin()).GetComponents().begin())).get());
-  //s_effect->SetEyePosW(camera->GetPosition());
-  //s_effect->SetView(camera->GetViewMatrix());
-  //s_effect->SetProjection(camera->GetFrustum().GetProjectionMaxtrix());
-
+  retrieveCamera();
+  calculatePicking();
   for (auto& object : objects_) {
     object->update();
   }
-  calculatePicking();
 }
 
 //>
 // For a detailed description of Render Procedure, reference to online doc:
 // https://onedrive.live.com/redir?page=view&resid=CD6518D498235073!2141&authkey=!AMsU_BK42yKOQEU&wd=target%28Design.one%7C026CF69E-4746-4048-AE49-7E0AEFD55322%2FRender%20Procedure%7C7AB7AF3B-7E41-435E-91FB-99E5CEDC60DC%2F%29
 //
-void Scene::render() noexcept
+void Scene::render()
 {
   s_graphicsDevice->deviceContex()->ClearRenderTargetView(
     s_graphicsDevice->renderTargetView(),
@@ -168,6 +157,13 @@ void Scene::render() noexcept
     D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
     );
 
+  // Make sure pixels far away that depth values equals 1 (NDC) will be rendered.
+  // (e.g. skybox)
+  s_graphicsDevice->deviceContex()->OMSetDepthStencilState(
+    Graphics::CommonStates::depthLessEqual(), 0 /*do not matter*/);
+  s_graphicsDevice->deviceContex()->RSSetState(
+    Graphics::CommonStates::cullNone());  // todo: remove
+
   // 0. Apply camera.
 
  const auto* _camera = camera();
@@ -180,7 +176,7 @@ void Scene::render() noexcept
   auto _lights = lights();
   for (const auto* light : _lights) {
     light->transform().writeToEffect();
-    light->component<Graphics::LightComponent>()->render();
+    light->component<Graphics::LightComponent>()->writeToEffect();
   }
 
   // 2. Render all opaque.
@@ -235,7 +231,7 @@ void Scene::render() noexcept
         const auto& transform = object.transform();
         for (const auto& mesh : model->meshRenders())
         {
-          if (mesh.opaque()) {
+          if (mesh.opaque() && mesh.castShadow()) {
             RenderPlanarShadow(transform, mesh, _lights);
           }
         }
@@ -339,17 +335,12 @@ void Scene::render() noexcept
   throwIfFailed(s_graphicsDevice->swapChain()->Present(0, 0));
 }
 
-GameObject * Scene::camera() noexcept
+const GameObject * Scene::camera() const
 {
-  for(auto& object : objects_) {
-    auto camera = object->component<Graphics::Camera>();
-    if (camera)
-      return object.get();
-  }
-  return nullptr;
+  return camera_;
 }
 
-std::vector<const GameObject*> Scene::lights() noexcept
+std::vector<const GameObject*> Scene::lights()
 {
   auto result = std::vector<const GameObject*>();
 
@@ -361,6 +352,17 @@ std::vector<const GameObject*> Scene::lights() noexcept
   }
 
   return result;
+}
+
+void Scene::retrieveCamera()
+{
+  camera_ = nullptr;
+
+  for (const auto& object : RecursiveSceneIterator(*this)) {
+    auto camera = object.component<Graphics::Camera>();
+    if (camera)
+      camera_ = &object;
+  }
 }
 
 void Scene::calculatePicking()
@@ -423,7 +425,7 @@ void Scene::calculatePicking()
   }
 }
 
-std::vector<RenderableMesh> Scene::mirrors() noexcept
+std::vector<RenderableMesh> Scene::mirrors()
 {
   auto result = std::vector<RenderableMesh>();
 
@@ -442,7 +444,7 @@ std::vector<RenderableMesh> Scene::mirrors() noexcept
   return result;
 }
 
-std::vector<RenderableMesh> Scene::transparents() noexcept
+std::vector<RenderableMesh> Scene::transparents()
 {
   auto result = std::vector<RenderableMesh>();
 

@@ -158,6 +158,7 @@
     <ClInclude Include="Source\EditorCameraController.h" />
     <ClInclude Include="Source\FirstPersonalCamera.h" />
     <ClInclude Include="Source\PlayerController.h" />
+    <ClInclude Include="Source\SkyboxController.h" />
     <ClInclude Include="Source\WaveController.h" />
   </ItemGroup>
   <ItemGroup>
