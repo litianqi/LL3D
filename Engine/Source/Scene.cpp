@@ -386,7 +386,7 @@ void Scene::calculatePicking()
       rayWS.position = Math::Vector3::Transform(rayWS.position, view.Invert());
       rayWS.direction = Math::Vector3::TransformNormal(rayWS.direction, view.Invert());
 
-      // Collect all GameObject that being intersected with ray to pickings.
+      // Walks every object.
       float dist;
       for (const auto& object : RecursiveSceneIterator(*this)) {
         const auto* model = object.component<Graphics::ModelRender>();

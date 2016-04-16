@@ -40,8 +40,10 @@ BasicEffect::BasicEffect(std::string path) :
   textureTransform_ = effect_->GetVariableByName("g_texTransform")->AsMatrix();
   material_ = effect_->GetVariableByName("g_material");
 
-  texture_ = effect_->GetVariableByName("g_texture")->AsShaderResource();
-  cubeMap_ = effect_->GetVariableByName("g_cubeMap")->AsShaderResource();
+  diffuseTex2D_ = effect_->GetVariableByName("g_diffuseTex2D")->AsShaderResource();
+  hasDiffuseTex2D_ = effect_->GetVariableByName("g_hasDiffuseTex2D")->AsScalar();
+  diffuseTexCube = effect_->GetVariableByName("g_diffuseTexCube")->AsShaderResource();
+  hasDiffuseTexCube_ = effect_->GetVariableByName("g_hasDiffuseTexCube")->AsScalar();
 
   fog_ = effect_->GetVariableByName("g_fog");
 }
@@ -91,17 +93,21 @@ void BasicEffect::setTextureTransform(FXMMATRIX value) {
 
 void BasicEffect::setTexture(ID3D11ShaderResourceView* value) {
   
-  texture_->SetResource(nullptr);
-  cubeMap_->SetResource(nullptr);
+  diffuseTex2D_->SetResource(nullptr);
+  hasDiffuseTex2D_->SetBool(false);
+  diffuseTexCube->SetResource(nullptr);
+  hasDiffuseTexCube_->SetBool(false);
 
   if (value) {
     D3D11_SHADER_RESOURCE_VIEW_DESC desc;
     value->GetDesc(&desc);
     if (desc.ViewDimension == D3D11_SRV_DIMENSION_TEXTURECUBE) {
-      cubeMap_->SetResource(value);
+      diffuseTexCube->SetResource(value);
+      hasDiffuseTexCube_->SetBool(true);
     }
     else {
-      texture_->SetResource(value);
+      diffuseTex2D_->SetResource(value);
+      hasDiffuseTex2D_->SetBool(true);
     }
   }
 }

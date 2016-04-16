@@ -169,9 +169,9 @@ ModelRender::ModelRender(BuiltInModel type)
   }
   
   auto mat = Material();
-  mat.ambient = Math::Vector3::One;
-  mat.diffuse = Math::Vector3::One;
-  mat.specular = Math::Vector3::One;
+  mat.ambient = Math::Color::LightSteelBlue.ToVector3();
+  mat.diffuse = Math::Color::LightSteelBlue.ToVector3();
+  mat.specular = Math::Color::White.ToVector3();
   mat.emissive = Math::Vector3::One;
   mat.transparent = Math::Vector3::One;
   mat.shininess = 5.f;

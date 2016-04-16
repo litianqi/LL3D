@@ -10,13 +10,11 @@ namespace Graphics {
 
 class MeshRender;
 class LightComponent;
-
 }
 
 class Window;
 class RecursiveSceneIterator;
 using RenderableMesh = std::pair<Transform, const Graphics::MeshRender*>;
-
 }
 
 

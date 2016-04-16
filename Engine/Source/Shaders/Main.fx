@@ -1,7 +1,8 @@
 #include "Light.fx"
 #include "Fog.fx"
 
-cbuffer PerFrame {
+cbuffer PerFrame 
+{
   AmbientLightFX      g_ambient_light;
   DirectionalLightFX  g_directional_light;
   PointLightFX        g_point_light;
@@ -11,17 +12,28 @@ cbuffer PerFrame {
   Fog               g_fog;
 };
 
-cbuffer PerObject {
+cbuffer PerObject 
+{
   float4x4 g_world;
   float4x4 g_wvp;
   float4x4 g_texTransform;
   MaterialFX g_material;
 };
 
-Texture2D g_texture;
-TextureCube g_cubeMap;
+// # Textures
 
-SamplerState g_sampler {
+// ## Diffuse Texture
+Texture2D g_diffuseTex2D;
+bool g_hasDiffuseTex2D;
+TextureCube g_diffuseTexCube;
+bool g_hasDiffuseTexCube;
+
+// ## Normal Texture
+Texture2D g_normalTex;
+bool g_hasNormalTex;
+
+SamplerState g_sampler 
+{
   Filter = ANISOTROPIC;
   MaxAnisotropy = 4;
 
@@ -41,30 +53,41 @@ SamplerState g_sampler {
 //    RenderTargetWriteMask[0] = 0x0F;
 //};
 
-struct VertexIn {
+struct VertexIn 
+{
   float3 posLS  : POSITION;
   float3 normalLS : NORMAL;
   float2 texcoord : TEXCOORD;
-  float3 tangent : TANGENT;
-  float3 bitangent : BITANGENT;
+  float3 tangentLS : TANGENT;
+  float3 bitangentLS : BITANGENT;
 };
 
-struct VertexOut {
+struct VertexOut 
+{
   float4 posPS  : SV_POSITION;
   float4 posWS  : POSITIONWS;
   float3 posLS  : POSITIONLS;
-  float3 normal_w : NORMAL;
+  
   float2 texcoord : TEXCOORD;
+  
+  float3 normalWS : NORMAL;
+  float3 tangentWS : TANGENT;
+  float3 bitangentWS : BITANGENT;
 };
 
-VertexOut VS(VertexIn vin) {
+VertexOut VS(VertexIn vin) 
+{
   VertexOut vout;
   
   vout.posLS = vin.posLS;
   vout.posWS = mul(float4(vin.posLS, 1.f), g_world);
-  vout.normal_w = mul(float4(vin.normalLS, 0.f), g_world).xyz;
   vout.posPS = mul(vout.posWS, g_viewProj);
+  
   vout.texcoord = /*mul(float4(*/vin.texcoord/*, 0.0, 1.0), g_texTransform).xy*/;
+  
+  vout.normalWS = mul(float4(vin.normalLS, 0.f), g_world).xyz;
+  vout.tangentWS = mul(float4(vin.tangentLS, 0.f), g_world).xyz;
+  vout.bitangentWS = mul(float4(vin.bitangentLS, 0.f), g_world).xyz;
 
   return vout;
 }
@@ -75,7 +98,8 @@ VertexOut VS(VertexIn vin) {
 //  
 //}
 
-float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : SV_Target
+float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip)
+  : SV_Target
 {
   float4 result;
   
@@ -93,29 +117,40 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip) : S
   }
 
   // Texturing
-  float3 texDiffuse;
-  if (use_tex) {
-    float3 cubeMapDiffuse = g_cubeMap.Sample(g_sampler, pin.posLS).xyz;
-    float3 otherDiffuse = g_texture.Sample(g_sampler, pin.texcoord).xyz;
-      
-    texDiffuse = cubeMapDiffuse + otherDiffuse;
+  float3 diffuse;
+  if (g_hasDiffuseTex2D) {
+    diffuse = g_diffuseTex2D.Sample(g_sampler, pin.texcoord).xyz;
+  }
+  else if (g_hasDiffuseTexCube) {
+    // TexCube do not need lighting, light is contained in texture.
+    return g_diffuseTexCube.Sample(g_sampler, pin.posLS);
+  }
+  else {
+    diffuse = g_material.diffuse;
+  }
+
+  if (g_hasNormalTex) {
+    float3 normalTS = g_normalTex.Sample(g_sampler, pin.texcoord).xyz;
+    // TS (Tangent Space) -> WS (World Space)
+    float3x3 TBN = float3x3(pin.tangentWS, pin.bitangentWS, pin.normalWS);
+    pin.normalWS = mul(normalTS, TBN);
   }
 
   // Lighting
   float3 viewDir = g_eyePosWS.xyz - pin.posWS.xyz;
   float3 ambient_contribution = ApplyAmbientLight(g_material, g_ambient_light);
   float3 directional_contribution = ApplyDirectionalLight(g_material, 
-    g_directional_light, pin.normal_w, viewDir);
+    g_directional_light, pin.normalWS, viewDir);
   float3 point_contribution = ApplyPointLight(g_material,
-    g_point_light, pin.posWS.xyz, pin.normal_w, viewDir);
+    g_point_light, pin.posWS.xyz, pin.normalWS, viewDir);
   float3 spot_contribution = ApplySpotLight(g_material,
-    g_spot_light, pin.posWS.xyz, pin.normal_w, viewDir);
+    g_spot_light, pin.posWS.xyz, pin.normalWS, viewDir);
   
   float3 lightColor = ambient_contribution + directional_contribution +
     point_contribution + spot_contribution;
 
   // TODO: better way?
-  result.xyz = max(lightColor, float3(0, 0, 0)) * 0.4f + texDiffuse * 0.6f;
+  result.xyz = max(lightColor, float3(0, 0, 0)) * 0.4f + diffuse * 0.6f;
 
   return result;
 
