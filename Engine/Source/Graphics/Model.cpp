@@ -133,12 +133,18 @@ Model Model::loadAssimp(filesystem::path pathname)
 
     char *pRem = nullptr;
 
-    dstmat.diffuseTexture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
-    dstmat.specularTexture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
-    dstmat.emissiveTexture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
-    dstmat.normalTexture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
-    dstmat.lightmapTexture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
-    dstmat.reflectionTexture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
+    if (texDiffusePath.length > 0)
+      dstmat.diffuseTexture = pathname.parent_path() / "Textures/" / texDiffusePath.C_Str();
+    if (texSpecularPath.length > 0)
+      dstmat.specularTexture = pathname.parent_path() / "Textures/" / texSpecularPath.C_Str();
+    if (texEmissivePath.length > 0)
+      dstmat.emissiveTexture = pathname.parent_path() / "Textures/" / texEmissivePath.C_Str();
+    if (texNormalPath.length > 0)
+      dstmat.normalTexture = pathname.parent_path() / "Textures/" / texNormalPath.C_Str();
+    if (texLightmapPath.length > 0)
+      dstmat.lightmapTexture = pathname.parent_path() / "Textures/" / texLightmapPath.C_Str();
+    if (texReflectionPath.length > 0)
+      dstmat.reflectionTexture = pathname.parent_path() / "Textures/" / texReflectionPath.C_Str();
 
     aiString matName;
     srcmat->Get(AI_MATKEY_NAME, matName);

@@ -116,7 +116,7 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip)
     return result;
   }
 
-  // Texturing
+  // Texture
   float3 diffuse;
   if (g_hasDiffuseTex2D) {
     diffuse = g_diffuseTex2D.Sample(g_sampler, pin.texcoord).xyz;
@@ -129,6 +129,7 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip)
     diffuse = g_material.diffuse;
   }
 
+  // Normal Mapping
   if (g_hasNormalTex) {
     float3 normalTS = g_normalTex.Sample(g_sampler, pin.texcoord).xyz;
     // TS (Tangent Space) -> WS (World Space)
@@ -136,7 +137,7 @@ float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip)
     pin.normalWS = mul(normalTS, TBN);
   }
 
-  // Lighting
+  // Lights
   float3 viewDir = g_eyePosWS.xyz - pin.posWS.xyz;
   float3 ambient_contribution = ApplyAmbientLight(g_material, g_ambient_light);
   float3 directional_contribution = ApplyDirectionalLight(g_material, 

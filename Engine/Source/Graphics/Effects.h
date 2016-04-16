@@ -53,7 +53,8 @@ public:
   void setViewProjection(DirectX::FXMMATRIX value);
 
   void setTextureTransform(DirectX::FXMMATRIX value);
-  void setTexture(ID3D11ShaderResourceView* value);
+  void setDiffuseTex(ID3D11ShaderResourceView* value);
+  void setNormalTex(ID3D11ShaderResourceView* value);
 
   void setMaterial(const MaterialFX& material);
 
@@ -74,11 +75,13 @@ private:
   // Per Object:
   ID3DX11EffectMatrixVariable* world_;
   ID3DX11EffectVariable* material_;
-  ID3DX11EffectShaderResourceVariable* diffuseTex2D_;
-  ID3DX11EffectScalarVariable* hasDiffuseTex2D_;
-  ID3DX11EffectShaderResourceVariable* diffuseTexCube;
-  ID3DX11EffectScalarVariable* hasDiffuseTexCube_;
   ID3DX11EffectMatrixVariable* textureTransform_;
+  ID3DX11EffectScalarVariable* hasDiffuseTex2D_;
+  ID3DX11EffectShaderResourceVariable* diffuseTex2D_;
+  ID3DX11EffectScalarVariable* hasDiffuseTexCube_;
+  ID3DX11EffectShaderResourceVariable* diffuseTexCube;
+  ID3DX11EffectScalarVariable* hasNormalTex_;
+  ID3DX11EffectShaderResourceVariable* normalTex_;
 };
 
 }  // namespace Graphics

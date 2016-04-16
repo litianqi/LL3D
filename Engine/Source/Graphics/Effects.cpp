@@ -40,10 +40,13 @@ BasicEffect::BasicEffect(std::string path) :
   textureTransform_ = effect_->GetVariableByName("g_texTransform")->AsMatrix();
   material_ = effect_->GetVariableByName("g_material");
 
-  diffuseTex2D_ = effect_->GetVariableByName("g_diffuseTex2D")->AsShaderResource();
   hasDiffuseTex2D_ = effect_->GetVariableByName("g_hasDiffuseTex2D")->AsScalar();
-  diffuseTexCube = effect_->GetVariableByName("g_diffuseTexCube")->AsShaderResource();
+  diffuseTex2D_ = effect_->GetVariableByName("g_diffuseTex2D")->AsShaderResource();
   hasDiffuseTexCube_ = effect_->GetVariableByName("g_hasDiffuseTexCube")->AsScalar();
+  diffuseTexCube = effect_->GetVariableByName("g_diffuseTexCube")->AsShaderResource();
+  
+  hasNormalTex_ = effect_->GetVariableByName("g_hasNormalTex")->AsScalar();
+  normalTex_ = effect_->GetVariableByName("g_normalTex")->AsShaderResource();
 
   fog_ = effect_->GetVariableByName("g_fog");
 }
@@ -91,8 +94,8 @@ void BasicEffect::setTextureTransform(FXMMATRIX value) {
   textureTransform_->SetMatrix(reinterpret_cast<const float*>(&(value)));
 }
 
-void BasicEffect::setTexture(ID3D11ShaderResourceView* value) {
-  
+void BasicEffect::setDiffuseTex(ID3D11ShaderResourceView* value) 
+{  
   diffuseTex2D_->SetResource(nullptr);
   hasDiffuseTex2D_->SetBool(false);
   diffuseTexCube->SetResource(nullptr);
@@ -109,6 +112,18 @@ void BasicEffect::setTexture(ID3D11ShaderResourceView* value) {
       diffuseTex2D_->SetResource(value);
       hasDiffuseTex2D_->SetBool(true);
     }
+  }
+}
+
+void BasicEffect::setNormalTex(ID3D11ShaderResourceView* value) 
+{
+  if (value) {
+    normalTex_->SetResource(value);
+    hasNormalTex_->SetBool(true);
+  }
+  else {
+    normalTex_->SetResource(nullptr);
+    hasNormalTex_->SetBool(false);
   }
 }
 

@@ -74,8 +74,8 @@ void MeshRender::render() const
   // Set per object constant buffer.
   s_effect->setMaterial(MaterialFX(material_));
   //s_effect->SetTextureTransform(texture_transform_);
-  s_effect->setTexture(loadDDSFromFile(s_graphicsDevice->device(), material_.diffuseTexture));
-
+  s_effect->setDiffuseTex(loadDDSFromFile(s_graphicsDevice->device(), material_.diffuseTexture));
+  s_effect->setNormalTex(loadDDSFromFile(s_graphicsDevice->device(), material_.normalTexture));
   s_effect->setTextureTransform(DirectX::XMMatrixIdentity());
 
   // Apply rasterizer option, if specified.

@@ -22,7 +22,7 @@ struct Material {
   std::experimental::filesystem::path diffuseTexture;
   std::experimental::filesystem::path specularTexture;
   std::experimental::filesystem::path emissiveTexture;  // todo
-  std::experimental::filesystem::path normalTexture;  // todo
+  std::experimental::filesystem::path normalTexture;
   std::experimental::filesystem::path lightmapTexture;  // todo
   std::experimental::filesystem::path reflectionTexture;  // todo
 
