@@ -18,6 +18,7 @@ A Mini C++/DirectX11 3D game engine (study project).
   - Mirror, fog, shadow...
   - Bounding box
   - Picking
+  - Skybox
   - ...
 - Input
 - Math
