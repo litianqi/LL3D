@@ -19,9 +19,9 @@ public:
   MeshRender() = default;
   MeshRender(const Mesh& mesh, const std::vector<Material>& materials);
 
-  void setMesh(const Mesh& value);
   void setMaterial(const Material& material);
   void setCastShadow(bool value);
+  Material& material();
 
   const Mesh& mesh() const;
   const Material& material() const;
@@ -35,7 +35,9 @@ public:
   int __debugTag = 0;
 
 private:
-  Mesh     mesh_;
+  void setMesh(const Mesh& value);
+
+  Mesh mesh_;
   Material material_;
   bool castShadow_ = true;
   Microsoft::WRL::ComPtr<ID3D11Buffer> indexBuffer_;
@@ -45,21 +47,25 @@ private:
 
 class ModelRender : public Component {
 public:
-  enum BuiltInModel { Cube, Sphere, Grid };
+  enum BuiltInModel { kCube, kSphere, kCylinder, kGrid };
+  using Iterator = std::vector<MeshRender>::iterator;
+  using ConstIterator = std::vector<MeshRender>::const_iterator;
 
   ModelRender(const Model& model);
   ModelRender(std::experimental::filesystem::path pathname);
   ModelRender(BuiltInModel type);
 
   const std::string& name() const;
-  std::vector<MeshRender>& meshRenders();
-  const std::vector<MeshRender>& meshRenders() const;
+  Iterator begin();
+  Iterator end();
+  ConstIterator begin() const;
+  ConstIterator end() const;
   const DirectX::BoundingBox& localBoundingBox() const;
 
 private:
-  std::string             name_;
+  std::string name_;
   std::vector<MeshRender> meshRenders_;
-  DirectX::BoundingBox    localBoundingBox_;
+  DirectX::BoundingBox localBoundingBox_;
 };
 
 

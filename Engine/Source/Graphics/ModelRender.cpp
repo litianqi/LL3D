@@ -100,6 +100,11 @@ const Material & MeshRender::material() const
   return material_;
 }
 
+Material & MeshRender::material()
+{
+  return material_;
+}
+
 bool MeshRender::mirror() const
 {
   return material_.mirror;
@@ -146,19 +151,25 @@ ModelRender::ModelRender(BuiltInModel type)
   std::vector<Mesh> meshes;
   std::vector<Material> materials;
 
-  if (type == Cube) {
+  if (type == kCube) {
     auto mesh = Mesh::createCube(10.f, 10.f, 10.f);
     mesh.materialIndex = 0;
     meshes.push_back(std::move(mesh));
     name = "Cube";
   }
-  else if (type == Sphere) {
+  else if (type == kSphere) {
     auto mesh = Mesh::createSphere(5.f, 50, 50);
     mesh.materialIndex = 0;
     meshes.push_back(std::move(mesh));
     name = "Sphere";
   }
-  else if (type == Grid) {
+  else if (type == kCylinder) {
+    auto mesh = Mesh::createCylinder(5.f, 5.f, 30.f, 20, 20);
+    mesh.materialIndex = 0;
+    meshes.push_back(std::move(mesh));
+    name = "Cylinder";
+  }
+  else if (type == kGrid) {
     auto mesh = Mesh::createGrid(10000.f, 10000.f, 2, 2);
     mesh.materialIndex = 0;
     meshes.push_back(std::move(mesh));
@@ -193,14 +204,24 @@ const std::string & ModelRender::name() const
   return name_;
 }
 
-std::vector<MeshRender>& ModelRender::meshRenders()
+ModelRender::Iterator ModelRender::begin()
 {
-  return meshRenders_;
+  return meshRenders_.begin();
 }
 
-const std::vector<MeshRender>& ModelRender::meshRenders() const
+ModelRender::Iterator ModelRender::end()
 {
-  return meshRenders_;
+  return meshRenders_.end();
+}
+
+ModelRender::ConstIterator ModelRender::begin() const
+{
+  return meshRenders_.begin();
+}
+
+ModelRender::ConstIterator ModelRender::end() const
+{
+  return meshRenders_.end();
 }
 
 const DirectX::BoundingBox & ModelRender::localBoundingBox() const

@@ -82,6 +82,8 @@ Editor::Editor()
 
   // Add cylinder.
   auto mrcy = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kCylinder);
+  mrcy->begin()->material().diffuseTexture = "Resource/Textures/bricks.dds";
+  mrcy->begin()->material().normalTexture = "Resource/Textures/bricks_nmap.dds";
   auto cylinder = make_unique<GameObject>();
   cylinder->addComponent(std::move(mrcy));
   cylinder->transform().setPosition(Math::Vector3(-10.f, 15.f, 20.f));
@@ -128,7 +130,7 @@ Editor::Editor()
 
   auto modelSB = Graphics::Model("", move(meshesSB), move(materialsSB));
   auto mrSB = make_unique<Graphics::ModelRender>(modelSB);
-  mrSB->meshRenders()[0].setCastShadow(false);
+  mrSB->begin()[0].setCastShadow(false);
   skybox->addComponent(std::move(mrSB));
 
   auto sbCtroller = make_unique<SkyboxController>();

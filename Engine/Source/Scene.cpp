@@ -199,7 +199,7 @@ void Scene::render()
       {
         const auto& transform = object.transform();
         transform.writeToEffect();
-        for (const auto& mesh : model->meshRenders())
+        for (const auto& mesh : *model)
         {
           if (mesh.opaque()) 
           {
@@ -229,7 +229,7 @@ void Scene::render()
       if (frustum.Intersects(worldBox))
       {
         const auto& transform = object.transform();
-        for (const auto& mesh : model->meshRenders())
+        for (const auto& mesh : *model)
         {
           if (mesh.opaque() && mesh.castShadow()) {
             RenderPlanarShadow(transform, mesh, _lights);
@@ -278,7 +278,7 @@ void Scene::render()
       if (!model)
         continue;
       Transform::writeToEffect(object.transform().matrix() * reflect);
-      for (const auto& mesh : model->meshRenders())
+      for (const auto& mesh : *model)
       {
         if (mesh.opaque() || (mesh.mirror() && &mesh != mirror.second))
           mesh.render();
@@ -403,7 +403,7 @@ void Scene::calculatePicking()
           // Check if ray intersects with object.
           float tmp;
           if (rayLS.Intersects(model->localBoundingBox(), tmp)) {
-            for (const auto& meshRender : model->meshRenders()) {
+            for (const auto& meshRender : *model) {
               const auto& mesh = meshRender.mesh();
               for (int i = 2; i < mesh.indices.size(); i += 3) {
                 if (rayLS.Intersects(
@@ -434,7 +434,7 @@ std::vector<RenderableMesh> Scene::mirrors()
     if (!model)
       continue;
     const auto& transform = object.transform();
-    for (const auto& mesh : model->meshRenders())
+    for (const auto& mesh : *model)
     {
       if (mesh.mirror())
         result.push_back(RenderableMesh(transform, &mesh));
@@ -453,7 +453,7 @@ std::vector<RenderableMesh> Scene::transparents()
     if (!model)
       continue;
     const auto& transform = object.transform();
-    for (const auto& mesh : model->meshRenders())
+    for (const auto& mesh : *model)
     {
       if (mesh.transparent())
         result.push_back(RenderableMesh(transform, &mesh));
