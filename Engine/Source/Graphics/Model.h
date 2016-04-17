@@ -19,6 +19,7 @@ struct Mesh {
   DirectX::BoundingBox      boudingBox() const;
   static Mesh createCube(float width, float height, float depth);
   static Mesh createSphere(float radius, int sliceCount, int stackCount);
+  static Mesh createCylinder(float bottomRadius, float topRadius, float height, UINT sliceCount, UINT stackCount);
   static Mesh createGrid(float width, float depth, int m, int n);
 };
 

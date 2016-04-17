@@ -9,7 +9,105 @@
 using namespace std;
 using namespace std::experimental;
 using namespace DirectX;
+using namespace LL3D;
+using namespace LL3D::Graphics;
 using namespace LL3D::Math;
+
+namespace {
+
+void BuildCylinderTopCap(float bottomRadius, float topRadius, float height,
+  UINT sliceCount, UINT stackCount, Mesh& meshData)
+{
+  UINT baseIndex = (UINT)meshData.vertices.size();
+
+  float y = 0.5f*height;
+  float dTheta = 2.0f*XM_PI / sliceCount;
+
+  // Duplicate cap ring vertices because the texture coordinates and normals differ.
+  for (UINT i = 0; i <= sliceCount; ++i)
+  {
+    float x = topRadius*cosf(i*dTheta);
+    float z = topRadius*sinf(i*dTheta);
+
+    // Scale down by the height to try and make top cap texture coord area
+    // proportional to base.
+    float u = x / height + 0.5f;
+    float v = z / height + 0.5f;
+
+    meshData.vertices.push_back(Vertex{ 
+      Math::Vector3(x, y, z), 
+      Math::Vector3(0.0f, 1.0f, 0.0f), 
+      Math::Vector2(u, v)
+    });
+  }
+
+  // Cap center vertex.
+  meshData.vertices.push_back(Vertex{
+    Math::Vector3(0.0f, y, 0.0f),
+    Math::Vector3(0.0f, 1.0f, 0.0f),
+    Math::Vector2(0.5f, 0.5f)
+  });
+
+  // Index of center vertex.
+  UINT centerIndex = (UINT)meshData.vertices.size() - 1;
+
+  for (UINT i = 0; i < sliceCount; ++i)
+  {
+    meshData.indices.push_back(centerIndex);
+    meshData.indices.push_back(baseIndex + i + 1);
+    meshData.indices.push_back(baseIndex + i);
+  }
+}
+
+void BuildCylinderBottomCap(float bottomRadius, float topRadius, float height,
+  UINT sliceCount, UINT stackCount, Mesh& meshData)
+{
+  // 
+  // Build bottom cap.
+  //
+
+  UINT baseIndex = (UINT)meshData.vertices.size();
+  float y = -0.5f*height;
+
+  // vertices of ring
+  float dTheta = 2.0f*XM_PI / sliceCount;
+  for (UINT i = 0; i <= sliceCount; ++i)
+  {
+    float x = bottomRadius*cosf(i*dTheta);
+    float z = bottomRadius*sinf(i*dTheta);
+
+    // Scale down by the height to try and make top cap texture coord area
+    // proportional to base.
+    float u = x / height + 0.5f;
+    float v = z / height + 0.5f;
+
+    meshData.vertices.push_back(Vertex{
+      Math::Vector3(x, y, z),
+      Math::Vector3(0.0f, -1.0f, 0.0f),
+      Math::Vector2(u, v)
+    });
+  }
+
+  // Cap center vertex.
+  meshData.vertices.push_back(Vertex{
+    Math::Vector3(0.0f, y, 0.0f),
+    Math::Vector3(0.0f, -1.0f, 0.0f),
+    Math::Vector2(0.5f, 0.5f)
+  });
+
+  // Cache the index of center vertex.
+  UINT centerIndex = (UINT)meshData.vertices.size() - 1;
+
+  for (UINT i = 0; i < sliceCount; ++i)
+  {
+    meshData.indices.push_back(centerIndex);
+    meshData.indices.push_back(baseIndex + i);
+    meshData.indices.push_back(baseIndex + i + 1);
+  }
+}
+
+}  // namespace
+
 
 namespace LL3D {
 namespace Graphics {
@@ -341,7 +439,7 @@ Mesh Mesh::createSphere(float radius, int sliceCount, int stackCount)
   for (auto i = 1; i <= stackCount - 1; ++i) {
     float phi = i*phiStep;
 
-    // Vertices of ring.
+    // vertices of ring.
     for (auto j = 0; j <= sliceCount; ++j) {
       float theta = j*thetaStep;
 
@@ -408,6 +506,100 @@ Mesh Mesh::createSphere(float radius, int sliceCount, int stackCount)
   }
 
   return mesh;
+}
+
+Mesh Mesh::createCylinder(float bottomRadius, float topRadius, float height, UINT sliceCount, UINT stackCount)
+{
+  auto meshData = Mesh();
+
+  //
+  // Build Stacks.
+  // 
+
+  float stackHeight = height / stackCount;
+
+  // Amount to increment radius as we move up each stack level from bottom to top.
+  float radiusStep = (topRadius - bottomRadius) / stackCount;
+
+  UINT ringCount = stackCount + 1;
+
+  // Compute vertices for each stack ring starting at the bottom and moving up.
+  for (UINT i = 0; i < ringCount; ++i)
+  {
+    float y = -0.5f*height + i*stackHeight;
+    float r = bottomRadius + i*radiusStep;
+
+    // vertices of ring
+    float dTheta = 2.0f*XM_PI / sliceCount;
+    for (UINT j = 0; j <= sliceCount; ++j)
+    {
+      Vertex vertex;
+
+      float c = cosf(j*dTheta);
+      float s = sinf(j*dTheta);
+
+      vertex.position = XMFLOAT3(r*c, y, r*s);
+
+      vertex.texcoord.x = (float)j / sliceCount;
+      vertex.texcoord.y = 1.0f - (float)i / stackCount;
+
+      // Cylinder can be parameterized as follows, where we introduce v
+      // parameter that goes in the same direction as the v tex-coord
+      // so that the bitangent goes in the same direction as the v tex-coord.
+      //   Let r0 be the bottom radius and let r1 be the top radius.
+      //   y(v) = h - hv for v in [0,1].
+      //   r(v) = r1 + (r0-r1)v
+      //
+      //   x(t, v) = r(v)*cos(t)
+      //   y(t, v) = h - hv
+      //   z(t, v) = r(v)*sin(t)
+      // 
+      //  dx/dt = -r(v)*sin(t)
+      //  dy/dt = 0
+      //  dz/dt = +r(v)*cos(t)
+      //
+      //  dx/dv = (r0-r1)*cos(t)
+      //  dy/dv = -h
+      //  dz/dv = (r0-r1)*sin(t)
+
+      // This is unit length.
+      vertex.tangent = XMFLOAT3(-s, 0.0f, c);
+
+      float dr = bottomRadius - topRadius;
+      XMFLOAT3 bitangent(dr*c, -height, dr*s);
+
+      XMVECTOR T = XMLoadFloat3(&vertex.tangent);
+      XMVECTOR B = XMLoadFloat3(&bitangent);
+      XMVECTOR N = XMVector3Normalize(XMVector3Cross(T, B));
+      XMStoreFloat3(&vertex.normal, N);
+
+      meshData.vertices.push_back(vertex);
+    }
+  }
+
+  // Add one because we duplicate the first and last vertex per ring
+  // since the texture coordinates are different.
+  UINT ringVertexCount = sliceCount + 1;
+
+  // Compute indices for each stack.
+  for (UINT i = 0; i < stackCount; ++i)
+  {
+    for (UINT j = 0; j < sliceCount; ++j)
+    {
+      meshData.indices.push_back(i*ringVertexCount + j);
+      meshData.indices.push_back((i + 1)*ringVertexCount + j);
+      meshData.indices.push_back((i + 1)*ringVertexCount + j + 1);
+
+      meshData.indices.push_back(i*ringVertexCount + j);
+      meshData.indices.push_back((i + 1)*ringVertexCount + j + 1);
+      meshData.indices.push_back(i*ringVertexCount + j + 1);
+    }
+  }
+
+  BuildCylinderTopCap(bottomRadius, topRadius, height, sliceCount, stackCount, meshData);
+  BuildCylinderBottomCap(bottomRadius, topRadius, height, sliceCount, stackCount, meshData);
+  
+  return meshData;
 }
 
 Mesh Mesh::createGrid(float width, float depth, int cols, int rows)

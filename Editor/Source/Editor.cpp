@@ -55,7 +55,7 @@ Editor::Editor()
   scene_->add(std::move(girl));
 
   // Add cube.
-  auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
+  auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kCube);
   auto cube = make_unique<GameObject>();
   cube->addComponent(std::move(mr2));
   cube->transform().setPosition(Math::Vector3(10.f, 5.f, 0.f));
@@ -73,15 +73,23 @@ Editor::Editor()
   //}
 
   // Add sphere.
-  auto mr3 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Sphere);
+  auto mr3 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kSphere);
   auto sphere = make_unique<GameObject>();
   sphere->addComponent(std::move(mr3));
   sphere->transform().setPosition(Math::Vector3(-10.f, 5.f, 0.f));
   sphere->setName("sphere");
   scene_->add(std::move(sphere));
 
+  // Add cylinder.
+  auto mrcy = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kCylinder);
+  auto cylinder = make_unique<GameObject>();
+  cylinder->addComponent(std::move(mrcy));
+  cylinder->transform().setPosition(Math::Vector3(-10.f, 15.f, 20.f));
+  cylinder->setName("cylinder");
+  scene_->add(std::move(cylinder));
+
   // Add grid.
-  auto mr4 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Grid);
+  auto mr4 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kGrid);
   auto grid = make_unique<GameObject>();
   grid->addComponent(std::move(mr4));
   grid->setName("Earth");
