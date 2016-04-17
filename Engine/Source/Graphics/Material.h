@@ -19,6 +19,7 @@ struct Material {
   float shininess_strength = 0.f; // todo: multiplier on top of specular color
 
   // Texture paths
+  Math::Matrix texTransform = Math::Matrix::Identity;
   std::experimental::filesystem::path diffuseTexture;
   std::experimental::filesystem::path specularTexture;
   std::experimental::filesystem::path emissiveTexture;  // todo

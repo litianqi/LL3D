@@ -56,6 +56,8 @@ Editor::Editor()
 
   // Add cube.
   auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kCube);
+  mr2->begin()->material().diffuseTexture = "Resource/Textures/stones.dds";
+  mr2->begin()->material().normalTexture = "Resource/Textures/stones_nmap.dds";
   auto cube = make_unique<GameObject>();
   cube->addComponent(std::move(mr2));
   cube->transform().setPosition(Math::Vector3(10.f, 5.f, 0.f));
@@ -92,6 +94,11 @@ Editor::Editor()
 
   // Add grid.
   auto mr4 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kGrid);
+  mr4->begin()->material().texTransform = Math::Matrix::CreateScale(
+    Math::Vector3(10.f, 10.f, 0.f)
+  );
+  mr4->begin()->material().diffuseTexture = "Resource/Textures/floor.dds";
+  mr4->begin()->material().normalTexture = "Resource/Textures/floor_nmap.dds";
   auto grid = make_unique<GameObject>();
   grid->addComponent(std::move(mr4));
   grid->setName("Earth");
@@ -201,7 +208,7 @@ Editor::Editor()
     );
   directional_light->addComponent(std::move(directional_component));
   directional_light->transform().setRotation(
-    Math::Vector3(Math::XM_PI - 0.1f, 0.f, 0.f)
+    Math::Vector3(Math::kPi - 0.1f, 0.f, 0.f)
     );
   directional_light->setName("directional");
   scene_->add(std::move(directional_light));

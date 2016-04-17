@@ -83,7 +83,7 @@ VertexOut VS(VertexIn vin)
   vout.posWS = mul(float4(vin.posLS, 1.f), g_world);
   vout.posPS = mul(vout.posWS, g_viewProj);
   
-  vout.texcoord = /*mul(float4(*/vin.texcoord/*, 0.0, 1.0), g_texTransform).xy*/;
+  vout.texcoord = mul(float4(vin.texcoord, 0.0, 1.0), g_texTransform).xy;
   
   vout.normalWS = mul(float4(vin.normalLS, 0.f), g_world).xyz;
   vout.tangentWS = mul(float4(vin.tangentLS, 0.f), g_world).xyz;

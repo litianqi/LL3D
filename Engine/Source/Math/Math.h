@@ -29,6 +29,13 @@ struct Matrix;
 struct Quaternion;
 struct Plane;
 
+const float kPi = XM_PI;
+const float k2Pi = XM_2PI;
+const float k1DivPi = XM_1DIVPI;
+const float k1Div2Pi = XM_1DIV2PI;
+const float kPiDiv2 = XM_PIDIV2;
+const float kPiDiv4 = XM_PIDIV4;
+
 //------------------------------------------------------------------------------
 // 2D vector
 struct Vector2 : public XMFLOAT2

@@ -73,10 +73,9 @@ void MeshRender::render() const
   //for (UINT pass = 0; pass < effect->GetPassNum(); ++pass) {
   // Set per object constant buffer.
   s_effect->setMaterial(MaterialFX(material_));
-  //s_effect->SetTextureTransform(texture_transform_);
+  s_effect->setTextureTransform(material_.texTransform);
   s_effect->setDiffuseTex(loadDDSFromFile(s_graphicsDevice->device(), material_.diffuseTexture));
   s_effect->setNormalTex(loadDDSFromFile(s_graphicsDevice->device(), material_.normalTexture));
-  s_effect->setTextureTransform(DirectX::XMMatrixIdentity());
 
   // Apply rasterizer option, if specified.
   //s_graphics_device->GetDeviceContex()->RSSetState(rasterizer_state_.Get());
@@ -170,7 +169,7 @@ ModelRender::ModelRender(BuiltInModel type)
     name = "Cylinder";
   }
   else if (type == kGrid) {
-    auto mesh = Mesh::createGrid(10000.f, 10000.f, 2, 2);
+    auto mesh = Mesh::createGrid(500.f, 500.f, 2, 2);
     mesh.materialIndex = 0;
     meshes.push_back(std::move(mesh));
     name = "Grid";
