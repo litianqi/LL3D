@@ -1,14 +1,6 @@
 #include "Light.fx"
 #include "Fog.fx"
 
-cbuffer Settings
-{
-  float kMaxTessDist = 25.f;
-  float kMinTessDist = 1.f;
-  float kMaxTessFactor = 1.f;
-  float kMinTessFactor = 5.f;
-};
-
 cbuffer PerFrame 
 {
   AmbientLightFX      g_ambient_light;
@@ -28,13 +20,15 @@ cbuffer PerObject
   MaterialFX g_material;
 };
 
-// Diffuse Texture
+// # Textures
+
+// ## Diffuse Texture
 Texture2D g_diffuseTex2D;
 bool g_hasDiffuseTex2D;
 TextureCube g_diffuseTexCube;
 bool g_hasDiffuseTexCube;
 
-// Normal Texture
+// ## Normal Texture
 Texture2D g_normalTex;
 bool g_hasNormalTex;
 
@@ -70,7 +64,8 @@ struct VertexIn
 
 struct VertexOut 
 {
-  float3 posWS  : POSITIONWS;
+  float4 posPS  : SV_POSITION;
+  float4 posWS  : POSITIONWS;
   float3 posLS  : POSITIONLS;
   
   float2 texcoord : TEXCOORD;
@@ -78,8 +73,6 @@ struct VertexOut
   float3 normalWS : NORMAL;
   float3 tangentWS : TANGENT;
   float3 bitangentWS : BITANGENT;
-
-  float tessFactor : TESS;
 };
 
 VertexOut VS(VertexIn vin) 
@@ -96,91 +89,8 @@ VertexOut VS(VertexIn vin)
   vout.tangentWS = mul(float4(vin.tangentLS, 0.f), g_world).xyz;
   vout.bitangentWS = mul(float4(vin.bitangentLS, 0.f), g_world).xyz;
 
-  float d = distance(vout.posWS, g_eyePosWS);
-  float tess = saturate((d - kMinTessDist) /
-    (kMaxTessDist - kMinTessDist));
-  vout.tessFactor = kMinTess + tess * (kMaxTessFactor - kMinTessFactor);
-
   return vout;
 }
-
-struct PatchTess
-{
-  float edgeTess[3] : SV_TessFactor;
-  float insideTess : SV_InsideTessFactor;
-}
-
-PatchTess HS(InputPatch<VertexOut, 3> patch, uint patchID : SV_PrimitiveID)
-{
-  PatchTess pt;
-
-  pt.edgeTess[0] = (patch[1].tessFactor + patch[2].tessFactor) / 2.f;
-  pt.edgeTess[1] = (patch[2].tessFactor + patch[0].tessFactor) / 2.f;
-  pt.edgeTess[2] = (patch[0].tessFactor + patch[1].tessFactor) / 2.f;
-
-  // Arbitrarily using first edge tess as inside tess.
-  pt.insideTess = pt.edgeTess[0];
-}
-
-struct HullOut
-{
-  float3 posWS  : POSITIONWS;
-  float3 posLS  : POSITIONLS;
-
-  float2 texcoord : TEXCOORD;
-
-  float3 normalWS : NORMAL;
-  float3 tangentWS : TANGENT;
-  float3 bitangentWS : BITANGENT;
-};
-
-// Hull Shader: Simplely pass throuth.
-[domain("tri")]
-[partitioning("fractional_odd")]
-[outputtopology("triangle_cw")]
-[outputcontrolpoints(3)]
-[patchconstantfunc("PatchHS")]
-HullOut HS(InputPatch<VertexOut, 3> vout,
-  uint i : SC_OutputControlPointID,
-  unint patchID : SV_PrimitiveID)
-{
-  HullOut hout;
-
-  
-  hout.posWS = vout[i].posWS;
-  hout.posLS = vout[i].posLS;
-
-  hout.texcoord = vout[i].texcoord;
-  
-  hout.normalWS = vout[i].normalWS;
-  hout.tangentWS = vout[i].tangentWS;
-  hout.bitangentWS = vout[i].bitangentWS;
-
-  return hout;
-}
-
-struct DomainOut
-{
-  float4 posHS : SV_POSITION;
-  float3 posWS  : POSITIONWS;
-  float3 posLS  : POSITIONLS;
-
-  float2 texcoord : TEXCOORD;
-
-  float3 normalWS : NORMAL;
-  float3 tangentWS : TANGENT;
-  float3 bitangentWS : BITANGENT;
-}
-
-[domain("tri")]
-DomainOut DS(PatchTess patchTess,
-  float3 bary : SV_DomainLocation,
-  const OutputPatch<HullOut, 3> tri)
-{
-  DomainOut dout;
-
-  
-} 
 
 //[maxvertexcount(2)]
 //void GS(point VertexOut gin[1], inout LineStream<VertexOut> gout)
@@ -188,7 +98,7 @@ DomainOut DS(PatchTess patchTess,
 //  
 //}
 
-float4 PS(VertexOut pin, uniform bool use_alpha_clip)
+float4 PS(VertexOut pin, uniform  bool use_tex, uniform bool use_alpha_clip)
   : SV_Target
 {
   float4 result;
@@ -207,7 +117,7 @@ float4 PS(VertexOut pin, uniform bool use_alpha_clip)
   }
 
   // Texture
-  float3 diffuse = float3(0, 0, 0);
+  float3 diffuse;
   if (g_hasDiffuseTex2D) {
     diffuse = g_diffuseTex2D.Sample(g_sampler, pin.texcoord).xyz;
   }
@@ -255,6 +165,6 @@ technique11 Tech {
   pass P0 {
     SetVertexShader(CompileShader(vs_5_0, VS()));
     SetGeometryShader(NULL);
-    SetPixelShader(CompileShader(ps_5_0, PS(false)));
+    SetPixelShader(CompileShader(ps_5_0, PS(true, false)));
   }
 }
