@@ -154,7 +154,7 @@ void Scene::render()
 
   s_graphicsDevice->deviceContex()->IASetInputLayout(s_inputLayout.Get());
   s_graphicsDevice->deviceContex()->IASetPrimitiveTopology(
-    D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+    D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST
     );
 
   // Make sure pixels far away that depth values equals 1 (NDC) will be rendered.

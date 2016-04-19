@@ -19,6 +19,7 @@ ComPtr<ID3D11DepthStencilState> s_depthLessEqual;
 ComPtr<ID3D11RasterizerState>   s_cullNone;
 ComPtr<ID3D11RasterizerState>   s_cullClockwise;
 ComPtr<ID3D11RasterizerState>   s_cullCounterClockwise;
+ComPtr<ID3D11RasterizerState>   s_wireframe;
 
 void createOpaque(ID3D11Device * device)
 {
@@ -218,6 +219,18 @@ void CreateCullCounterClockwise(ID3D11Device * device) {
     );
 }
 
+void createWireframe(ID3D11Device * device) {
+  auto desc = D3D11_RASTERIZER_DESC();
+  desc.FillMode = D3D11_FILL_WIREFRAME;
+  desc.CullMode = D3D11_CULL_BACK;
+  desc.FrontCounterClockwise = true;
+  desc.DepthClipEnable = true;
+
+  throwIfFailed(
+    device->CreateRasterizerState(&desc, &s_wireframe)
+  );
+}
+
 }  // namespace
 
 
@@ -238,6 +251,7 @@ void initialize(ID3D11Device * device)
   CreateCullNone(device);
   CreateCullClockwise(device);
   CreateCullCounterClockwise(device);
+  createWireframe(device);
 }
 
 //ID3D11BlendState * Opaque()
@@ -294,6 +308,11 @@ ID3D11RasterizerState * cullClockwise()
 ID3D11RasterizerState * cullCounterClockwise()
 {
   return s_cullCounterClockwise.Get();
+}
+
+ID3D11RasterizerState * wireframe()
+{
+  return s_wireframe.Get();
 }
 
 }  // namespace CommonStates

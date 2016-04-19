@@ -5,8 +5,12 @@ cbuffer Settings
 {
   float kMaxTessDist = 25.f;
   float kMinTessDist = 1.f;
-  float kMaxTessFactor = 1.f;
-  float kMinTessFactor = 5.f;
+  float kMaxTessFactor = 8.f;
+  float kMinTessFactor = 3.f;
+
+  float kMipInterval = 20.f;
+
+  float kHeightScale = 0.5f;  // todo: k -> g_
 };
 
 cbuffer PerFrame 
@@ -87,8 +91,7 @@ VertexOut VS(VertexIn vin)
   VertexOut vout;
   
   vout.posLS = vin.posLS;
-  vout.posWS = mul(float4(vin.posLS, 1.f), g_world);
-  vout.posPS = mul(vout.posWS, g_viewProj);
+  vout.posWS = mul(float4(vin.posLS, 1.f), g_world).xyz;
   
   vout.texcoord = mul(float4(vin.texcoord, 0.0, 1.0), g_texTransform).xy;
   
@@ -96,10 +99,10 @@ VertexOut VS(VertexIn vin)
   vout.tangentWS = mul(float4(vin.tangentLS, 0.f), g_world).xyz;
   vout.bitangentWS = mul(float4(vin.bitangentLS, 0.f), g_world).xyz;
 
-  float d = distance(vout.posWS, g_eyePosWS);
-  float tess = saturate((d - kMinTessDist) /
+  float d = distance(vout.posWS, g_eyePosWS.xyz);
+  float tess = saturate((kMaxTessDist - d) /
     (kMaxTessDist - kMinTessDist));
-  vout.tessFactor = kMinTess + tess * (kMaxTessFactor - kMinTessFactor);
+  vout.tessFactor = kMinTessFactor + tess * (kMaxTessFactor - kMinTessFactor);
 
   return vout;
 }
@@ -108,9 +111,10 @@ struct PatchTess
 {
   float edgeTess[3] : SV_TessFactor;
   float insideTess : SV_InsideTessFactor;
-}
+};
 
-PatchTess HS(InputPatch<VertexOut, 3> patch, uint patchID : SV_PrimitiveID)
+PatchTess PatchHS(InputPatch<VertexOut, 3> patch,
+  uint patchID : SV_PrimitiveID)
 {
   PatchTess pt;
 
@@ -120,19 +124,9 @@ PatchTess HS(InputPatch<VertexOut, 3> patch, uint patchID : SV_PrimitiveID)
 
   // Arbitrarily using first edge tess as inside tess.
   pt.insideTess = pt.edgeTess[0];
+
+  return pt;
 }
-
-struct HullOut
-{
-  float3 posWS  : POSITIONWS;
-  float3 posLS  : POSITIONLS;
-
-  float2 texcoord : TEXCOORD;
-
-  float3 normalWS : NORMAL;
-  float3 tangentWS : TANGENT;
-  float3 bitangentWS : BITANGENT;
-};
 
 // Hull Shader: Simplely pass throuth.
 [domain("tri")]
@@ -140,23 +134,11 @@ struct HullOut
 [outputtopology("triangle_cw")]
 [outputcontrolpoints(3)]
 [patchconstantfunc("PatchHS")]
-HullOut HS(InputPatch<VertexOut, 3> vout,
-  uint i : SC_OutputControlPointID,
-  unint patchID : SV_PrimitiveID)
+VertexOut HS(InputPatch<VertexOut, 3> vout,
+  uint i : SV_OutputControlPointID,
+  uint patchId : SV_PrimitiveID)
 {
-  HullOut hout;
-
-  
-  hout.posWS = vout[i].posWS;
-  hout.posLS = vout[i].posLS;
-
-  hout.texcoord = vout[i].texcoord;
-  
-  hout.normalWS = vout[i].normalWS;
-  hout.tangentWS = vout[i].tangentWS;
-  hout.bitangentWS = vout[i].bitangentWS;
-
-  return hout;
+  return vout[i];
 }
 
 struct DomainOut
@@ -170,25 +152,67 @@ struct DomainOut
   float3 normalWS : NORMAL;
   float3 tangentWS : TANGENT;
   float3 bitangentWS : BITANGENT;
-}
+};
 
 [domain("tri")]
 DomainOut DS(PatchTess patchTess,
   float3 bary : SV_DomainLocation,
-  const OutputPatch<HullOut, 3> tri)
+  const OutputPatch<VertexOut, 3> tri)
 {
   DomainOut dout;
 
-  
+  //>
+  // Interpolating
+  //
+
+  dout.posWS = bary.x*tri[0].posWS + bary.y*tri[1].posWS + bary.z*tri[2].posWS;
+  dout.posLS = bary.x*tri[0].posLS + bary.y*tri[1].posLS + bary.z*tri[2].posLS;
+  dout.texcoord = bary.x*tri[0].texcoord + bary.y*tri[1].texcoord + bary.z*tri[2].texcoord;
+  dout.normalWS = bary.x*tri[0].normalWS + bary.y*tri[1].normalWS + bary.z*tri[2].normalWS;
+  // Interpolating normal can unnormalize it, so normalize it.
+  dout.normalWS = normalize(dout.normalWS);
+  dout.tangentWS = bary.x*tri[0].tangentWS + bary.y*tri[1].tangentWS + bary.z*tri[2].tangentWS;
+  dout.tangentWS = normalize(dout.tangentWS);
+  dout.bitangentWS = bary.x*tri[0].bitangentWS + bary.y*tri[1].bitangentWS + bary.z*tri[2].bitangentWS;
+  dout.bitangentWS = normalize(dout.bitangentWS);
+  // todo: try orthogonalize TBN?
+
+  //>
+  // Displacement mapping
+  //
+
+  // Choose the mipmap level based on distance to the eye; specifically, choose
+  // the next miplevel every kMipInterval units, and clamp the miplevel in [0,6].
+  float d = distance(dout.posWS, g_eyePosWS.xyz);
+  float mipLevel = clamp(
+    (d - kMipInterval) / kMipInterval, 
+    0.0f, 
+    6.0f
+  );
+
+  // Sample height map (stored in alpha channel).
+  float h = 0.f;
+  if (g_hasNormalTex)
+    h = g_normalTex.SampleLevel(g_sampler, dout.texcoord, mipLevel).a;
+
+  // Offset vertex along normal.
+  dout.posWS += kHeightScale*h*dout.normalWS;
+
+  // todo: Offset posLS like posWS.
+
+  // Project to homogeneous clip space.
+  dout.posHS = mul(float4(dout.posWS, 1.0f), g_viewProj);
+
+  return dout;
 } 
 
 //[maxvertexcount(2)]
 //void GS(point VertexOut gin[1], inout LineStream<VertexOut> gout)
 //{
 //  
-//}
+//} 
 
-float4 PS(VertexOut pin, uniform bool use_alpha_clip)
+float4 PS(DomainOut pin, uniform bool use_alpha_clip)
   : SV_Target
 {
   float4 result;
@@ -254,6 +278,8 @@ float4 PS(VertexOut pin, uniform bool use_alpha_clip)
 technique11 Tech {
   pass P0 {
     SetVertexShader(CompileShader(vs_5_0, VS()));
+    SetHullShader(CompileShader(hs_5_0, HS()));
+    SetDomainShader(CompileShader(ds_5_0, DS()));
     SetGeometryShader(NULL);
     SetPixelShader(CompileShader(ps_5_0, PS(false)));
   }
