@@ -5,7 +5,8 @@
 #include <Transform.h>
 #include <RecursiveSceneIterator.h>
 
-class SkyboxController : public LL3D::Behaviour {
+class SkyboxController : public LL3D::Behaviour
+{
 public:
   void start() override
   {
@@ -13,8 +14,10 @@ public:
 
     myTransform_ = &(object()->transform());
     Scene* scene = object()->scene();
-    for (auto& obj : RecursiveSceneIterator(*scene)) {
-      if (obj.name() == "player") {
+    for (auto& obj : RecursiveSceneIterator(*scene))
+    {
+      if (obj.name() == "player")
+      {
         playerTransform_ = &(obj.transform());
       }
     }

@@ -3,36 +3,37 @@
 #include <filesystem>
 #include "Math/Math.h"
 
-namespace LL3D {
-namespace Graphics {
-
-struct Material 
+namespace LL3D
 {
-  std::string name;
-  
-  Math::Vector3 ambient;
-  Math::Vector3 diffuse;
-  Math::Vector3 specular;
-  Math::Vector3 emissive;  // todo
-  Math::Vector3 transparent;  // todo: light passing through a transparent surface is multiplied by this filter color
-  float shininess = 0.f;  // specular_exponent
-  float opacity = 1.f;
-  float shininess_strength = 0.f; // todo: multiplier on top of specular color
+  namespace Graphics
+  {
+    struct Material
+    {
+      std::string name;
 
-  // Texture paths
-  Math::Matrix texTransform = Math::Matrix::Identity;
-  std::experimental::filesystem::path diffuseTexture;
-  std::experimental::filesystem::path specularTexture;
-  std::experimental::filesystem::path emissiveTexture;  // todo
-  std::experimental::filesystem::path normalTexture;
-  std::experimental::filesystem::path lightmapTexture;  // todo
-  std::experimental::filesystem::path reflectionTexture;  // todo
+      Math::Vector3 ambient;
+      Math::Vector3 diffuse;
+      Math::Vector3 specular;
+      Math::Vector3 emissive;  // todo
+      Math::Vector3 transparent;  // todo: light passing through a transparent surface is multiplied by this filter color
+      float shininess = 0.f;  // specular_exponent
+      float opacity = 1.f;
+      float shininess_strength = 0.f; // todo: multiplier on top of specular color
 
-  // Experimental properties !!! 
-  bool mirror = false;
-  bool shadow = false;
-};
+      // Texture paths
+      Math::Matrix texTransform = Math::Matrix::Identity;
+      std::experimental::filesystem::path diffuseTexture;
+      std::experimental::filesystem::path specularTexture;
+      std::experimental::filesystem::path emissiveTexture;  // todo
+      std::experimental::filesystem::path normalTexture;
+      std::experimental::filesystem::path lightmapTexture;  // todo
+      std::experimental::filesystem::path reflectionTexture;  // todo
 
-}  // namespace Graphics
+      // Experimental properties !!! 
+      bool mirror = false;
+      bool shadow = false;
+    };
+
+  }  // namespace Graphics
 }  // namespace LL3D 
 

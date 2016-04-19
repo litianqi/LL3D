@@ -19,7 +19,7 @@ using namespace LL3D;
 using namespace DirectX;
 
 Editor::Editor()
-{  
+{
   timer_.start();
 
   // Add player.
@@ -27,8 +27,8 @@ Editor::Editor()
   auto camera = make_unique<Graphics::Camera>(
     player->transform()
     );
-  const auto aspectRation = static_cast<float>(window_->clientRect().GetSize().w) / 
-                            window_->clientRect().GetSize().h;
+  const auto aspectRation = static_cast<float>(window_->clientRect().GetSize().w) /
+    window_->clientRect().GetSize().h;
   camera->setAspectRatio(aspectRation);
   player->addComponent(std::move(camera));
 
@@ -38,7 +38,7 @@ Editor::Editor()
 
   player->transform().setPosition(
     Math::Vector3(0.0f, 10.0f, -100)
-    );
+  );
   player->setName("player");
   //camera_object->transform().setRotation();
   scene_->add(std::move(player));
@@ -129,7 +129,7 @@ Editor::Editor()
   meshSB.materialIndex = 0;
   std::vector<Graphics::Mesh>     meshesSB;
   meshesSB.push_back(meshSB);
- 
+
   auto matSB = Graphics::Material();
   matSB.diffuseTexture = "Resource\\Textures\\sunsetcube1024.dds";
   std::vector<Graphics::Material> materialsSB;
@@ -165,7 +165,7 @@ Editor::Editor()
   mirror->addComponent(std::move(mr6));
   mirror->transform().setRotation(
     Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
-    );
+  );
   mirror->transform().setPosition(Math::Vector3(0.f, 45.f, 25.f));
   mirror->setName("mirror");
   //scene_->add(std::move(mirror));
@@ -176,7 +176,7 @@ Editor::Editor()
   mirror2->addComponent(std::move(mr7));
   mirror2->transform().setRotation(
     Math::Vector3(0.f, 0.f, Math::XM_PIDIV2)
-    );
+  );
   mirror2->transform().setPosition(Math::Vector3(45.f, 45.f, 0.f));
   mirror2->setName("mirror2");
   //scene_->AddGameObject(mirror2);
@@ -195,7 +195,7 @@ Editor::Editor()
   auto ambient_component = make_unique<Graphics::LightComponent>(
     ambient_light->transform(),
     Graphics::LightComponent::Ambient
-  );
+    );
   ambient_light->addComponent(std::move(ambient_component));
   ambient_light->setName("ambient");
   scene_->add(std::move(ambient_light));
@@ -209,7 +209,7 @@ Editor::Editor()
   directional_light->addComponent(std::move(directional_component));
   directional_light->transform().setRotation(
     Math::Vector3(Math::kPi - 0.1f, 0.f, 0.f)
-    );
+  );
   directional_light->setName("directional");
   scene_->add(std::move(directional_light));
 
@@ -239,9 +239,10 @@ Editor::Editor()
   window_->setVisible(true);
 }
 
-void Editor::update() {
-}
+void Editor::update()
+{}
 
-void Editor::onResize() {
+void Editor::onResize()
+{
   graphicsDevice_->onResize(IntSize2{ window_->clientRect().GetSize().w, window_->clientRect().GetSize().h });
 }

@@ -3,44 +3,46 @@
 
 using namespace LL3D::Math;
 
-namespace LL3D {
-namespace Graphics {
-
-SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) noexcept
+namespace LL3D
 {
-  diffuse = light.diffuse;
-  specular = light.specular;
-  attenuation = light.attenuation;
-  innerConeAngle = light.innerConeAngle;
-  outerConeAngle = light.outerConeAngle;
+  namespace Graphics
+  {
 
-  position = transform.position();
-  direction = transform.upVec();
-}
+    SpotLightFX::SpotLightFX(const SpotLight & light, const Transform& transform) noexcept
+    {
+      diffuse = light.diffuse;
+      specular = light.specular;
+      attenuation = light.attenuation;
+      innerConeAngle = light.innerConeAngle;
+      outerConeAngle = light.outerConeAngle;
 
-AmbientLightFX::AmbientLightFX(const AmbientLight & light) noexcept
-{
-  ambient = light.ambient;
-}
+      position = transform.position();
+      direction = transform.upVec();
+    }
 
-DirectionalLightFX::DirectionalLightFX(const DirectionalLight & light, const Transform& transform) noexcept
-{
-  diffuse = light.diffuse;
-  specular = light.specular;
-  
-  auto rotation = transform.rotation();
-  direction = transform.upVec();
-}
+    AmbientLightFX::AmbientLightFX(const AmbientLight & light) noexcept
+    {
+      ambient = light.ambient;
+    }
 
-PointLightFX::PointLightFX(const PointLight & light, const Transform& transform) noexcept
-{
-  diffuse = light.diffuse;
-  specular = light.specular;
-  attenuation = light.attenuation;
-  
-  position = transform.position();
-}
+    DirectionalLightFX::DirectionalLightFX(const DirectionalLight & light, const Transform& transform) noexcept
+    {
+      diffuse = light.diffuse;
+      specular = light.specular;
 
-}  // namespace Graphics
+      auto rotation = transform.rotation();
+      direction = transform.upVec();
+    }
+
+    PointLightFX::PointLightFX(const PointLight & light, const Transform& transform) noexcept
+    {
+      diffuse = light.diffuse;
+      specular = light.specular;
+      attenuation = light.attenuation;
+
+      position = transform.position();
+    }
+
+  }  // namespace Graphics
 }  // namespace LL3D
 

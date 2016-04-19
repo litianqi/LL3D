@@ -7,7 +7,8 @@
 #include <Transform.h>
 
 // Fisrt personal camera controller.
-class PlayerController : public LL3D::Behaviour {
+class PlayerController : public LL3D::Behaviour
+{
 public:
   void start() override
   {
@@ -29,11 +30,13 @@ public:
 
     // Rotate.
     const auto delta = Input::Mouse::position() - last_mouse_position_;
-    if (Input::Mouse::isHeldingDown(Input::Mouse::kRight)) {
+    if (Input::Mouse::isHeldingDown(Input::Mouse::kRight))
+    {
       yawFP(0.005f * delta.x);
       pitchFP(0.005f * delta.y);
     }
-    if (Input::Mouse::isHeldingDown(Input::Mouse::kLeft)) {
+    if (Input::Mouse::isHeldingDown(Input::Mouse::kLeft))
+    {
       yawSP(0.005f * delta.x);
       pitchSP(0.005f * delta.y);
     }

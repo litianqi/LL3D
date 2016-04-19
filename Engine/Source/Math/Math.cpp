@@ -16,84 +16,84 @@
 
 namespace LL3D
 {
-    namespace Math
-    {
-    #if defined(_MSC_VER) && (_MSC_VER < 1800)
-        const Vector2 Vector2::Zero(0.f, 0.f);
-        const Vector2 Vector2::One(1.f, 1.f);
-        const Vector2 Vector2::UnitX(1.f, 0.f);
-        const Vector2 Vector2::UnitY(0.f, 1.f);
+  namespace Math
+  {
+  #if defined(_MSC_VER) && (_MSC_VER < 1800)
+    const Vector2 Vector2::Zero(0.f, 0.f);
+    const Vector2 Vector2::One(1.f, 1.f);
+    const Vector2 Vector2::UnitX(1.f, 0.f);
+    const Vector2 Vector2::UnitY(0.f, 1.f);
 
-        const Vector3 Vector3::Zero(0.f, 0.f, 0.f);
-        const Vector3 Vector3::One(1.f, 1.f, 1.f);
-        const Vector3 Vector3::UnitX(1.f, 0.f, 0.f);
-        const Vector3 Vector3::UnitY(0.f, 1.f, 0.f);
-        const Vector3 Vector3::UnitZ(0.f, 0.f, 1.f);
-        const Vector3 Vector3::Up(0.f, 1.f, 0.f);
-        const Vector3 Vector3::Down(0.f, -1.f, 0.f);
-        const Vector3 Vector3::Right(1.f, 0.f, 0.f);
-        const Vector3 Vector3::Left(-1.f, 0.f, 0.f);
-        const Vector3 Vector3::Forward(0.f, 0.f, 1.f);
-        const Vector3 Vector3::Backward(0.f, 0.f, -1.f);
+    const Vector3 Vector3::Zero(0.f, 0.f, 0.f);
+    const Vector3 Vector3::One(1.f, 1.f, 1.f);
+    const Vector3 Vector3::UnitX(1.f, 0.f, 0.f);
+    const Vector3 Vector3::UnitY(0.f, 1.f, 0.f);
+    const Vector3 Vector3::UnitZ(0.f, 0.f, 1.f);
+    const Vector3 Vector3::Up(0.f, 1.f, 0.f);
+    const Vector3 Vector3::Down(0.f, -1.f, 0.f);
+    const Vector3 Vector3::Right(1.f, 0.f, 0.f);
+    const Vector3 Vector3::Left(-1.f, 0.f, 0.f);
+    const Vector3 Vector3::Forward(0.f, 0.f, 1.f);
+    const Vector3 Vector3::Backward(0.f, 0.f, -1.f);
 
-        const Vector4 Vector4::Zero(0.f, 0.f, 0.f, 0.f);
-        const Vector4 Vector4::One(1.f, 1.f, 1.f, 1.f);
-        const Vector4 Vector4::UnitX(1.f, 0.f, 0.f, 0.f);
-        const Vector4 Vector4::UnitY(0.f, 1.f, 0.f, 0.f);
-        const Vector4 Vector4::UnitZ(0.f, 0.f, 1.f, 0.f);
-        const Vector4 Vector4::UnitW(0.f, 0.f, 0.f, 1.f);
+    const Vector4 Vector4::Zero(0.f, 0.f, 0.f, 0.f);
+    const Vector4 Vector4::One(1.f, 1.f, 1.f, 1.f);
+    const Vector4 Vector4::UnitX(1.f, 0.f, 0.f, 0.f);
+    const Vector4 Vector4::UnitY(0.f, 1.f, 0.f, 0.f);
+    const Vector4 Vector4::UnitZ(0.f, 0.f, 1.f, 0.f);
+    const Vector4 Vector4::UnitW(0.f, 0.f, 0.f, 1.f);
 
-        const Matrix Matrix::Identity(1.f, 0.f, 0.f, 0.f,
+    const Matrix Matrix::Identity(1.f, 0.f, 0.f, 0.f,
+                                  0.f, 1.f, 0.f, 0.f,
+                                  0.f, 0.f, 1.f, 0.f,
+                                  0.f, 0.f, 0.f, 1.f);
+
+    const Quaternion Quaternion::Identity(0.f, 0.f, 0.f, 1.f);
+  #else
+    const Vector2 Vector2::Zero = { 0.f, 0.f };
+    const Vector2 Vector2::One = { 1.f, 1.f };
+    const Vector2 Vector2::UnitX = { 1.f, 0.f };
+    const Vector2 Vector2::UnitY = { 0.f, 1.f };
+
+    const Vector3 Vector3::Zero = { 0.f, 0.f, 0.f };
+    const Vector3 Vector3::One = { 1.f, 1.f, 1.f };
+    const Vector3 Vector3::UnitX = { 1.f, 0.f, 0.f };
+    const Vector3 Vector3::UnitY = { 0.f, 1.f, 0.f };
+    const Vector3 Vector3::UnitZ = { 0.f, 0.f, 1.f };
+    const Vector3 Vector3::Up = { 0.f, 1.f, 0.f };
+    const Vector3 Vector3::Down = { 0.f, -1.f, 0.f };
+    const Vector3 Vector3::Right = { 1.f, 0.f, 0.f };
+    const Vector3 Vector3::Left = { -1.f, 0.f, 0.f };
+    const Vector3 Vector3::Forward = { 0.f, 0.f, 1.f };
+    const Vector3 Vector3::Backward = { 0.f, 0.f, -1.f };
+
+    const Vector4 Vector4::Zero = { 0.f, 0.f, 0.f, 0.f };
+    const Vector4 Vector4::One = { 1.f, 1.f, 1.f, 1.f };
+    const Vector4 Vector4::UnitX = { 1.f, 0.f, 0.f, 0.f };
+    const Vector4 Vector4::UnitY = { 0.f, 1.f, 0.f, 0.f };
+    const Vector4 Vector4::UnitZ = { 0.f, 0.f, 1.f, 0.f };
+    const Vector4 Vector4::UnitW = { 0.f, 0.f, 0.f, 1.f };
+
+    const Matrix Matrix::Identity = { 1.f, 0.f, 0.f, 0.f,
                                       0.f, 1.f, 0.f, 0.f,
                                       0.f, 0.f, 1.f, 0.f,
-                                      0.f, 0.f, 0.f, 1.f);
+                                      0.f, 0.f, 0.f, 1.f };
 
-        const Quaternion Quaternion::Identity(0.f, 0.f, 0.f, 1.f);
-    #else
-        const Vector2 Vector2::Zero = { 0.f, 0.f };
-        const Vector2 Vector2::One = { 1.f, 1.f };
-        const Vector2 Vector2::UnitX = { 1.f, 0.f };
-        const Vector2 Vector2::UnitY = { 0.f, 1.f };
+    const Quaternion Quaternion::Identity = { 0.f, 0.f, 0.f, 1.f };
 
-        const Vector3 Vector3::Zero = { 0.f, 0.f, 0.f };
-        const Vector3 Vector3::One = { 1.f, 1.f, 1.f };
-        const Vector3 Vector3::UnitX = { 1.f, 0.f, 0.f };
-        const Vector3 Vector3::UnitY = { 0.f, 1.f, 0.f };
-        const Vector3 Vector3::UnitZ = { 0.f, 0.f, 1.f };
-        const Vector3 Vector3::Up = { 0.f, 1.f, 0.f };
-        const Vector3 Vector3::Down = { 0.f, -1.f, 0.f };
-        const Vector3 Vector3::Right = { 1.f, 0.f, 0.f };
-        const Vector3 Vector3::Left = { -1.f, 0.f, 0.f };
-        const Vector3 Vector3::Forward = { 0.f, 0.f, 1.f };
-        const Vector3 Vector3::Backward = { 0.f, 0.f, -1.f };
-
-        const Vector4 Vector4::Zero = { 0.f, 0.f, 0.f, 0.f };
-        const Vector4 Vector4::One = { 1.f, 1.f, 1.f, 1.f };
-        const Vector4 Vector4::UnitX = { 1.f, 0.f, 0.f, 0.f };
-        const Vector4 Vector4::UnitY = { 0.f, 1.f, 0.f, 0.f };
-        const Vector4 Vector4::UnitZ = { 0.f, 0.f, 1.f, 0.f };
-        const Vector4 Vector4::UnitW = { 0.f, 0.f, 0.f, 1.f };
-
-        const Matrix Matrix::Identity = { 1.f, 0.f, 0.f, 0.f,
-                                          0.f, 1.f, 0.f, 0.f,
-                                          0.f, 0.f, 1.f, 0.f,
-                                          0.f, 0.f, 0.f, 1.f };
-
-        const Quaternion Quaternion::Identity = { 0.f, 0.f, 0.f, 1.f };
-
-        const Color Color::White = { 1.0f, 1.0f, 1.0f, 1.0f };
-        const Color Color::Black = { 0.0f, 0.0f, 0.0f, 1.0f };
-        const Color Color::Red = { 1.0f, 0.0f, 0.0f, 1.0f };
-        const Color Color::Green = { 0.0f, 1.0f, 0.0f, 1.0f };
-        const Color Color::Blue = { 0.0f, 0.0f, 1.0f, 1.0f };
-        const Color Color::Yellow = { 1.0f, 1.0f, 0.0f, 1.0f };
-        const Color Color::Cyan = { 0.0f, 1.0f, 1.0f, 1.0f };
-        const Color Color::Magenta = { 1.0f, 0.0f, 1.0f, 1.0f };
-        const Color Color::Silver = { 0.75f, 0.75f, 0.75f, 1.0f };
-        const Color Color::LightSteelBlue = { 0.69f, 0.77f, 0.87f, 1.0f };
-        const Color Color::Grey = { 0.294f, 0.294f, 0.294f, 1.0f };
-    #endif
-    }
+    const Color Color::White = { 1.0f, 1.0f, 1.0f, 1.0f };
+    const Color Color::Black = { 0.0f, 0.0f, 0.0f, 1.0f };
+    const Color Color::Red = { 1.0f, 0.0f, 0.0f, 1.0f };
+    const Color Color::Green = { 0.0f, 1.0f, 0.0f, 1.0f };
+    const Color Color::Blue = { 0.0f, 0.0f, 1.0f, 1.0f };
+    const Color Color::Yellow = { 1.0f, 1.0f, 0.0f, 1.0f };
+    const Color Color::Cyan = { 0.0f, 1.0f, 1.0f, 1.0f };
+    const Color Color::Magenta = { 1.0f, 0.0f, 1.0f, 1.0f };
+    const Color Color::Silver = { 0.75f, 0.75f, 0.75f, 1.0f };
+    const Color Color::LightSteelBlue = { 0.69f, 0.77f, 0.87f, 1.0f };
+    const Color Color::Grey = { 0.294f, 0.294f, 0.294f, 1.0f };
+  #endif
+  }
 }
 
 
@@ -113,74 +113,74 @@ static_assert(FIELD_OFFSET(LL3D::Math::Viewport, maxDepth) == FIELD_OFFSET(D3D11
 
 RECT LL3D::Math::Viewport::ComputeDisplayArea(DXGI_SCALING scaling, UINT backBufferWidth, UINT backBufferHeight, int outputWidth, int outputHeight)
 {
-    RECT rct;
+  RECT rct;
 
-    switch (int(scaling))
-    {
+  switch (int(scaling))
+  {
     case DXGI_SCALING_STRETCH:
-        // Output fills the entire window area
-        rct.top = 0;
-        rct.left = 0;
-        rct.right = outputWidth;
-        rct.bottom = outputHeight;
-        break;
+      // Output fills the entire window area
+      rct.top = 0;
+      rct.left = 0;
+      rct.right = outputWidth;
+      rct.bottom = outputHeight;
+      break;
 
     case 2 /*DXGI_SCALING_ASPECT_RATIO_STRETCH*/:
-        // Output fills the window area but respects the original aspect ratio, using pillar boxing or letter boxing as required
-        // Note: This scaling option is not supported for legacy Win32 windows swap chains
-        {
-            assert(backBufferHeight > 0);
-            float aspectRatio = float(backBufferWidth) / float(backBufferHeight);
+      // Output fills the window area but respects the original aspect ratio, using pillar boxing or letter boxing as required
+      // Note: This scaling option is not supported for legacy Win32 windows swap chains
+    {
+      assert(backBufferHeight > 0);
+      float aspectRatio = float(backBufferWidth) / float(backBufferHeight);
 
-            // Horizontal fill
-            float scaledWidth = float(outputWidth);
-            float scaledHeight = float(outputWidth) / aspectRatio;
-            if (scaledHeight >= outputHeight)
-            {
-                // Do vertical fill
-                scaledWidth = float(outputHeight) * aspectRatio;
-                scaledHeight = float(outputHeight);
-            }
+      // Horizontal fill
+      float scaledWidth = float(outputWidth);
+      float scaledHeight = float(outputWidth) / aspectRatio;
+      if (scaledHeight >= outputHeight)
+      {
+        // Do vertical fill
+        scaledWidth = float(outputHeight) * aspectRatio;
+        scaledHeight = float(outputHeight);
+      }
 
-            float offsetX = (float(outputWidth) - scaledWidth) * 0.5f;
-            float offsetY = (float(outputHeight) - scaledHeight) * 0.5f;
+      float offsetX = (float(outputWidth) - scaledWidth) * 0.5f;
+      float offsetY = (float(outputHeight) - scaledHeight) * 0.5f;
 
-            rct.left = static_cast<LONG>( offsetX );
-            rct.top = static_cast<LONG>( offsetY );
-            rct.right = static_cast<LONG>( offsetX + scaledWidth );
-            rct.bottom = static_cast<LONG>( offsetY + scaledHeight );
+      rct.left = static_cast<LONG>(offsetX);
+      rct.top = static_cast<LONG>(offsetY);
+      rct.right = static_cast<LONG>(offsetX + scaledWidth);
+      rct.bottom = static_cast<LONG>(offsetY + scaledHeight);
 
-            // Clip to display window
-            rct.left = std::max<LONG>( 0, rct.left );
-            rct.top = std::max<LONG>( 0, rct.top );
-            rct.right = std::min<LONG>( outputWidth, rct.right );
-            rct.bottom = std::min<LONG>( outputHeight, rct.bottom );
-        }
-        break;
+      // Clip to display window
+      rct.left = std::max<LONG>(0, rct.left);
+      rct.top = std::max<LONG>(0, rct.top);
+      rct.right = std::min<LONG>(outputWidth, rct.right);
+      rct.bottom = std::min<LONG>(outputHeight, rct.bottom);
+    }
+    break;
 
     case DXGI_SCALING_NONE:
     default:
-        // Output is displayed in the upper left corner of the window area
-        rct.top = 0;
-        rct.left = 0;
-        rct.right = std::min<UINT>( backBufferWidth, UINT(outputWidth) );
-        rct.bottom = std::min<UINT>( backBufferHeight, UINT(outputHeight) );
-        break;
-    }
+      // Output is displayed in the upper left corner of the window area
+      rct.top = 0;
+      rct.left = 0;
+      rct.right = std::min<UINT>(backBufferWidth, UINT(outputWidth));
+      rct.bottom = std::min<UINT>(backBufferHeight, UINT(outputHeight));
+      break;
+  }
 
-    return rct;
+  return rct;
 }
 
 RECT LL3D::Math::Viewport::ComputeTitleSafeArea(UINT backBufferWidth, UINT backBufferHeight)
 {
-    float safew = (float(backBufferWidth) + 9.f) / 10.f;
-    float safeh = (float(backBufferHeight) + 9.f) / 10.f;
+  float safew = (float(backBufferWidth) + 9.f) / 10.f;
+  float safeh = (float(backBufferHeight) + 9.f) / 10.f;
 
-    RECT rct;
-    rct.left = static_cast<LONG>(safew);
-    rct.top = static_cast<LONG>(safeh);
-    rct.right = static_cast<LONG>(float(backBufferWidth) - safew + 0.5f);
-    rct.bottom = static_cast<LONG>(float(backBufferHeight) - safeh + 0.5f);
+  RECT rct;
+  rct.left = static_cast<LONG>(safew);
+  rct.top = static_cast<LONG>(safeh);
+  rct.right = static_cast<LONG>(float(backBufferWidth) - safew + 0.5f);
+  rct.bottom = static_cast<LONG>(float(backBufferHeight) - safeh + 0.5f);
 
-    return rct;
+  return rct;
 }
