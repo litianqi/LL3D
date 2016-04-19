@@ -6,7 +6,8 @@
 namespace LL3D {
 namespace Graphics {
 
-struct Material {
+struct Material 
+{
   std::string name;
   
   Math::Vector3 ambient;

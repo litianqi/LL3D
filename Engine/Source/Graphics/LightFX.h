@@ -15,7 +15,8 @@ class Transform;
 namespace Graphics {
 #endif // __cplusplus
 
-struct SpotLightFX {
+struct SpotLightFX 
+{
 #ifdef __cplusplus
   SpotLightFX(const SpotLight& light, const Transform& transform) noexcept;
 #endif // __cplusplus
@@ -40,7 +41,8 @@ struct SpotLightFX {
   float2  _pad5;
 };
 
-struct AmbientLightFX {
+struct AmbientLightFX 
+{
 #ifdef __cplusplus
   AmbientLightFX(const AmbientLight& light) noexcept;
 #endif // __cplusplus
@@ -49,7 +51,8 @@ struct AmbientLightFX {
   float   _pad0;
 };
 
-struct DirectionalLightFX {
+struct DirectionalLightFX 
+{
 #ifdef __cplusplus
   DirectionalLightFX(const DirectionalLight& light, const Transform& transform) noexcept;
 #endif // __cplusplus
@@ -64,7 +67,8 @@ struct DirectionalLightFX {
   float   _pad2;
 };
 
-struct PointLightFX {
+struct PointLightFX 
+{
 #ifdef __cplusplus
   PointLightFX(const PointLight& light, const Transform& transform) noexcept;
 #endif // __cplusplus
