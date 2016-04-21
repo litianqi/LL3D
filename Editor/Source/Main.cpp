@@ -23,8 +23,9 @@ WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
     app.run();
   } catch (std::exception& e) {
     LOGF << e.what();
+    DebugBreak();
   } catch (...) {
-    LOGF << "...";
+    DebugBreak();
   }
 
   return 0;
