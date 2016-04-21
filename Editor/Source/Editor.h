@@ -16,6 +16,6 @@ protected:
   void onResize() override;
 
 private:
-  //LL3D::Graphics::FirstPersonalCamera first_personal_camera_;
+  // LL3D::Graphics::FirstPersonalCamera first_personal_camera_;
   LL3D::Utils::Stopwatch timer_;
 };

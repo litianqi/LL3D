@@ -24,10 +24,9 @@ Editor::Editor()
 
   // Add player.
   auto player = make_unique<GameObject>();
-  auto camera = make_unique<Graphics::Camera>(
-    player->transform()
-    );
-  const auto aspectRation = static_cast<float>(window_->clientRect().GetSize().w) /
+  auto camera = make_unique<Graphics::Camera>(player->transform());
+  const auto aspectRation =
+    static_cast<float>(window_->clientRect().GetSize().w) /
     window_->clientRect().GetSize().h;
   camera->setAspectRatio(aspectRation);
   player->addComponent(std::move(camera));
@@ -36,17 +35,14 @@ Editor::Editor()
   controller->setObject(player.get());
   player->addComponent(std::move(controller));
 
-  player->transform().setPosition(
-    Math::Vector3(0.0f, 10.0f, -100)
-  );
+  player->transform().setPosition(Math::Vector3(0.0f, 10.0f, -100));
   player->setName("player");
-  //camera_object->transform().setRotation();
+  // camera_object->transform().setRotation();
   scene_->add(std::move(player));
 
   // Add girl.
-  auto mr1 = make_unique<Graphics::ModelRender>(
-    "Resource\\Models\\girl\\girl.obj"
-    );
+  auto mr1 =
+    make_unique<Graphics::ModelRender>("Resource\\Models\\girl\\girl.obj");
   auto girl = make_unique<GameObject>();
   girl->addComponent(std::move(mr1));
   girl->transform().setScale(Math::Vector3(5.f, 5.f, 5.f));
@@ -64,9 +60,10 @@ Editor::Editor()
   cube->setName("cube");
   scene_->add(std::move(cube));
 
-  //for (auto i = 2; i < 12; i++) {
+  // for (auto i = 2; i < 12; i++) {
   //  for (auto j = 2; j < 12; j++) {
-  //    auto mr2 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
+  //    auto mr2 =
+  //    make_unique<Graphics::ModelRender>(Graphics::ModelRender::Cube);
   //    auto cube = make_unique<GameObject>();
   //    cube->addComponent(std::move(mr2));
   //    cube->transform().setPosition(Math::Vector3(20.f * i, 20.f * j, 0.f));
@@ -83,7 +80,8 @@ Editor::Editor()
   scene_->add(std::move(sphere));
 
   // Add cylinder.
-  auto mrcy = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kCylinder);
+  auto mrcy =
+    make_unique<Graphics::ModelRender>(Graphics::ModelRender::kCylinder);
   mrcy->begin()->material().diffuseTexture = "Resource/Textures/bricks.dds";
   mrcy->begin()->material().normalTexture = "Resource/Textures/bricks_nmap.dds";
   auto cylinder = make_unique<GameObject>();
@@ -94,9 +92,8 @@ Editor::Editor()
 
   // Add grid.
   auto mr4 = make_unique<Graphics::ModelRender>(Graphics::ModelRender::kGrid);
-  mr4->begin()->material().texTransform = Math::Matrix::CreateScale(
-    Math::Vector3(10.f, 10.f, 0.f)
-  );
+  mr4->begin()->material().texTransform =
+    Math::Matrix::CreateScale(Math::Vector3(10.f, 10.f, 0.f));
   mr4->begin()->material().diffuseTexture = "Resource/Textures/floor.dds";
   mr4->begin()->material().normalTexture = "Resource/Textures/floor_nmap.dds";
   auto grid = make_unique<GameObject>();
@@ -110,7 +107,7 @@ Editor::Editor()
   auto mat0 = Graphics::Material();
   mat0.diffuse = Math::Vector3(1.f, 1.f, 1.f);
   mat0.opacity = 0.45f;
-  std::vector<Graphics::Mesh>     meshes0;
+  std::vector<Graphics::Mesh> meshes0;
   std::vector<Graphics::Material> materials0;
   meshes0.push_back(mesh0);
   materials0.push_back(mat0);
@@ -127,7 +124,7 @@ Editor::Editor()
 
   auto meshSB = Graphics::Mesh::createSphere(900, 20, 20);
   meshSB.materialIndex = 0;
-  std::vector<Graphics::Mesh>     meshesSB;
+  std::vector<Graphics::Mesh> meshesSB;
   meshesSB.push_back(meshSB);
 
   auto matSB = Graphics::Material();
@@ -144,7 +141,7 @@ Editor::Editor()
   sbCtroller->setObject(skybox.get());
   skybox->addComponent(std::move(sbCtroller));
 
-  //skyBox->transform().setScale(Math::Vector3(100.f, 100.f, 100.f));
+  // skyBox->transform().setScale(Math::Vector3(100.f, 100.f, 100.f));
   skybox->setName("skyBox");
   scene_->add(std::move(skybox));
 
@@ -155,7 +152,7 @@ Editor::Editor()
   mat1.diffuse = Math::Vector3(1.f, 1.f, 1.f);
   mat1.opacity = 0.15f;
   mat1.mirror = true;
-  std::vector<Graphics::Mesh>     meshes1;
+  std::vector<Graphics::Mesh> meshes1;
   std::vector<Graphics::Material> materials1;
   meshes1.push_back(mesh1);
   materials1.push_back(mat1);
@@ -163,23 +160,19 @@ Editor::Editor()
   auto mr6 = make_unique<Graphics::ModelRender>(model1);
   auto mirror = make_unique<GameObject>();
   mirror->addComponent(std::move(mr6));
-  mirror->transform().setRotation(
-    Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f)
-  );
+  mirror->transform().setRotation(Math::Vector3(-Math::XM_PIDIV2, 0.f, 0.f));
   mirror->transform().setPosition(Math::Vector3(0.f, 45.f, 25.f));
   mirror->setName("mirror");
-  //scene_->add(std::move(mirror));
+  // scene_->add(std::move(mirror));
 
   // Add mirror2.
   auto mr7 = make_unique<Graphics::ModelRender>(model1);
   auto mirror2 = make_unique<GameObject>();
   mirror2->addComponent(std::move(mr7));
-  mirror2->transform().setRotation(
-    Math::Vector3(0.f, 0.f, Math::XM_PIDIV2)
-  );
+  mirror2->transform().setRotation(Math::Vector3(0.f, 0.f, Math::XM_PIDIV2));
   mirror2->transform().setPosition(Math::Vector3(45.f, 45.f, 0.f));
   mirror2->setName("mirror2");
-  //scene_->AddGameObject(mirror2);
+  // scene_->AddGameObject(mirror2);
 
   // Add castle.
   /*auto mr5 = make_unique<Graphics::ModelRender>(
@@ -193,9 +186,7 @@ Editor::Editor()
   // Add ambient light:
   auto ambient_light = make_unique<GameObject>();
   auto ambient_component = make_unique<Graphics::LightComponent>(
-    ambient_light->transform(),
-    Graphics::LightComponent::Ambient
-    );
+    ambient_light->transform(), Graphics::LightComponent::Ambient);
   ambient_light->addComponent(std::move(ambient_component));
   ambient_light->setName("ambient");
   scene_->add(std::move(ambient_light));
@@ -203,22 +194,17 @@ Editor::Editor()
   // Add directional light:
   auto directional_light = make_unique<GameObject>();
   auto directional_component = make_unique<Graphics::LightComponent>(
-    directional_light->transform(),
-    Graphics::LightComponent::Directional
-    );
+    directional_light->transform(), Graphics::LightComponent::Directional);
   directional_light->addComponent(std::move(directional_component));
   directional_light->transform().setRotation(
-    Math::Vector3(Math::kPi - 0.1f, 0.f, 0.f)
-  );
+    Math::Vector3(Math::kPi - 0.1f, 0.f, 0.f));
   directional_light->setName("directional");
   scene_->add(std::move(directional_light));
 
   // Add point light:
   auto point_light = make_unique<GameObject>();
   auto point_component = make_unique<Graphics::LightComponent>(
-    point_light->transform(),
-    Graphics::LightComponent::Point
-    );
+    point_light->transform(), Graphics::LightComponent::Point);
   point_light->addComponent(std::move(point_component));
   point_light->transform().setPosition(Math::Vector3(-20.f, 5.f, 0.f));
   point_light->setName("point");
@@ -227,9 +213,7 @@ Editor::Editor()
   // Add spot light:
   auto spot_light = make_unique<GameObject>();
   auto spot_component = make_unique<Graphics::LightComponent>(
-    spot_light->transform(),
-    Graphics::LightComponent::Spot
-    );
+    spot_light->transform(), Graphics::LightComponent::Spot);
   spot_light->addComponent(std::move(spot_component));
   spot_light->transform().setPosition(Math::Vector3(22.f, 5.f, 0.f));
   spot_light->transform().setRotation(Math::Vector3(0.f, 0.f, Math::XM_PIDIV2));
@@ -239,10 +223,14 @@ Editor::Editor()
   window_->setVisible(true);
 }
 
-void Editor::update()
-{}
-
-void Editor::onResize()
+void
+Editor::update()
 {
-  graphicsDevice_->onResize(IntSize2{ window_->clientRect().GetSize().w, window_->clientRect().GetSize().h });
+}
+
+void
+Editor::onResize()
+{
+  graphicsDevice_->onResize(IntSize2{ window_->clientRect().GetSize().w,
+                                      window_->clientRect().GetSize().h });
 }

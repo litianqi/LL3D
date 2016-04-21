@@ -2,34 +2,36 @@
 
 #include <cstdint>
 
-namespace LL3D
+namespace LL3D {
+namespace Utils {
+
+class Stopwatch
 {
-  namespace Utils
+public:
+  Stopwatch();
+
+  void start();
+  void pause();
+  void resume();
+
+  int durationMs();
+  float durationS();
+
+private:
+  enum State
   {
-    class Stopwatch
-    {
-    public:
-      Stopwatch();
+    kUnstarted,
+    kRunning,
+    kPaused
+  };
 
-      void start();
-      void pause();
-      void resume();
+  State curState = kUnstarted;
+  uint64_t startPoint_;
+  uint64_t pausePoint_;
+  uint64_t pauseDuration_;
 
-      int durationMs();
-      float durationS();
+  static float secondsPerCount_;
+};
 
-    private:
-      enum State { kUnstarted, kRunning, kPaused };
-
-      State curState = kUnstarted;
-      uint64_t startPoint_;
-      uint64_t pausePoint_;
-      uint64_t pauseDuration_;
-
-      static float secondsPerCount_;
-    };
-
-  }  // namespace Utils
-}  // namespace LL3D
-
-
+} // namespace Utils
+} // namespace LL3D

@@ -4,21 +4,18 @@
 #include <memory>
 #include "Core/Uncopyable.h"
 
-namespace LL3D
-{
-  class GameObject;
+namespace LL3D {
+class GameObject;
 }
 
-
-namespace LL3D
+namespace LL3D {
+class Component
 {
-  class Component
-  {
-  public:
-    virtual ~Component() = default;
+public:
+  virtual ~Component() = default;
 
-    virtual void start() {}
-    virtual void update() {}
-  };
+  virtual void start() {}
+  virtual void update() {}
+};
 
-}  // namespace LL3D
+} // namespace LL3D

@@ -14,10 +14,8 @@ public:
 
     myTransform_ = &(object()->transform());
     Scene* scene = object()->scene();
-    for (auto& obj : RecursiveSceneIterator(*scene))
-    {
-      if (obj.name() == "player")
-      {
+    for (auto& obj : RecursiveSceneIterator(*scene)) {
+      if (obj.name() == "player") {
         playerTransform_ = &(obj.transform());
       }
     }

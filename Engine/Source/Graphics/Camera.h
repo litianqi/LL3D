@@ -5,62 +5,57 @@
 #include "Component.h"
 #include "Graphics/Base.h"
 
-namespace LL3D
-{
-  class Transform;
+namespace LL3D {
+class Transform;
 }
 
+namespace LL3D {
+namespace Graphics {
 
-namespace LL3D
+// Camera that can not be moved or rotated.
+class StaticCamera : public Component
 {
-  namespace Graphics
-  {
+public:
+  StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ);
 
-    // Camera that can not be moved or rotated.
-    class StaticCamera : public Component
-    {
-    public:
-      StaticCamera(float fovY, float aspectRatio, float nearZ, float farZ);
+  void setAspectRatio(float aspectRatio);
+  // Updates cahed value (view matrix).
+  void update() override;
 
-      void setAspectRatio(float aspectRatio);
-      // Updates cahed value (view matrix).
-      void update() override;
+  const Math::Matrix& projMaxtrix() const;
 
-      const Math::Matrix& projMaxtrix() const;
+private:
+  float fovY_;
+  float aspectRatio_;
+  float nearZ_;
+  float farZ_;
 
-    private:
-      float fovY_;
-      float aspectRatio_;
-      float nearZ_;
-      float farZ_;
+  // Cached values, updated one frame one time.
+  Math::Matrix proj_;
+};
 
-      // Cached values, updated one frame one time.
-      Math::Matrix proj_;
-    };
+class Camera : public StaticCamera, private Core::Uncopyable, private Base
+{
+public:
+  Camera(const Transform& transform);
 
+  const Math::Matrix& viewMatrix() const;
+  const Math::Matrix& viewProjMatrix() const;
+  DirectX::BoundingFrustum frustum() const;
 
-    class Camera : public StaticCamera, private Core::Uncopyable, private Base
-    {
-    public:
-      Camera(const Transform& transform);
+  // Update cached values.
+  void update() override;
+  void writeToEffect() const;
 
-      const Math::Matrix& viewMatrix() const;
-      const Math::Matrix& viewProjMatrix() const;
-      DirectX::BoundingFrustum frustum() const;
+private:
+  const Transform& transform_;
 
-      // Update cached values.
-      void update() override;
-      void writeToEffect() const;
+  // BEGIN Cached values, updated once per frame.
+  DirectX::BoundingFrustum frustum_;
+  Math::Matrix view_;
+  Math::Matrix viewProj_;
+  // END
+};
 
-    private:
-      const Transform& transform_;
-
-      // BEGIN Cached values, updated once per frame.
-      DirectX::BoundingFrustum frustum_;
-      Math::Matrix view_;
-      Math::Matrix viewProj_;
-      // END
-    };
-
-  }  // namespace Graphics
-}  // namespace LL3D
+} // namespace Graphics
+} // namespace LL3D

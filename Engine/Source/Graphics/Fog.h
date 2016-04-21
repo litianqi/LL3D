@@ -4,34 +4,29 @@
 #include "Component.h"
 #include "Graphics/Base.h"
 
-namespace LL3D
+namespace LL3D {
+namespace Graphics {
+
+// Fog used in effect files.
+struct EffectFog
 {
-  namespace Graphics
-  {
+  // Color of fog. Note: Alpha of color is unused.
+  Math::Color color;
+  float start;
+  float range;
+  Math::Vector2 __pad;
+};
 
-    // Fog used in effect files.
-    struct EffectFog
-    {
-      // Color of fog. Note: Alpha of color is unused.
-      Math::Color color;
-      float start;
-      float range;
-      Math::Vector2 __pad;
-    };
+class Fog : public Component, private Graphics::Base
+{
+public:
+  // Note: Alpha of color is unused.
+  Fog(Math::Color color, float start, float range);
+  void update() override;
 
-    class Fog : public Component, private Graphics::Base
-    {
-    public:
+private:
+  EffectFog data_;
+};
 
-      // Note: Alpha of color is unused.
-      Fog(Math::Color color, float start, float range);
-      void update() override;
-
-    private:
-
-      EffectFog data_;
-
-    };
-
-  }  // namespace Graphics
-}  // namespace LL3D
+} // namespace Graphics
+} // namespace LL3D

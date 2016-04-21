@@ -22,7 +22,8 @@ public:
     using namespace LL3D;
 
     // Move.
-    const auto h = LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Horizontal);
+    const auto h =
+      LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Horizontal);
     const auto v = LL3D::Input::Keyboard::axis(LL3D::Input::Keyboard::Vertical);
     moveRight(h);
     moveForeward(v);
@@ -30,13 +31,11 @@ public:
 
     // Rotate.
     const auto delta = Input::Mouse::position() - last_mouse_position_;
-    if (Input::Mouse::isHeldingDown(Input::Mouse::kRight))
-    {
+    if (Input::Mouse::isHeldingDown(Input::Mouse::kRight)) {
       yawFP(0.005f * delta.x);
       pitchFP(0.005f * delta.y);
     }
-    if (Input::Mouse::isHeldingDown(Input::Mouse::kLeft))
-    {
+    if (Input::Mouse::isHeldingDown(Input::Mouse::kLeft)) {
       yawSP(0.005f * delta.x);
       pitchSP(0.005f * delta.y);
     }
@@ -62,36 +61,29 @@ public:
     transform_->setPosition(new_pos);
   }
 
-  void scrollNear(float d)
-  {
-
-  }
+  void scrollNear(float d) {}
 
   // Pitch (rotates around x axis) from first personal perspective.
   void pitchFP(float angle)
   {
-    const auto new_rotation = transform_->rotation() + LL3D::Math::Vector3(angle, 0.f, 0.f);
+    const auto new_rotation =
+      transform_->rotation() + LL3D::Math::Vector3(angle, 0.f, 0.f);
     transform_->setRotation(new_rotation);
   }
 
   // Yaw (rotates around y axis) from first personal perspective.
   void yawFP(float angle)
   {
-    const auto new_rotation = transform_->rotation() + LL3D::Math::Vector3(0.f, angle, 0.f);
+    const auto new_rotation =
+      transform_->rotation() + LL3D::Math::Vector3(0.f, angle, 0.f);
     transform_->setRotation(new_rotation);
   }
 
   // Pitch (rotates around x axis) from second personal perspective.
-  void pitchSP(float angle)
-  {
-
-  }
+  void pitchSP(float angle) {}
 
   // Yaw (rotates around y axis) from second personal perspective.
-  void yawSP(float angle)
-  {
-
-  }
+  void yawSP(float angle) {}
 
 private:
   LL3D::Transform* transform_;

@@ -1,6 +1,6 @@
 #include "Graphics/MaterialFX.h"
 
-LL3D::Graphics::MaterialFX::MaterialFX(const Material & mat) noexcept
+LL3D::Graphics::MaterialFX::MaterialFX(const Material& mat) noexcept
 {
   ambient = mat.ambient;
   diffuse = mat.diffuse;
