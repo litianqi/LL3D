@@ -23,6 +23,7 @@ inline void
 throwIfFailed(HRESULT hr)
 {
   if (FAILED(hr)) {
+    DebugBreak();
     throw ComException(hr);
   }
 }
