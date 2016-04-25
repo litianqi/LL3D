@@ -9,6 +9,7 @@
 #include "Graphics\Base.h"
 #include "Input\Mouse.h"
 #include "Input\Keyboard.h"
+#include "Utils\Time.h"
 
 namespace LL3D {
 
@@ -46,6 +47,8 @@ Game::run()
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     } else {
+      Utils::Time::beginFrame();
+
       Sleep(5);
       update();
       scene_->update();

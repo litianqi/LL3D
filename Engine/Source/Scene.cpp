@@ -328,6 +328,12 @@ Scene::render()
     transparent.second->render();
   }
 
+  /*!!!!!!!!!!!!!!!! TODO: Remove/Refactor Above !!!!!!!!!!!!!!!!!!*/
+
+  for (auto& object : objects_) {
+    object->render();
+  }
+
   throwIfFailed(s_graphicsDevice->swapChain()->Present(0, 0));
 }
 

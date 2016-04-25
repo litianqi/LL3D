@@ -22,6 +22,12 @@
     <Filter Include="Source\Effects">
       <UniqueIdentifier>{c618bb8a-3f66-435f-8470-68e29d481723}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Graphics\Particle">
+      <UniqueIdentifier>{a1884e5c-1973-4281-9740-e1ca1f6f77d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Effects\Particle">
+      <UniqueIdentifier>{0c207cbd-2789-47b0-b6b4-950eacddb4d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -101,6 +107,21 @@
     </ClCompile>
     <ClCompile Include="Source\Graphics\Camera.cpp">
       <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Particle\ParticleEffect.cpp">
+      <Filter>Source\Graphics\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Particle\ParticleSystem.cpp">
+      <Filter>Source\Graphics\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Particle\ParticleVertex.cpp">
+      <Filter>Source\Graphics\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\TextureHelper.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Time.cpp">
+      <Filter>Source\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +227,27 @@
     <ClInclude Include="Source\Graphics\Camera.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\Particle\ParticleEffect.h">
+      <Filter>Source\Graphics\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Particle\ParticleSystem.h">
+      <Filter>Source\Graphics\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Particle\ParticleVertex.h">
+      <Filter>Source\Graphics\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\CameraUser.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\TextureHelper.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\ShaderHelper.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Time.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Math\Math.inl">
@@ -219,12 +261,24 @@
     <CustomBuild Include="Source\Shaders\Blur.fx">
       <Filter>Source\Effects</Filter>
     </CustomBuild>
+    <CustomBuild Include="Source\Shaders\Particle\Fire.fx">
+      <Filter>Source\Effects\Particle</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source\Shaders\Particle\Rain.fx">
+      <Filter>Source\Effects\Particle</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shaders\Fog.fx">
       <Filter>Source\Effects</Filter>
     </FxCompile>
     <FxCompile Include="Source\Shaders\Light.fx">
+      <Filter>Source\Effects</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\Particle\Particle.fx">
+      <Filter>Source\Effects\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\CommonStates.fx">
       <Filter>Source\Effects</Filter>
     </FxCompile>
   </ItemGroup>

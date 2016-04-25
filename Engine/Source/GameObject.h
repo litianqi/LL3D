@@ -14,6 +14,7 @@ class Transform;
 }
 
 namespace LL3D {
+
 // Base class for all entities in LL3D scenes.
 class GameObject : private Core::Uncopyable
 {
@@ -58,8 +59,8 @@ public:
   const Transform& transform() const;
 
   void start();
-  // Updates its components and children. Called by it's parent or Scene.
   void update();
+  void render();
 
 private:
   using ComponentMap =

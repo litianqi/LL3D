@@ -37,6 +37,24 @@ const float k1Div2Pi = XM_1DIV2PI;
 const float kPiDiv2 = XM_PIDIV2;
 const float kPiDiv4 = XM_PIDIV4;
 
+/**
+ * Returns a random number in scope [0, 1].
+ */
+inline float
+randf()
+{
+  return std::rand() / static_cast<float>(RAND_MAX);
+}
+
+/**
+ * Returns a random number in scope [start, end].
+ */
+inline float
+randf(float start, float end)
+{
+  return start + randf() * (end - start);
+}
+
 //------------------------------------------------------------------------------
 // 2D vector
 struct Vector2 : public XMFLOAT2

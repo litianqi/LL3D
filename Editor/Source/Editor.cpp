@@ -9,6 +9,7 @@
 #include <Graphics\Device.h>
 #include <Graphics\LightComponent.h>
 #include <Graphics\Fog.h>
+#include <Graphics\Particle\ParticleSystem.h>
 #include "WaveController.h"
 #include "PlayerController.h"
 #include "SkyboxController.h"
@@ -38,7 +39,19 @@ Editor::Editor()
   player->transform().setPosition(Math::Vector3(0.0f, 10.0f, -100));
   player->setName("player");
   // camera_object->transform().setRotation();
+  const auto* backupPlayer = player.get();
   scene_->add(std::move(player));
+
+  // Add fire particle.
+  auto fireOjbect = make_unique<GameObject>();
+  auto fire = make_unique<Graphics::ParticleSystem>(
+    fireOjbect->transform(), backupPlayer,
+    "../Engine/_Resource/Effects/Particle/Fire.fxo",
+    "_Resource/Textures/flare0.dds");
+  fireOjbect->addComponent(std::move(fire));
+  fireOjbect->setName("fire");
+  fireOjbect->transform().setPosition(Math::Vector3(0.0f, 10.0f, -90));
+  scene_->add(std::move(fireOjbect));
 
   // Add girl.
   auto mr1 =

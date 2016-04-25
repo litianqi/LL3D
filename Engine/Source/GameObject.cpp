@@ -49,6 +49,17 @@ GameObject::update()
   }
 }
 
+void GameObject::render()
+{
+  for (auto& child : children_) {
+    child->render();
+  }
+
+  for (auto& component : components_) {
+    component.second->render();
+  }
+}
+
 Scene*
 GameObject::scene()
 {
