@@ -56,7 +56,7 @@ public:
   using ConstIterator = std::vector<MeshRender>::const_iterator;
 
   ModelRender(const Model& model);
-  ModelRender(std::experimental::filesystem::path pathname);
+  ModelRender(std::tr2::sys::path pathname);
   ModelRender(BuiltInModel type);
 
   const std::string& name() const;

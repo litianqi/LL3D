@@ -4,12 +4,11 @@
 #include <memory>
 
 namespace LL3D {
-class Window;
-class Scene;
-
 namespace Graphics {
 class Device;
 }
+class Window;
+class Scene;
 }
 
 namespace LL3D {

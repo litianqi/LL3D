@@ -92,7 +92,7 @@ Device::Device(json11::Json config, IntSize2 window_size, HWND window_handle)
 }
 
 void
-Device::onResize(IntSize2 window_size)
+Device::onResize(IntSize2 windowSize)
 {
   ASSERT(context_);
   ASSERT(device_);
@@ -105,7 +105,7 @@ Device::onResize(IntSize2 window_size)
 
   // Resize the swap chain and recreate the render target view.
 
-  throwIfFailed(swapChain_->ResizeBuffers(1, window_size.w, window_size.h,
+  throwIfFailed(swapChain_->ResizeBuffers(1, windowSize.w, windowSize.h,
                                           DXGI_FORMAT_R8G8B8A8_UNORM, 0));
   ID3D11Texture2D* back_buffer;
   throwIfFailed(swapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D),
@@ -118,8 +118,8 @@ Device::onResize(IntSize2 window_size)
 
   D3D11_TEXTURE2D_DESC depthStencilDesc;
 
-  depthStencilDesc.Width = window_size.w;
-  depthStencilDesc.Height = window_size.h;
+  depthStencilDesc.Width = windowSize.w;
+  depthStencilDesc.Height = windowSize.h;
   depthStencilDesc.MipLevels = 1;
   depthStencilDesc.ArraySize = 1;
   depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -154,8 +154,8 @@ Device::onResize(IntSize2 window_size)
 
   viewport_.TopLeftX = 0;
   viewport_.TopLeftY = 0;
-  viewport_.Width = static_cast<float>(window_size.w);
-  viewport_.Height = static_cast<float>(window_size.h);
+  viewport_.Width = static_cast<float>(windowSize.w);
+  viewport_.Height = static_cast<float>(windowSize.h);
   viewport_.MinDepth = 0.0f;
   viewport_.MaxDepth = 1.0f;
 

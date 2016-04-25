@@ -11,12 +11,12 @@ using namespace DirectX;
 namespace LL3D {
 namespace Graphics {
 
-std::map<std::experimental::filesystem::path,
+std::map<std::tr2::sys::path,
          Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> s_texturesCache;
 
 ID3D11ShaderResourceView*
 loadDDSFromFile(ID3D11Device* device,
-                std::experimental::filesystem::path pathname)
+                std::tr2::sys::path pathname)
 {
   if (pathname.empty())
     return nullptr;

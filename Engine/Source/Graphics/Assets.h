@@ -16,7 +16,7 @@ namespace Graphics {
 // Exception: If path doesn't exists or has wrong extension, an InvalidArgument
 //  exception will be raised.
 ID3D11ShaderResourceView* loadDDSFromFile(
-  ID3D11Device* device, std::experimental::filesystem::path pathname);
+  ID3D11Device* device, std::tr2::sys::path pathname);
 
 } // namespace Graphics
 } // namespace LL3D

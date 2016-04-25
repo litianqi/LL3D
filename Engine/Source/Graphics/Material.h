@@ -21,12 +21,12 @@ struct Material
 
   // Texture paths
   Math::Matrix texTransform = Math::Matrix::Identity;
-  std::experimental::filesystem::path diffuseTexture;
-  std::experimental::filesystem::path specularTexture;
-  std::experimental::filesystem::path emissiveTexture; // todo
-  std::experimental::filesystem::path normalTexture;
-  std::experimental::filesystem::path lightmapTexture;   // todo
-  std::experimental::filesystem::path reflectionTexture; // todo
+  std::tr2::sys::path diffuseTexture;
+  std::tr2::sys::path specularTexture;
+  std::tr2::sys::path emissiveTexture; // todo
+  std::tr2::sys::path normalTexture;
+  std::tr2::sys::path lightmapTexture;   // todo
+  std::tr2::sys::path reflectionTexture; // todo
 
   // Experimental properties !!!
   bool mirror = false;

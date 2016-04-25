@@ -145,7 +145,7 @@ ModelRender::ModelRender(const Model& model)
   }
 }
 
-ModelRender::ModelRender(std::experimental::filesystem::path pathname)
+ModelRender::ModelRender(std::tr2::sys::path pathname)
 {
   auto model = Model::loadAssimp(pathname);
   for (const auto& m : model.meshes) {

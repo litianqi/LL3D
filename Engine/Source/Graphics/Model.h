@@ -39,7 +39,7 @@ struct Model
     const std::vector<Mesh>& meshs);
   // Load a Model from file using Assimp.
   // Throw std::exception if filename doesn't exists or parsing faild.
-  static Model loadAssimp(std::experimental::filesystem::path pathname);
+  static Model loadAssimp(std::tr2::sys::path pathname);
 };
 
 } // namespace Graphics
