@@ -1,3 +1,8 @@
+/**
+* Note: for using particle system, you need include this shader,
+* and writes two techiques, named "StreamOutTech" and "DrawTech".
+*/
+
 #include "../../Graphics/Particle/ParticleVertex.h"
 #include "../CommonStates.fx"
 
@@ -6,7 +11,6 @@ cbuffer __perFrame__
   float3 g_emitPosWS;
   float3 g_emitDirWS;
   float3 g_eyePosWS;
-  /*float g_accelWS;*/
   float4x4 g_viewProj;
   float g_randomNumber; /* scope: [-1, 1] */
   float g_timeStep;     /* unit: s */

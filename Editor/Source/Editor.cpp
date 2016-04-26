@@ -50,7 +50,7 @@ Editor::Editor()
     "_Resource/Textures/flare0.dds");
   fireOjbect->addComponent(std::move(fire));
   fireOjbect->setName("fire");
-  fireOjbect->transform().setPosition(Math::Vector3(0.0f, 10.0f, -90));
+  fireOjbect->transform().setPosition(Math::Vector3(10.0f, 10.0f, 20.f));
   scene_->add(std::move(fireOjbect));
 
   // Add girl.

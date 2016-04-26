@@ -32,7 +32,7 @@ StreamOutGS(point ParticleVertex gin[1], inout PointStream<ParticleVertex> gout)
     float3 velWS = randf3(0.f);
     velWS.x *= 0.5f;
     velWS.y *= 0.5f;
-    pv.velWS = velWS;
+    pv.velWS = 44.f * velWS;
 
     pv.posWS = g_emitPosWS;
     pv.sizeWS = float2(3.0f, 3.0f);
