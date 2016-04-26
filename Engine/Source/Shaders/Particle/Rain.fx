@@ -6,11 +6,11 @@ cbuffer __constants__
   uint kUsing = 1;
   float3 kAccelWS = { 0.0f, -7.8f, 0.0f };
   float2 kQuadTexCoords[4] = { float2(0.0f, 1.0f), float2(1.0f, 1.0f),
-    float2(0.0f, 0.0f), float2(1.0f, 0.0f) };
+                               float2(0.0f, 0.0f), float2(1.0f, 0.0f) };
 };
 
 /**
-* Simplely pass by. 
+* Simplely pass by.
 */
 ParticleVertex
 StreamOutVS(ParticleVertex vin)
@@ -41,7 +41,7 @@ StreamOutGS(point ParticleVertex gin[1],
 
       gout.age = 0;
       gout.flag = kUsing;
-      gout.sizeWS = float2(0, 0);  /* We do not use this property. */
+      gout.sizeWS = float2(0, 0); /* We do not use this property. */
 
       pointStream.Append(gout);
     }
@@ -55,8 +55,8 @@ StreamOutGS(point ParticleVertex gin[1],
 }
 
 GeometryShader CompiledStreamOutGS =
-ConstructGSWithSO(CompileShader(gs_5_0, StreamOutGS()),
-                  "POSITION.xyz; VELOCITY.xyz; SIZE.xy; AGE.x; FLAG.x");
+  ConstructGSWithSO(CompileShader(gs_5_0, StreamOutGS()),
+                    "POSITION.xyz; VELOCITY.xyz; SIZE.xy; AGE.x; FLAG.x");
 
 technique11 StreamOutTech
 {
@@ -86,7 +86,7 @@ DrawVS(ParticleVertex vin)
   VertexOut vout;
 
   float t = vin.age;
-  vout.posWS = 0.5f * kAccelWS *  t * t + vin.velWS * t + vin.posWS;
+  vout.posWS = 0.5f * kAccelWS * t * t + vin.velWS * t + vin.posWS;
 
   vout.flag = vin.flag;
 
@@ -100,7 +100,7 @@ struct GeometryOut
 };
 
 /**
-* Expands particle from point to line. 
+* Expands particle from point to line.
 * Calculates posHS and texCoord.
 */
 [maxvertexcount(2)] void
@@ -136,7 +136,8 @@ technique11 DrawTech
     SetGeometryShader(CompileShader(gs_5_0, DrawGS()));
     SetPixelShader(CompileShader(ps_5_0, DrawPS()));
 
-    SetBlendState(kAdditiveBlending, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xffffffff);
+    SetBlendState(kAdditiveBlending, float4(0.0f, 0.0f, 0.0f, 0.0f),
+                  0xffffffff);
     SetDepthStencilState(kNoDepthWrites, 0);
   }
 }

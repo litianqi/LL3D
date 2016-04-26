@@ -63,8 +63,7 @@ ParticleSystem::render()
   if (firstRun_) {
     deviceContex->IASetVertexBuffers(0, 1, initVertexBuffer_.GetAddressOf(),
                                      &stride, &offset);
-  }
-  else {
+  } else {
     deviceContex->IASetVertexBuffers(0, 1, vertexBuffer_.GetAddressOf(),
                                      &stride, &offset);
   }
@@ -88,13 +87,15 @@ ParticleSystem::render()
   deviceContex->DrawAuto();
 }
 
-void ParticleSystem::setMaxParticles(unsigned value)
+void
+ParticleSystem::setMaxParticles(unsigned value)
 {
   maxParticles_ = value;
   buildBuffers();
 }
 
-void ParticleSystem::buildBuffers()
+void
+ParticleSystem::buildBuffers()
 {
   auto desc = D3D11_BUFFER_DESC();
   desc.ByteWidth = 1 * sizeof(ParticleVertex);

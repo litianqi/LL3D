@@ -10,7 +10,11 @@ namespace Graphics {
 class ParticleEffect : public Effect
 {
 public:
-  enum Technique {kSwapOut, kDraw};
+  enum Technique
+  {
+    kSwapOut,
+    kDraw
+  };
 
   ParticleEffect(std::string pathname);
 
@@ -20,7 +24,7 @@ public:
   void apply(Technique tech, ID3D11DeviceContext* dc);
 
   void setViewProj(const Math::Matrix& value);
-  
+
   void setTimeStep(float value);
 
   void setEyePosWS(Math::Vector3 value);

@@ -10,7 +10,7 @@ cbuffer __constants__
 };
 
 /**
- * Simplely pass by. 
+ * Simplely pass by.
  */
 ParticleVertex
 StreamOutVS(ParticleVertex vin)
@@ -49,8 +49,8 @@ StreamOutGS(point ParticleVertex gin[1], inout PointStream<ParticleVertex> gout)
 }
 
 GeometryShader CompiledStreamOutGS =
-ConstructGSWithSO(CompileShader(gs_5_0, StreamOutGS()),
-                  "POSITION.xyz; VELOCITY.xyz; SIZE.xy; AGE.x; FLAG.x");
+  ConstructGSWithSO(CompileShader(gs_5_0, StreamOutGS()),
+                    "POSITION.xyz; VELOCITY.xyz; SIZE.xy; AGE.x; FLAG.x");
 
 technique11 StreamOutTech
 {
@@ -85,11 +85,11 @@ DrawVS(ParticleVertex vin)
   vout.flag = vin.flag;
 
   float t = vin.age;
-  vout.posWS = 0.5f * kAccelWS *  t * t + vin.velWS * t + vin.posWS;
+  vout.posWS = 0.5f * kAccelWS * t * t + vin.velWS * t + vin.posWS;
 
   float a = 1.f - clamp(vin.age, 0.f, 1.f);
   vout.color = float4(1.f, 1.f, 1.f, a);
-  
+
   return vin;
 }
 
@@ -101,14 +101,14 @@ struct GeometryOut
 };
 
 /**
- * Expands particle from point to camera facing quads. 
+ * Expands particle from point to camera facing quads.
  * Calculates posHS and texCoord.
  */
 [maxvertexcount(4)] void
 DrawGS(point VertexOut gin[1], inout TriangleStream<GeometryOut> triStream)
 {
   if (gin[0].flag == kUsing) {
-    float3 look = normalize(gin[0].posWS - g_eyePosWS);  /* ??? */
+    float3 look = normalize(gin[0].posWS - g_eyePosWS); /* ??? */
     float3 right = normalize(cross(float3(0, 1, 0), look));
     float3 up = cross(look, right);
 
@@ -126,7 +126,7 @@ DrawGS(point VertexOut gin[1], inout TriangleStream<GeometryOut> triStream)
       gout.posHS = mul(p[i], g_viewProj);
       gout.texCoord = kQuadTexCoords[i];
       gout.color = gin[0].color;
-      
+
       triStream.Append(gout);
     }
   }
@@ -150,7 +150,8 @@ technique11 DrawTech
     SetGeometryShader(CompileShader(gs_5_0, DrawGS()));
     SetPixelShader(CompileShader(ps_5_0, DrawPS()));
 
-    SetBlendState(kAdditiveBlending, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xffffffff);
+    SetBlendState(kAdditiveBlending, float4(0.0f, 0.0f, 0.0f, 0.0f),
+                  0xffffffff);
     SetDepthStencilState(kNoDepthWrites, 0);
   }
 }
