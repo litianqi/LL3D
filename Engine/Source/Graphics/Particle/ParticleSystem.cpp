@@ -31,30 +31,7 @@ ParticleSystem::ParticleSystem(const Transform& transform,
     ParticleVertex::kInputElements, ParticleVertex::kInputElementCount,
     shaderBytecode, shaderBytecodeSize, &inputLayout_));
 
-  auto desc = D3D11_BUFFER_DESC();
-  desc.ByteWidth = 1 * sizeof(ParticleVertex);
-  desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-  desc.Usage = D3D11_USAGE_DEFAULT;
-  desc.CPUAccessFlags = 0;
-  desc.MiscFlags = 0;
-  desc.StructureByteStride = 0;
-
-  auto initVertex = ParticleVertex();
-  initVertex.age = 0.f;
-  initVertex.flag = 0;
-  auto initData = D3D11_SUBRESOURCE_DATA();
-  initData.pSysMem = &initVertex;
-
-  throwIfFailed(s_graphicsDevice->device()->CreateBuffer(&desc, &initData,
-                                                         &initVertexBuffer_));
-
-  desc.BindFlags = D3D11_BIND_VERTEX_BUFFER | D3D11_BIND_STREAM_OUTPUT;
-  desc.ByteWidth = maxParticles_ * sizeof(ParticleVertex);
-
-  throwIfFailed(
-    s_graphicsDevice->device()->CreateBuffer(&desc, nullptr, &vertexBuffer_));
-  throwIfFailed(
-    s_graphicsDevice->device()->CreateBuffer(&desc, nullptr, &swapOutBuffer_));
+  buildBuffers();
 
   randomTex_ = CreateRandomTexture1D(s_graphicsDevice->device());
   throwIfFailed(DirectX::CreateDDSTextureFromFile(
@@ -109,6 +86,40 @@ ParticleSystem::render()
 
   effect_->apply(ParticleEffect::Technique::kDraw, deviceContex);
   deviceContex->DrawAuto();
+}
+
+void ParticleSystem::setMaxParticles(unsigned value)
+{
+  maxParticles_ = value;
+  buildBuffers();
+}
+
+void ParticleSystem::buildBuffers()
+{
+  auto desc = D3D11_BUFFER_DESC();
+  desc.ByteWidth = 1 * sizeof(ParticleVertex);
+  desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+  desc.Usage = D3D11_USAGE_DEFAULT;
+  desc.CPUAccessFlags = 0;
+  desc.MiscFlags = 0;
+  desc.StructureByteStride = 0;
+
+  auto initVertex = ParticleVertex();
+  initVertex.age = 0.f;
+  initVertex.flag = 0;
+  auto initData = D3D11_SUBRESOURCE_DATA();
+  initData.pSysMem = &initVertex;
+
+  throwIfFailed(s_graphicsDevice->device()->CreateBuffer(&desc, &initData,
+                                                         &initVertexBuffer_));
+
+  desc.BindFlags = D3D11_BIND_VERTEX_BUFFER | D3D11_BIND_STREAM_OUTPUT;
+  desc.ByteWidth = maxParticles_ * sizeof(ParticleVertex);
+
+  throwIfFailed(
+    s_graphicsDevice->device()->CreateBuffer(&desc, nullptr, &vertexBuffer_));
+  throwIfFailed(
+    s_graphicsDevice->device()->CreateBuffer(&desc, nullptr, &swapOutBuffer_));
 }
 
 } // namespace Graphics

@@ -53,6 +53,18 @@ Editor::Editor()
   fireOjbect->transform().setPosition(Math::Vector3(10.0f, 10.0f, 20.f));
   scene_->add(std::move(fireOjbect));
 
+  // Add rain particle.
+  auto rainOjbect = make_unique<GameObject>();
+  auto rain = make_unique<Graphics::ParticleSystem>(
+    rainOjbect->transform(), backupPlayer,
+    "../Engine/_Resource/Effects/Particle/Rain.fxo",
+    "_Resource/Textures/raindrop.dds");
+  rain->setMaxParticles(20000u);
+  rainOjbect->addComponent(std::move(rain));
+  rainOjbect->setName("rain");
+  //rainOjbect->transform().setPosition(Math::Vector3(10.0f, 10.0f, 20.f));
+  scene_->add(std::move(rainOjbect));
+
   // Add girl.
   auto mr1 =
     make_unique<Graphics::ModelRender>("Resource\\Models\\girl\\girl.obj");

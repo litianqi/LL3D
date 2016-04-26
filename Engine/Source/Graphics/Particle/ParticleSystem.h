@@ -30,7 +30,17 @@ public:
 
   void render() override;
 
+  /**
+   * Change max particles num, defualt is 5000.
+   */
+  void setMaxParticles(unsigned value);
+
 private:
+  /**
+   * Build or rebuild (if already built) buffers.
+   */
+  void buildBuffers();
+
   const Transform& transform_;
   std::unique_ptr<ParticleEffect> effect_;
 

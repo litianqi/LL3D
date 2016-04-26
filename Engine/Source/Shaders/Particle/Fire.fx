@@ -85,7 +85,7 @@ DrawVS(ParticleVertex vin)
   vout.flag = vin.flag;
 
   float t = vin.age;
-  vout.posWS += 0.5f * kAccelWS *  t * t + vin.velWS * t + vin.posWS;
+  vout.posWS = 0.5f * kAccelWS *  t * t + vin.velWS * t + vin.posWS;
 
   float a = 1.f - clamp(vin.age, 0.f, 1.f);
   vout.color = float4(1.f, 1.f, 1.f, a);
