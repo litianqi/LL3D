@@ -11,15 +11,16 @@ namespace Graphics {
 
 struct ParticleVertex
 {
-  float3 posWS HLSL_SEMANTICS(: POSITION);
-  float3 velWS HLSL_SEMANTICS(: VELOCITY);
-  float2 sizeWS HLSL_SEMANTICS(: SIZE);
-  float age HLSL_SEMANTICS(: AGE); /* unit: s */
+  float3 posWS HLSL_SEMANTICS( : POSITION);
+  float3 velWS HLSL_SEMANTICS( : VELOCITY);
+  float2 sizeWS HLSL_SEMANTICS( : SIZE);
+  float age HLSL_SEMANTICS( : AGE);
+
   /**
-   * Reserved for user, initial value is 0. 
+   * Reserved for user, initial value is 0.
    * Usually 0 is used as none, 1 is used as created.
-   */ 
-  uint flag HLSL_SEMANTICS(: FLAG); 
+   */
+  uint flag HLSL_SEMANTICS( : FLAG);
 
 #ifdef __cplusplus
   static const int kInputElementCount = 5;
