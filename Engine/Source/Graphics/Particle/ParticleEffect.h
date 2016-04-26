@@ -43,7 +43,7 @@ private:
   ID3DX11EffectVectorVariable* eyePosWS_;
   ID3DX11EffectVectorVariable* emitPosWS_;
   ID3DX11EffectVectorVariable* emitDirWS_;
-  ID3DX11EffectVectorVariable* accelWS_;
+  //ID3DX11EffectVectorVariable* accelWS_;
   ID3DX11EffectShaderResourceVariable* colorTex_;
   ID3DX11EffectShaderResourceVariable* randomTex_;
 };

@@ -20,7 +20,7 @@ ParticleEffect::ParticleEffect(std::string pathname)
   eyePosWS_ = effect_->GetVariableByName("g_eyePosWS")->AsVector();
   emitPosWS_ = effect_->GetVariableByName("g_emitPosWS")->AsVector();
   emitDirWS_ = effect_->GetVariableByName("g_emitDirWS")->AsVector();
-  accelWS_ = effect_->GetVariableByName("g_accelWS")->AsVector();
+  //accelWS_ = effect_->GetVariableByName("g_accelWS")->AsVector();
   colorTex_ = effect_->GetVariableByName("g_colorTex")->AsShaderResource();
   randomNumber_ = effect_->GetVariableByName("g_randomNumber")->AsScalar();
   randomTex_ = effect_->GetVariableByName("g_randomTex")->AsShaderResource();
