@@ -20,7 +20,6 @@ ParticleEffect::ParticleEffect(std::string pathname)
   eyePosWS_ = effect_->GetVariableByName("g_eyePosWS")->AsVector();
   emitPosWS_ = effect_->GetVariableByName("g_emitPosWS")->AsVector();
   emitDirWS_ = effect_->GetVariableByName("g_emitDirWS")->AsVector();
-  //accelWS_ = effect_->GetVariableByName("g_accelWS")->AsVector();
   colorTex_ = effect_->GetVariableByName("g_colorTex")->AsShaderResource();
   randomNumber_ = effect_->GetVariableByName("g_randomNumber")->AsScalar();
   randomTex_ = effect_->GetVariableByName("g_randomTex")->AsShaderResource();
@@ -76,12 +75,6 @@ ParticleEffect::setEmitDirWS(Math::Vector3 value)
 {
   emitDirWS_->SetFloatVector(reinterpret_cast<const float*>(&value));
 }
-
-//void
-//ParticleEffect::setAccelWS(Math::Vector3 value)
-//{
-//  accelWS_->SetFloatVector(reinterpret_cast<const float*>(&value));
-//}
 
 void
 ParticleEffect::setColorTex(ID3D11ShaderResourceView* value)
