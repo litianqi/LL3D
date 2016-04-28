@@ -5,7 +5,7 @@ using namespace LL3D;
 
 namespace {
 
-bool s_firstFrame = true;
+bool s_isFirstFrame = true;
 system_clock::time_point s_lastFrameStartPoint;
 system_clock::time_point s_frameStartPoint;
 unsigned s_frameCount = 0u;
@@ -18,9 +18,9 @@ namespace Time {
 
 void beginFrame()
 {
-  if (s_firstFrame) {
+  if (s_isFirstFrame) {
     s_frameStartPoint = system_clock::now();
-    s_firstFrame = false;
+    s_isFirstFrame = false;
   }
 
   s_frameCount++;
