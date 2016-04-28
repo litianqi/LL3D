@@ -16,6 +16,7 @@ public:
   ConstCameraUser(const GameObject* camera)
     : camera_(camera)
   {
+    /* todo: regesiter this to manager */
   }
   void setCamera(const GameObject* camera) { camera_ = camera; }
 protected:
@@ -32,6 +33,7 @@ public:
   CameraUser(GameObject* camera)
     : camera_(camera)
   {
+    /* todo: regesiter this to manager */
   }
   void setCamera(GameObject* camera) { camera_ = camera; }
 protected:
