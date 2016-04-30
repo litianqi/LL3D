@@ -4,7 +4,9 @@ A Mini C++/DirectX11 3D game engine (study project).
 
 ## Status
 
-**Under development.** （This project is a work in progress and is very incomplete; pardon the dust!）
+**Under development.** 
+
+This project is a work in progress and is very incomplete; pardon the dust!
 
 ## Features
 
