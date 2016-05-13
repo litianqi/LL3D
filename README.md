@@ -8,19 +8,20 @@ Sadly, this project is ended.
 
 After years of C++ development, I'm tired of normal 'good' C++ style and think Golang/Pythonic style is what I love and what I wanna transform C++ to.
 
-Besides a DirectX-only/platform-dependent engine is not a competitive one, good engine should create a layor beyond platform-dependent graphics API. This engine is just a DirectX study project, so it's time to end as I have learnt all DirectX APIs.
+Besides a DirectX-only/platform-dependent engine is not a competitive one, good engine should create a layor beyond platform-dependent graphics API. This engine is and always is a DirectX study project, so it's time to end as I have learnt all DirectX APIs.
 
 ## Features
 
 - Component based architecture.
 - Graphics
-  - Camera
-  - Light (Ambient, Directional, Point and Spot)
-  - Load and display model from many file types.
-  - Mirror, fog, shadow...
-  - Bounding box
-  - Picking
-  - Skybox
+  - camera
+  - light (ambient, directional, point and spot)
+  - 20+ model file types (powered by assimp)
+  - mirror, fog, shadow...
+  - bounding box
+  - picking
+  - skybox
+  - particle system
   - ...
 - Input
 - Math
@@ -28,23 +29,11 @@ Besides a DirectX-only/platform-dependent engine is not a competitive one, good 
 ## TODO
 
 - Graphics
-  - Particle
-  - Bone
+  - bone
   - ...
 - UI
 - Physics
 - Audio
 - ...
 - Editor
-
-## Documentation
-
-You can view design and develop documents at [here](https://onedrive.live.com/redir?page=view&resid=CD6518D498235073!2141&authkey=!AMsU_BK42yKOQEU).
-
-## Author
-
-Louis Li
-
-me@louis.li
-
 
