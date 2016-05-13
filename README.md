@@ -4,9 +4,11 @@ A Mini C++/DirectX11 3D game engine (study project).
 
 ## Status
 
-**Under development.** 
+Sadly, this project is ended.
 
-This project is a work in progress and is very incomplete; pardon the dust!
+After years of C++ development, I'm tired of normal 'good' C++ style and think Golang/Pythonic style is what I love and what I wanna transform C++ to.
+
+Besides a DirectX-only/platform-dependent engine is not competitive one, good engine should create a layor beyond platform-dependent graphics API. This engine is and always is a DirectX study project, so it's time to end as I have learnt all DirectX APIs.
 
 ## Features
 
